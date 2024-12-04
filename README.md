@@ -1,2 +1,2 @@
-# PS_Seminarski
+Stara verzije je u repozitorijumu PS_Proba
  
