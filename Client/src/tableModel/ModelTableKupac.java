@@ -36,11 +36,11 @@ public class ModelTableKupac  extends AbstractTableModel{
         Kupac k=listaKupaca.get(rowIndex);
         switch(columnIndex){
             case 0:
-                return k.getIdKupac();
+                return k.getId();
             case 1:
                 return k.getNaziv();
             case 2:
-                return k.getPibKupac();
+                return k.getPib();
             case 3:
                 return k.getTelefon();
             case 4:

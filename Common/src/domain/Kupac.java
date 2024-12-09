@@ -9,8 +9,8 @@ package domain;
  * @author Saki
  */
 public class Kupac {
-    private int idKupac;
-    private int pibKupac;
+    private int id;
+    private int pib;
     private String telefon;
     private String email;
     private Mesto mesto;
@@ -19,17 +19,17 @@ public class Kupac {
     public Kupac() {
     }
 
-    public Kupac(int idKupac, int pibKupac, String telefon, String email, Mesto mesto,String naziv) {
-        this.idKupac = idKupac;
-        this.pibKupac = pibKupac;
+    public Kupac(int id, int pib, String telefon, String email, Mesto mesto,String naziv) {
+        this.id = id;
+        this.pib= pib;
         this.telefon = telefon;
         this.email = email;
         this.mesto = mesto;
         this.naziv=naziv;
     }
-     public Kupac( int pibKupac, String telefon, String email, Mesto mesto,String naziv) {
+     public Kupac( int pib, String telefon, String email, Mesto mesto,String naziv) {
         
-        this.pibKupac = pibKupac;
+        this.pib = pib;
         this.telefon = telefon;
         this.email = email;
         this.mesto = mesto;
@@ -45,16 +45,16 @@ public class Kupac {
         this.mesto = mesto;
     }
 
-    public int getIdKupac() {
-        return idKupac;
+    public int getId() {
+        return id;
     }
 
-    public void setIdKupac(int idKupac) {
-        this.idKupac = idKupac;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getPibKupac() {
-        return pibKupac;
+    public int getPib() {
+        return pib;
     }
 
     public String getNaziv() {
@@ -65,8 +65,8 @@ public class Kupac {
         this.naziv = naziv;
     }
 
-    public void setPibKupac(int pibKupac) {
-        this.pibKupac = pibKupac;
+    public void setPib (int pib) {
+        this.pib = pib;
     }
 
     public String getTelefon() {

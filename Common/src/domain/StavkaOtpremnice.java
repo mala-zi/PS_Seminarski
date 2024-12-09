@@ -4,6 +4,8 @@
  */
 package domain;
 
+import java.util.Objects;
+
 /**
  *
  * @author Saki
@@ -11,44 +13,29 @@ package domain;
 public class StavkaOtpremnice {
     private int rb;
     private int kolicina;
-    private double cena;
-    private double iznos;
     private String napomena;
+    private double iznosBezPDV;
+    private double iznosSaPDV;
+    private double cenaBezPDV;
+    private double cenaSaPdDV;
     private Aranzman aranzman;
     private Otpremnica otpremnica;
 
     public StavkaOtpremnice() {
     }
 
-    public StavkaOtpremnice(int rb, int kolicina, double cena, double iznos, String napomena, Aranzman aranzman, Otpremnica otpremnica) {
+    public StavkaOtpremnice(int rb, int kolicina, String napomena, double iznosBezPDV, double iznosSaPDV, double cenaBezPDV, double cenaSaPdDV, Aranzman aranzman, Otpremnica otpremnica) {
         this.rb = rb;
         this.kolicina = kolicina;
-        this.cena = cena;
-        this.iznos = iznos;
         this.napomena = napomena;
+        this.iznosBezPDV = iznosBezPDV;
+        this.iznosSaPDV = iznosSaPDV;
+        this.cenaBezPDV = cenaBezPDV;
+        this.cenaSaPdDV = cenaSaPdDV;
         this.aranzman = aranzman;
         this.otpremnica = otpremnica;
     }
 
-    public Otpremnica getOtpremnica() {
-        return otpremnica;
-    }
-
-    public void setOtpremnica(Otpremnica otpremnica) {
-        this.otpremnica = otpremnica;
-    }
-
-    
-
-    public Aranzman getAranzman() {
-        return aranzman;
-    }
-
-    public void setAranzman(Aranzman aranzman) {
-        this.aranzman = aranzman;
-    }
-
-   
     public int getRb() {
         return rb;
     }
@@ -65,22 +52,6 @@ public class StavkaOtpremnice {
         this.kolicina = kolicina;
     }
 
-    public double getCena() {
-        return cena;
-    }
-
-    public void setCena(double cena) {
-        this.cena = cena;
-    }
-
-    public double getIznos() {
-        return iznos;
-    }
-
-    public void setIznos(double iznos) {
-        this.iznos = iznos;
-    }
-
     public String getNapomena() {
         return napomena;
     }
@@ -89,9 +60,84 @@ public class StavkaOtpremnice {
         this.napomena = napomena;
     }
 
+    public double getIznosBezPDV() {
+        return iznosBezPDV;
+    }
+
+    public void setIznosBezPDV(double iznosBezPDV) {
+        this.iznosBezPDV = iznosBezPDV;
+    }
+
+    public double getIznosSaPDV() {
+        return iznosSaPDV;
+    }
+
+    public void setIznosSaPDV(double iznosSaPDV) {
+        this.iznosSaPDV = iznosSaPDV;
+    }
+
+    public double getCenaBezPDV() {
+        return cenaBezPDV;
+    }
+
+    public void setCenaBezPDV(double cenaBezPDV) {
+        this.cenaBezPDV = cenaBezPDV;
+    }
+
+    public double getCenaSaPdDV() {
+        return cenaSaPdDV;
+    }
+
+    public void setCenaSaPdDV(double cenaSaPdDV) {
+        this.cenaSaPdDV = cenaSaPdDV;
+    }
+
+    public Aranzman getAranzman() {
+        return aranzman;
+    }
+
+    public void setAranzman(Aranzman aranzman) {
+        this.aranzman = aranzman;
+    }
+
+    public Otpremnica getOtpremnica() {
+        return otpremnica;
+    }
+
+    public void setOtpremnica(Otpremnica otpremnica) {
+        this.otpremnica = otpremnica;
+    }
+
     @Override
     public String toString() {
-        return "StavkaOtpremnice{" + "rb=" + rb + ", kolicina=" + kolicina + ", cena=" + cena + ", iznos=" + iznos + ", napomena=" + napomena + ", aranzman=" + aranzman + ", otpremnica=" + otpremnica + '}';
+        return "StavkaOtpremnice{" + "rb=" + rb + ", kolicina=" + kolicina + ", napomena=" + napomena + ", iznosBezPDV=" + iznosBezPDV + ", iznosSaPDV=" + iznosSaPDV + ", cenaBezPDV=" + cenaBezPDV + ", cenaSaPdDV=" + cenaSaPdDV + ", aranzman=" + aranzman + ", otpremnica=" + otpremnica + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final StavkaOtpremnice other = (StavkaOtpremnice) obj;
+        if (this.rb != other.rb) {
+            return false;
+        }
+        if (!Objects.equals(this.aranzman, other.aranzman)) {
+            return false;
+        }
+        return Objects.equals(this.otpremnica, other.otpremnica);
     }
 
     

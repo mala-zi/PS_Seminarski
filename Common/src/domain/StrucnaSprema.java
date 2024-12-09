@@ -9,43 +9,43 @@ package domain;
  * @author Saki
  */
 public class StrucnaSprema {
-    private int idStrucnaSprema;
-    private String nazivStrucnaSprema;
-    private String nivoStrucnaSprema;
+    private int id;
+    private String naziv;
+    private String nivo;
     private boolean sertifikat;
 
     public StrucnaSprema() {
     }
 
-    public StrucnaSprema(int idStrucnaSprema, String nazivStrucnaSprema, String nivoStrucnaSprema, boolean sertifikat) {
-        this.idStrucnaSprema = idStrucnaSprema;
-        this.nazivStrucnaSprema = nazivStrucnaSprema;
-        this.nivoStrucnaSprema = nivoStrucnaSprema;
+    public StrucnaSprema(int id, String naziv, String nivo, boolean sertifikat) {
+        this.id = id;
+        this.naziv= naziv;
+        this.nivo= nivo;
         this.sertifikat = sertifikat;
     }
 
-    public int getIdStrucnaSprema() {
-        return idStrucnaSprema;
+    public int getId() {
+        return id;
     }
 
-    public void setIdStrucnaSprema(int idStrucnaSprema) {
-        this.idStrucnaSprema = idStrucnaSprema;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getNazivStrucnaSprema() {
-        return nazivStrucnaSprema;
+    public String getNazi() {
+        return naziv;
     }
 
-    public void setNazivStrucnaSprema(String nazivStrucnaSprema) {
-        this.nazivStrucnaSprema = nazivStrucnaSprema;
+    public void setNaziv(String naziv) {
+        this.naziv = naziv;
     }
 
-    public String getNivoStrucnaSprema() {
-        return nivoStrucnaSprema;
+    public String getNivo() {
+        return nivo;
     }
 
-    public void setNivoStrucnaSprema(String nivoStrucnaSprema) {
-        this.nivoStrucnaSprema = nivoStrucnaSprema;
+    public void setNivo(String nivo) {
+        this.nivo = nivo;
     }
 
     public boolean isSertifikat() {
@@ -58,7 +58,7 @@ public class StrucnaSprema {
 
     @Override
     public String toString() {
-        return nazivStrucnaSprema ;
+        return naziv ;
     }
 
     

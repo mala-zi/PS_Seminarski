@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @author Saki
  */
 public class Cvecar implements Serializable{
-    private int idCvecar;
+    private int id;
     private String ime;
     private String prezime;
     private String korisnickoIme;
@@ -21,7 +21,7 @@ public class Cvecar implements Serializable{
     }
 
     public Cvecar(int idCvecar, String ime, String prezime, String korisnickoIme, String lozinka) {
-        this.idCvecar = idCvecar;
+        this.id = idCvecar;
         this.ime = ime;
         this.prezime = prezime;
         this.korisnickoIme = korisnickoIme;
@@ -40,12 +40,11 @@ public class Cvecar implements Serializable{
         this.korisnickoIme = korisnickoIme;
         this.lozinka = lozinka;
     }
-    public int getIdCvecar() {
-        return idCvecar;
+    public int getId() {
+        return id;
     }
-
-    public void setIdCvecar(int idCvecar) {
-        this.idCvecar = idCvecar;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getIme() {

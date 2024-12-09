@@ -14,7 +14,7 @@ import domain.Cvecar;
  */
 public class ModelTableCvecar extends AbstractTableModel {
     private List<Cvecar> listaCvecara;
-    private String[] kolone={"Ime","Prezime","Korisnicko ime"};
+    private String[] kolone={"Ime","Prezime"};
 
     public ModelTableCvecar(List<Cvecar> listaCvecara) {
         this.listaCvecara = listaCvecara;

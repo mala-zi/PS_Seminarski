@@ -9,7 +9,7 @@ package domain;
  * @author Saki
  */
 public class Mesto {
-    private int idMesto;
+    private int id;
     private String grad;
     private int postanskiBroj;
     private String ulica;
@@ -17,19 +17,19 @@ public class Mesto {
     public Mesto() {
     }
 
-    public Mesto(int idMesto, String grad, int postanskiBroj, String ulica) {
-        this.idMesto = idMesto;
+    public Mesto(int idM, String grad, int postanskiBroj, String ulica) {
+        this.id = id;
         this.grad = grad;
         this.postanskiBroj = postanskiBroj;
         this.ulica = ulica;
     }
 
-    public int getIdMesto() {
-        return idMesto;
+    public int getId() {
+        return id;
     }
 
-    public void setIdMesto(int idMesto) {
-        this.idMesto = idMesto;
+    public void setId(int id) {
+        this.id= id;
     }
 
     public String getGrad() {

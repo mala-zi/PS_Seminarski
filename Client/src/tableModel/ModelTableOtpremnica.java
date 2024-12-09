@@ -7,6 +7,7 @@ package tableModel;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import domain.Otpremnica;
+import domain.StavkaOtpremnice;
 
 /**
  *
@@ -14,17 +15,20 @@ import domain.Otpremnica;
  */
 public class ModelTableOtpremnica extends AbstractTableModel{
 
-    private List<Otpremnica> listaOtpremnica;
-    private final String[] kolone={"id","datum izdavanja","ukupna cena","cvecar","kupac"};
+    private List<StavkaOtpremnice> listaStavki;
+    private final String[] kolone={"RB","Kolicina","Aranzman","Cena Bez PDV",
+        "Cena Sa PDV", "Iznos Bez PDV","Iznos Sa PDV","Napomena"};
 
-    public ModelTableOtpremnica(List<Otpremnica> listaOtpremnica) {
-        this.listaOtpremnica = listaOtpremnica;
+    public ModelTableOtpremnica(List<StavkaOtpremnice> listaStavki) {
+        this.listaStavki = listaStavki;
     }
+
+    
     
     
     @Override
     public int getRowCount() {
-        return listaOtpremnica.size();
+        return listaStavki.size();
     }
 
     @Override
@@ -34,18 +38,24 @@ public class ModelTableOtpremnica extends AbstractTableModel{
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Otpremnica otp=listaOtpremnica.get(rowIndex);
+        StavkaOtpremnice st=listaStavki.get(rowIndex);
         switch(columnIndex){
             case 0:
-                return otp.getIdOtpremnica();
+                return st.getRb();
             case 1:
-                return otp.getDatumIzdavanja();
+                return st.getKolicina();
             case 2:
-                return otp.getUkupnaCena();
+                return st.getAranzman().getNaziv();
             case 3:
-                return otp.getCvecar();
+                return st.getCenaBezPDV();
             case 4:
-                return otp.getKupac();
+                return st.getCenaSaPdDV();
+            case 5:
+                return st.getIznosBezPDV();
+            case 6:
+                return st.getIznosSaPDV();
+            case 7:
+                return st.getNapomena();
             default:
                 return null;
                 
