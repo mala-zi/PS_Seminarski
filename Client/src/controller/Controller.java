@@ -33,11 +33,9 @@ public class Controller {
         receiver = new Receiver(socket);
     }
     
-    
-      
-    public Cvecar login(Cvecar cvecar) throws Exception {
+     public Object sendObjectReceiveResponse(Object arg, Operation operation) throws Exception {
         //posalji zahtev serveru da proveri da li korisnik postoji u sistemu
-        Request request = new Request(Operation.LOGIN, cvecar);
+        Request request = new Request(operation, arg);
         sender.send(request);
         
         //prihvati zahtev
@@ -47,6 +45,11 @@ public class Controller {
         }else{
             throw response.getException();
         }
+        
+    }
+      
+    public Cvecar login(Cvecar cvecar) throws Exception {
+        return (Cvecar) sendObjectReceiveResponse(cvecar, Operation.LOGIN);
         
     }
 }

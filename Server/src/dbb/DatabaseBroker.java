@@ -82,7 +82,7 @@ public class DatabaseBroker {
 
             //pristup rezultatima upita
             if (rs.next()) {
-                cvecar.setIdCvecar(rs.getInt("id"));
+                cvecar.setId(rs.getInt("id"));
                 cvecar.setIme(rs.getString("ime"));
                 cvecar.setPrezime(rs.getString("prezime"));             
             }else{
