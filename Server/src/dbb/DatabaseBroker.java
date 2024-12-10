@@ -6,6 +6,8 @@ package dbb;
 
 import domain.Cvecar;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -15,6 +17,11 @@ public class DatabaseBroker {
 
     private Connection connection;
 
+    public DatabaseBroker() throws SQLException {
+        connect();
+    }
+
+    
     public void connect() throws SQLException {
         try {
             String url = "jdbc:mysql://localhost:3306/proba1_baza";
@@ -67,18 +74,17 @@ public class DatabaseBroker {
         }
     }
 
-    public Cvecar getUser(Cvecar cvecar) throws SQLException {
+    public Cvecar prijaviCvecara(Cvecar cvecar) throws SQLException {
         try {
             String query= "SELECT * FROM cvecar "
                     + "WHERE korisnickoIme=? AND BINARY lozinka=?";
             System.out.println("Upit: " + query);
 
-            //Pravljenje objekta koji je odgovoran za izvrsavanje upita
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, cvecar.getKorisnickoIme());
-            statement.setString(2, cvecar.getLozinka());
-            //izvsi upit
-            ResultSet rs = statement.executeQuery();
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, cvecar.getKorisnickoIme());
+            ps.setString(2, cvecar.getLozinka());
+            
+            ResultSet rs = ps.executeQuery();
 
             //pristup rezultatima upita
             if (rs.next()) {
@@ -90,11 +96,97 @@ public class DatabaseBroker {
             }
             //oslobadjanje resursa
             rs.close();
-            statement.close();
-            System.out.println("Uspesno ucitavanje objekta User iz baze!");
+            ps.close();
+            System.out.println("Uspesno ucitavanje cvecara iz baze!");
             return cvecar;
         } catch (SQLException ex) {
-            System.out.println("Objekat User nije uspesno ucitan iz baze!");
+            System.out.println("Cvecar nije uspesno ucitan iz baze!");
+            ex.printStackTrace();
+            throw ex;
+        }
+    }
+
+    public void dodajCvecara(Cvecar c) throws SQLException {
+      
+        try {
+            String upit="INSERT INTO cvecar (ime,prezime,korisnickoIme,lozinka) VALUES(?,?,?,?)";
+            PreparedStatement ps=connection.prepareStatement(upit);
+            ps.setString(1,c.getIme());
+            ps.setString(2,c.getPrezime());
+            ps.setString(3, c.getKorisnickoIme());
+            ps.setString(4, c.getLozinka());
+            ps.executeUpdate();
+            connection.commit();
+            ps.close();
+            System.out.println("Uspesno dodavanje cvecara u bazu!");
+        } catch (SQLException ex) {
+            System.out.println("Cvecar nije uspesno dodat u bazu!");
+            ex.printStackTrace();
+            throw ex;
+        }
+            
+        
+    }
+
+    public void promeniCvecara(Cvecar c) throws SQLException {
+        try {
+            String upit = "UPDATE cvecar SET ime=?,prezime=?, korisnickoIme=?,lozinka=? WHERE id=" +c.getId();
+            PreparedStatement ps = connection.prepareStatement(upit);
+            ps.setString(1, c.getIme());
+            ps.setString(2, c.getPrezime());
+            ps.setString(3, c.getKorisnickoIme());
+            ps.setString(4, c.getLozinka());
+
+            ps.executeUpdate();
+            connection.commit();
+            ps.close();
+            System.out.println("Uspesna promena cvecara!");
+        } catch (SQLException ex) {
+            System.out.println("Cvecar nije uspesno promenjen!");
+            ex.printStackTrace();
+            throw ex;
+        }
+
+    }
+
+    public List<Cvecar> ucitajCvecareIzBaze() throws SQLException {
+        List<Cvecar> cvecari=new ArrayList<>();
+        try {
+            String upit="SELECT * FROM cvecar";
+            Statement s=connection.createStatement();
+            ResultSet rs=s.executeQuery(upit);
+            while(rs.next()){
+                int id=rs.getInt("id");
+                String ime=rs.getString("ime");
+                String prezime=rs.getString("prezime");
+                String kor=rs.getString("korisnickoIme");
+                String lozinka=rs.getString("lozinka");
+                
+                Cvecar c=new Cvecar(id, ime, prezime, kor, lozinka);
+                
+              cvecari.add(c);
+            }
+            s.close();
+            rs.close();
+            System.out.println("Cvecari uspesno ucitani!");
+        } catch (SQLException ex) {
+            System.out.println("Cvecari nisu uspesno ucitani!");
+            ex.printStackTrace();
+            throw ex;
+        }
+        return cvecari;
+    }
+
+    public void obrisiCvecara(Cvecar c) throws SQLException {
+        try {
+            String upit="DELETE FROM cvecar WHERE id="+c.getId();
+            Statement s=connection.createStatement();
+            s.executeUpdate(upit);
+            connection.commit();
+            s.close();
+            System.out.println("Cvecar uspesno obrisan!");
+        } catch (SQLException ex) {
+            System.out.println("Cvecar nije uspesno obrisan!");
             ex.printStackTrace();
             throw ex;
         }

@@ -79,9 +79,14 @@ public class Cvecar implements Serializable{
         this.lozinka = lozinka;
     }
 
-    @Override
+   /* @Override
     public String toString() {
         return  ime + " " + prezime;
+    }*/
+
+    @Override
+    public String toString() {
+        return "Cvecar{" + "id=" + id + ", ime=" + ime + ", prezime=" + prezime + ", korisnickoIme=" + korisnickoIme + ", lozinka=" + lozinka + '}';
     }
     
 }

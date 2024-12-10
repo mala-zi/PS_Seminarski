@@ -4,12 +4,13 @@
  */
 package view;
 
-import tableModel.ModelTableKupac;
 import controller.Controller;
-import java.awt.HeadlessException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import model.Cvecar;
+import domain.Cvecar;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -193,7 +194,11 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
 
         if(cvecar==null){
             Cvecar c=new Cvecar(ime, prezime, korisnickoIme, lozinka);
-            Controller.getInstance().dodajCvecara(c);
+            try {
+                Controller.getInstance().dodajCvecara(c);
+            } catch (Exception ex) {
+                Logger.getLogger(KreirajCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
+            }
             JOptionPane.showMessageDialog(this, "Cvecar je dodat","Obavestenje",JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
         }else{
@@ -202,7 +207,11 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
             cvecar.setKorisnickoIme(korisnickoIme);
             cvecar.setLozinka(lozinka);
             cvecar.setPrezime(prezime);
-           Controller.getInstance().promeniCvecara(cvecar);
+            try {
+                Controller.getInstance().promeniCvecara(cvecar);
+            } catch (Exception ex) {
+                Logger.getLogger(KreirajCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
+            }
             JOptionPane.showMessageDialog(this, "Cvecar uspesno izmenjen","Obavestenje",JOptionPane.INFORMATION_MESSAGE);
             
             this.dispose();
@@ -229,7 +238,7 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void popuniIzmenuCvecar(Cvecar cvecar) {
-        txtId.setText(cvecar.getIdCvecar() + "");
+        txtId.setText(cvecar.getId() + "");
         txtIme.setText(cvecar.getIme());
         txtPrezime.setText(cvecar.getPrezime());
         txtKorisnickoIme.setText(cvecar.getKorisnickoIme());

@@ -4,10 +4,10 @@
  */
 package view;
 
-import tableModel.ModelTableOtpremnica;
-import controller.Controller;
 import domain.Cvecar;
-import javax.swing.JOptionPane;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 
@@ -23,11 +23,12 @@ Cvecar cvecar;
      */
     public GlavnaForma(Cvecar c) {
         initComponents();
-        setTitle("Glavna forma");
+        cvecar=c;
+        setTitle(cvecar.getIme()+" "+cvecar.getPrezime());
         setResizable(false);
         setLocationRelativeTo(null);
        // tblOtp.setModel(mto);
-       cvecar=c;
+       
     }
 
     /**
@@ -255,9 +256,13 @@ Cvecar cvecar;
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+    try {
         // TODO add your handling code here:
         PromeniCvecaraForma pc=new PromeniCvecaraForma();
         pc.setVisible(true);
+    } catch (IOException ex) {
+        Logger.getLogger(GlavnaForma.class.getName()).log(Level.SEVERE, null, ex);
+    }
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed

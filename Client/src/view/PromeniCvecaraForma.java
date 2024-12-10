@@ -5,9 +5,12 @@
 package view;
 
 import controller.Controller;
+import domain.Cvecar;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import model.Cvecar;
 import tableModel.ModelTableCvecar;
 
 /**
@@ -16,17 +19,21 @@ import tableModel.ModelTableCvecar;
  */
 public class PromeniCvecaraForma extends javax.swing.JFrame {
 
-    private List<Cvecar> lista=Controller.getInstance().ucitajCvecareIzBaze();
-    ModelTableCvecar mtc=new ModelTableCvecar(lista);
+    private List<Cvecar> lista;
+    ModelTableCvecar mtc;
+
     /**
      * Creates new form PromeniCvecaraForma
      */
-    public PromeniCvecaraForma() {
+    public PromeniCvecaraForma() throws Exception {
         initComponents();
-        
-         setResizable(false);
+        lista = Controller.getInstance().ucitajCvecareIzBaze();
+        mtc= new ModelTableCvecar(lista);
+        setResizable(false);
         setLocationRelativeTo(null);
         tblCvecari.setModel(mtc);
+        btnPromeni.setEnabled(false);
+        btnObrisi.setEnabled(false);
     }
 
     /**
@@ -57,6 +64,11 @@ public class PromeniCvecaraForma extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblCvecari.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblCvecariMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblCvecari);
 
         btnPromeni.setText("promeni");
@@ -124,20 +136,30 @@ public class PromeniCvecaraForma extends javax.swing.JFrame {
         Cvecar c=lista.get(selektovanRed);
         KreirajCvecaraForma kf=new KreirajCvecaraForma(this, c);
         kf.setVisible(true);
-        tblCvecari.setModel(new ModelTableCvecar(Controller.getInstance().ucitajCvecareIzBaze()));
+        try {
+            tblCvecari.setModel(new ModelTableCvecar(Controller.getInstance().ucitajCvecareIzBaze()));
+        } catch (Exception ex) {
+            Logger.getLogger(PromeniCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnPromeniActionPerformed
 
     private void btnObrisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiActionPerformed
         // TODO add your handling code here:
-        int selektovanRed=tblCvecari.getSelectedRow();
-        if(selektovanRed==-1){
-            JOptionPane.showMessageDialog(this, "nista nije selektovano","greska",JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        Controller.getInstance().obrisiCvecara(lista.get(selektovanRed));
-       JOptionPane.showMessageDialog(this, "Cvecar obrisan","greska",JOptionPane.INFORMATION_MESSAGE);
+        try {
+            int selektovanRed = tblCvecari.getSelectedRow();
+            if (selektovanRed == -1) {
+                JOptionPane.showMessageDialog(this, "nista nije selektovano", "greska", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-         tblCvecari.setModel(new ModelTableCvecar(Controller.getInstance().ucitajCvecareIzBaze()));
+            Controller.getInstance().obrisiCvecara(lista.get(selektovanRed));
+
+            JOptionPane.showMessageDialog(this, "Cvecar obrisan", "greska", JOptionPane.INFORMATION_MESSAGE);
+
+            tblCvecari.setModel(new ModelTableCvecar(Controller.getInstance().ucitajCvecareIzBaze()));
+        } catch (Exception ex) {
+            Logger.getLogger(PromeniCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnObrisiActionPerformed
 
     private void btnNazadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNazadActionPerformed
@@ -145,40 +167,16 @@ public class PromeniCvecaraForma extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnNazadActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+    private void tblCvecariMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCvecariMouseClicked
+        // TODO add your handling code here:
+        int selektovanRed = tblCvecari.getSelectedRow();
+            if (selektovanRed != -1) {
+                btnObrisi.setEnabled(true);
+                btnPromeni.setEnabled(true);
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PromeniCvecaraForma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PromeniCvecaraForma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PromeniCvecaraForma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PromeniCvecaraForma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    }//GEN-LAST:event_tblCvecariMouseClicked
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PromeniCvecaraForma().setVisible(true);
-            }
-        });
-    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNazad;

@@ -6,9 +6,8 @@ package view;
 
 import tableModel.ModelTableKupac;
 import controller.Controller;
-import java.util.List;
 import javax.swing.JOptionPane;
-import model.Kupac;
+import domain.Kupac;
 
 /**
  *

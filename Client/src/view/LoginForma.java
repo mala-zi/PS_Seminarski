@@ -140,37 +140,14 @@ public class LoginForma extends javax.swing.JFrame {
             
             Controller controller = Controller.getInstance();
             Cvecar cvecar=new Cvecar(txtKorisnickoIme.getText(), new String(txtLozinka.getPassword()));
-            cvecar=controller.login(cvecar);
+            cvecar=controller.prijaviCvecara(cvecar);
+            System.out.println(cvecar);
             JOptionPane.showMessageDialog(this, cvecar.getIme()+" logged in!", "Login", JOptionPane.INFORMATION_MESSAGE);
             JFrame frame=new GlavnaForma(cvecar);
             frame.setVisible(true);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Login unsucessful!\n"+ex.getMessage(), "Login", JOptionPane.ERROR_MESSAGE);
         }
-       /* String user = txtKorisnickoIme.getText();
-        String password = String.valueOf(txtLozinka.getPassword());
-
-        boolean logged = Controller.getInstance().login(user, password);
-        if (logged) {
-            try{
-            
-           //throw new Exception();
-                GlavnaForma mf = new GlavnaForma();
-           JOptionPane.showMessageDialog(this, "uspesno logovanje!", "obavestenje", JOptionPane.INFORMATION_MESSAGE);
-                mf.setVisible(true);
-                
-            this.dispose();
-            
-            }catch(Exception e){
-                JOptionPane.showMessageDialog(this, "Sistem ne moze da otvori glavnu formu!", "Greska", JOptionPane.ERROR_MESSAGE);
-            }
-            
-        } else {
-            JOptionPane.showMessageDialog(this, "neuspesno logovanje", "greska", JOptionPane.ERROR_MESSAGE);
-
-        }
-*/
-
     }//GEN-LAST:event_btnUlogujSeActionPerformed
 
     /**

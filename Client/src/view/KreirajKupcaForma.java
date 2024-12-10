@@ -9,8 +9,8 @@ import controller.Controller;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import model.Kupac;
-import model.Mesto;
+import domain.Kupac;
+import domain.Mesto;
 
 /**
  *

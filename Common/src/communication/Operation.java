@@ -12,5 +12,16 @@ import java.io.Serializable;
  * @author Cartman
  */
 public enum Operation  implements Serializable{
-    LOGIN
+    prijaviCvecara,
+    dodajCvecara,
+    kreirajOtpremnicu,
+    ubaciStrSpremu,
+    promeniKupca,
+    obrisiKupca,
+    pretraziOtpremnicu,
+    vratiListuCvecar,
+    vratiListuSviCvecar,
+    promeniCvecara,
+    obrisiCvecara
+    
 }

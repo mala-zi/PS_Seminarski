@@ -11,9 +11,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
-import model.Cvecar;
-import model.Kupac;
-import model.Otpremnica;
+import domain.Cvecar;
+import domain.Kupac;
+import domain.Otpremnica;
 
 /**
  *
