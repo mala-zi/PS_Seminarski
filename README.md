@@ -1,2 +1,2 @@
-Stara verzije je u repozitorijumu PS_Proba
+Stara verzija je u repozitorijumu PS_Proba
  
