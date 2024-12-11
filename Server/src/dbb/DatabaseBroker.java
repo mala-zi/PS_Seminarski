@@ -8,6 +8,7 @@ import domain.Cvecar;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,8 +20,59 @@ public class DatabaseBroker {
 
     public DatabaseBroker() throws SQLException {
         connect();
+        updatePasswordsToHashed();
     }
 
+    public void updatePasswordsToHashed() throws SQLException {
+        String query = "SELECT id, lozinka FROM cvecar";
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            String plainPassword = rs.getString("lozinka");
+            if(plainPassword.length()==64){
+                break;
+            }
+            String hashedPassword = PasswordHash.hashPassword(plainPassword);
+
+            String updateQuery = "UPDATE cvecar SET lozinka=? WHERE id=?";
+            PreparedStatement ps = connection.prepareStatement(updateQuery);
+            ps.setString(1, hashedPassword);
+            ps.setInt(2, id);
+            ps.executeUpdate();
+        }
+        connection.commit();
+        rs.close();
+        stmt.close();
+    }
+    public void updateNewPasswordToHash(Cvecar cvecarChange) throws SQLException {
+        String query = "SELECT lozinka FROM cvecar WHERE id="+cvecarChange.getId();
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        System.out.println("usaooo");
+        while (rs.next()) {
+            String currentPass = rs.getString("lozinka");
+            System.out.println(currentPass);
+            System.out.println(cvecarChange.getLozinka());
+            if(currentPass.length()==64 && currentPass.length()==cvecarChange.getLozinka().length()){
+                break;
+            }
+            System.out.println("usaooo22");
+            String hashedPassword = PasswordHash.hashPassword(cvecarChange.getLozinka());
+            System.out.println(hashedPassword);
+            cvecarChange.setLozinka(hashedPassword);
+            String updateQuery = "UPDATE cvecar SET lozinka=? WHERE id=?";
+            PreparedStatement ps = connection.prepareStatement(updateQuery);
+            ps.setString(1, hashedPassword);
+            ps.setInt(2, cvecarChange.getId());
+            ps.executeUpdate();
+        }
+        connection.commit();
+        rs.close();
+        stmt.close();
+    }
+    
     
     public void connect() throws SQLException {
         try {
@@ -29,8 +81,6 @@ public class DatabaseBroker {
             String password = "";
             connection = DriverManager.getConnection(url, user, password);
             System.out.println("Konekcija sa bazom podataka uspesno uspostavljena!");
-
-            //iskljucujemo automatsko potvrdjivanje transakcije nakon svakog upita
             connection.setAutoCommit(false);
         } catch (SQLException ex) {
             System.out.println("Greska! Konekcija sa bazom nije uspesno uspostavljena!\n" + ex.getMessage());
@@ -75,36 +125,43 @@ public class DatabaseBroker {
     }
 
     public Cvecar prijaviCvecara(Cvecar cvecar) throws SQLException {
+        
         try {
-            String query= "SELECT * FROM cvecar "
-                    + "WHERE korisnickoIme=? AND BINARY lozinka=?";
-            System.out.println("Upit: " + query);
-
+            String query = "SELECT * FROM cvecar WHERE korisnickoIme=?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, cvecar.getKorisnickoIme());
-            ps.setString(2, cvecar.getLozinka());
-            
+
             ResultSet rs = ps.executeQuery();
 
-            //pristup rezultatima upita
             if (rs.next()) {
-                cvecar.setId(rs.getInt("id"));
-                cvecar.setIme(rs.getString("ime"));
-                cvecar.setPrezime(rs.getString("prezime"));             
-            }else{
-                throw  new SQLException("Korisnik ne postoji!!!");
+                String storedHashedPassword = rs.getString("lozinka");
+
+                String inputHashedPassword = PasswordHash.hashPassword(cvecar.getLozinka());
+               // System.out.println(inputHashedPassword);
+               // System.out.println(storedHashedPassword);
+                if (storedHashedPassword.equals(inputHashedPassword)) {
+                    cvecar.setId(rs.getInt("id"));
+                    cvecar.setIme(rs.getString("ime"));
+                    cvecar.setPrezime(rs.getString("prezime"));
+                } else {
+                    throw new SQLException("Pogrešna lozinka!");
+                }
+            } else {
+                throw new SQLException("Korisnik ne postoji!");
             }
-            //oslobadjanje resursa
+
             rs.close();
             ps.close();
-            System.out.println("Uspesno ucitavanje cvecara iz baze!");
+
             return cvecar;
         } catch (SQLException ex) {
-            System.out.println("Cvecar nije uspesno ucitan iz baze!");
+            System.out.println("Greška pri prijavi korisnika: " + ex.getMessage());
             ex.printStackTrace();
             throw ex;
         }
     }
+
+    
 
     public void dodajCvecara(Cvecar c) throws SQLException {
       
@@ -116,7 +173,6 @@ public class DatabaseBroker {
             ps.setString(3, c.getKorisnickoIme());
             ps.setString(4, c.getLozinka());
             ps.executeUpdate();
-            connection.commit();
             ps.close();
             System.out.println("Uspesno dodavanje cvecara u bazu!");
         } catch (SQLException ex) {
@@ -138,7 +194,6 @@ public class DatabaseBroker {
             ps.setString(4, c.getLozinka());
 
             ps.executeUpdate();
-            connection.commit();
             ps.close();
             System.out.println("Uspesna promena cvecara!");
         } catch (SQLException ex) {
@@ -182,7 +237,6 @@ public class DatabaseBroker {
             String upit="DELETE FROM cvecar WHERE id="+c.getId();
             Statement s=connection.createStatement();
             s.executeUpdate(upit);
-            connection.commit();
             s.close();
             System.out.println("Cvecar uspesno obrisan!");
         } catch (SQLException ex) {

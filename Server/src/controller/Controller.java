@@ -4,11 +4,13 @@
  */
 package controller;
 
-import dbb.DatabaseBroker;
+import dbb.PasswordHash;
+import dbb.TransactionManager;
 import domain.Cvecar;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import javax.swing.JOptionPane;
+import validator.Validator;
 
 /**
  *
@@ -16,36 +18,84 @@ import java.util.List;
  */
 public class Controller {
     private static Controller instance;
-   private DatabaseBroker dbb;
-    
+    private TransactionManager transactionManager;
+
     public static Controller getInstance() throws Exception {
         if (instance == null) instance = new Controller();
         return instance;
     }
-    private Controller() throws Exception {
-        dbb=new DatabaseBroker();
+
+    private Controller() throws SQLException {
+        transactionManager = TransactionManager.getInstance();
     }
 
     public Cvecar prijaviCvecara(Cvecar cvecar) throws SQLException {
-        return dbb.prijaviCvecara(cvecar);
+        try {
+            Validator.validateCvecarSign(cvecar);
+           // String hashedPassword = PasswordHash.hashPassword(cvecar.getLozinka());
+           // cvecar.setLozinka(hashedPassword);
+            Cvecar result = transactionManager.getDatabaseBroker().prijaviCvecara(cvecar);
+            transactionManager.commitTransaction();
+            return result;
+        } catch (IllegalArgumentException e) {
+            System.out.println("Greška u validaciji: " + e.getMessage());
+            throw new SQLException("Validacija nije prošla: " + e.getMessage());
+
+        } catch (Exception e) {
+            transactionManager.rollbackTransaction();
+            throw e;
+        }
     }
 
     public void dodajCvecara(Cvecar cvecarAdd) throws SQLException {
-        dbb.dodajCvecara(cvecarAdd);
+        try {
+            Validator.validateCvecarAdd(cvecarAdd);
+            String hashedPassword = PasswordHash.hashPassword(cvecarAdd.getLozinka());
+            cvecarAdd.setLozinka(hashedPassword);
+            transactionManager.getDatabaseBroker().dodajCvecara(cvecarAdd);
+            transactionManager.commitTransaction();
+        } catch (IllegalArgumentException e) {
+            System.out.println("Greška u validaciji: " + e.getMessage());
+            throw new SQLException("Validacija nije prošla: " + e.getMessage());
+
+        } catch (Exception e) {
+            transactionManager.rollbackTransaction();
+            throw e;
+        }
     }
 
     public void promeniCvecara(Cvecar cvecarChange) throws SQLException {
-        dbb.promeniCvecara(cvecarChange);
+        try {
+            Validator.validateCvecarChange(cvecarChange);
+            transactionManager.getDatabaseBroker().updateNewPasswordToHash(cvecarChange);
+            transactionManager.getDatabaseBroker().promeniCvecara(cvecarChange);
+            transactionManager.commitTransaction();
+    } catch (IllegalArgumentException e) {
+            System.out.println("Greška u validaciji: " + e.getMessage());
+            throw new SQLException("Validacija nije prošla: " + e.getMessage());
+
+        } catch (Exception e) {
+            transactionManager.rollbackTransaction();
+            throw e;
+        }
     }
 
     public List<Cvecar> ucitajCvecareIzBaze() throws SQLException {
-        return dbb.ucitajCvecareIzBaze();
+        try {
+            return transactionManager.getDatabaseBroker().ucitajCvecareIzBaze();
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
-    public void obrisiCvecara(Cvecar cvecarDelete) {
-        dbb.obrisiCvecara(cvecarDelete);
+    public void obrisiCvecara(Cvecar cvecarDelete) throws SQLException {
+        try {
+            transactionManager.getDatabaseBroker().obrisiCvecara(cvecarDelete);
+            transactionManager.commitTransaction();
+        } catch (Exception e) {
+            transactionManager.rollbackTransaction();
+            throw e;
+        }
     }
-
-    
-    
 }
+

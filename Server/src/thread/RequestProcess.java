@@ -10,6 +10,7 @@ import communication.Response;
 import communication.Sender;
 import domain.Cvecar;
 import controller.Controller;
+import java.io.IOException;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -69,10 +70,19 @@ public class RequestProcess extends Thread {
                 }
 
                 sender.send(response);
+            } catch (IOException e) {
+                System.out.println("Klijent se iskljucio.");
+                break; 
             } catch (Exception ex) {
                 Logger.getLogger(RequestProcess.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
+        try {
+            if (socket != null && !socket.isClosed()) {
+                socket.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

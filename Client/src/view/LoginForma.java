@@ -145,6 +145,7 @@ public class LoginForma extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, cvecar.getIme()+" logged in!", "Login", JOptionPane.INFORMATION_MESSAGE);
             JFrame frame=new GlavnaForma(cvecar);
             frame.setVisible(true);
+            this.dispose();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Login unsucessful!\n"+ex.getMessage(), "Login", JOptionPane.ERROR_MESSAGE);
         }

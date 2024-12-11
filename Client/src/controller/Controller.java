@@ -8,6 +8,8 @@ import communication.Communication;
 import java.io.IOException;
 import domain.Cvecar;
 import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JTextField;
 
 /**
  *
@@ -15,7 +17,7 @@ import java.util.List;
  */
 public class Controller {
     private static Controller instance; //jedna, jedina instanca controllera u mojoj aplikaciji
-   
+    
     
     public static Controller getInstance() throws IOException {
         if (instance == null) instance = new Controller();
@@ -34,8 +36,8 @@ public class Controller {
         Communication.getInstance().dodajCvecara(c);
     }
 
-    public void promeniCvecara(Cvecar cvecar) throws Exception {
-        Communication.getInstance().promeniCvecara(cvecar);
+    public void promeniCvecara(Cvecar cvecar, JTextField txt) throws Exception {
+        Communication.getInstance().promeniCvecara(cvecar,txt);
     }
 
     public List<Cvecar> ucitajCvecareIzBaze() throws Exception {

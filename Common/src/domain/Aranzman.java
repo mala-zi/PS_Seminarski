@@ -14,16 +14,15 @@ public class Aranzman {
     private int id;
     private String naziv;
     private String opis;
-    private double poreskaStopa;
+    private PoreskaStopa poreskaStopa;
     private double cenaBezPDV;
     private double cenaSaPDv;
     private double popust;
-    private String tipPopusta;
 
     public Aranzman() {
     }
 
-    public Aranzman(int id, String naziv, String opis, double poreskaStopa, double cenaBezPDV, double cenaSaPDv, double popust, String tipPopusta) {
+    public Aranzman(int id, String naziv, String opis, PoreskaStopa poreskaStopa, double cenaBezPDV, double cenaSaPDv, double popust) {
         this.id = id;
         this.naziv = naziv;
         this.opis = opis;
@@ -31,8 +30,9 @@ public class Aranzman {
         this.cenaBezPDV = cenaBezPDV;
         this.cenaSaPDv = cenaSaPDv;
         this.popust = popust;
-        this.tipPopusta = tipPopusta;
     }
+
+    
 
     public int getId() {
         return id;
@@ -58,13 +58,15 @@ public class Aranzman {
         this.opis = opis;
     }
 
-    public double getPoreskaStopa() {
+    public PoreskaStopa getPoreskaStopa() {
         return poreskaStopa;
     }
 
-    public void setPoreskaStopa(double poreskaStopa) {
+    public void setPoreskaStopa(PoreskaStopa poreskaStopa) {
         this.poreskaStopa = poreskaStopa;
     }
+
+    
 
     public double getCenaBezPDV() {
         return cenaBezPDV;
@@ -90,13 +92,7 @@ public class Aranzman {
         this.popust = popust;
     }
 
-    public String getTipPopusta() {
-        return tipPopusta;
-    }
-
-    public void setTipPopusta(String tipPopusta) {
-        this.tipPopusta = tipPopusta;
-    }
+   
 
     @Override
     public String toString() {
