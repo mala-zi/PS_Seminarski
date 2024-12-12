@@ -6,7 +6,11 @@ package controller;
 
 import dbb.PasswordHash;
 import dbb.TransactionManager;
+import domain.Aranzman;
 import domain.Cvecar;
+import domain.Kupac;
+import domain.Otpremnica;
+import domain.StavkaOtpremnice;
 import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -97,5 +101,42 @@ public class Controller {
             throw e;
         }
     }
-}
 
+    public List<Kupac> ucitajKupceIzBaze() throws Exception {
+        try {
+            return transactionManager.getDatabaseBroker().ucitajKupceIzBaze();
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    public List<Aranzman> ucitajAranzmaneIzBaze() throws Exception {
+        try {
+            return transactionManager.getDatabaseBroker().ucitajAranzmaneIzBaze();
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    public Otpremnica kreirajOtpremnicu(Otpremnica otp) throws SQLException {
+         try {
+            Otpremnica result = transactionManager.getDatabaseBroker().kreirajOtpremnicu(otp);
+            transactionManager.commitTransaction();
+            return result;
+        } catch (Exception e) {
+            transactionManager.rollbackTransaction();
+            throw e;
+        }
+    }
+
+    public void dodajStavkuOtpremnice(StavkaOtpremnice so) throws SQLException {
+        try {
+            transactionManager.getDatabaseBroker().dodajStavkuOtpremnice(so);
+            transactionManager.commitTransaction();
+        } catch (Exception e) {
+            transactionManager.rollbackTransaction();
+            throw e;
+        }
+    }
+
+}

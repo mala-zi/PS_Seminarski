@@ -4,13 +4,14 @@
  */
 package domain;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
  * @author Saki
  */
-public class StavkaOtpremnice {
+public class StavkaOtpremnice implements Serializable{
     private int rb;
     private int kolicina;
     private String napomena;
@@ -23,7 +24,6 @@ public class StavkaOtpremnice {
 
     public StavkaOtpremnice() {
     }
-
     public StavkaOtpremnice(int rb, int kolicina, String napomena, double iznosBezPDV, double iznosSaPDV, double cenaBezPDV, double cenaSaPdDV, Aranzman aranzman, Otpremnica otpremnica) {
         this.rb = rb;
         this.kolicina = kolicina;
@@ -34,6 +34,17 @@ public class StavkaOtpremnice {
         this.cenaSaPdDV = cenaSaPdDV;
         this.aranzman = aranzman;
         this.otpremnica = otpremnica;
+    }
+
+    public StavkaOtpremnice( int kolicina, String napomena, double iznosBezPDV, double iznosSaPDV, double cenaBezPDV, double cenaSaPdDV, Aranzman aranzman) {
+        
+        this.kolicina = kolicina;
+        this.napomena = napomena;
+        this.iznosBezPDV = iznosBezPDV;
+        this.iznosSaPDV = iznosSaPDV;
+        this.cenaBezPDV = cenaBezPDV;
+        this.cenaSaPdDV = cenaSaPdDV;
+        this.aranzman = aranzman;
     }
 
     public int getRb() {

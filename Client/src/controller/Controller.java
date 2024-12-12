@@ -5,10 +5,13 @@
 package controller;
 
 import communication.Communication;
+import domain.Aranzman;
 import java.io.IOException;
 import domain.Cvecar;
+import domain.Kupac;
+import domain.Otpremnica;
+import domain.StavkaOtpremnice;
 import java.util.List;
-import javax.swing.JFrame;
 import javax.swing.JTextField;
 
 /**
@@ -19,7 +22,7 @@ public class Controller {
     private static Controller instance; //jedna, jedina instanca controllera u mojoj aplikaciji
     
     
-    public static Controller getInstance() throws IOException {
+    public static Controller getInstance() throws Exception {
         if (instance == null) instance = new Controller();
         return instance;
     }
@@ -46,5 +49,22 @@ public class Controller {
 
     public void obrisiCvecara(Cvecar cvecarDelete) throws Exception {
         Communication.getInstance().obrisiCvecara(cvecarDelete);
+    }
+
+    public Otpremnica dodajOtpremnicu(Otpremnica otpremnica) throws Exception {
+        return Communication.getInstance().kreirajOtpremnicu(otpremnica);
+    }
+
+    public void dodajStavkuOtpremnice(StavkaOtpremnice so) throws Exception {
+        Communication.getInstance().dodajStavkuOtpremnice(so);
+    }
+
+    public List<Kupac> popuniKupceIzBaze() throws Exception {
+        return Communication.getInstance().vratiListuSviKupci();
+                
+    }
+
+    public List<Aranzman> popuniAranzmaneIzBaze() throws Exception {
+        return Communication.getInstance().vratiListuSviAranzmani();
     }
 }

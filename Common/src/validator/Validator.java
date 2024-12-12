@@ -20,16 +20,14 @@ public class Validator {
     private static final int MIN_PASSWORD_LENGTH = 8;
 
     // Regex za validaciju brojeva (samo cifre)
-    private static final String NUMBER_REGEX = "^\\d+$";
+    private static final String NUMBER_REGEX = "^\\d+(\\.\\d+)?$";
+  
+    private static final String DATE_REGEX = "^(\\d{4})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$";
 
-    
     public static boolean isValidDate(String date) {
-        try {
-            java.time.LocalDate.parse(date);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+
+        return date.matches(DATE_REGEX);
+
     }
 
     public static boolean isValidUsername(String username){

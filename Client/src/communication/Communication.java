@@ -4,7 +4,11 @@
  */
 package communication;
 
+import domain.Aranzman;
 import domain.Cvecar;
+import domain.Kupac;
+import domain.Otpremnica;
+import domain.StavkaOtpremnice;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.List;
@@ -127,4 +131,48 @@ public class Communication {
             throw response.getException();
         }
     }
+
+    public Otpremnica kreirajOtpremnicu(Otpremnica otpremnica) throws Exception {
+        Request request=new Request(Operation.kreirajOtpremnicu,  otpremnica);
+        sender.send(request);
+        Response response=(Response)receiver.receive();
+        if(response.getException()==null){
+            return (Otpremnica )response.getResult();
+        }else{
+            throw response.getException();
+        }
+    }
+
+    public void dodajStavkuOtpremnice(StavkaOtpremnice so) throws Exception {
+        Request request = new Request(Operation.dodajStavkuOtpremnice, so);
+            sender.send(request);
+            Response response = (Response) receiver.receive();
+            if (response.getException() != null) {
+                throw response.getException();
+            }
+    }
+
+    public List<Kupac> vratiListuSviKupci() throws Exception {
+        Request request=new Request(Operation.vratiListuSviKupci,  null);
+        sender.send(request);
+        Response response=(Response)receiver.receive();
+        if(response.getException()==null){
+            return (List<Kupac> )response.getResult();
+        }else{
+            throw response.getException();
+        }
+    }
+
+    public List<Aranzman> vratiListuSviAranzmani() throws Exception {
+        Request request=new Request(Operation.vratiListuSviAranzmani,  null);
+        sender.send(request);
+        Response response=(Response)receiver.receive();
+        if(response.getException()==null){
+            return (List<Aranzman> )response.getResult();
+        }else{
+            throw response.getException();
+        }
+    }
+
+    
 }

@@ -4,11 +4,16 @@
  */
 package dbb;
 
+import domain.Aranzman;
 import domain.Cvecar;
+import domain.Kupac;
+import domain.Mesto;
+import domain.Otpremnica;
+import domain.PoreskaStopa;
+import domain.StavkaOtpremnice;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -241,6 +246,140 @@ public class DatabaseBroker {
             System.out.println("Cvecar uspesno obrisan!");
         } catch (SQLException ex) {
             System.out.println("Cvecar nije uspesno obrisan!");
+            ex.printStackTrace();
+            throw ex;
+        }
+    }
+
+    public List<Kupac> ucitajKupceIzBaze() throws SQLException {
+        List<Kupac> kupci=new ArrayList<>();
+        try {
+            String upit="SELECT * FROM  kupac k JOIN "
+                    + "mesto m ON k.idMesto=m.id";
+            Statement s=connection.createStatement();
+            ResultSet rs=s.executeQuery(upit);
+            while(rs.next()){
+                int idK=rs.getInt("k.id");
+                int pibK=rs.getInt("k.pib");
+                String tel=rs.getString("k.telefon");
+                String email=rs.getString("k.email");
+                String naziv=rs.getString("k.naziv");
+                
+                int idM=rs.getInt("m.id");
+                String grad=rs.getString("m.grad");
+                int pB=rs.getInt("m.postanskiBroj");
+                String ulica=rs.getString("m.ulica");
+                
+                Mesto mesto=new Mesto(idM, grad, pB, ulica);
+                Kupac k=new Kupac(idK, pibK, tel, email, mesto,naziv);
+                kupci.add(k);
+            }
+            s.close();
+            rs.close();
+            System.out.println("Kupci uspesno ucitani!");
+        } catch (SQLException ex) {
+            System.out.println("Kupci nisu uspesno ucitani!");
+            ex.printStackTrace();
+            throw ex;
+        }
+        return kupci;
+    }
+
+    public List<Aranzman> ucitajAranzmaneIzBaze() throws SQLException {
+        List<Aranzman> aranzmani=new ArrayList<>();
+        try {
+            String upit="SELECT * FROM  aranzman a JOIN "
+                    + "poreskaStopa ps ON a.poreskaStopa=ps.id";
+            Statement s=connection.createStatement();
+            ResultSet rs=s.executeQuery(upit);
+            while(rs.next()){
+                int idA=rs.getInt("a.id");
+                String naziv=rs.getString("a.naziv");
+                String opis=rs.getString("a.opis");
+                double popust=rs.getDouble("a.popust");
+                double cenaBez=rs.getDouble("a.cenaBezPDV");
+                double cenaSa=rs.getDouble("a.cenaSaPDV");
+                
+                int idp=rs.getInt("ps.id");
+                double vrednost=rs.getDouble("ps.vrednost");
+                
+                PoreskaStopa ps=new PoreskaStopa(idp, vrednost);
+                Aranzman a=new Aranzman(idA, naziv, opis, ps, cenaBez, cenaSa, popust);
+                aranzmani.add(a);
+            }
+            s.close();
+            rs.close();
+            System.out.println("Aranzmani uspesno ucitani!");
+        } catch (SQLException ex) {
+            System.out.println("Aranzmani nisu uspesno ucitani!");
+            ex.printStackTrace();
+            throw ex;
+        }
+        return aranzmani;
+    }
+
+    public Otpremnica kreirajOtpremnicu(Otpremnica otp) throws SQLException {
+        try {
+            String upit="INSERT INTO otpremnica (datumIzdavanja,ukupanIznosBezPDV,ukupanIznosSaPDV,ukupanPopust,idCvecar,idKupac)"
+                    + " VALUES (?,?,?,?,?,?) ";
+            PreparedStatement ps=connection.prepareStatement(upit);
+            java.sql.Date sqlDate=new java.sql.Date(otp.getDatumIzdavanja().getTime());
+            ps.setDate(1, sqlDate);
+            ps.setDouble(2, otp.getUkupanIznosBezPDv());
+            ps.setDouble(3, otp.getUkupanIznosSaPDV());
+            ps.setDouble(4, otp.getUkupanPopust());
+            ps.setInt(5, otp.getCvecar().getId());
+            ps.setInt(6, otp.getKupac().getId());
+            ps.executeUpdate();
+            connection.commit();
+            
+            String upit2="SELECT * FROM otpremnica WHERE datumIzdavanja=? AND ukupanIznosBezPDV=? AND ukupanIznosSaPDV=? AND ukupanPopust=? AND idCvecar=? AND idKupac=?";
+            PreparedStatement ps2=connection.prepareStatement(upit2);
+            
+            ps2.setDate(1, sqlDate);
+            ps2.setDouble(2, otp.getUkupanIznosBezPDv());
+            ps2.setDouble(3, otp.getUkupanIznosSaPDV());
+            ps2.setDouble(4, otp.getUkupanPopust());
+            ps2.setInt(5, otp.getCvecar().getId());
+            ps2.setInt(6, otp.getKupac().getId());
+            ResultSet rs=ps2.executeQuery();
+            if(rs.next()){
+                int id=rs.getInt("otpremnica.id");
+                otp.setId(id);
+            }
+            connection.commit();
+            
+            ps.close();
+            rs.close();
+            ps2.close();
+            System.out.println("Otpremnica uspesno kreirana!");
+            
+        } catch (SQLException ex) {
+            System.out.println("Otpremnica neuspesno kreirana!");
+            ex.printStackTrace();
+            throw ex;
+        }
+        return otp;
+    }
+
+    public void dodajStavkuOtpremnice(StavkaOtpremnice so) throws SQLException {
+        try {
+            String upit = "INSERT INTO stavkaotpremnice (idOtpremnica,kolicina,napomena,iznosBezPDV,iznosSaPDV,cenaBezPDV,cenaSaPDV,idAranzman)"
+                    + " VALUES(?,?,?,?,?,?,?,?)";
+            PreparedStatement ps = connection.prepareStatement(upit);
+            ps.setInt(1, so.getOtpremnica().getId());
+            ps.setInt(2, so.getKolicina());
+            ps.setString(3, so.getNapomena());
+            ps.setDouble(4, so.getIznosBezPDV());
+            ps.setDouble(5, so.getIznosSaPDV());
+            ps.setDouble(6, so.getCenaBezPDV());
+            ps.setDouble(7, so.getCenaSaPdDV());
+            ps.setInt(8, so.getAranzman().getId());
+            ps.executeUpdate();
+            ps.close();
+            System.out.println("Uspesno dodavanje stavke u bazu!");
+        } catch (SQLException ex) {
+            System.out.println("Stavka nije uspesno dodata u bazu!");
             ex.printStackTrace();
             throw ex;
         }

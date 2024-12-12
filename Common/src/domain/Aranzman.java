@@ -4,31 +4,32 @@
  */
 package domain;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
  * @author Saki
  */
-public class Aranzman {
+public class Aranzman implements Serializable{
     private int id;
     private String naziv;
     private String opis;
     private PoreskaStopa poreskaStopa;
     private double cenaBezPDV;
-    private double cenaSaPDv;
+    private double cenaSaPDV;
     private double popust;
 
     public Aranzman() {
     }
 
-    public Aranzman(int id, String naziv, String opis, PoreskaStopa poreskaStopa, double cenaBezPDV, double cenaSaPDv, double popust) {
+    public Aranzman(int id, String naziv, String opis, PoreskaStopa poreskaStopa, double cenaBezPDV, double cenaSaPDV, double popust) {
         this.id = id;
         this.naziv = naziv;
         this.opis = opis;
         this.poreskaStopa = poreskaStopa;
         this.cenaBezPDV = cenaBezPDV;
-        this.cenaSaPDv = cenaSaPDv;
+        this.cenaSaPDV = cenaSaPDV;
         this.popust = popust;
     }
 
@@ -76,12 +77,12 @@ public class Aranzman {
         this.cenaBezPDV = cenaBezPDV;
     }
 
-    public double getCenaSaPDv() {
-        return cenaSaPDv;
+    public double getCenaSaPDV() {
+        return cenaSaPDV;
     }
 
-    public void setCenaSaPDv(double cenaSaPDv) {
-        this.cenaSaPDv = cenaSaPDv;
+    public void setCenaSaPDV(double cenaSaPDV) {
+        this.cenaSaPDV = cenaSaPDV;
     }
 
     public double getPopust() {

@@ -4,13 +4,14 @@
  */
 package domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author Saki
  */
-public class CvSS {
+public class CvSS implements Serializable{
     private Cvecar cvecar;
     private StrucnaSprema strucnaSprema;
     private Date datumObuke;

@@ -4,11 +4,13 @@
  */
 package domain;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Saki
  */
-public class Mesto {
+public class Mesto implements Serializable{
     private int id;
     private String grad;
     private int postanskiBroj;

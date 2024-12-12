@@ -4,11 +4,13 @@
  */
 package domain;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Saki
  */
-public class Kupac {
+public class Kupac implements Serializable{
     private int id;
     private int pib;
     private String telefon;

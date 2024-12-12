@@ -16,6 +16,7 @@ import domain.StavkaOtpremnice;
 public class ModelTableOtpremnica extends AbstractTableModel{
 
     private List<StavkaOtpremnice> listaStavki;
+    private int i=1;
     private final String[] kolone={"RB","Kolicina","Aranzman","Cena Bez PDV",
         "Cena Sa PDV", "Iznos Bez PDV","Iznos Sa PDV","Napomena"};
 
@@ -41,7 +42,7 @@ public class ModelTableOtpremnica extends AbstractTableModel{
         StavkaOtpremnice st=listaStavki.get(rowIndex);
         switch(columnIndex){
             case 0:
-                return st.getRb();
+                return i++;
             case 1:
                 return st.getKolicina();
             case 2:
@@ -64,8 +65,22 @@ public class ModelTableOtpremnica extends AbstractTableModel{
 
     @Override
     public String getColumnName(int column) {
-        return kolone[column]; // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        return kolone[column]; 
     }
-    
-    
+
+    @Override
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+        return columnIndex == 1;
+    }
+
+    @Override
+    public void setValueAt(Object value, int rowIndex, int columnIndex) {
+        StavkaOtpremnice st = listaStavki.get(rowIndex);
+
+        if (columnIndex == 1) {  
+            st.setKolicina(Integer.parseInt((String) value));  
+
+        }
+    }
+
 }

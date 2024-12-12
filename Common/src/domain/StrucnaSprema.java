@@ -4,11 +4,13 @@
  */
 package domain;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Saki
  */
-public class StrucnaSprema {
+public class StrucnaSprema implements Serializable{
     private int id;
     private String naziv;
     private String nivo;

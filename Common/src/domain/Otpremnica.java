@@ -4,6 +4,7 @@
  */
 package domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
@@ -11,7 +12,7 @@ import java.util.Objects;
  *
  * @author Saki
  */
-public class Otpremnica {
+public class Otpremnica implements Serializable{
     private int id;
     private double ukupanIznosBezPDv;
     private double ukupanIznosSaPDV;
@@ -24,6 +25,16 @@ public class Otpremnica {
     public Otpremnica() {
     }
 
+    public Otpremnica( double ukupanIznosBezPDv, double ukupanIznosSaPDV, double ukupanPopust, Date datumIzdavanja, double ukupnaCena, Cvecar cvecar, Kupac kupac) {
+        
+        this.ukupanIznosBezPDv = ukupanIznosBezPDv;
+        this.ukupanIznosSaPDV = ukupanIznosSaPDV;
+        this.ukupanPopust = ukupanPopust;
+        this.datumIzdavanja = datumIzdavanja;
+        this.ukupnaCena = ukupnaCena;
+        this.cvecar = cvecar;
+        this.kupac = kupac;
+    }
     public Otpremnica(int id, double ukupanIznosBezPDv, double ukupanIznosSaPDV, double ukupanPopust, Date datumIzdavanja, double ukupnaCena, Cvecar cvecar, Kupac kupac) {
         this.id = id;
         this.ukupanIznosBezPDv = ukupanIznosBezPDv;

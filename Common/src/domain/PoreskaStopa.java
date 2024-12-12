@@ -4,21 +4,25 @@
  */
 package domain;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Saki
  */
-public class PoreskaStopa {
+public class PoreskaStopa implements Serializable{
     private int id;
-    private String vrednost;
+    private double vrednost;
 
     public PoreskaStopa() {
     }
 
-    public PoreskaStopa(int id, String vrednost) {
+    public PoreskaStopa(int id, double vrednost) {
         this.id = id;
         this.vrednost = vrednost;
     }
+
+    
 
     public int getId() {
         return id;
@@ -28,13 +32,15 @@ public class PoreskaStopa {
         this.id = id;
     }
 
-    public String getVrednost() {
+    public double getVrednost() {
         return vrednost;
     }
 
-    public void setVrednost(String vrednost) {
+    public void setVrednost(double vrednost) {
         this.vrednost = vrednost;
     }
+
+    
 
     @Override
     public String toString() {

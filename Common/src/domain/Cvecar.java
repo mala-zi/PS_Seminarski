@@ -86,7 +86,7 @@ public class Cvecar implements Serializable{
 
     @Override
     public String toString() {
-        return "Cvecar{" + "id=" + id + ", ime=" + ime + ", prezime=" + prezime + ", korisnickoIme=" + korisnickoIme + ", lozinka=" + lozinka + '}';
+        return  ime + " " + prezime ;
     }
     
 }

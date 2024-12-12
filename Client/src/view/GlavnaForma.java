@@ -29,7 +29,7 @@ Cvecar cvecar;
         setTitle(cvecar.getIme()+" "+cvecar.getPrezime());
         setResizable(false);
         setLocationRelativeTo(null);
-       // tblOtp.setModel(mto);
+        //tblOtp.setModel(new model);
         
        
     }
@@ -46,6 +46,7 @@ Cvecar cvecar;
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblOtp = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem16 = new javax.swing.JMenuItem();
@@ -91,6 +92,9 @@ Cvecar cvecar;
         ));
         jScrollPane1.setViewportView(tblOtp);
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        jLabel1.setText("Otpremnice");
+
         jMenu1.setText("Cvecar");
 
         jMenuItem16.setText("Kreiraj Cvecara");
@@ -112,7 +116,7 @@ Cvecar cvecar;
         jMenuItem11.setText("Obrisi cvecara");
         jMenu1.add(jMenuItem11);
 
-        jMenuItem2.setText(" Ubaci strucnu spremu");
+        jMenuItem2.setText("Ubaci strucnu spremu");
         jMenu1.add(jMenuItem2);
 
         jMenuItem12.setText("Promeni strucnu spremu");
@@ -203,29 +207,39 @@ Cvecar cvecar;
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(182, 182, 182)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(187, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(264, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addGap(157, 157, 157))
+                .addGap(284, 284, 284))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(33, Short.MAX_VALUE)
+                .addContainerGap(50, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(46, 46, 46)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(29, 29, 29)
                 .addComponent(jButton1)
-                .addGap(42, 42, 42))
+                .addGap(31, 31, 31))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    try {
         // TODO add your handling code here:
         KreirajOtp ko=new KreirajOtp(this, true);
         ko.setVisible(true);
         //tblOtp.setModel(mto);
+    } catch (Exception ex) {
+        Logger.getLogger(GlavnaForma.class.getName()).log(Level.SEVERE, null, ex);
+    }
         
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
@@ -278,6 +292,7 @@ Cvecar cvecar;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

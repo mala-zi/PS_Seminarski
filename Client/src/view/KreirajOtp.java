@@ -6,16 +6,20 @@ package view;
 
 import tableModel.ModelTableOtpremnica;
 import controller.Controller;
+import domain.Aranzman;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
+import domain.Cvecar;
+import domain.Kupac;
+import domain.Otpremnica;
+import domain.StavkaOtpremnice;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import model.Cvecar;
-import model.Kupac;
-import model.Otpremnica;
+import validator.Validator;
 
 /**
  *
@@ -24,11 +28,16 @@ import model.Otpremnica;
 public class KreirajOtp extends javax.swing.JDialog {
 
     private GlavnaForma mf;
+    private Otpremnica otpremnica;
+    private List<StavkaOtpremnice> listaStavki=new ArrayList<>();
+    private double ukupnaSa=0;
+    private double ukupnaBez=0;
+    private double ukupanPopust=0;
 
     /**
      * Creates new form KreirajOtp
      */
-    public KreirajOtp(java.awt.Frame parent, boolean modal) {
+    public KreirajOtp(java.awt.Frame parent, boolean modal) throws Exception {
 
         super(parent, modal);
         this.mf = (GlavnaForma) parent;
@@ -38,6 +47,8 @@ public class KreirajOtp extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         popuniCvecareIzBaze();
         popuniKupceIzBaze();
+        popuniAranzmaneIzBaze();
+        tableStavke.setModel(new ModelTableOtpremnica(listaStavki));
     }
 
     /**
@@ -51,20 +62,38 @@ public class KreirajOtp extends javax.swing.JDialog {
 
         jLabel1 = new javax.swing.JLabel();
         txtDatumIzdavanja = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        txtUkupnaCena = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         comboBoxCvecar = new javax.swing.JComboBox<>();
         comboBoxKupac = new javax.swing.JComboBox<>();
         btnOdustani = new javax.swing.JButton();
         btnKreiraj = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableStavke = new javax.swing.JTable();
+        btnDodajStavku = new javax.swing.JToggleButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        txtUkupnoBez = new javax.swing.JTextField();
+        txtUkupnoSaPDV = new javax.swing.JTextField();
+        txtUkupanPopust = new javax.swing.JTextField();
+        comboAranzmani = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
+        txtCenaBez = new javax.swing.JTextField();
+        txtCenaSaPDV = new javax.swing.JTextField();
+        txtKolicina = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtNapomena = new javax.swing.JTextArea();
+        jLabel13 = new javax.swing.JLabel();
+        btnUkloniStavku = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Datum izdavanja:");
-
-        jLabel2.setText("Ukupna Cena:");
 
         jLabel3.setText("Cvecar");
 
@@ -84,61 +113,208 @@ public class KreirajOtp extends javax.swing.JDialog {
             }
         });
 
+        tableStavke.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tableStavke);
+
+        btnDodajStavku.setText("Dodaj stavku");
+        btnDodajStavku.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDodajStavkuActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Ukupan iznos bez PDV-a");
+
+        jLabel6.setText("Ukupan iznos sa PDV-om");
+
+        jLabel7.setText("Ukupan popust");
+
+        comboAranzmani.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboAranzmaniActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setText("Aranzman");
+
+        jLabel9.setText("Cena bez PDV-a");
+
+        jLabel10.setText("Cena sa PDV-om");
+
+        jLabel11.setText("Kolicina");
+
+        jLabel12.setText("Napomena");
+
+        txtNapomena.setColumns(20);
+        txtNapomena.setRows(5);
+        jScrollPane2.setViewportView(txtNapomena);
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel13.setText("Stavke otpremnice");
+
+        btnUkloniStavku.setText("Ukloni stavku");
+        btnUkloniStavku.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUkloniStavkuActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnKreiraj, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(293, 293, 293))
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(38, 38, 38)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtDatumIzdavanja)
-                            .addComponent(txtUkupnaCena, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnOdustani, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(55, 55, 55))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(39, 39, 39)))
+                        .addGap(8, 8, 8)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(comboBoxCvecar, 0, 152, Short.MAX_VALUE)
-                            .addComponent(comboBoxKupac, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnKreiraj, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addContainerGap(82, Short.MAX_VALUE))
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtUkupnoBez, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtUkupnoSaPDV, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(197, 197, 197)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(txtUkupanPopust, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(49, 49, 49))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(366, 366, 366)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(12, 12, 12)
+                                        .addComponent(jLabel1)
+                                        .addGap(36, 36, 36)
+                                        .addComponent(txtDatumIzdavanja, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(comboBoxKupac, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(comboBoxCvecar, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnOdustani))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(71, 71, 71)
+                                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(comboAranzmani, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(txtCenaBez, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(10, 10, 10)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(txtCenaSaPDV, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(33, 33, 33)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtKolicina, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(44, 44, 44)
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(29, 29, 29))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(542, 542, 542)
+                                                .addComponent(jLabel12))
+                                            .addComponent(jLabel13))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnUkloniStavku)
+                                    .addComponent(btnDodajStavku))))
+                        .addGap(32, 32, 32))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtDatumIzdavanja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(txtUkupnaCena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(61, 61, 61)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtDatumIzdavanja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addGap(46, 46, 46)
+                        .addComponent(jLabel12))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(comboBoxCvecar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(comboBoxKupac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(btnOdustani, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel8)
+                                        .addComponent(jLabel9))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel10)
+                                        .addComponent(jLabel11)))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtKolicina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(comboAranzmani, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtCenaBez, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtCenaSaPDV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(33, 33, 33)
+                        .addComponent(jLabel13))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnDodajStavku, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(btnUkloniStavku, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(comboBoxCvecar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(comboBoxKupac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnOdustani)
-                    .addComponent(btnKreiraj))
-                .addGap(38, 38, 38))
+                    .addComponent(txtUkupnoBez, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUkupnoSaPDV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUkupanPopust, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(btnKreiraj, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12))
         );
 
         pack();
@@ -150,114 +326,173 @@ public class KreirajOtp extends javax.swing.JDialog {
     }//GEN-LAST:event_btnOdustaniActionPerformed
 
     private void btnKreirajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKreirajActionPerformed
-        Date datumIzdavanja = new Date();
-        double ukupnaCena =0;
+        
         try {
-
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            if (txtDatumIzdavanja.getText().isEmpty() || txtUkupnaCena.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Nisu sva polja popunjena", "Greska", JOptionPane.ERROR_MESSAGE);
-                return;
+            otpremnica.setUkupanPopust(ukupanPopust);
+            otpremnica.setUkupanIznosSaPDV(ukupnaSa);
+            otpremnica.setUkupanIznosBezPDv(ukupnaBez);
+            
+            Otpremnica o=Controller.getInstance().dodajOtpremnicu(otpremnica);
+            for (StavkaOtpremnice so : listaStavki) {
+                so.setOtpremnica(o);
+                Controller.getInstance().dodajStavkuOtpremnice(so);
             }
-            datumIzdavanja = dateFormat.parse(txtDatumIzdavanja.getText());
-            try {
-                ukupnaCena = Double.parseDouble(txtUkupnaCena.getText());
-                if (ukupnaCena < 0) {
-                    JOptionPane.showMessageDialog(this, "Nevalidan unos", "Greska", JOptionPane.ERROR_MESSAGE);
-                    return;
-
-                }
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Ukupna cena mora biti broj!", "Greska", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            Cvecar c = (Cvecar) comboBoxCvecar.getSelectedItem();
-            Kupac k = (Kupac) comboBoxKupac.getSelectedItem();
-
-            Otpremnica otp = new Otpremnica(datumIzdavanja, ukupnaCena, c, k);
-            Controller.getInstance().dodajOtpremnicu(otp);
-
-        } catch (ParseException ex) {
+            
+            JOptionPane.showMessageDialog(this, "Otpremnica je dodata", "obavestenje", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+        } catch (Exception ex) {
             Logger.getLogger(KreirajOtp.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, "Pogresan format datuma!", "Greska", JOptionPane.ERROR_MESSAGE);
-            return;
         }
-
-        mf.mto = new ModelTableOtpremnica(Controller.getInstance().ucitajOtpremniceIzBaze());
-        JOptionPane.showMessageDialog(this, "Otpremnica je dodata", "obavestenje", JOptionPane.INFORMATION_MESSAGE);
-        this.dispose();
         
     }//GEN-LAST:event_btnKreirajActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+    private void btnDodajStavkuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajStavkuActionPerformed
+        // TODO add your handling code here:
+        Date datumIzdavanja = new Date();
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(KreirajOtp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(KreirajOtp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(KreirajOtp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(KreirajOtp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                KreirajOtp dialog = new KreirajOtp(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            if (txtDatumIzdavanja.getText().isEmpty() || txtCenaBez.getText().isEmpty() || txtCenaSaPDV.getText().isEmpty() || txtKolicina.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Nisu sva polja popunjena", "Greska", JOptionPane.ERROR_MESSAGE);
+                return;
             }
-        });
-    }
+            if (!Validator.isValidDate(txtDatumIzdavanja.getText())) {
+                throw new ParseException("", ERROR);
+            }datumIzdavanja = dateFormat.parse(txtDatumIzdavanja.getText());
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(this, "Pogresan format datuma!\nDatum treba da bude u formatu YYYY-MM-DD", "Greska", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        Cvecar c = (Cvecar) comboBoxCvecar.getSelectedItem();
+        Kupac k = (Kupac) comboBoxKupac.getSelectedItem();
+        Aranzman a = (Aranzman) comboAranzmani.getSelectedItem();
+        int kolicina = Integer.parseInt(txtKolicina.getText());
+        if (!Validator.isValidNumber(txtCenaBez.getText()) || !Validator.isValidNumber(txtCenaSaPDV.getText())) {
+            JOptionPane.showMessageDialog(this, "Pogresan format cene!", "Greska", JOptionPane.ERROR_MESSAGE);
+
+        }
+        double cenaBez=Double.parseDouble(txtCenaBez.getText());
+        double cenaSa = Double.parseDouble(txtCenaSaPDV.getText());
+        String napomena = txtNapomena.getText();
+        double iznosBez = kolicina * cenaBez;
+        double iznosSa = kolicina * cenaSa;
+        Otpremnica o = new Otpremnica();
+        o.setDatumIzdavanja(datumIzdavanja);
+        o.setCvecar(c);
+        o.setKupac(k);
+        otpremnica=o;
+        StavkaOtpremnice s1 = new StavkaOtpremnice(kolicina, napomena, iznosBez, iznosSa, cenaBez, cenaSa, a);
+        if(listaStavki.contains(s1)){
+            JOptionPane.showMessageDialog(this, "Stavka je vec dodata u otpremnicu!","Obavestenje",JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        listaStavki.add(s1);
+        resetPodataka();
+        tableStavke.setModel(new ModelTableOtpremnica(listaStavki));
+
+        ukupnaSa = ukupnaSa + s1.getIznosSaPDV();
+        ukupnaBez = ukupnaBez + s1.getIznosBezPDV();
+        ukupanPopust = ukupanPopust + (s1.getKolicina() * a.getCenaBezPDV()) - s1.getIznosBezPDV();
+
+        txtUkupnoSaPDV.setText(ukupnaSa + "");
+        txtUkupnoBez.setText(ukupnaBez + "");
+        txtUkupanPopust.setText(ukupanPopust + "");
+    }//GEN-LAST:event_btnDodajStavkuActionPerformed
+
+    private void comboAranzmaniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboAranzmaniActionPerformed
+        // TODO add your handling code here:
+        Aranzman a=(Aranzman) comboAranzmani.getSelectedItem();
+        double cenaBez=a.getCenaBezPDV()*(1-a.getPopust()/100);
+        double cenaSa=(a.getCenaBezPDV()*(1-a.getPopust()/100))*(1+(a.getPoreskaStopa().getVrednost())/100);
+        txtCenaBez.setText(cenaBez+"");
+        
+        txtCenaSaPDV.setText(cenaSa+"");
+        
+    }//GEN-LAST:event_comboAranzmaniActionPerformed
+
+    private void btnUkloniStavkuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUkloniStavkuActionPerformed
+        // TODO add your handling code here:
+        int selected=tableStavke.getSelectedRow();
+        if(selected==-1){
+            JOptionPane.showMessageDialog(this, "Nista nije selektovano iz tabele","Greska",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        StavkaOtpremnice so=listaStavki.get(selected);
+        listaStavki.remove(so);
+         tableStavke.setModel(new ModelTableOtpremnica(listaStavki));
+        
+    }//GEN-LAST:event_btnUkloniStavkuActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton btnDodajStavku;
     private javax.swing.JButton btnKreiraj;
     private javax.swing.JButton btnOdustani;
+    private javax.swing.JButton btnUkloniStavku;
+    private javax.swing.JComboBox<Aranzman> comboAranzmani;
     private javax.swing.JComboBox<Cvecar> comboBoxCvecar;
     private javax.swing.JComboBox<Kupac> comboBoxKupac;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable tableStavke;
+    private javax.swing.JTextField txtCenaBez;
+    private javax.swing.JTextField txtCenaSaPDV;
     private javax.swing.JTextField txtDatumIzdavanja;
-    private javax.swing.JTextField txtUkupnaCena;
+    private javax.swing.JTextField txtKolicina;
+    private javax.swing.JTextArea txtNapomena;
+    private javax.swing.JTextField txtUkupanPopust;
+    private javax.swing.JTextField txtUkupnoBez;
+    private javax.swing.JTextField txtUkupnoSaPDV;
     // End of variables declaration//GEN-END:variables
 
-    private void popuniCvecareIzBaze() {
+    private void popuniCvecareIzBaze() throws Exception {
+        txtCenaBez.setEnabled(false);
+        txtCenaSaPDV.setEnabled(false);
+        txtUkupnoBez.setEnabled(false);
+        txtUkupnoSaPDV.setEnabled(false);
+        txtUkupanPopust.setEnabled(false);
         comboBoxKupac.removeAllItems();
-        List<Cvecar> cvecari=Controller.getInstance().popuniCvecareIzBaze();
+        List<Cvecar> cvecari=Controller.getInstance().ucitajCvecareIzBaze();
         for(Cvecar c: cvecari){
             comboBoxCvecar.addItem(c);
         }
     }
 
-    private void popuniKupceIzBaze() {
+    private void popuniKupceIzBaze() throws Exception {
         comboBoxKupac.removeAllItems();
         List<Kupac> kupci=Controller.getInstance().popuniKupceIzBaze();
         for(Kupac k: kupci){
             comboBoxKupac.addItem(k);
         }
+    }
+
+    private void popuniAranzmaneIzBaze() throws Exception {
+        comboAranzmani.removeAllItems();
+        List<Aranzman> aranzmani = Controller.getInstance().popuniAranzmaneIzBaze();
+        for (Aranzman a : aranzmani) {
+            comboAranzmani.addItem(a);
+        }
+    }
+
+    private void resetPodataka() {
+        txtDatumIzdavanja.setEnabled(false);
+        comboBoxCvecar.setEnabled(false);
+        comboBoxKupac.setEnabled(false);
+        txtCenaBez.setText("");
+        txtCenaSaPDV.setText("");
+        txtKolicina.setText("");
+        txtNapomena.setText("");
     }
 }

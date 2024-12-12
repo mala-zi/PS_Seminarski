@@ -10,10 +10,13 @@ import communication.Response;
 import communication.Sender;
 import domain.Cvecar;
 import controller.Controller;
+import domain.Otpremnica;
+import domain.StavkaOtpremnice;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.SpringLayout;
 
 /**
  *
@@ -62,6 +65,24 @@ public class RequestProcess extends Thread {
                             System.out.println(cvecarDelete);
                             Controller.getInstance().obrisiCvecara(cvecarDelete);
                             break;
+                        case vratiListuSviKupci:
+                            response.setResult(Controller.getInstance().ucitajKupceIzBaze());
+                            break;
+                        case vratiListuSviAranzmani:
+                            response.setResult(Controller.getInstance().ucitajAranzmaneIzBaze());
+                            break;
+                        case kreirajOtpremnicu:
+                            Otpremnica otp=(Otpremnica) request.getArgument();
+                            System.out.println(otp);
+                            response.setResult(Controller.getInstance().kreirajOtpremnicu(otp));
+                            break;
+                        case dodajStavkuOtpremnice:
+                            StavkaOtpremnice so=(StavkaOtpremnice) request.getArgument();
+                            System.out.println(so);
+                            Controller.getInstance().dodajStavkuOtpremnice(so);
+                            break;
+
+                            
                             
                     }
                 } catch (Exception e) {
