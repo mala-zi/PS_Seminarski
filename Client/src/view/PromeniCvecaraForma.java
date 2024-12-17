@@ -6,7 +6,6 @@ package view;
 
 import controller.Controller;
 import domain.Cvecar;
-import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -143,6 +142,19 @@ public class PromeniCvecaraForma extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnPromeniActionPerformed
 
+    private void btnNazadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNazadActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnNazadActionPerformed
+
+    private void tblCvecariMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCvecariMouseClicked
+        // TODO add your handling code here:
+        int selektovanRed = tblCvecari.getSelectedRow();
+            if (selektovanRed != -1) {
+                btnPromeni.setEnabled(true);
+            }
+    }//GEN-LAST:event_tblCvecariMouseClicked
+
     private void btnObrisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiActionPerformed
         // TODO add your handling code here:
         try {
@@ -161,20 +173,6 @@ public class PromeniCvecaraForma extends javax.swing.JFrame {
             Logger.getLogger(PromeniCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnObrisiActionPerformed
-
-    private void btnNazadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNazadActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-    }//GEN-LAST:event_btnNazadActionPerformed
-
-    private void tblCvecariMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCvecariMouseClicked
-        // TODO add your handling code here:
-        int selektovanRed = tblCvecari.getSelectedRow();
-            if (selektovanRed != -1) {
-                btnObrisi.setEnabled(true);
-                btnPromeni.setEnabled(true);
-            }
-    }//GEN-LAST:event_tblCvecariMouseClicked
 
    
 

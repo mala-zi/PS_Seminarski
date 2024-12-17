@@ -19,16 +19,11 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem10">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Promeni cvecara"/>
+                <Property name="text" type="java.lang.String" value="Upravljaj cvecarima"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem10ActionPerformed"/>
               </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem11">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Obrisi cvecara"/>
-              </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
               <Properties>

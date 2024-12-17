@@ -38,7 +38,7 @@ public class Validator {
         return name != null && name.matches(NAME_REGEX);
     }
 
-    public static boolean isValidPassword(String password) {
+    public static boolean isValidPassword(String password){
         return password != null && password.length() >= MIN_PASSWORD_LENGTH;
     }
 

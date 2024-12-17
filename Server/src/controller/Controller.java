@@ -13,7 +13,6 @@ import domain.Otpremnica;
 import domain.StavkaOtpremnice;
 import java.sql.SQLException;
 import java.util.List;
-import javax.swing.JOptionPane;
 import validator.Validator;
 
 /**
@@ -71,7 +70,6 @@ public class Controller {
     public void promeniCvecara(Cvecar cvecarChange) throws SQLException {
         try {
             Validator.validateCvecarChange(cvecarChange);
-            transactionManager.getDatabaseBroker().updateNewPasswordToHash(cvecarChange);
             transactionManager.getDatabaseBroker().promeniCvecara(cvecarChange);
             transactionManager.commitTransaction();
     } catch (IllegalArgumentException e) {
@@ -137,6 +135,17 @@ public class Controller {
             transactionManager.rollbackTransaction();
             throw e;
         }
+    }
+
+    public void promeniLozinkuCvecara(Cvecar cvecarLozinkaPromena) throws SQLException {
+        try {
+        transactionManager.getDatabaseBroker().updateNewPasswordToHash(cvecarLozinkaPromena);
+        transactionManager.commitTransaction();
+        } catch (Exception e) {
+            transactionManager.rollbackTransaction();
+            throw e;
+        }
+        
     }
 
 }

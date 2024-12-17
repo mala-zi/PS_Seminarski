@@ -51,7 +51,6 @@ Cvecar cvecar;
         jMenu1 = new javax.swing.JMenu();
         jMenuItem16 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
-        jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
         jMenuItem13 = new javax.swing.JMenuItem();
@@ -105,16 +104,13 @@ Cvecar cvecar;
         });
         jMenu1.add(jMenuItem16);
 
-        jMenuItem10.setText("Promeni cvecara");
+        jMenuItem10.setText("Upravljaj cvecarima");
         jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem10ActionPerformed(evt);
             }
         });
         jMenu1.add(jMenuItem10);
-
-        jMenuItem11.setText("Obrisi cvecara");
-        jMenu1.add(jMenuItem11);
 
         jMenuItem2.setText("Ubaci strucnu spremu");
         jMenu1.add(jMenuItem2);
@@ -301,7 +297,6 @@ Cvecar cvecar;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;

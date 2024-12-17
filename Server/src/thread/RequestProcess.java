@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.SpringLayout;
 
 /**
  *
@@ -81,29 +80,28 @@ public class RequestProcess extends Thread {
                             System.out.println(so);
                             Controller.getInstance().dodajStavkuOtpremnice(so);
                             break;
+                        case promeniLozinkuCvecara:
+                            Cvecar cvecarLozinkaPromena= (Cvecar) request.getArgument();
+                            System.out.println(cvecarLozinkaPromena);
+                            Controller.getInstance().promeniLozinkuCvecara(cvecarLozinkaPromena);
+                            break;
 
                             
                             
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    e.printStackTrace();//try unutra
                     response.setException(e);
                 }
 
-                sender.send(response);
+                sender.send(response);//izmedju dve try
             } catch (IOException e) {
                 System.out.println("Klijent se iskljucio.");
-                break; 
+                break; //prvi try
             } catch (Exception ex) {
                 Logger.getLogger(RequestProcess.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        try {
-            if (socket != null && !socket.isClosed()) {
-                socket.close();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+       
     }
 }

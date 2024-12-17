@@ -8,7 +8,6 @@ import controller.Controller;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import domain.Cvecar;
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,6 +29,7 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         txtId.setVisible(false);
         jLabel5.setVisible(false);
+        btnNovaLozinka.setVisible(false);
         
     }
 
@@ -40,6 +40,9 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
         txtId.setVisible(true);
         jLabel5.setVisible(true);
         txtId.setEnabled(false);
+        jLabel4.setVisible(false);
+        txtLozinka.setVisible(false);
+        btnNovaLozinka.setVisible(true);
         if(c!=null){
             cvecar=c;
             pcf=(PromeniCvecaraForma) parent;
@@ -69,6 +72,7 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
         btnSacuvaj = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
+        btnNovaLozinka = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -97,6 +101,13 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
         });
 
         jLabel5.setText("ID");
+
+        btnNovaLozinka.setText("Promeni lozinku");
+        btnNovaLozinka.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovaLozinkaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -130,6 +141,10 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
                                         .addComponent(txtPrezime, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
                                         .addComponent(txtIme)))))))
                 .addContainerGap(47, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnNovaLozinka)
+                .addGap(90, 90, 90))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,11 +169,13 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(txtLozinka, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnNovaLozinka)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNazad)
                     .addComponent(btnSacuvaj))
-                .addGap(37, 37, 37))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
@@ -195,19 +212,22 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
            // Cvecar c=new Cvecar( ime, prezime, korisnickoIme, lozinka);//novi i nema id tkd u brokeru kad trazi update za ovaj id ne moze da ga nadje
             cvecar.setIme(ime);
             cvecar.setKorisnickoIme(korisnickoIme);
-            if(!txtLozinka.getText().isEmpty()){
-                cvecar.setLozinka(lozinka);
-            }
-            
             cvecar.setPrezime(prezime);
             try {
-                Controller.getInstance().promeniCvecara(cvecar,txtLozinka);
+                Controller.getInstance().promeniCvecara(cvecar);
             } catch (Exception ex) {
                 Logger.getLogger(KreirajCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
             }
-          
+           this.dispose();
         }
     }//GEN-LAST:event_btnSacuvajActionPerformed
+
+    private void btnNovaLozinkaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovaLozinkaActionPerformed
+        // TODO add your handling code here:
+        
+        PromeniLozinkuForma forma=new PromeniLozinkuForma(pcf, true,cvecar);
+        forma.setVisible(true);
+    }//GEN-LAST:event_btnNovaLozinkaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -215,6 +235,7 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNazad;
+    private javax.swing.JButton btnNovaLozinka;
     private javax.swing.JButton btnSacuvaj;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -39,8 +39,8 @@ public class Controller {
         Communication.getInstance().dodajCvecara(c);
     }
 
-    public void promeniCvecara(Cvecar cvecar, JTextField txt) throws Exception {
-        Communication.getInstance().promeniCvecara(cvecar,txt);
+    public void promeniCvecara(Cvecar cvecar) throws Exception {
+        Communication.getInstance().promeniCvecara(cvecar);
     }
 
     public List<Cvecar> ucitajCvecareIzBaze() throws Exception {
@@ -66,5 +66,13 @@ public class Controller {
 
     public List<Aranzman> popuniAranzmaneIzBaze() throws Exception {
         return Communication.getInstance().vratiListuSviAranzmani();
+    }
+
+   /* public boolean proveriLozinkuCvecara(Cvecar cvecar) throws Exception {
+        return Communication.getInstance().proveriLozinkuCvecara(cvecar);
+    }*/
+
+    public void promeniLozinkuCvecara(Cvecar cvecar) throws Exception {
+        Communication.getInstance().promeniLozinkuCvecara(cvecar);
     }
 }

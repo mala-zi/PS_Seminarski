@@ -12,12 +12,10 @@ import domain.StavkaOtpremnice;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.List;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import validator.Validator;
 import static validator.Validator.isValidPassword;
-import view.KreirajCvecaraForma;
 
 /**
  *
@@ -30,7 +28,7 @@ public class Communication {
     private final Receiver receiver;
     
     private Communication() throws Exception{
-        socket=new Socket("127.0.0.1", 9000);
+        socket=new Socket("localhost", 9000);
         sender=new Sender(socket);
         receiver=new Receiver(socket);
     }
@@ -88,15 +86,15 @@ public class Communication {
 
     }
 
-    public void promeniCvecara(Cvecar cvecar,JTextField txt) throws Exception {
+    public void promeniCvecara(Cvecar cvecar) throws Exception {
         
         try {
             Validator.validateCvecarChange(cvecar);
-            if (!txt.getText().isEmpty() && !isValidPassword(cvecar.getLozinka())) {
+           /* if (!txt.getText().isEmpty() && !isValidPassword(cvecar.getLozinka())) {
                 JOptionPane.showMessageDialog(null, "Lozinka mora imati minimum 8 karaktera: ", "Greska", JOptionPane.ERROR_MESSAGE);
                 
 
-            } else {
+            } else {*/
                 Request request = new Request(Operation.promeniCvecara, cvecar);
                 sender.send(request);
                 Response response = (Response) receiver.receive();
@@ -105,7 +103,7 @@ public class Communication {
                 }
                 JOptionPane.showMessageDialog(null, "Cvecar uspesno izmenjen","Obavestenje",JOptionPane.INFORMATION_MESSAGE);
 
-            }
+            
         } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(null, "Greška u validaciji: " + e.getMessage());
         }
@@ -174,5 +172,19 @@ public class Communication {
         }
     }
 
-    
+   /* public boolean proveriLozinkuCvecara(Cvecar cvecar) {
+        Request request=new Request(Operation., socket)
+    }*/
+    public void promeniLozinkuCvecara(Cvecar cvecar) throws Exception {
+        Request request = new Request(Operation.promeniLozinkuCvecara, cvecar);
+
+        sender.send(request);
+        Response response = (Response) receiver.receive();
+        if (response.getException() != null) {
+            throw response.getException();
+        }
+
+    }
+
+
 }

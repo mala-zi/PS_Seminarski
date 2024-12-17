@@ -26,6 +26,7 @@ public enum Operation  implements Serializable{
     dodajStavkuOtpremnice,
     vratiListuSviKupci,
     vratiListuSviAranzmani,
-    obrisiStavkuOtpremnice
+    obrisiStavkuOtpremnice,
+    promeniLozinkuCvecara
     
 }

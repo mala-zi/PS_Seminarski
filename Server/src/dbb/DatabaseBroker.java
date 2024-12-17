@@ -58,14 +58,14 @@ public class DatabaseBroker {
         System.out.println("usaooo");
         while (rs.next()) {
             String currentPass = rs.getString("lozinka");
-            System.out.println(currentPass);
-            System.out.println(cvecarChange.getLozinka());
+            System.out.println("current u bazi:"+currentPass);
+            System.out.println("sad kod cvecara:"+cvecarChange.getLozinka());
             if(currentPass.length()==64 && currentPass.length()==cvecarChange.getLozinka().length()){
                 break;
             }
             System.out.println("usaooo22");
             String hashedPassword = PasswordHash.hashPassword(cvecarChange.getLozinka());
-            System.out.println(hashedPassword);
+            System.out.println("nova hesirana:"+hashedPassword);
             cvecarChange.setLozinka(hashedPassword);
             String updateQuery = "UPDATE cvecar SET lozinka=? WHERE id=?";
             PreparedStatement ps = connection.prepareStatement(updateQuery);
@@ -191,12 +191,11 @@ public class DatabaseBroker {
 
     public void promeniCvecara(Cvecar c) throws SQLException {
         try {
-            String upit = "UPDATE cvecar SET ime=?,prezime=?, korisnickoIme=?,lozinka=? WHERE id=" +c.getId();
+            String upit = "UPDATE cvecar SET ime=?,prezime=?, korisnickoIme=? WHERE id=" +c.getId();
             PreparedStatement ps = connection.prepareStatement(upit);
             ps.setString(1, c.getIme());
             ps.setString(2, c.getPrezime());
             ps.setString(3, c.getKorisnickoIme());
-            ps.setString(4, c.getLozinka());
 
             ps.executeUpdate();
             ps.close();
@@ -383,6 +382,10 @@ public class DatabaseBroker {
             ex.printStackTrace();
             throw ex;
         }
+    }
+
+    public void promeniLozinkuCvecara(Cvecar cvecarLozinkaPromena) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }
