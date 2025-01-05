@@ -8,6 +8,7 @@ import domain.Aranzman;
 import domain.Cvecar;
 import domain.Kupac;
 import domain.Mesto;
+import domain.OpstiDomenskiObjekat;
 import domain.Otpremnica;
 import domain.PoreskaStopa;
 import domain.StavkaOtpremnice;
@@ -21,13 +22,22 @@ import java.util.List;
  */
 public class DatabaseBroker {
 
+    private static DatabaseBroker instance;
     private Connection connection;
 
-    public DatabaseBroker() throws SQLException {
+    private DatabaseBroker() throws SQLException {
         connect();
         updatePasswordsToHashed();
     }
 
+    public static DatabaseBroker getInstance() throws SQLException{
+        if(instance==null){
+            instance=new DatabaseBroker();
+            
+        }
+        return instance;
+    }
+    
     public void updatePasswordsToHashed() throws SQLException {
         String query = "SELECT id, lozinka FROM cvecar";
         Statement stmt = connection.createStatement();
@@ -129,25 +139,29 @@ public class DatabaseBroker {
         }
     }
 
-    public Cvecar prijaviCvecara(Cvecar cvecar) throws SQLException {
+    public OpstiDomenskiObjekat prijaviCvecara(OpstiDomenskiObjekat odo) throws SQLException {
         
         try {
-            String query = "SELECT * FROM cvecar WHERE korisnickoIme=?";
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, cvecar.getKorisnickoIme());
-
+            String upit = "SELECT * FROM "+odo.vratiNazivTabele()+" WHERE "+odo.vratiKorisnickoIme()+"=?";
+            System.out.println(upit);
+            PreparedStatement ps = connection.prepareStatement(upit);
+           // System.out.println(((Cvecar) odo).getKorisnickoIme());
+            ps.setString(1, ((Cvecar) odo).getKorisnickoIme());
+          //  System.out.println(upit);
+           // System.out.println(odo.toString());
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
                 String storedHashedPassword = rs.getString("lozinka");
-
-                String inputHashedPassword = PasswordHash.hashPassword(cvecar.getLozinka());
-               // System.out.println(inputHashedPassword);
-               // System.out.println(storedHashedPassword);
+                 //   System.out.println("AAAAAAAAA");
+                String inputHashedPassword = PasswordHash.hashPassword(((Cvecar) odo).getLozinka());
+               // System.out.println("intput: "+inputHashedPassword);
+               // System.out.println("u bazi: "+storedHashedPassword);
                 if (storedHashedPassword.equals(inputHashedPassword)) {
-                    cvecar.setId(rs.getInt("id"));
-                    cvecar.setIme(rs.getString("ime"));
-                    cvecar.setPrezime(rs.getString("prezime"));
+                 //   System.out.println("bbbb");
+                    ((Cvecar) odo).setId(rs.getInt("id"));
+                    ((Cvecar) odo).setIme(rs.getString("ime"));
+                    ((Cvecar) odo).setPrezime(rs.getString("prezime"));
                 } else {
                     throw new SQLException("Pogrešna lozinka!");
                 }
@@ -158,7 +172,7 @@ public class DatabaseBroker {
             rs.close();
             ps.close();
 
-            return cvecar;
+            return odo;
         } catch (SQLException ex) {
             System.out.println("Greška pri prijavi korisnika: " + ex.getMessage());
             ex.printStackTrace();
@@ -168,16 +182,12 @@ public class DatabaseBroker {
 
     
 
-    public void dodajCvecara(Cvecar c) throws SQLException {
+    public void dodajCvecara(OpstiDomenskiObjekat odo) throws SQLException {
       
         try {
-            String upit="INSERT INTO cvecar (ime,prezime,korisnickoIme,lozinka) VALUES(?,?,?,?)";
+            String upit="INSERT INTO "+ odo.vratiNazivTabele()+ " "+odo.vratiKolone()+" VALUES('"+ odo.vratiVrednostiZaInsert() + ")";
             PreparedStatement ps=connection.prepareStatement(upit);
-            ps.setString(1,c.getIme());
-            ps.setString(2,c.getPrezime());
-            ps.setString(3, c.getKorisnickoIme());
-            ps.setString(4, c.getLozinka());
-            ps.executeUpdate();
+            ps.executeUpdate(upit);
             ps.close();
             System.out.println("Uspesno dodavanje cvecara u bazu!");
         } catch (SQLException ex) {

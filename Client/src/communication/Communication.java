@@ -13,9 +13,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import validator.Validator;
-import static validator.Validator.isValidPassword;
 
 /**
  *
@@ -49,12 +47,9 @@ public class Communication {
            }
        }
     
-    public Cvecar prijaviCvecara(String username, String password) throws Exception {
+    public Cvecar prijaviCvecara(Cvecar cvecar) throws Exception {
         Response response = new Response();
         try {
-            Cvecar cvecar = new Cvecar();
-            cvecar.setKorisnickoIme(username);
-            cvecar.setLozinka(password);
             Validator.validateCvecarSign(cvecar);
             Request request = new Request(Operation.prijaviCvecara, cvecar);
             sender.send(request);

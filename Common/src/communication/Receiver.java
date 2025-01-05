@@ -5,6 +5,7 @@
  */
 package communication;
 
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 
@@ -14,6 +15,7 @@ import java.net.Socket;
  */
 public class Receiver {
     private Socket socket;
+    private ObjectInputStream in;
 
     public Receiver(Socket socket) {
         this.socket = socket;
@@ -21,11 +23,19 @@ public class Receiver {
     
     public Object receive() throws Exception{
         try {
-            ObjectInputStream in=new ObjectInputStream(socket.getInputStream());
+             in=new ObjectInputStream(socket.getInputStream());
             return in.readObject();
         } catch (Exception ex) {
             ex.printStackTrace();
             throw new Exception("Error receiving object!\n"+ex.getMessage());
+        }
+    }
+    public void close() {
+        try {
+            if (in != null) in.close();
+            if (socket != null) socket.close();
+        } catch (IOException ex) {
+            System.err.println("Error closing receiver resources: " + ex.getMessage());
         }
     }
 }

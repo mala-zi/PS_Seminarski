@@ -12,7 +12,6 @@ import domain.Kupac;
 import domain.Otpremnica;
 import domain.StavkaOtpremnice;
 import java.util.List;
-import javax.swing.JTextField;
 
 /**
  *
@@ -31,7 +30,7 @@ public class Controller {
     }
     
     public Cvecar prijaviCvecara(Cvecar cvecar) throws Exception {
-        return (Cvecar)Communication.getInstance().prijaviCvecara(cvecar.getKorisnickoIme(), cvecar.getLozinka());
+        return (Cvecar)Communication.getInstance().prijaviCvecara(cvecar);
         
     }
 

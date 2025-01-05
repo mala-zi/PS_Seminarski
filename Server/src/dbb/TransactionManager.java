@@ -12,11 +12,6 @@ import java.sql.SQLException;
  */
 public class TransactionManager {
     private static TransactionManager instance;
-    private DatabaseBroker databaseBroker;
-
-    private TransactionManager() throws SQLException  {
-        databaseBroker = new DatabaseBroker();
-    }
 
     public static TransactionManager getInstance() throws SQLException {
         if (instance == null) {
@@ -25,16 +20,12 @@ public class TransactionManager {
         return instance;
     }
 
-    public DatabaseBroker getDatabaseBroker() {
-        return databaseBroker;
-    }
-
     public void commitTransaction() throws SQLException {
-        databaseBroker.commit();
+        DatabaseBroker.getInstance().commit();
     }
 
     public void rollbackTransaction() throws SQLException {
-        databaseBroker.rollback();
+        DatabaseBroker.getInstance().rollback();
     }
 }
 

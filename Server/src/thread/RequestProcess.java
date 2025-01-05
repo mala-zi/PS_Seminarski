@@ -14,6 +14,7 @@ import domain.Otpremnica;
 import domain.StavkaOtpremnice;
 import java.io.IOException;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -35,15 +36,20 @@ public class RequestProcess extends Thread {
 
     @Override
     public void run() {
+        
         while (true) {
             try {
+                 if (socket.isClosed()) {
+                    System.out.println("Socket is already closed. Stopping thread.");
+                    break;
+                }
                 Request request = (Request) receiver.receive();
                 Response response = new Response();
                 try {
                     switch (request.getOperation()) {
                         case prijaviCvecara:
                             Cvecar cvecarLogin=(Cvecar) request.getArgument();
-                            System.out.println(cvecarLogin);
+                            System.out.println("aa"+cvecarLogin);
                             response.setResult(Controller.getInstance().prijaviCvecara(cvecarLogin));
                             break;
                         case dodajCvecara:
@@ -86,8 +92,10 @@ public class RequestProcess extends Thread {
                             Controller.getInstance().promeniLozinkuCvecara(cvecarLozinkaPromena);
                             break;
 
-                            
-                            
+                        default:
+                            System.out.println("Unknown operation: " + request.getOperation());
+                            break;
+
                     }
                 } catch (Exception e) {
                     e.printStackTrace();//try unutra
@@ -95,13 +103,22 @@ public class RequestProcess extends Thread {
                 }
 
                 sender.send(response);//izmedju dve try
-            } catch (IOException e) {
-                System.out.println("Klijent se iskljucio.");
-                break; //prvi try
+            } catch (SocketException e) {
+                try {
+                    System.out.println("AAAAAAAAAA.");
+                    receiver.close();
+                    sender.close();
+                    socket.close();
+
+                } catch (IOException ex) {
+                    System.out.println("cc.");
+                }
+
             } catch (Exception ex) {
                 Logger.getLogger(RequestProcess.class.getName()).log(Level.SEVERE, null, ex);
             }
+
         }
-       
     }
+
 }
