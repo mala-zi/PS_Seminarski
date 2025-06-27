@@ -4,7 +4,10 @@
  */
 package domain;
 
-import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 
@@ -12,7 +15,8 @@ import java.util.Objects;
  *
  * @author Saki
  */
-public class Otpremnica implements Serializable{
+public class Otpremnica extends OpstiDomenskiObjekat {
+
     private int id;
     private double ukupanIznosBezPDv;
     private double ukupanIznosSaPDV;
@@ -25,8 +29,8 @@ public class Otpremnica implements Serializable{
     public Otpremnica() {
     }
 
-    public Otpremnica( double ukupanIznosBezPDv, double ukupanIznosSaPDV, double ukupanPopust, Date datumIzdavanja, double ukupnaCena, Cvecar cvecar, Kupac kupac) {
-        
+    public Otpremnica(double ukupanIznosBezPDv, double ukupanIznosSaPDV, double ukupanPopust, Date datumIzdavanja, double ukupnaCena, Cvecar cvecar, Kupac kupac) {
+
         this.ukupanIznosBezPDv = ukupanIznosBezPDv;
         this.ukupanIznosSaPDV = ukupanIznosSaPDV;
         this.ukupanPopust = ukupanPopust;
@@ -35,6 +39,7 @@ public class Otpremnica implements Serializable{
         this.cvecar = cvecar;
         this.kupac = kupac;
     }
+
     public Otpremnica(int id, double ukupanIznosBezPDv, double ukupanIznosSaPDV, double ukupanPopust, Date datumIzdavanja, double ukupnaCena, Cvecar cvecar, Kupac kupac) {
         this.id = id;
         this.ukupanIznosBezPDv = ukupanIznosBezPDv;
@@ -141,7 +146,104 @@ public class Otpremnica implements Serializable{
         }
         return Objects.equals(this.kupac, other.kupac);
     }
-    
 
-   
+    @Override
+    public String nazivTabele() {
+        return "Otpremnica";
+    }
+
+    @Override
+    public String alijas() {
+        return "o";
+    }
+
+    @Override
+    public String join() {
+        return " JOIN Cvecar c ON (c.CvecarID = o.CvecarID) "
+                + "JOIN Kupac k ON (k.KupacID = o.KupacID)";
+    }
+
+    @Override
+    public ArrayList<OpstiDomenskiObjekat> vratiListu(ResultSet rs) throws SQLException {
+        ArrayList<OpstiDomenskiObjekat> lista = new ArrayList<>();
+
+        while (rs.next()) {
+            Mesto m = new Mesto(
+                    rs.getInt("MestoID"),
+                    rs.getString("Grad"),
+                    rs.getInt("PostanskiBroj"),
+                    rs.getString("Ulica"));
+            Kupac kupac = new Kupac(
+                    rs.getInt("k.id"),
+                    rs.getInt("k.pib"),
+                    rs.getString("k.telefon"),
+                    rs.getString("k.email"),
+                    m,
+                    rs.getString("k.naziv")
+            );
+
+            Cvecar cvecar = new Cvecar(
+                    rs.getInt("c.id"),
+                    rs.getString("c.ime"),
+                    rs.getString("c.prezime"),
+                    rs.getString("c.korisnickoIme"),
+                    rs.getString("c.lozinka")
+            );
+
+            Otpremnica o = new Otpremnica(
+                    rs.getInt("o.id"),
+                    rs.getDouble("o.ukupanIznosBezPDv"),
+                    rs.getDouble("o.ukupanIznosSaPDV"),
+                    rs.getDouble("o.ukupanPopust"),
+                    rs.getDate("o.datumIzdavanja"),
+                    rs.getDouble("o.ukupnaCena"),
+                    cvecar,
+                    kupac
+            );
+
+            lista.add(o);
+        }
+
+        rs.close();
+        return lista;
+    }
+
+    @Override
+    public String koloneZaInsert() {
+        return "(UkupanIznosBezPDv, UkupanIznosSaPDV, UkupanPopust, DatumIzdavanja, UkupnaCena, CvecarID, KupacID)";
+    }
+
+    @Override
+    public String vrednostZaPrimarniKljuc() {
+        return "OtpremnicaID = " + id;
+    }
+
+    @Override
+    public String vrednostiZaInsert() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String datumStr = (datumIzdavanja != null) ? "'" + sdf.format(datumIzdavanja) + "'" : "NULL";
+
+        return ukupanIznosBezPDv + ", " + ukupanIznosSaPDV + ", " + ukupanPopust + ", "
+                + datumStr + ", " + ukupnaCena + ", " + cvecar.getId() + ", " + kupac.getId();
+    }
+
+    @Override
+    public String vrednostiZaUpdate() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String datumStr = (datumIzdavanja != null) ? "'" + sdf.format(datumIzdavanja) + "'" : "NULL";
+
+        return "ukupanIznosBezPDv = " + ukupanIznosBezPDv
+                + ", ukupanIznosSaPDV = " + ukupanIznosSaPDV
+                + ", ukupanPopust = " + ukupanPopust
+                + ", datumIzdavanja = " + datumStr
+                + ", ukupnaCena = " + ukupnaCena
+                + ", cvecarID = " + cvecar.getId()
+                + ", kupacID = " + kupac.getId();
+    }
+
+    @Override
+    public String uslov() {
+        return "";
+    }
+
 }

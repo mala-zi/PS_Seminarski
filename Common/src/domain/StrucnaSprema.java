@@ -4,13 +4,14 @@
  */
 package domain;
 
-import java.io.Serializable;
-
+import java.util.ArrayList;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 /**
  *
  * @author Saki
  */
-public class StrucnaSprema implements Serializable{
+public class StrucnaSprema extends OpstiDomenskiObjekat {
     private int id;
     private String naziv;
     private String nivo;
@@ -63,5 +64,61 @@ public class StrucnaSprema implements Serializable{
         return naziv ;
     }
 
-    
+     @Override
+    public String nazivTabele() {
+        return "StrucnaSprema";
+    }
+
+    @Override
+    public String alijas() {
+        return "ss";
+    }
+
+    @Override
+    public String join() {
+        return ""; 
+    }
+
+    @Override
+    public ArrayList<OpstiDomenskiObjekat> vratiListu(ResultSet rs) throws SQLException {
+        ArrayList<OpstiDomenskiObjekat> lista = new ArrayList<>();
+
+        while (rs.next()) {
+            StrucnaSprema ss = new StrucnaSprema(
+                rs.getInt("StrucnaSpremaID"),
+                rs.getString("Naziv"),
+                rs.getString("Nivo"),
+                rs.getBoolean("Sertifikat")
+            );
+            lista.add(ss);
+        }
+
+        rs.close();
+        return lista;
+    }
+
+    @Override
+    public String koloneZaInsert() {
+        return "(StrucnaSpremaID, Naziv, Nivo, Sertifikat)";
+    }
+
+    @Override
+    public String vrednostiZaInsert() {
+        return id + ", '" + naziv + "', '" + nivo + "', " + (sertifikat ? 1 : 0);
+    }
+
+    @Override
+    public String vrednostiZaUpdate() {
+        return "Naziv = '" + naziv + "', Nivo = '" + nivo + "', Sertifikat = " + (sertifikat ? 1 : 0);
+    }
+
+    @Override
+    public String vrednostZaPrimarniKljuc() {
+        return "StrucnaSpremaID = " + id;
+    }
+
+    @Override
+    public String uslov() {
+        return " WHERE StrucnaSpremaID = " + id;
+    }
 }

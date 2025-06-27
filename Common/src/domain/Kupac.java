@@ -4,13 +4,16 @@
  */
 package domain;
 
-import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 
 /**
  *
  * @author Saki
  */
-public class Kupac implements Serializable{
+public class Kupac extends OpstiDomenskiObjekat{
     private int id;
     private int pib;
     private String telefon;
@@ -92,5 +95,68 @@ public class Kupac implements Serializable{
         return naziv;
     }
 
-   
+   @Override
+    public String nazivTabele() {
+        return "kupac";
+    }
+
+    @Override
+    public String alijas() {
+        return "k";
+    }
+
+    @Override
+    public String join() {
+        return "JOIN mesto m ON k.MestoID = m.MestoID";
+    }
+
+    @Override
+    public ArrayList<OpstiDomenskiObjekat> vratiListu(ResultSet rs) throws SQLException {
+        ArrayList<OpstiDomenskiObjekat> lista = new ArrayList<>();
+        while (rs.next()) {
+            Mesto m = new Mesto(
+            rs.getInt("MestoID"),
+            rs.getString("Grad"),
+            rs.getInt("PostanskiBroj"),
+            rs.getString("Ulica")
+        );
+            Kupac k = new Kupac(
+                    rs.getInt("KupacID"),
+                    rs.getInt("PIB"),
+                    rs.getString("Telefon"),
+                    rs.getString("Email"),
+                    m,
+                    rs.getString("Naziv")
+            );
+            lista.add(k);
+        }
+        rs.close();
+        return lista;
+    }
+
+    @Override
+    public String koloneZaInsert() {
+        return "(PIB, Telefon, Email, MestoID, Naziv)";
+    }
+
+    @Override
+    public String vrednostiZaInsert() {
+        return pib + ", '" + telefon + "', '" + email + "', " + mesto.getId() + ", '" + naziv + "'";
+    }
+
+    @Override
+    public String vrednostZaPrimarniKljuc() {
+        return "KupacID = " + id;
+    }
+
+    @Override
+    public String vrednostiZaUpdate() {
+        return "PIB = " + pib + ", Telefon = '" + telefon + "', Email = '" + email + "', MestoID = " + mesto.getId() + ", Naziv = '" + naziv + "'";
+    }
+
+    @Override
+    public String uslov() {
+        return "KupacID = " + id;
+    }
+
 }

@@ -4,16 +4,16 @@
  */
 package domain;
 
-import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  *
  * @author Saki
  */
-public class Cvecar implements Serializable, OpstiDomenskiObjekat{
+public class Cvecar extends OpstiDomenskiObjekat{
+
     private int id;
     private String ime;
     private String prezime;
@@ -31,20 +31,23 @@ public class Cvecar implements Serializable, OpstiDomenskiObjekat{
         this.lozinka = lozinka;
     }
 
-    public Cvecar( String ime, String prezime, String korisnickoIme, String lozinka) {
-        
+    public Cvecar(String ime, String prezime, String korisnickoIme, String lozinka) {
+
         this.ime = ime;
         this.prezime = prezime;
         this.korisnickoIme = korisnickoIme;
         this.lozinka = lozinka;
     }
-     public Cvecar(String korisnickoIme, String lozinka) {
+
+    public Cvecar(String korisnickoIme, String lozinka) {
         this.korisnickoIme = korisnickoIme;
         this.lozinka = lozinka;
     }
+
     public int getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -86,121 +89,61 @@ public class Cvecar implements Serializable, OpstiDomenskiObjekat{
         return "Cvecar{" + "id=" + id + ", ime=" + ime + ", prezime=" + prezime + ", korisnickoIme=" + korisnickoIme + ", lozinka=" + lozinka + '}';
     }
 
- 
-
-   
-   
     @Override
-    public String vratiNazivTabele() {
+    public String nazivTabele() {
         return "cvecar";
     }
 
     @Override
-    public int vratiOdredjenID() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String alijas() {
+        return "c";
     }
 
     @Override
-    public String vratiIme() {
-        return ime;
+    public String join() {
+        return ""; 
     }
 
     @Override
-    public String vratiPrezime() {
-        return prezime;
+    public ArrayList<OpstiDomenskiObjekat> vratiListu(ResultSet rs) throws SQLException {
+        ArrayList<OpstiDomenskiObjekat> lista = new ArrayList<>();
+        while (rs.next()) {
+            Cvecar c = new Cvecar(
+                    rs.getInt("CvecarID"),
+                    rs.getString("Ime"),
+                    rs.getString("Prezime"),
+                    rs.getString("KorisnickoIme"),
+                    rs.getString("Lozinka")
+            );
+            lista.add(c);
+        }
+        rs.close();
+        return lista;
     }
 
     @Override
-    public String vratiVrednostiZaInsert() {
-        return "'" + ime + "','" + prezime + "','" + korisnickoIme+"', "+lozinka+"'";
+    public String koloneZaInsert() {
+        return "(Ime, Prezime, KorisnickoIme, Lozinka)";
     }
 
     @Override
-    public String vratiVrednostiZaOperacijuUpdate() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String vrednostZaPrimarniKljuc() {
+        return " CvecarID = " + id;
     }
 
     @Override
-    public String vratiUslovZaOperacijuUpdate() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String vrednostiZaInsert() {
+        return "'" + ime + "', '" + prezime + "', '" + korisnickoIme + "', '" + lozinka + "'";
     }
 
     @Override
-    public List<OpstiDomenskiObjekat> ucitajListu(ResultSet rs) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String vrednostiZaUpdate() {
+        return "Ime = '" + ime + "', Prezime = '" + prezime + "', KorisnickoIme = '" + korisnickoIme + "', Lozinka = '" + lozinka + "'";
     }
 
     @Override
-    public String vratiUslovZaPretragu() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String uslov() {
+        return "KorisnickoIme = '" + korisnickoIme + "' AND Lozinka = '" + lozinka + "'";
     }
 
-    @Override
-    public String vratiUslovZaBrisanje() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String vratiUslovZaID() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public int vratiID(ResultSet rs) {
-        return id;
-    }
-
-    @Override
-    public String vratiIme(ResultSet rs) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String vratiPrezime(ResultSet rs) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public int vratiSlobodanID(ResultSet rs) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String vratiJoinTabelu() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String vratiUslovZaJoin() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String uzmiID() {
-        return "id";
-    }
-
-    @Override
-    public String vratiKorisnickoIme() {
-        return "korisnickoIme";
-    }
-
-    
-    @Override
-    public String vratiJoinTabelu2() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String vratiUslovZaJoin2() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public String vratiKolone() {
-         return "(ime,prezime,korisnickoIme,lozinka)";
-    }
-    
-    
-    
 }

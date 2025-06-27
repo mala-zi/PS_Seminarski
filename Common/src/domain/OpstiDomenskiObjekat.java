@@ -5,57 +5,77 @@
 package domain;
 
 import java.io.Serializable;
-import java.util.List;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
- * @author Saki
+ * @author 38169
  */
-public interface OpstiDomenskiObjekat  extends Serializable{
-    public String vratiNazivTabele();
-    
-    public int vratiOdredjenID();
-    
-    public String vratiIme();
-    
-    public String vratiPrezime();
+public abstract class OpstiDomenskiObjekat implements Serializable {
 
-    public String vratiVrednostiZaInsert();
+    public abstract String nazivTabele();
 
-    public String vratiVrednostiZaOperacijuUpdate();
+    public abstract String alijas();
 
-    public String vratiUslovZaOperacijuUpdate();
-    
-    public List<OpstiDomenskiObjekat> ucitajListu(ResultSet rs) throws SQLException;
-    
-    public String vratiUslovZaPretragu();
-    
-    public String vratiUslovZaBrisanje();
-    
-    public  String vratiUslovZaID();
-    
-    public int vratiID(ResultSet rs);
+    public abstract String join();
 
-    public String vratiIme(ResultSet rs);
+    public abstract ArrayList<OpstiDomenskiObjekat> vratiListu(ResultSet rs) throws SQLException;
 
-    public String vratiPrezime(ResultSet rs);
-    
-    public String vratiKorisnickoIme();
+    public abstract String koloneZaInsert();
 
-    public int vratiSlobodanID(ResultSet rs);
+    public abstract String vrednostZaPrimarniKljuc();
 
-    public String vratiJoinTabelu();
+    public abstract String vrednostiZaInsert();
 
-    public String vratiUslovZaJoin();
+    public abstract String vrednostiZaUpdate();
 
-    public String uzmiID();
+    public abstract String uslov();
 
-    public String vratiJoinTabelu2();
+   /* public abstract String vratiNazivTabele();
 
-    public String vratiUslovZaJoin2();
+    public abstract int vratiOdredjenID();
 
-    public String vratiKolone();
-    
+    public abstract String vratiIme();
+
+    public abstract String vratiPrezime();
+
+    public abstract String vratiVrednostiZaInsert();
+
+    public abstract String vratiVrednostiZaOperacijuUpdate();
+
+    public abstract String vratiUslovZaOperacijuUpdate();
+
+    public abstract List<OpstiDomenskiObjekat> ucitajListu(ResultSet rs) throws SQLException;
+
+    public abstract String vratiUslovZaPretragu();
+
+    public abstract String vratiUslovZaBrisanje();
+
+    public abstract String vratiUslovZaID();
+
+    public abstract int vratiID(ResultSet rs);
+
+    public abstract String vratiIme(ResultSet rs);
+
+    public abstract String vratiPrezime(ResultSet rs);
+
+    public abstract String vratiKorisnickoIme();
+
+    public abstract int vratiSlobodanID(ResultSet rs);
+
+    public abstract String vratiJoinTabelu();
+
+    public abstract String vratiUslovZaJoin();
+
+    public abstract String uzmiID();
+
+    public abstract String vratiJoinTabelu2();
+
+    public abstract String vratiUslovZaJoin2();
+
+    public abstract String vratiKolone();
+}*/
+
 }

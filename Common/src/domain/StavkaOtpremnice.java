@@ -4,14 +4,17 @@
  */
 package domain;
 
-import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
  *
  * @author Saki
  */
-public class StavkaOtpremnice implements Serializable{
+public class StavkaOtpremnice extends OpstiDomenskiObjekat {
+
     private int rb;
     private int kolicina;
     private String napomena;
@@ -24,6 +27,7 @@ public class StavkaOtpremnice implements Serializable{
 
     public StavkaOtpremnice() {
     }
+
     public StavkaOtpremnice(int rb, int kolicina, String napomena, double iznosBezPDV, double iznosSaPDV, double cenaBezPDV, double cenaSaPdDV, Aranzman aranzman, Otpremnica otpremnica) {
         this.rb = rb;
         this.kolicina = kolicina;
@@ -36,8 +40,8 @@ public class StavkaOtpremnice implements Serializable{
         this.otpremnica = otpremnica;
     }
 
-    public StavkaOtpremnice( int kolicina, String napomena, double iznosBezPDV, double iznosSaPDV, double cenaBezPDV, double cenaSaPdDV, Aranzman aranzman) {
-        
+    public StavkaOtpremnice(int kolicina, String napomena, double iznosBezPDV, double iznosSaPDV, double cenaBezPDV, double cenaSaPdDV, Aranzman aranzman) {
+
         this.kolicina = kolicina;
         this.napomena = napomena;
         this.iznosBezPDV = iznosBezPDV;
@@ -151,8 +155,120 @@ public class StavkaOtpremnice implements Serializable{
         return Objects.equals(this.otpremnica, other.otpremnica);
     }
 
-    
-    
-    
-    
+    @Override
+    public String nazivTabele() {
+        return "StavkaOtpremnice";
+    }
+
+    @Override
+    public String alijas() {
+        return "so";
+    }
+
+    @Override
+    public String join() {
+        return "JOIN Aranzman a ON (so.AranzmanID = a.AranzmanID) "
+                + "JOIN Otpremnica o ON (so.OtpremnicaID = o.OtpremnicaID)";
+    }
+
+    @Override
+    public ArrayList<OpstiDomenskiObjekat> vratiListu(ResultSet rs) throws SQLException {
+        ArrayList<OpstiDomenskiObjekat> lista = new ArrayList<>();
+
+        while (rs.next()) {
+            PoreskaStopa ps = new PoreskaStopa(
+                    rs.getInt("PoreskaStopaID"),
+                    rs.getDouble("Stopa")
+            );
+
+            // Aranzman
+            Aranzman aranzman = new Aranzman(
+                    rs.getInt("AranzmanID"),
+                    rs.getString("Naziv"),
+                    rs.getString("Opis"),
+                    ps,
+                    rs.getDouble("CenaBezPDV"),
+                    rs.getDouble("CenaSaPDV"),
+                    rs.getDouble("Popust")
+            );
+            Cvecar cvecar = new Cvecar(
+                    rs.getInt("CvecarID"),
+                    rs.getString("ImeCvecara"),
+                    rs.getString("PrezimeCvecara"),
+                    rs.getString("Email"),
+                    rs.getString("Password")
+            );
+            Mesto mesto = new Mesto(
+                    rs.getInt("MestoID"),
+                    rs.getString("Grad"),
+                    rs.getInt("PostanskiBroj"),
+                    rs.getString("Ulica")
+            );
+
+            Kupac kupac = new Kupac(
+                    rs.getInt("KupacID"),
+                    rs.getInt("PIB"),
+                    rs.getString("Telefon"),
+                    rs.getString("Email"),
+                    mesto,
+                    rs.getString("Naziv")
+            );
+
+            Otpremnica otpremnica = new Otpremnica(
+                    rs.getInt("OtpremnicaID"),
+                    rs.getDouble("UkupanIznosBezPDV"),
+                    rs.getDouble("UkupanIznosSaPDV"),
+                    rs.getDouble("UkupanPopust"),
+                    rs.getDate("DatumIzdavanja"),
+                    rs.getDouble("UkupnaCena"),
+                    cvecar,
+                    kupac
+            );
+
+            StavkaOtpremnice so = new StavkaOtpremnice(
+                    rs.getInt("Rb"),
+                    rs.getInt("Kolicina"),
+                    rs.getString("Napomena"),
+                    rs.getDouble("IznosBezPDV"),
+                    rs.getDouble("IznosSaPDV"),
+                    rs.getDouble("CenaBezPDV"),
+                    rs.getDouble("CenaSaPDV"),
+                    aranzman,
+                    otpremnica
+            );
+
+            lista.add(so);
+        }
+
+        rs.close();
+        return lista;
+    }
+
+    @Override
+    public String koloneZaInsert() {
+        return " (OtpremnicaID, Rb, Kolicina, Napomena, IznosBezPDV, IznosSaPDV, CenaBezPDV, CenaSaPDV, AranzmanID) ";
+    }
+
+    @Override
+    public String vrednostiZaInsert() {
+        return " " + otpremnica.getId() + ", " + rb + ", " + kolicina + ", '"
+                + napomena + "', " + iznosBezPDV + ", " + iznosSaPDV + ", "
+                + cenaBezPDV + ", " + cenaSaPdDV + ", " + aranzman.getId() + " ";
+    }
+
+    @Override
+    public String vrednostZaPrimarniKljuc() {
+        return " OtpremnicaID = " + otpremnica.getId();
+    }
+
+    @Override
+    public String vrednostiZaUpdate() {
+        return "";
+    }
+
+    @Override
+    public String uslov() {
+        return " WHERE o.OtpremnicaID = " + otpremnica.getId();
+    }
+
 }

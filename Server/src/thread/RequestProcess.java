@@ -4,10 +4,10 @@
  */
 package thread;
 
-import communication.Receiver;
-import communication.Request;
-import communication.Response;
-import communication.Sender;
+import transfer.Receiver;
+import transfer.Request;
+import transfer.Response;
+import transfer.Sender;
 import domain.Cvecar;
 import controller.Controller;
 import domain.Otpremnica;

@@ -4,13 +4,16 @@
  */
 package domain;
 
-import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 
 /**
  *
  * @author Saki
  */
-public class Mesto implements Serializable{
+public class Mesto extends OpstiDomenskiObjekat{
     private int id;
     private String grad;
     private int postanskiBroj;
@@ -62,5 +65,60 @@ public class Mesto implements Serializable{
     public String toString() {
         return  grad ;
     }
-    
+
+    @Override
+    public String nazivTabele() {
+        return "Mesto";
+    }
+
+    @Override
+    public String alijas() {
+        return "m";
+    }
+
+    @Override
+    public String join() {
+        return ""; 
+    }
+
+    @Override
+    public ArrayList<OpstiDomenskiObjekat> vratiListu(ResultSet rs) throws SQLException {
+        ArrayList<OpstiDomenskiObjekat> lista = new ArrayList<>();
+        while (rs.next()) {
+            Mesto m = new Mesto(
+                rs.getInt("MestoID"),
+                rs.getString("Grad"),
+                rs.getInt("PostanskiBroj"),
+                rs.getString("Ulica")
+            );
+            lista.add(m);
+        }
+        rs.close();
+        return lista;
+    }
+
+    @Override
+    public String koloneZaInsert() {
+        return "(Grad, PostanskiBroj, Ulica)";
+    }
+
+    @Override
+    public String vrednostZaPrimarniKljuc() {
+        return "MestoID = " + id;
+    }
+
+    @Override
+    public String vrednostiZaInsert() {
+        return "'" + grad + "', " + postanskiBroj + ", '" + ulica + "'";
+    }
+
+    @Override
+    public String vrednostiZaUpdate() {
+        return "grad = '" + grad + "', postanskiBroj = " + postanskiBroj + ", ulica = '" + ulica + "'";
+    }
+
+    @Override
+    public String uslov() {
+        return "";
+    }
 }

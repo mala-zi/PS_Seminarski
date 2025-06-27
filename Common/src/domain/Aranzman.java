@@ -4,14 +4,15 @@
  */
 package domain;
 
-import java.io.Serializable;
 import java.util.Objects;
-
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 /**
  *
  * @author Saki
  */
-public class Aranzman implements Serializable{
+public class Aranzman extends OpstiDomenskiObjekat{
     private int id;
     private String naziv;
     private String opis;
@@ -124,6 +125,68 @@ public class Aranzman implements Serializable{
         return Objects.equals(this.naziv, other.naziv);
     }
 
-    
+     @Override
+    public String nazivTabele() {
+        return "Aranzman";
+    }
+
+    @Override
+    public String alijas() {
+        return "a";
+    }
+
+    @Override
+    public String join() {
+        return "JOIN PoreskaStopa ps ON a.PoreskaStopaID = ps.PoreskaStopaID";
+    }
+
+    @Override
+    public ArrayList<OpstiDomenskiObjekat> vratiListu(ResultSet rs) throws SQLException {
+        ArrayList<OpstiDomenskiObjekat> lista = new ArrayList<>();
+
+        while (rs.next()) {
+            PoreskaStopa ps = new PoreskaStopa(rs.getInt("PoreskaStopaID"), rs.getDouble("Stopa"));
+            Aranzman a = new Aranzman(
+                rs.getInt("AranzmanID"),
+                rs.getString("Naziv"),
+                rs.getString("Opis"),
+                ps,
+                rs.getDouble("CenaBezPDV"),
+                rs.getDouble("CenaSaPDV"),
+                rs.getDouble("Popust")
+            );
+            lista.add(a);
+        }
+
+        rs.close();
+        return lista;
+    }
+
+    @Override
+    public String koloneZaInsert() {
+        return "(AranzmanID, Naziv, Opis, PoreskaStopaID, CenaBezPDV, CenaSaPDV, Popust)";
+    }
+
+    @Override
+    public String vrednostiZaInsert() {
+        return id + ", '" + naziv + "', '" + opis + "', " + poreskaStopa.getId() + ", " +
+               cenaBezPDV + ", " + cenaSaPDV + ", " + popust;
+    }
+
+    @Override
+    public String vrednostiZaUpdate() {
+        return "Naziv = '" + naziv + "', Opis = '" + opis + "', PoreskaStopaID = " + poreskaStopa.getId() +
+               ", CenaBezPDV = " + cenaBezPDV + ", CenaSaPDV = " + cenaSaPDV + ", Popust = " + popust;
+    }
+
+    @Override
+    public String vrednostZaPrimarniKljuc() {
+        return "AranzmanID = " + id;
+    }
+
+    @Override
+    public String uslov() {
+        return " WHERE AranzmanID = " + id;
+    }
     
 }
