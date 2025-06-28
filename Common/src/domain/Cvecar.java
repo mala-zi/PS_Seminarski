@@ -109,11 +109,11 @@ public class Cvecar extends OpstiDomenskiObjekat{
         ArrayList<OpstiDomenskiObjekat> lista = new ArrayList<>();
         while (rs.next()) {
             Cvecar c = new Cvecar(
-                    rs.getInt("CvecarID"),
-                    rs.getString("Ime"),
-                    rs.getString("Prezime"),
-                    rs.getString("KorisnickoIme"),
-                    rs.getString("Lozinka")
+                    rs.getInt("id"),
+                    rs.getString("ime"),
+                    rs.getString("prezime"),
+                    rs.getString("korisnickoIme"),
+                    rs.getString("lozinka")
             );
             lista.add(c);
         }
@@ -123,12 +123,12 @@ public class Cvecar extends OpstiDomenskiObjekat{
 
     @Override
     public String koloneZaInsert() {
-        return "(Ime, Prezime, KorisnickoIme, Lozinka)";
+        return "(ime, prezime, korisnickoIme, lozinka)";
     }
 
     @Override
     public String vrednostZaPrimarniKljuc() {
-        return " CvecarID = " + id;
+        return " id = " + id;
     }
 
     @Override
@@ -138,12 +138,12 @@ public class Cvecar extends OpstiDomenskiObjekat{
 
     @Override
     public String vrednostiZaUpdate() {
-        return "Ime = '" + ime + "', Prezime = '" + prezime + "', KorisnickoIme = '" + korisnickoIme + "', Lozinka = '" + lozinka + "'";
+        return "ime = '" + ime + "', prezime = '" + prezime + "', korisnickoIme = '" + korisnickoIme + "', lozinka = '" + lozinka + "'";
     }
 
     @Override
     public String uslov() {
-        return "KorisnickoIme = '" + korisnickoIme + "' AND Lozinka = '" + lozinka + "'";
+        return "korisnickoIme = '" + korisnickoIme + "' AND lozinka = '" + lozinka + "'";
     }
 
 }

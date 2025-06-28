@@ -66,7 +66,7 @@ public class StrucnaSprema extends OpstiDomenskiObjekat {
 
      @Override
     public String nazivTabele() {
-        return "StrucnaSprema";
+        return "strucnasprema";
     }
 
     @Override
@@ -85,10 +85,10 @@ public class StrucnaSprema extends OpstiDomenskiObjekat {
 
         while (rs.next()) {
             StrucnaSprema ss = new StrucnaSprema(
-                rs.getInt("StrucnaSpremaID"),
-                rs.getString("Naziv"),
-                rs.getString("Nivo"),
-                rs.getBoolean("Sertifikat")
+                rs.getInt("id"),
+                rs.getString("naziv"),
+                rs.getString("nivo"),
+                rs.getBoolean("sertifikat")
             );
             lista.add(ss);
         }
@@ -99,7 +99,7 @@ public class StrucnaSprema extends OpstiDomenskiObjekat {
 
     @Override
     public String koloneZaInsert() {
-        return "(StrucnaSpremaID, Naziv, Nivo, Sertifikat)";
+        return "(id, naziv, nivo, sertifikat)";
     }
 
     @Override
@@ -109,16 +109,16 @@ public class StrucnaSprema extends OpstiDomenskiObjekat {
 
     @Override
     public String vrednostiZaUpdate() {
-        return "Naziv = '" + naziv + "', Nivo = '" + nivo + "', Sertifikat = " + (sertifikat ? 1 : 0);
+        return "naziv = '" + naziv + "', nivo = '" + nivo + "', sertifikat = " + (sertifikat ? 1 : 0);
     }
 
     @Override
     public String vrednostZaPrimarniKljuc() {
-        return "StrucnaSpremaID = " + id;
+        return "id = " + id;
     }
 
     @Override
     public String uslov() {
-        return " WHERE StrucnaSpremaID = " + id;
+        return " WHERE id = " + id;
     }
 }

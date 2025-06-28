@@ -107,7 +107,7 @@ public class Kupac extends OpstiDomenskiObjekat{
 
     @Override
     public String join() {
-        return "JOIN mesto m ON k.MestoID = m.MestoID";
+        return "JOIN mesto m ON k.idMesto = m.id";
     }
 
     @Override
@@ -115,18 +115,18 @@ public class Kupac extends OpstiDomenskiObjekat{
         ArrayList<OpstiDomenskiObjekat> lista = new ArrayList<>();
         while (rs.next()) {
             Mesto m = new Mesto(
-            rs.getInt("MestoID"),
-            rs.getString("Grad"),
-            rs.getInt("PostanskiBroj"),
-            rs.getString("Ulica")
+            rs.getInt("id"),
+            rs.getString("grad"),
+            rs.getInt("postanskiBroj"),
+            rs.getString("ulica")
         );
             Kupac k = new Kupac(
-                    rs.getInt("KupacID"),
-                    rs.getInt("PIB"),
-                    rs.getString("Telefon"),
-                    rs.getString("Email"),
+                    rs.getInt("id"),
+                    rs.getInt("pib"),
+                    rs.getString("telefon"),
+                    rs.getString("email"),
                     m,
-                    rs.getString("Naziv")
+                    rs.getString("naziv")
             );
             lista.add(k);
         }
@@ -136,7 +136,7 @@ public class Kupac extends OpstiDomenskiObjekat{
 
     @Override
     public String koloneZaInsert() {
-        return "(PIB, Telefon, Email, MestoID, Naziv)";
+        return "(pib, telefon, email, idMesto, naziv)";
     }
 
     @Override
@@ -146,17 +146,17 @@ public class Kupac extends OpstiDomenskiObjekat{
 
     @Override
     public String vrednostZaPrimarniKljuc() {
-        return "KupacID = " + id;
+        return "id = " + id;
     }
 
     @Override
     public String vrednostiZaUpdate() {
-        return "PIB = " + pib + ", Telefon = '" + telefon + "', Email = '" + email + "', MestoID = " + mesto.getId() + ", Naziv = '" + naziv + "'";
+        return "pib = " + pib + ", telefon = '" + telefon + "', email = '" + email + "', idMesto = " + mesto.getId() + ", naziv = '" + naziv + "'";
     }
 
     @Override
     public String uslov() {
-        return "KupacID = " + id;
+        return "id = " + id;
     }
 
 }

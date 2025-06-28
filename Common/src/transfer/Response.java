@@ -9,7 +9,7 @@ import transfer.util.ResponseStatus;
 
 /**
  *
- * @author 38169
+ * @author Saki
  */
 public class Response implements Serializable{
     private Object data;

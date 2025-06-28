@@ -157,7 +157,7 @@ public class StavkaOtpremnice extends OpstiDomenskiObjekat {
 
     @Override
     public String nazivTabele() {
-        return "StavkaOtpremnice";
+        return "stavkaotpremnice";
     }
 
     @Override
@@ -167,8 +167,8 @@ public class StavkaOtpremnice extends OpstiDomenskiObjekat {
 
     @Override
     public String join() {
-        return "JOIN Aranzman a ON (so.AranzmanID = a.AranzmanID) "
-                + "JOIN Otpremnica o ON (so.OtpremnicaID = o.OtpremnicaID)";
+        return "JOIN aranzman a ON (so.idAranzman = a.id) "
+                + "JOIN otpremnica o ON (so.idOtpremnica = o.id)";
     }
 
     @Override
@@ -177,62 +177,62 @@ public class StavkaOtpremnice extends OpstiDomenskiObjekat {
 
         while (rs.next()) {
             PoreskaStopa ps = new PoreskaStopa(
-                    rs.getInt("PoreskaStopaID"),
-                    rs.getDouble("Stopa")
+                    rs.getInt("id"),
+                    rs.getDouble("vrednost")
             );
 
             // Aranzman
             Aranzman aranzman = new Aranzman(
-                    rs.getInt("AranzmanID"),
-                    rs.getString("Naziv"),
-                    rs.getString("Opis"),
+                    rs.getInt("id"),
+                    rs.getString("naziv"),
+                    rs.getString("opis"),
                     ps,
-                    rs.getDouble("CenaBezPDV"),
-                    rs.getDouble("CenaSaPDV"),
-                    rs.getDouble("Popust")
+                    rs.getDouble("cenaBezPDV"),
+                    rs.getDouble("cenaSaPDV"),
+                    rs.getDouble("popust")
             );
             Cvecar cvecar = new Cvecar(
-                    rs.getInt("CvecarID"),
-                    rs.getString("ImeCvecara"),
-                    rs.getString("PrezimeCvecara"),
-                    rs.getString("Email"),
-                    rs.getString("Password")
+                    rs.getInt("id"),
+                    rs.getString("ime"),
+                    rs.getString("prezime"),
+                    rs.getString("korisnickoIme"),
+                    rs.getString("lozinka")
             );
             Mesto mesto = new Mesto(
-                    rs.getInt("MestoID"),
-                    rs.getString("Grad"),
-                    rs.getInt("PostanskiBroj"),
-                    rs.getString("Ulica")
+                    rs.getInt("id"),
+                    rs.getString("grad"),
+                    rs.getInt("postanskiBroj"),
+                    rs.getString("ulica")
             );
 
             Kupac kupac = new Kupac(
-                    rs.getInt("KupacID"),
-                    rs.getInt("PIB"),
-                    rs.getString("Telefon"),
-                    rs.getString("Email"),
+                    rs.getInt("id"),
+                    rs.getInt("pib"),
+                    rs.getString("telefon"),
+                    rs.getString("email"),
                     mesto,
-                    rs.getString("Naziv")
+                    rs.getString("naziv")
             );
 
             Otpremnica otpremnica = new Otpremnica(
-                    rs.getInt("OtpremnicaID"),
-                    rs.getDouble("UkupanIznosBezPDV"),
-                    rs.getDouble("UkupanIznosSaPDV"),
-                    rs.getDouble("UkupanPopust"),
-                    rs.getDate("DatumIzdavanja"),
-                    rs.getDouble("UkupnaCena"),
+                    rs.getInt("id"),
+                    rs.getDouble("ukupanIznosBezPDV"),
+                    rs.getDouble("ukupanIznosSaPDV"),
+                    rs.getDouble("ukupanPopust"),
+                    rs.getDate("datumIzdavanja"),
+                    rs.getDouble("ukupnaCena"),
                     cvecar,
                     kupac
             );
 
             StavkaOtpremnice so = new StavkaOtpremnice(
-                    rs.getInt("Rb"),
-                    rs.getInt("Kolicina"),
-                    rs.getString("Napomena"),
-                    rs.getDouble("IznosBezPDV"),
-                    rs.getDouble("IznosSaPDV"),
-                    rs.getDouble("CenaBezPDV"),
-                    rs.getDouble("CenaSaPDV"),
+                    rs.getInt("rb"),
+                    rs.getInt("kolicina"),
+                    rs.getString("napomena"),
+                    rs.getDouble("iznosBezPDV"),
+                    rs.getDouble("iznosSaPDV"),
+                    rs.getDouble("cenaBezPDV"),
+                    rs.getDouble("cenaSaPDV"),
                     aranzman,
                     otpremnica
             );
@@ -246,7 +246,7 @@ public class StavkaOtpremnice extends OpstiDomenskiObjekat {
 
     @Override
     public String koloneZaInsert() {
-        return " (OtpremnicaID, Rb, Kolicina, Napomena, IznosBezPDV, IznosSaPDV, CenaBezPDV, CenaSaPDV, AranzmanID) ";
+        return " (idOtpremnica, rb, kolicina, napomena, iznosBezPDV, iznosSaPDV, cenaBezPDV, cenaSaPDV, idAranzman) ";
     }
 
     @Override
@@ -258,7 +258,7 @@ public class StavkaOtpremnice extends OpstiDomenskiObjekat {
 
     @Override
     public String vrednostZaPrimarniKljuc() {
-        return " OtpremnicaID = " + otpremnica.getId();
+        return " idOtpremnica = " + otpremnica.getId();
     }
 
     @Override
@@ -268,7 +268,7 @@ public class StavkaOtpremnice extends OpstiDomenskiObjekat {
 
     @Override
     public String uslov() {
-        return " WHERE o.OtpremnicaID = " + otpremnica.getId();
+        return " WHERE o.idOtpremnica = " + otpremnica.getId();
     }
 
 }

@@ -23,7 +23,7 @@ public class Mesto extends OpstiDomenskiObjekat{
     }
 
     public Mesto(int idM, String grad, int postanskiBroj, String ulica) {
-        this.id = id;
+        this.id = idM;
         this.grad = grad;
         this.postanskiBroj = postanskiBroj;
         this.ulica = ulica;
@@ -68,7 +68,7 @@ public class Mesto extends OpstiDomenskiObjekat{
 
     @Override
     public String nazivTabele() {
-        return "Mesto";
+        return "mesto";
     }
 
     @Override
@@ -86,10 +86,10 @@ public class Mesto extends OpstiDomenskiObjekat{
         ArrayList<OpstiDomenskiObjekat> lista = new ArrayList<>();
         while (rs.next()) {
             Mesto m = new Mesto(
-                rs.getInt("MestoID"),
-                rs.getString("Grad"),
-                rs.getInt("PostanskiBroj"),
-                rs.getString("Ulica")
+                rs.getInt("id"),
+                rs.getString("grad"),
+                rs.getInt("postanskiBroj"),
+                rs.getString("ulica")
             );
             lista.add(m);
         }
@@ -99,12 +99,12 @@ public class Mesto extends OpstiDomenskiObjekat{
 
     @Override
     public String koloneZaInsert() {
-        return "(Grad, PostanskiBroj, Ulica)";
+        return "(grad, postanskiBroj, ulica)";
     }
 
     @Override
     public String vrednostZaPrimarniKljuc() {
-        return "MestoID = " + id;
+        return "id= " + id;
     }
 
     @Override

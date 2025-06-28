@@ -4,7 +4,6 @@
  */
 package session;
 
-import domain.Kupac;
 import domain.Cvecar;
 import java.io.IOException;
 import java.net.Socket;
@@ -21,7 +20,7 @@ public class Session {
 
     private Session() {
         try {
-            socket = new Socket("localhost", 11000);
+            socket = new Socket("localhost", 9000);
         } catch (IOException ex) {
             ex.printStackTrace();
         }

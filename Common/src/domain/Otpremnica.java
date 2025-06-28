@@ -149,7 +149,7 @@ public class Otpremnica extends OpstiDomenskiObjekat {
 
     @Override
     public String nazivTabele() {
-        return "Otpremnica";
+        return "otpremnica";
     }
 
     @Override
@@ -159,8 +159,8 @@ public class Otpremnica extends OpstiDomenskiObjekat {
 
     @Override
     public String join() {
-        return " JOIN Cvecar c ON (c.CvecarID = o.CvecarID) "
-                + "JOIN Kupac k ON (k.KupacID = o.KupacID)";
+        return " JOIN cvecar c ON (c.id = o.idCvecar) "
+                + "JOIN kupac k ON (k.id = o.idKupac)";
     }
 
     @Override
@@ -169,10 +169,10 @@ public class Otpremnica extends OpstiDomenskiObjekat {
 
         while (rs.next()) {
             Mesto m = new Mesto(
-                    rs.getInt("MestoID"),
-                    rs.getString("Grad"),
-                    rs.getInt("PostanskiBroj"),
-                    rs.getString("Ulica"));
+                    rs.getInt("m.id"),
+                    rs.getString("m.grad"),
+                    rs.getInt("m.postanskiBroj"),
+                    rs.getString("m.ulica"));
             Kupac kupac = new Kupac(
                     rs.getInt("k.id"),
                     rs.getInt("k.pib"),
@@ -210,12 +210,12 @@ public class Otpremnica extends OpstiDomenskiObjekat {
 
     @Override
     public String koloneZaInsert() {
-        return "(UkupanIznosBezPDv, UkupanIznosSaPDV, UkupanPopust, DatumIzdavanja, UkupnaCena, CvecarID, KupacID)";
+        return "(ukupanIznosBezPDv, ukupanIznosSaPDV, ukupanPopust, datumIzdavanja, ukupnaCena, idCvecar, idKupac)";
     }
 
     @Override
     public String vrednostZaPrimarniKljuc() {
-        return "OtpremnicaID = " + id;
+        return "id = " + id;
     }
 
     @Override
@@ -237,8 +237,8 @@ public class Otpremnica extends OpstiDomenskiObjekat {
                 + ", ukupanPopust = " + ukupanPopust
                 + ", datumIzdavanja = " + datumStr
                 + ", ukupnaCena = " + ukupnaCena
-                + ", cvecarID = " + cvecar.getId()
-                + ", kupacID = " + kupac.getId();
+                + ", idCvecar = " + cvecar.getId()
+                + ", idKupac = " + kupac.getId();
     }
 
     @Override

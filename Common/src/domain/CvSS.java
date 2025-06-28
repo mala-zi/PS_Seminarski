@@ -58,7 +58,7 @@ public class CvSS extends OpstiDomenskiObjekat{
     }
      @Override
     public String nazivTabele() {
-        return "CvSS";
+        return "cvss";
     }
 
     @Override
@@ -68,8 +68,8 @@ public class CvSS extends OpstiDomenskiObjekat{
 
     @Override
     public String join() {
-        return "JOIN Cvecar c ON cvss.CvecarID = c.CvecarID "
-             + "JOIN StrucnaSprema ss ON cvss.StrucnaSpremaID = ss.StrucnaSpremaID";
+        return "JOIN cvecar c ON cvss.idCvecar = c.id "
+             + "JOIN strucnasprema ss ON cvss.idStrucnaSprema = ss.id";
     }
 
     @Override
@@ -78,14 +78,14 @@ public class CvSS extends OpstiDomenskiObjekat{
 
         while (rs.next()) {
             Cvecar cvecar = new Cvecar();
-            cvecar.setId(rs.getInt("CvecarID"));
+            cvecar.setId(rs.getInt("id"));
             // Populate more fields if necessary
 
             StrucnaSprema ss = new StrucnaSprema();
-            ss.setId(rs.getInt("StrucnaSpremaID"));
-            ss.setNaziv(rs.getString("Naziv"));
-            ss.setNivo(rs.getString("Nivo"));
-            ss.setSertifikat(rs.getBoolean("Sertifikat"));
+            ss.setId(rs.getInt("id"));
+            ss.setNaziv(rs.getString("naziv"));
+            ss.setNivo(rs.getString("nivo"));
+            ss.setSertifikat(rs.getBoolean("sertifikat"));
 
             CvSS cvss = new CvSS(cvecar, ss, rs.getDate("DatumObuke"));
 
@@ -98,7 +98,7 @@ public class CvSS extends OpstiDomenskiObjekat{
 
     @Override
     public String koloneZaInsert() {
-        return "(CvecarID, StrucnaSpremaID, DatumObuke)";
+        return "(idCvecar, idStrucnaSprema, datumObuke)";
     }
 
     @Override
@@ -110,12 +110,12 @@ public class CvSS extends OpstiDomenskiObjekat{
     @Override
     public String vrednostiZaUpdate() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        return "DatumObuke = '" + sdf.format(datumObuke) + "'";
+        return "datumObuke = '" + sdf.format(datumObuke) + "'";
     }
 
     @Override
     public String vrednostZaPrimarniKljuc() {
-        return "CvecarID = " + cvecar.getId() + " AND StrucnaSpremaID = " + strucnaSprema.getId();
+        return "idCvecar = " + cvecar.getId() + " AND idStrucnaSprema = " + strucnaSprema.getId();
     }
 
     @Override

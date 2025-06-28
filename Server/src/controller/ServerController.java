@@ -12,6 +12,7 @@ import domain.Kupac;
 import domain.OpstiDomenskiObjekat;
 import domain.Otpremnica;
 import domain.StavkaOtpremnice;
+import domain.StrucnaSprema;
 import java.sql.SQLException;
 import java.util.List;
 import so.OpstaSistemskaOperacija;
@@ -22,16 +23,16 @@ import validator.Validator;
  *
  * @author Saki
  */
-public class Controller {
-    private static Controller instance;
+public class ServerController {
+    private static ServerController instance;
    // private TransactionManager transactionManager;
 
-    public static Controller getInstance() throws Exception {
-        if (instance == null) instance = new Controller();
+    public static ServerController getInstance() throws Exception {
+        if (instance == null) instance = new ServerController();
         return instance;
     }
 
-    private Controller() throws SQLException {
+    private ServerController() throws SQLException {
        // transactionManager = TransactionManager.getInstance();
     }
 
@@ -154,6 +155,30 @@ public class Controller {
             throw e;
         }
         
+    }
+
+    public void ubaciStrSpremu(StrucnaSprema strucnaSprema) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void obrisiKupca(Kupac kupac) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void pretraziOtpremnicu(Otpremnica otpremnica) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public Object ucitajSveCvecareIzBaze() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void obrisiStavkuOtpremnice(Otpremnica otpremnica) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void promeniKupca(Kupac kupac) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

@@ -8,10 +8,10 @@ package transfer.util;
 
 /**
  *
- * @author Cartman
+ * @author Saki
  */
 public interface Operation  {
-    public static final int PRIJAVI_CVECARA = 0;
+public static final int PRIJAVI_CVECARA = 0;
 public static final int DODAJ_CVECARA = 1;
 public static final int KREIRAJ_OTPREMNICU = 2;
 public static final int UBACI_STR_SPREMU = 3;

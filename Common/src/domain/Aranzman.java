@@ -127,7 +127,7 @@ public class Aranzman extends OpstiDomenskiObjekat{
 
      @Override
     public String nazivTabele() {
-        return "Aranzman";
+        return "aranzman";
     }
 
     @Override
@@ -137,7 +137,7 @@ public class Aranzman extends OpstiDomenskiObjekat{
 
     @Override
     public String join() {
-        return "JOIN PoreskaStopa ps ON a.PoreskaStopaID = ps.PoreskaStopaID";
+        return "JOIN poreskastopa ps ON a.poreskaStopa = ps.id";
     }
 
     @Override
@@ -145,15 +145,15 @@ public class Aranzman extends OpstiDomenskiObjekat{
         ArrayList<OpstiDomenskiObjekat> lista = new ArrayList<>();
 
         while (rs.next()) {
-            PoreskaStopa ps = new PoreskaStopa(rs.getInt("PoreskaStopaID"), rs.getDouble("Stopa"));
+            PoreskaStopa ps = new PoreskaStopa(rs.getInt("id"), rs.getDouble("vrednost"));
             Aranzman a = new Aranzman(
-                rs.getInt("AranzmanID"),
-                rs.getString("Naziv"),
-                rs.getString("Opis"),
+                rs.getInt("id"),
+                rs.getString("naziv"),
+                rs.getString("opis"),
                 ps,
-                rs.getDouble("CenaBezPDV"),
-                rs.getDouble("CenaSaPDV"),
-                rs.getDouble("Popust")
+                rs.getDouble("cenaBezPDV"),
+                rs.getDouble("cenaSaPDV"),
+                rs.getDouble("popust")
             );
             lista.add(a);
         }
@@ -175,18 +175,18 @@ public class Aranzman extends OpstiDomenskiObjekat{
 
     @Override
     public String vrednostiZaUpdate() {
-        return "Naziv = '" + naziv + "', Opis = '" + opis + "', PoreskaStopaID = " + poreskaStopa.getId() +
-               ", CenaBezPDV = " + cenaBezPDV + ", CenaSaPDV = " + cenaSaPDV + ", Popust = " + popust;
+        return "naziv = '" + naziv + "', opis = '" + opis + "', poreskaStopa = " + poreskaStopa.getId() +
+               ", cenaBezPDV = " + cenaBezPDV + ", cenaSaPDV = " + cenaSaPDV + ", popust = " + popust;
     }
 
     @Override
     public String vrednostZaPrimarniKljuc() {
-        return "AranzmanID = " + id;
+        return "id = " + id;
     }
 
     @Override
     public String uslov() {
-        return " WHERE AranzmanID = " + id;
+        return " WHERE id = " + id;
     }
     
 }

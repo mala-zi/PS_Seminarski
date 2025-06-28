@@ -178,7 +178,7 @@ public class PromeniOtp extends javax.swing.JDialog {
 
             Cvecar c = (Cvecar) comboBoxCvecar.getSelectedItem();
             Kupac k = (Kupac) comboBoxKupac.getSelectedItem();
-            int idO=novaOtp.getIdOtpremnica();
+            int idO=novaOtp.getId();
             Otpremnica otpremnica = new Otpremnica(idO,datumIzdavanja, ukupnaCena, c, k);
             Controller.getInstance().promeniOtpremnicu(otpremnica);
 

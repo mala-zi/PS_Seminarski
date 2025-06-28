@@ -94,9 +94,6 @@ public class Controller {
         return (ArrayList<Aranzman>) sendRequest(Operation.VRATI_LISTU_SVI_ARANZMANI, null);
     }
 
-    /* public boolean proveriLozinkuCvecara(Cvecar cvecar) throws Exception {
-        return Communication.getInstance().proveriLozinkuCvecara(cvecar);
-    }*/
     public void promeniLozinkuCvecara(Cvecar cvecar) throws Exception {
         sendRequest(Operation.PROMENI_LOZINKU_CVECARA, cvecar);
     }

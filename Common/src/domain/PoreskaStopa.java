@@ -48,7 +48,7 @@ public class PoreskaStopa extends OpstiDomenskiObjekat {
 
     @Override
     public String nazivTabele() {
-        return "PoreskaStopa";
+        return "poreskastopa";
     }
 
     @Override
@@ -67,8 +67,8 @@ public class PoreskaStopa extends OpstiDomenskiObjekat {
 
         while (rs.next()) {
             PoreskaStopa ps = new PoreskaStopa(
-                    rs.getInt("PoreskaStopaID"),
-                    rs.getDouble("Stopa") 
+                    rs.getInt("id"),
+                    rs.getDouble("vrednost") 
             );
             lista.add(ps);
         }
@@ -79,7 +79,7 @@ public class PoreskaStopa extends OpstiDomenskiObjekat {
 
     @Override
     public String koloneZaInsert() {
-        return "(PoreskaStopaID, Stopa)";
+        return "(id, vrednost)";
     }
 
     @Override
@@ -89,16 +89,16 @@ public class PoreskaStopa extends OpstiDomenskiObjekat {
 
     @Override
     public String vrednostiZaUpdate() {
-        return "Stopa = " + vrednost;
+        return "vrednost = " + vrednost;
     }
 
     @Override
     public String vrednostZaPrimarniKljuc() {
-        return "PoreskaStopaID = " + id;
+        return "id = " + id;
     }
 
     @Override
     public String uslov() {
-        return " WHERE PoreskaStopaID = " + id;
+        return " WHERE id = " + id;
     }
 }

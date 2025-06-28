@@ -9,7 +9,7 @@ import server.Server;
 
 /**
  *
- * @author Dules
+ * @author Saki
  */
 public class Main {
 

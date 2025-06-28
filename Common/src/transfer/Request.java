@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author 38169
+ * @author Saki
  */
 public class Request implements Serializable{
     private int operation;
