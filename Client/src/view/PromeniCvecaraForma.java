@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import tableModel.ModelTableCvecar;
+import tableModel.TableModelCvecar;
 
 /**
  *
@@ -19,7 +19,7 @@ import tableModel.ModelTableCvecar;
 public class PromeniCvecaraForma extends javax.swing.JFrame {
 
     private List<Cvecar> lista;
-    ModelTableCvecar mtc;
+    TableModelCvecar mtc;
 
     /**
      * Creates new form PromeniCvecaraForma
@@ -27,7 +27,7 @@ public class PromeniCvecaraForma extends javax.swing.JFrame {
     public PromeniCvecaraForma() throws Exception {
         initComponents();
         lista = Controller.getInstance().ucitajCvecareIzBaze();
-        mtc= new ModelTableCvecar(lista);
+        mtc= new TableModelCvecar(lista);
         setResizable(false);
         setLocationRelativeTo(null);
         tblCvecari.setModel(mtc);
@@ -129,14 +129,14 @@ public class PromeniCvecaraForma extends javax.swing.JFrame {
         // TODO add your handling code here:
         int selektovanRed=tblCvecari.getSelectedRow();
         if(selektovanRed==-1){
-            JOptionPane.showMessageDialog(this, "nista nije selektovano","greska",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Nista nije selektovano","greska",JOptionPane.ERROR_MESSAGE);
             return;
         }
         Cvecar c=lista.get(selektovanRed);
         KreirajCvecaraForma kf=new KreirajCvecaraForma(this, c);
         kf.setVisible(true);
         try {
-            tblCvecari.setModel(new ModelTableCvecar(Controller.getInstance().ucitajCvecareIzBaze()));
+            tblCvecari.setModel(new TableModelCvecar(Controller.getInstance().ucitajCvecareIzBaze()));
         } catch (Exception ex) {
             Logger.getLogger(PromeniCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -168,7 +168,7 @@ public class PromeniCvecaraForma extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(this, "Cvecar obrisan", "greska", JOptionPane.INFORMATION_MESSAGE);
 
-            tblCvecari.setModel(new ModelTableCvecar(Controller.getInstance().ucitajCvecareIzBaze()));
+            tblCvecari.setModel(new TableModelCvecar(Controller.getInstance().ucitajCvecareIzBaze()));
         } catch (Exception ex) {
             Logger.getLogger(PromeniCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
         }

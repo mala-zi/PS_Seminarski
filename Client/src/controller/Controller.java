@@ -10,6 +10,7 @@ import domain.Cvecar;
 import domain.Kupac;
 import domain.Otpremnica;
 import domain.StavkaOtpremnice;
+import domain.StrucnaSprema;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
@@ -96,5 +97,17 @@ public class Controller {
 
     public void promeniLozinkuCvecara(Cvecar cvecar) throws Exception {
         sendRequest(Operation.PROMENI_LOZINKU_CVECARA, cvecar);
+    }
+
+    public void ubaciStrSprema(StrucnaSprema strs) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void promeniStrSpremu(StrucnaSprema ss) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public List<StrucnaSprema> ucitajStrucnuSpremuIzBaze() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

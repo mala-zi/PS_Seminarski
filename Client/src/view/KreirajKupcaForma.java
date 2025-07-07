@@ -4,7 +4,7 @@
  */
 package view;
 
-import tableModel.ModelTableKupac;
+import tableModel.TableModelKupac;
 import controller.Controller;
 import java.util.List;
 import javax.swing.JFrame;
@@ -205,7 +205,7 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
             Kupac k=new Kupac(id, pib, telefon, email, mesto, naziv);
             Controller.getInstance().izmeniKupca(k);
             JOptionPane.showMessageDialog(this, "Kupac uspesno izmenjen","Obavestenje",JOptionPane.INFORMATION_MESSAGE);
-            pkf.mtk=new ModelTableKupac(Controller.getInstance().ucitajKupceIzBaze());
+            pkf.mtk=new TableModelKupac(Controller.getInstance().ucitajKupceIzBaze());
             
             this.dispose();
         }

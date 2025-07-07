@@ -12,11 +12,11 @@ import domain.Kupac;
  *
  * @author Saki
  */
-public class ModelTableKupac  extends AbstractTableModel{
+public class TableModelKupac  extends AbstractTableModel{
     private List<Kupac> listaKupaca;
     private String[] kolone={"ID","Naziv","PIB","Telefon","Email","Mesto"};
 
-    public ModelTableKupac(List<Kupac> listaKupaca) {
+    public TableModelKupac(List<Kupac> listaKupaca) {
         this.listaKupaca = listaKupaca;
     }
 

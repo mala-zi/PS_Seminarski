@@ -13,14 +13,14 @@ import domain.StavkaOtpremnice;
  *
  * @author Saki
  */
-public class ModelTableOtpremnica extends AbstractTableModel{
+public class TableModelOtpremnica extends AbstractTableModel{
 
     private List<StavkaOtpremnice> listaStavki;
     private int i=1;
     private final String[] kolone={"RB","Kolicina","Aranzman","Cena Bez PDV",
         "Cena Sa PDV", "Iznos Bez PDV","Iznos Sa PDV","Napomena"};
 
-    public ModelTableOtpremnica(List<StavkaOtpremnice> listaStavki) {
+    public TableModelOtpremnica(List<StavkaOtpremnice> listaStavki) {
         this.listaStavki = listaStavki;
     }
 

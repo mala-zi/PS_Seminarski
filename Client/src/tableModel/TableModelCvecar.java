@@ -12,11 +12,11 @@ import domain.Cvecar;
  *
  * @author Saki
  */
-public class ModelTableCvecar extends AbstractTableModel {
+public class TableModelCvecar extends AbstractTableModel {
     private List<Cvecar> listaCvecara;
     private String[] kolone={"Ime","Prezime"};
 
-    public ModelTableCvecar(List<Cvecar> listaCvecara) {
+    public TableModelCvecar(List<Cvecar> listaCvecara) {
         this.listaCvecara = listaCvecara;
     }
 

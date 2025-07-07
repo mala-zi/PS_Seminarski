@@ -4,7 +4,7 @@
  */
 package view;
 
-import tableModel.ModelTableOtpremnica;
+import tableModel.TableModelOtpremnica;
 import controller.Controller;
 import domain.Aranzman;
 import java.text.ParseException;
@@ -48,7 +48,7 @@ public class KreirajOtp extends javax.swing.JDialog {
         popuniCvecareIzBaze();
         popuniKupceIzBaze();
         popuniAranzmaneIzBaze();
-        tableStavke.setModel(new ModelTableOtpremnica(listaStavki));
+        tableStavke.setModel(new TableModelOtpremnica(listaStavki));
     }
 
     /**
@@ -476,7 +476,7 @@ public class KreirajOtp extends javax.swing.JDialog {
         }
         listaStavki.add(s1);
         resetPodataka();
-        tableStavke.setModel(new ModelTableOtpremnica(listaStavki));
+        tableStavke.setModel(new TableModelOtpremnica(listaStavki));
 
         ukupnaSa = ukupnaSa + s1.getIznosSaPDV();
         ukupnaBez = ukupnaBez + s1.getIznosBezPDV();
@@ -509,7 +509,7 @@ public class KreirajOtp extends javax.swing.JDialog {
         }
         StavkaOtpremnice so=listaStavki.get(selected);
         listaStavki.remove(so);
-         tableStavke.setModel(new ModelTableOtpremnica(listaStavki));
+         tableStavke.setModel(new TableModelOtpremnica(listaStavki));
         
     }//GEN-LAST:event_btnUkloniStavkuActionPerformed
 

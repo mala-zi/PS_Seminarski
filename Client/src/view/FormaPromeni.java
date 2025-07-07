@@ -4,7 +4,7 @@
  */
 package view;
 
-import tableModel.ModelTableOtpremnica;
+import tableModel.TableModelOtpremnica;
 import controller.Controller;
 import javax.swing.JOptionPane;
 
@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  * @author Saki
  */
 public class FormaPromeni extends javax.swing.JDialog {
-ModelTableOtpremnica mto= new ModelTableOtpremnica( Controller.getInstance().ucitajOtpremniceIzBaze());
+TableModelOtpremnica mto= new TableModelOtpremnica( Controller.getInstance().ucitajOtpremniceIzBaze());
     /**
      * Creates new form PromeniForma
      */

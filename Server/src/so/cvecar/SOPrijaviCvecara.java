@@ -7,6 +7,7 @@ package so.cvecar;
 import dbb.DatabaseBroker;
 import domain.Cvecar;
 import domain.OpstiDomenskiObjekat;
+import java.util.ArrayList;
 import so.OpstaSistemskaOperacija;
 
 /**
@@ -15,24 +16,33 @@ import so.OpstaSistemskaOperacija;
  */
 public class SOPrijaviCvecara extends OpstaSistemskaOperacija{
     private Cvecar prijavljenCvecar;
+
+    @Override
+    protected void validate(OpstiDomenskiObjekat odo) throws Exception {
+        if(!(odo instanceof Cvecar))
+            throw  new Exception("Prosledjeni objekat nije instanca klase Cvecar!");
+    }
+
+    @Override
+    protected void execute(OpstiDomenskiObjekat ado) throws Exception {
+        Cvecar c= (Cvecar) ado;
+        ArrayList<Cvecar> listaSankera= (ArrayList<Cvecar>) (ArrayList<?>)
+                DatabaseBroker.getInstance().select(ado);
+        for (Cvecar cvecar : listaSankera) {
+            if(cvecar.getKorisnickoIme().equals(c.getKorisnickoIme()) &&
+                    cvecar.getLozinka().equals(c.getLozinka())){
+                prijavljenCvecar=cvecar;
+                return;
+            } 
+        }
+        
+        throw new Exception("Pogresni kredencijali!");
+    }
+
     public Cvecar getPrijavljenCvecar() {
         return prijavljenCvecar;
     }
 
-    public void setPrijavljenCvecar(Cvecar prijavljenCvecar) {
-        this.prijavljenCvecar = prijavljenCvecar;
-    }
-
     
-    
-    @Override
-    protected void proveriPreduslov(OpstiDomenskiObjekat odo) throws Exception {
-    }
-
-    @Override
-    protected void izvrsiKonkretnuOperaciju(OpstiDomenskiObjekat odo) throws Exception {
-        OpstiDomenskiObjekat odo1=DatabaseBroker.getInstance().prijaviCvecara(odo);
-        prijavljenCvecar=(Cvecar) odo1;
-    }
     
 }

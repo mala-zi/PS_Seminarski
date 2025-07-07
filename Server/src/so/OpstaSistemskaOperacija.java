@@ -6,7 +6,7 @@ package so;
 
 import dbb.DatabaseBroker;
 import domain.OpstiDomenskiObjekat;
-
+import java.sql.*;
 /**
  *
  * @author Saki
@@ -14,28 +14,26 @@ import domain.OpstiDomenskiObjekat;
 public abstract class OpstaSistemskaOperacija {
 
 
-    public void izvrsi(OpstiDomenskiObjekat odo) throws Exception {
-        try {
+    protected abstract void validate(OpstiDomenskiObjekat odo) throws Exception;
+    protected abstract void execute(OpstiDomenskiObjekat odo) throws Exception;
 
-            proveriPreduslov(odo);
-            izvrsiKonkretnuOperaciju(odo);
-            potvrdi();
-        } catch (Exception ex) {
-            ponisti();
-            throw new Exception("Greska kod izvrsenja SO: " + ex.getMessage());
+    public void templateExecute(OpstiDomenskiObjekat odo) throws Exception {
+        try {
+            validate(odo);
+            execute(odo);
+            commit();
+        } catch (Exception e) {
+            rollback();
+            throw e;
         }
     }
 
-    protected abstract void proveriPreduslov(OpstiDomenskiObjekat odo) throws Exception;
-
-    protected abstract void izvrsiKonkretnuOperaciju(OpstiDomenskiObjekat odo) throws Exception;
-
-    private void potvrdi() throws Exception {
-        dbb.DatabaseBroker.getInstance().commit();
+    public void commit() throws SQLException {
+        DatabaseBroker.getInstance().getConnection().commit();
     }
 
-    private void ponisti() throws Exception {
-        dbb.DatabaseBroker.getInstance().rollback();
+    public void rollback() throws SQLException {
+        DatabaseBroker.getInstance().getConnection().rollback();
     }
 
 }

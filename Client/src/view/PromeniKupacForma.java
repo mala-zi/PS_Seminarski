@@ -4,7 +4,7 @@
  */
 package view;
 
-import tableModel.ModelTableKupac;
+import tableModel.TableModelKupac;
 import controller.Controller;
 import javax.swing.JOptionPane;
 import domain.Kupac;
@@ -15,7 +15,7 @@ import domain.Kupac;
  */
 public class PromeniKupacForma extends javax.swing.JFrame {
  
-    ModelTableKupac mtk=new ModelTableKupac(Controller.getInstance().ucitajKupceIzBaze());
+    TableModelKupac mtk=new TableModelKupac(Controller.getInstance().ucitajKupceIzBaze());
     /**
      * Creates new form PromeniKupacForma
      */
@@ -125,7 +125,7 @@ public class PromeniKupacForma extends javax.swing.JFrame {
         }
         Kupac kupac = Controller.getInstance().ucitajKupceIzBaze().get(selektovanRed);
         Controller.getInstance().obrisiKupca(kupac);
-        mtk=new ModelTableKupac(Controller.getInstance().ucitajKupceIzBaze());
+        mtk=new TableModelKupac(Controller.getInstance().ucitajKupceIzBaze());
         tblKupci.setModel(mtk);
     }//GEN-LAST:event_btnObrisiActionPerformed
 

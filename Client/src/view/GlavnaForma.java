@@ -5,11 +5,10 @@
 package view;
 
 import domain.Cvecar;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import komunikacija.Communication;
+import javax.swing.JOptionPane;
+import session.Session;
 
 
 
@@ -113,9 +112,19 @@ Cvecar cvecar;
         jMenu1.add(jMenuItem10);
 
         jMenuItem2.setText("Ubaci strucnu spremu");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem2);
 
         jMenuItem12.setText("Promeni strucnu spremu");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem12);
 
         jMenuItem13.setText("Obrisi strucnu spremu");
@@ -247,7 +256,19 @@ Cvecar cvecar;
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        this.dispose();
+        int odgovor= JOptionPane.showConfirmDialog(this,
+                "Da li ste sigurni da zelite da se odjavite?", 
+                "Odjava",
+                JOptionPane.YES_NO_OPTION);
+        
+        if(odgovor==JOptionPane.NO_OPTION) return;
+        else if(odgovor==JOptionPane.YES_OPTION) {
+            Session.getInstance().setUlogovani(null);
+            LoginForma lf= new LoginForma();
+            lf.setVisible(true);
+                 
+            this.dispose();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
@@ -285,6 +306,16 @@ Cvecar cvecar;
         KreirajCvecaraForma kcf=new KreirajCvecaraForma();
         kcf.setVisible(true);
     }//GEN-LAST:event_jMenuItem16ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        UbaciStrucnuSpremuForma ssf=new UbaciStrucnuSpremuForma();
+        ssf.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

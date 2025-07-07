@@ -4,7 +4,7 @@
  */
 package view;
 
-import tableModel.ModelTableOtpremnica;
+import tableModel.TableModelOtpremnica;
 import controller.Controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -188,7 +188,7 @@ public class PromeniOtp extends javax.swing.JDialog {
             return;
         }
 
-        pf.mto = new ModelTableOtpremnica(Controller.getInstance().ucitajOtpremniceIzBaze());
+        pf.mto = new TableModelOtpremnica(Controller.getInstance().ucitajOtpremniceIzBaze());
         JOptionPane.showMessageDialog(this, "Otpremnica je promenjena", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
         this.dispose();
 

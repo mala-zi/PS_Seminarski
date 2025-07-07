@@ -26,6 +26,11 @@ public class StrucnaSprema extends OpstiDomenskiObjekat {
         this.nivo= nivo;
         this.sertifikat = sertifikat;
     }
+    public StrucnaSprema(String naziv, String nivo, boolean sertifikat) {
+        this.naziv= naziv;
+        this.nivo= nivo;
+        this.sertifikat = sertifikat;
+    }
 
     public int getId() {
         return id;
@@ -35,7 +40,7 @@ public class StrucnaSprema extends OpstiDomenskiObjekat {
         this.id = id;
     }
 
-    public String getNazi() {
+    public String getNaziv() {
         return naziv;
     }
 
