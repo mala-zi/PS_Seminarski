@@ -4,181 +4,160 @@
  */
 package controller;
 
-import dbb.PasswordHash;
-import dbb.TransactionManager;
 import domain.Aranzman;
 import domain.Cvecar;
 import domain.Kupac;
-import domain.OpstiDomenskiObjekat;
+import domain.Mesto;
 import domain.Otpremnica;
-import domain.StavkaOtpremnice;
 import domain.StrucnaSprema;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import so.OpstaSistemskaOperacija;
+import so.aranzman.SOKreirajAranzman;
+import so.aranzman.SOObrisiAranzman;
+import so.aranzman.SOPromeniAranzman;
+import so.aranzman.SOVratiListuSviAranzman;
+import so.cvecar.SOKreirajCvecar;
+import so.cvecar.SOObrisiCvecar;
 import so.cvecar.SOPrijaviCvecara;
-import validator.Validator;
+import so.cvecar.SOPromeniCvecar;
+import so.cvecar.SOVratiListuSviCvecar;
+import so.kupac.SOObrisiKupac;
+import so.kupac.SOPromeniKupca;
+import so.kupac.SOVratiListuSviKupac;
+import so.kupac.SOKreirajKupca;
+import so.mesto.SOKreirajMesto;
+import so.mesto.SOObrisiMesto;
+import so.mesto.SOPromeniMesto;
+import so.mesto.SOVratiListuSviMesto;
+import so.otpremnica.SOKreirajOtpremnicu;
+import so.otpremnica.SOPromeniOtpremnicu;
+import so.otpremnica.SOVratiListuSviOtpremnica;
+import so.strsprema.SOPromeniStrSprema;
+import so.strsprema.SOUbaciStrSprema;
 
 /**
  *
  * @author Saki
  */
 public class ServerController {
+
     private static ServerController instance;
-   // private TransactionManager transactionManager;
+    // private TransactionManager transactionManager;
 
     public static ServerController getInstance() throws Exception {
-        if (instance == null) instance = new ServerController();
+        if (instance == null) {
+            instance = new ServerController();
+        }
         return instance;
     }
 
     private ServerController() throws SQLException {
-       // transactionManager = TransactionManager.getInstance();
+
     }
 
-    public Object prijaviCvecara(OpstiDomenskiObjekat odo) throws SQLException, Exception {
-        try {
-            Validator.validateCvecarSign((Cvecar) odo);
-           // String hashedPassword = PasswordHash.hashPassword(cvecar.getLozinka());
-           // cvecar.setLozinka(hashedPassword);
-            OpstaSistemskaOperacija oso=new SOPrijaviCvecara();
-            //System.out.println((Cvecar)odo);
-            oso.izvrsi(odo);
-            return ((SOPrijaviCvecara)oso).getPrijavljenCvecar();
-        } catch (IllegalArgumentException e) {
-            System.out.println("Greška u validaciji: " + e.getMessage());
-            throw new SQLException("Validacija nije prošla: " + e.getMessage());
+    public Cvecar prijaviCvecara(Cvecar cvecar) throws SQLException, Exception {
+        SOPrijaviCvecara soPrijavi = new SOPrijaviCvecara();
+        soPrijavi.templateExecute(cvecar);
+        return soPrijavi.getPrijavljenCvecar();
 
-        } catch (Exception e) {
-           // transactionManager.rollbackTransaction();
-            throw e;
-        }
     }
 
-    public void dodajCvecara(Cvecar cvecarAdd) throws SQLException {
-        try {
-            Validator.validateCvecarAdd(cvecarAdd);
-            String hashedPassword = PasswordHash.hashPassword(cvecarAdd.getLozinka());
-            cvecarAdd.setLozinka(hashedPassword);
-            //transactionManager.getDatabaseBroker().dodajCvecara(cvecarAdd);
-           // transactionManager.commitTransaction();
-        } catch (IllegalArgumentException e) {
-            System.out.println("Greška u validaciji: " + e.getMessage());
-            throw new SQLException("Validacija nije prošla: " + e.getMessage());
+    public void dodajCvecara(Cvecar cvecarAdd) throws Exception {
+        (new SOKreirajCvecar()).templateExecute(cvecarAdd);
 
-        } catch (Exception e) {
-          //  transactionManager.rollbackTransaction();
-            throw e;
-        }
     }
 
-    public void promeniCvecara(Cvecar cvecarChange) throws SQLException {
-        try {
-            Validator.validateCvecarChange(cvecarChange);
-           // transactionManager.getDatabaseBroker().promeniCvecara(cvecarChange);
-           // transactionManager.commitTransaction();
-    } catch (IllegalArgumentException e) {
-            System.out.println("Greška u validaciji: " + e.getMessage());
-            throw new SQLException("Validacija nije prošla: " + e.getMessage());
-
-        } catch (Exception e) {
-           // transactionManager.rollbackTransaction();
-            throw e;
-        }
+    public void promeniCvecara(Cvecar cvecarChange) throws Exception {
+        (new SOPromeniCvecar()).templateExecute(cvecarChange);
     }
 
-    public List<Cvecar> ucitajCvecareIzBaze() throws SQLException {
-        try {
-            //return transactionManager.getDatabaseBroker().ucitajCvecareIzBaze();
-        } catch (Exception e) {
-            throw e;
-        }
-        return null;
+    public ArrayList<Cvecar> ucitajCvecareIzBaze() throws Exception {
+        SOVratiListuSviCvecar so = new SOVratiListuSviCvecar();
+        so.templateExecute(new Cvecar());
+        return so.getList();
     }
 
-    public void obrisiCvecara(Cvecar cvecarDelete) throws SQLException {
-        try {
-          //  transactionManager.getDatabaseBroker().obrisiCvecara(cvecarDelete);
-          //  transactionManager.commitTransaction();
-        } catch (Exception e) {
-          //  transactionManager.rollbackTransaction();
-            throw e;
-        }
+    public void obrisiCvecara(Cvecar cvecarDelete) throws Exception {
+        (new SOObrisiCvecar()).templateExecute(cvecarDelete);
     }
 
-    public List<Kupac> ucitajKupceIzBaze() throws Exception {
-        try {
-           // return transactionManager.getDatabaseBroker().ucitajKupceIzBaze();
-        } catch (Exception e) {
-            throw e;
-        }
-        return null;
+    public ArrayList<Kupac> ucitajKupceIzBaze() throws Exception {
+        SOVratiListuSviKupac so = new SOVratiListuSviKupac();
+        so.templateExecute(new Kupac());
+        return so.getList();
     }
 
-    public List<Aranzman> ucitajAranzmaneIzBaze() throws Exception {
-        try {
-         //   return transactionManager.getDatabaseBroker().ucitajAranzmaneIzBaze();
-        } catch (Exception e) {
-            throw e;
-        }
-        return null;
+    public void promeniKupca(Kupac kupacChange) throws Exception {
+        (new SOPromeniKupca()).templateExecute(kupacChange);
     }
 
-    public Otpremnica kreirajOtpremnicu(Otpremnica otp) throws SQLException {
-         try {
-           // Otpremnica result = transactionManager.getDatabaseBroker().kreirajOtpremnicu(otp);
-         //   transactionManager.commitTransaction();
-          //  return result;
-        } catch (Exception e) {
-          //  transactionManager.rollbackTransaction();
-            throw e;
-        }
-         return null;
+    public void obrisiKupca(Kupac kupacDelete) throws Exception {
+        (new SOObrisiKupac()).templateExecute(kupacDelete);
     }
 
-    public void dodajStavkuOtpremnice(StavkaOtpremnice so) throws SQLException {
-        try {
-          //  transactionManager.getDatabaseBroker().dodajStavkuOtpremnice(so);
-         //   transactionManager.commitTransaction();
-        } catch (Exception e) {
-           // transactionManager.rollbackTransaction();
-            throw e;
-        }
+    public void dodajKupca(Kupac kupacAdd) throws Exception {
+        (new SOKreirajKupca()).templateExecute(kupacAdd);
     }
 
-    public void promeniLozinkuCvecara(Cvecar cvecarLozinkaPromena) throws SQLException {
-        try {
-        //transactionManager.getDatabaseBroker().updateNewPasswordToHash(cvecarLozinkaPromena);
-       // transactionManager.commitTransaction();
-        } catch (Exception e) {
-          //  transactionManager.rollbackTransaction();
-            throw e;
-        }
-        
+    public ArrayList<Aranzman> ucitajAranzmaneIzBaze() throws Exception {
+        SOVratiListuSviAranzman so = new SOVratiListuSviAranzman();
+        so.templateExecute(new Aranzman());
+        return so.getList();
     }
 
-    public void ubaciStrSpremu(StrucnaSprema strucnaSprema) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void promeniAranzman(Aranzman aranzmanChange) throws Exception {
+        (new SOPromeniAranzman()).templateExecute(aranzmanChange);
     }
 
-    public void obrisiKupca(Kupac kupac) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void obrisiAranzman(Aranzman aranzmanDelete) throws Exception {
+        (new SOObrisiAranzman()).templateExecute(aranzmanDelete);
     }
 
-    public void pretraziOtpremnicu(Otpremnica otpremnica) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void dodajAranzman(Aranzman aranzmanAdd) throws Exception {
+        (new SOKreirajAranzman()).templateExecute(aranzmanAdd);
     }
 
-    public Object ucitajSveCvecareIzBaze() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public ArrayList<Mesto> ucitajMestaIzBaze() throws Exception {
+        SOVratiListuSviMesto so = new SOVratiListuSviMesto();
+        so.templateExecute(new Mesto());
+        return so.getList();
     }
 
-    public void obrisiStavkuOtpremnice(Otpremnica otpremnica) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void promeniMesto(Mesto mestoChange) throws Exception {
+        (new SOPromeniMesto()).templateExecute(mestoChange);
     }
 
-    public void promeniKupca(Kupac kupac) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void obrisiMesto(Mesto mestoDelete) throws Exception {
+        (new SOObrisiMesto()).templateExecute(mestoDelete);
     }
+
+    public void dodajMesto(Mesto mestoAdd) throws Exception {
+        (new SOKreirajMesto()).templateExecute(mestoAdd);
+    }
+
+    public void kreirajOtpremnicu(Otpremnica otpAdd) throws Exception {
+       (new SOKreirajOtpremnicu()).templateExecute(otpAdd);
+    }
+
+    public ArrayList<Otpremnica> ucitajOtpremniceIzBaze() throws Exception {
+        SOVratiListuSviOtpremnica so = new SOVratiListuSviOtpremnica();
+        so.templateExecute(new Otpremnica());
+        return so.getList();
+    }
+    public void promeniOtpremnicu(Otpremnica otpremnicaChange) throws Exception {
+       (new SOPromeniOtpremnicu()).templateExecute(otpremnicaChange);
+    }
+
+    public void ubaciStrSpremu(StrucnaSprema strucnaSpremaAdd) throws Exception {
+        (new SOUbaciStrSprema()).templateExecute(strucnaSpremaAdd);
+    }
+
+    public void promeniStrSpremu(StrucnaSprema strucnaSpremaChange) throws Exception {
+        (new SOPromeniStrSprema()).templateExecute(strucnaSpremaChange);
+    }
+
+    
 
 }

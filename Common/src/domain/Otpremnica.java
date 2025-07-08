@@ -25,6 +25,7 @@ public class Otpremnica extends OpstiDomenskiObjekat {
     private double ukupnaCena;
     private Cvecar cvecar;
     private Kupac kupac;
+    private ArrayList<StavkaOtpremnice> stavkeOtpremnice;
 
     public Otpremnica() {
     }
@@ -40,7 +41,7 @@ public class Otpremnica extends OpstiDomenskiObjekat {
         this.kupac = kupac;
     }
 
-    public Otpremnica(int id, double ukupanIznosBezPDv, double ukupanIznosSaPDV, double ukupanPopust, Date datumIzdavanja, double ukupnaCena, Cvecar cvecar, Kupac kupac) {
+    public Otpremnica(int id, double ukupanIznosBezPDv, double ukupanIznosSaPDV, double ukupanPopust, Date datumIzdavanja, double ukupnaCena, Cvecar cvecar, Kupac kupac, ArrayList<StavkaOtpremnice> stavkeOtpremnice) {
         this.id = id;
         this.ukupanIznosBezPDv = ukupanIznosBezPDv;
         this.ukupanIznosSaPDV = ukupanIznosSaPDV;
@@ -49,7 +50,18 @@ public class Otpremnica extends OpstiDomenskiObjekat {
         this.ukupnaCena = ukupnaCena;
         this.cvecar = cvecar;
         this.kupac = kupac;
+        this.stavkeOtpremnice = stavkeOtpremnice;
     }
+
+    public ArrayList<StavkaOtpremnice> getStavkeOtpremnice() {
+        return stavkeOtpremnice;
+    }
+
+    public void setStavkeOtpremnice(ArrayList<StavkaOtpremnice> stavkeOtpremnice) {
+        this.stavkeOtpremnice = stavkeOtpremnice;
+    }
+
+   
 
     public int getId() {
         return id;
@@ -198,7 +210,7 @@ public class Otpremnica extends OpstiDomenskiObjekat {
                     rs.getDate("o.datumIzdavanja"),
                     rs.getDouble("o.ukupnaCena"),
                     cvecar,
-                    kupac
+                    kupac,null
             );
 
             lista.add(o);

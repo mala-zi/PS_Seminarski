@@ -5,7 +5,7 @@
 package main;
 
 import java.sql.SQLException;
-import server.Server;
+import thread.ThreadServer;
 
 /**
  *
@@ -17,8 +17,8 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws SQLException {
-        Server server = new Server();
-        server.startServer();
+        ThreadServer server = new ThreadServer();
+        server.start();
     }
     
 }

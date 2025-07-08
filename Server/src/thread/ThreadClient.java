@@ -67,14 +67,8 @@ public class ThreadClient extends Thread {
                 case Operation.OBRISI_KUPCA:
                     ServerController.getInstance().obrisiKupca((Kupac) request.getData());
                     break;
-                case Operation.PRETRAZI_OTPREMNICU:
-                    ServerController.getInstance().pretraziOtpremnicu((Otpremnica) request.getData());
-                    break;
                 case Operation.VRATI_LISTU_CVECAR:
                     response.setData(ServerController.getInstance().ucitajCvecareIzBaze());
-                    break;
-                case Operation.VRATI_LISTU_SVI_CVECAR:
-                    response.setData(ServerController.getInstance().ucitajSveCvecareIzBaze());
                     break;
                 case Operation.PROMENI_CVECARA:
                     ServerController.getInstance().promeniCvecara((Cvecar) request.getData());
@@ -82,20 +76,11 @@ public class ThreadClient extends Thread {
                 case Operation.OBRISI_CVECARA:
                     ServerController.getInstance().obrisiCvecara((Cvecar) request.getData());
                     break;
-                case Operation.DODAJ_STAVKU_OTPREMNICE:
-                    ServerController.getInstance().dodajStavkuOtpremnice((StavkaOtpremnice) request.getData());
-                    break;
                 case Operation.VRATI_LISTU_SVI_KUPCI:
                     response.setData(ServerController.getInstance().ucitajKupceIzBaze());
                     break;
                 case Operation.VRATI_LISTU_SVI_ARANZMANI:
                     response.setData(ServerController.getInstance().ucitajAranzmaneIzBaze());
-                    break;
-                case Operation.OBRISI_STAVKU_OTPREMNICE:
-                    ServerController.getInstance().obrisiStavkuOtpremnice((Otpremnica) request.getData());
-                    break;
-                case Operation.PROMENI_LOZINKU_CVECARA:
-                    ServerController.getInstance().promeniLozinkuCvecara((Cvecar) request.getData());
                     break;
                 default:
                     return null;
@@ -107,4 +92,3 @@ public class ThreadClient extends Thread {
         return response;
     }
 }
-
