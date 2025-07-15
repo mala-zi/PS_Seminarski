@@ -164,7 +164,7 @@ public class Aranzman extends OpstiDomenskiObjekat{
 
     @Override
     public String koloneZaInsert() {
-        return "(AranzmanID, Naziv, Opis, PoreskaStopaID, CenaBezPDV, CenaSaPDV, Popust)";
+        return "(naziv, opis, poreskaStopa, cenaBezPDV, cenaSaPDV, popust)";
     }
 
     @Override

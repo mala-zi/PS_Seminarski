@@ -26,30 +26,31 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
     public KreirajCvecaraForma() {
         initComponents();
         setResizable(false);
+        setTitle("Novi cveacr");
         setLocationRelativeTo(null);
         txtId.setVisible(false);
         jLabel5.setVisible(false);
         btnNovaLozinka.setVisible(false);
-        
+
     }
 
-    public KreirajCvecaraForma(JFrame parent, Cvecar c){
+    public KreirajCvecaraForma(JFrame parent, Cvecar c) {
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
         txtId.setVisible(true);
         jLabel5.setVisible(true);
+        setTitle("Novi cvecar");
         txtId.setEnabled(false);
         jLabel4.setVisible(false);
         txtLozinka.setVisible(false);
         btnNovaLozinka.setVisible(true);
-        if(c!=null){
-            cvecar=c;
-            pcf=(PromeniCvecaraForma) parent;
+        if (c != null) {
+            cvecar = c;
+            pcf = (PromeniCvecaraForma) parent;
             popuniIzmenuCvecar(cvecar);
         }
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -188,28 +189,28 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
 
     private void btnSacuvajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSacuvajActionPerformed
         // TODO add your handling code here:
-        
-        if(txtIme.getText().isEmpty() || txtPrezime.getText().isEmpty() || txtKorisnickoIme.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this, "Morate popuniti sva polja!","Greska",JOptionPane.ERROR_MESSAGE);
+
+        if (txtIme.getText().isEmpty() || txtPrezime.getText().isEmpty() || txtKorisnickoIme.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Morate popuniti sva polja!", "Greska", JOptionPane.ERROR_MESSAGE);
             return;
         }
-       
-        String ime=txtIme.getText();
-        String prezime=txtPrezime.getText();
-        String korisnickoIme=txtKorisnickoIme.getText();
-        String lozinka=txtLozinka.getText();
 
-        if(cvecar==null){
-            Cvecar c=new Cvecar(ime, prezime, korisnickoIme, lozinka);
+        String ime = txtIme.getText();
+        String prezime = txtPrezime.getText();
+        String korisnickoIme = txtKorisnickoIme.getText();
+        String lozinka = txtLozinka.getText();
+
+        if (cvecar == null) {
+            Cvecar c = new Cvecar(ime, prezime, korisnickoIme, lozinka);
             try {
                 Controller.getInstance().dodajCvecara(c);
             } catch (Exception ex) {
                 Logger.getLogger(KreirajCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
             }
-            JOptionPane.showMessageDialog(this, "Cvecar je dodat","Obavestenje",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Cvecar je dodat", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
-        }else{
-           // Cvecar c=new Cvecar( ime, prezime, korisnickoIme, lozinka);//novi i nema id tkd u brokeru kad trazi update za ovaj id ne moze da ga nadje
+        } else {
+            // Cvecar c=new Cvecar( ime, prezime, korisnickoIme, lozinka);//novi i nema id tkd u brokeru kad trazi update za ovaj id ne moze da ga nadje
             cvecar.setIme(ime);
             cvecar.setKorisnickoIme(korisnickoIme);
             cvecar.setPrezime(prezime);
@@ -218,21 +219,21 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
             } catch (Exception ex) {
                 Logger.getLogger(KreirajCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
             }
-           this.dispose();
+            this.dispose();
         }
     }//GEN-LAST:event_btnSacuvajActionPerformed
 
     private void btnNovaLozinkaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovaLozinkaActionPerformed
         // TODO add your handling code here:
-        
-        PromeniLozinkuForma forma=new PromeniLozinkuForma(pcf, true,cvecar);
+
+        PromeniLozinkuForma forma = new PromeniLozinkuForma(pcf, true, cvecar);
         forma.setVisible(true);
     }//GEN-LAST:event_btnNovaLozinkaActionPerformed
 
     /**
      * @param args the command line arguments
      */
-   
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNazad;
     private javax.swing.JButton btnNovaLozinka;
@@ -257,5 +258,4 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
         txtLozinka.setText("");
     }
 
-    
 }

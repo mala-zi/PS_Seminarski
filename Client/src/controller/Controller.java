@@ -8,6 +8,7 @@ import domain.Aranzman;
 import java.io.IOException;
 import domain.Cvecar;
 import domain.Kupac;
+import domain.Mesto;
 import domain.Otpremnica;
 import domain.StavkaOtpremnice;
 import domain.StrucnaSprema;
@@ -70,7 +71,7 @@ public class Controller {
         sendRequest(Operation.PROMENI_CVECARA, cvecar);
     }
 
-    public List<Cvecar> ucitajCvecareIzBaze() throws Exception {
+    public ArrayList<Cvecar> ucitajCvecareIzBaze() throws Exception {
         return (ArrayList<Cvecar>) sendRequest(Operation.VRATI_LISTU_SVI_CVECAR, null);
     }
 
@@ -86,12 +87,12 @@ public class Controller {
         sendRequest(Operation.DODAJ_STAVKU_OTPREMNICE, so);
     }
 
-    public List<Kupac> popuniKupceIzBaze() throws Exception {
+    public ArrayList<Kupac> ucitajKupceIzBaze() throws Exception {
         return (ArrayList<Kupac>) sendRequest(Operation.VRATI_LISTU_SVI_KUPCI, null);
 
     }
 
-    public List<Aranzman> popuniAranzmaneIzBaze() throws Exception {
+    public ArrayList<Aranzman> ucitajAranzmaneIzBaze() throws Exception {
         return (ArrayList<Aranzman>) sendRequest(Operation.VRATI_LISTU_SVI_ARANZMANI, null);
     }
 
@@ -99,15 +100,27 @@ public class Controller {
         sendRequest(Operation.PROMENI_LOZINKU_CVECARA, cvecar);
     }
 
-    public void ubaciStrSprema(StrucnaSprema strs) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void ubaciStrSprema(StrucnaSprema strs) throws Exception {
+        sendRequest(Operation.DODAJ_STRUCNASPREMA, strs);
     }
 
-    public void promeniStrSpremu(StrucnaSprema ss) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void promeniStrSpremu(StrucnaSprema ss) throws Exception {
+        sendRequest(Operation.PROMENI_STRUCNASPREMA, ss);
     }
 
-    public List<StrucnaSprema> ucitajStrucnuSpremuIzBaze() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public ArrayList<StrucnaSprema> ucitajStrucnuSpremuIzBaze() throws Exception {
+        return (ArrayList<StrucnaSprema>) sendRequest(Operation.VRATI_LISTU_SVI_STRUCNASPREMA, null);
+    }
+
+    public void dodajKupca(Kupac k) throws Exception {
+       sendRequest(Operation.KREIRAJ_KUPCA, k);
+    }
+
+    public void izmeniKupca(Kupac k) throws Exception {
+       sendRequest(Operation.PROMENI_KUPCA, k);
+    }
+
+    public ArrayList<Mesto> ucitajMestaIzBaze() throws Exception {
+        return (ArrayList<Mesto>) sendRequest(Operation.VRATI_LISTU_SVI_MESTO, null);
     }
 }

@@ -5,19 +5,10 @@
  */
 package dbb;
 
-import domain.Aranzman;
 import domain.Cvecar;
-import domain.Kupac;
-import domain.Mesto;
 import domain.OpstiDomenskiObjekat;
-import domain.Otpremnica;
-import domain.PoreskaStopa;
-import domain.StavkaOtpremnice;
-import java.io.FileInputStream;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
 
 /**
  *

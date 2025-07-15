@@ -8,7 +8,6 @@ import controller.ServerController;
 import domain.Cvecar;
 import domain.Kupac;
 import domain.Otpremnica;
-import domain.StavkaOtpremnice;
 import domain.StrucnaSprema;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;

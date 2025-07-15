@@ -11,6 +11,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import domain.Kupac;
 import domain.Mesto;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -59,6 +61,7 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
         comboBoxMesto = new javax.swing.JComboBox<>();
         lblId = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
+        btnMestoView = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -88,46 +91,48 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
 
         lblId.setText("ID");
 
+        btnMestoView.setText("Upravljaj mestima");
+        btnMestoView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMestoViewActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(43, 43, 43)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblId, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnNazad)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnSacuvaj))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblId, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtNaziv, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-                                    .addComponent(txtId))
-                                .addGap(2, 2, 2))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                                .addComponent(btnSacuvaj))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(60, 60, 60)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(43, 43, 43)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(44, 44, 44))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(60, 60, 60)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtPIB, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtTelefon, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-                            .addComponent(comboBoxMesto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(43, Short.MAX_VALUE))
+                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtPIB, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(txtTelefon, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(txtEmail)
+                                .addComponent(comboBoxMesto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtNaziv, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnMestoView)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(47, 47, 47))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,11 +160,13 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(comboBoxMesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnMestoView)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNazad)
                     .addComponent(btnSacuvaj))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addGap(17, 17, 17))
         );
 
         pack();
@@ -196,27 +203,55 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
         
        
         if(kupac==null){
-             Kupac k=new Kupac( pib, telefon, email, mesto, naziv);
-            Controller.getInstance().dodajKupca(k);
-            JOptionPane.showMessageDialog(this, "Kupac je dodat","Obavestenje",JOptionPane.INFORMATION_MESSAGE);
-            this.dispose();
+            try {
+                Kupac k=new Kupac( pib, telefon, email, mesto, naziv);
+                Controller.getInstance().dodajKupca(k);
+                JOptionPane.showMessageDialog(this, "Kupac je dodat","Obavestenje",JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+            } catch (Exception ex) {
+                Logger.getLogger(KreirajKupcaForma.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }else{
-            int id=Integer.parseInt(txtId.getText());
-            Kupac k=new Kupac(id, pib, telefon, email, mesto, naziv);
-            Controller.getInstance().izmeniKupca(k);
-            JOptionPane.showMessageDialog(this, "Kupac uspesno izmenjen","Obavestenje",JOptionPane.INFORMATION_MESSAGE);
-            pkf.mtk=new TableModelKupac(Controller.getInstance().ucitajKupceIzBaze());
-            
-            this.dispose();
+            try {
+                int id=Integer.parseInt(txtId.getText());
+                Kupac k=new Kupac(id, pib, telefon, email, mesto, naziv);
+                Controller.getInstance().izmeniKupca(k);
+                JOptionPane.showMessageDialog(this, "Kupac uspesno izmenjen","Obavestenje",JOptionPane.INFORMATION_MESSAGE);
+                pkf.mtk=new TableModelKupac(Controller.getInstance().ucitajKupceIzBaze());
+                
+                this.dispose();
+            } catch (Exception ex) {
+                Logger.getLogger(KreirajKupcaForma.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_btnSacuvajActionPerformed
+
+    private void btnMestoViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMestoViewActionPerformed
+        // TODO add your handling code here:
+        boolean promena=true;
+        PregledMestaForma pmf=new PregledMestaForma(promena);
+        pmf.setVisible(true);
+        boolean uspeh= pmf.isUspeh();
+        if(uspeh==true){
+            try {
+                comboBoxMesto.removeAllItems();
+                List<Mesto> mesto=Controller.getInstance().ucitajMestaIzBaze();
+                for(Mesto m:mesto){
+                    comboBoxMesto.addItem(m);
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(KreirajKupcaForma.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_btnMestoViewActionPerformed
 
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton btnMestoView;
     private javax.swing.JButton btnNazad;
     private javax.swing.JButton btnSacuvaj;
-    private javax.swing.JComboBox<model.Mesto> comboBoxMesto;
+    private javax.swing.JComboBox<domain.Mesto> comboBoxMesto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -234,20 +269,24 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
         txtId.setVisible(true);
         lblId.setVisible(true);
         txtId.setEnabled(false);
-        txtId.setText(kupac.getIdKupac()+"");
+        txtId.setText(kupac.getId()+"");
         txtNaziv.setText(kupac.getNaziv());
         txtEmail.setText(kupac.getEmail());
-        txtPIB.setText(kupac.getPibKupac()+"");
+        txtPIB.setText(kupac.getPib()+"");
         txtTelefon.setText(kupac.getTelefon());
         comboBoxMesto.setSelectedItem(kupac.getMesto());
     }
 
     private void inicijalizujPolja() {
-        lblId.setVisible(false);
-        txtId.setVisible(false);
-        List<Mesto> mesto=Controller.getInstance().ucitajMestaIzBaze();
-        for(Mesto m:mesto){
-            comboBoxMesto.addItem(m);
+        try {
+            lblId.setVisible(false);
+            txtId.setVisible(false);
+            List<Mesto> mesto=Controller.getInstance().ucitajMestaIzBaze();
+            for(Mesto m:mesto){
+                comboBoxMesto.addItem(m);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(KreirajKupcaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

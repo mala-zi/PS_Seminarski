@@ -104,7 +104,7 @@ public class StrucnaSprema extends OpstiDomenskiObjekat {
 
     @Override
     public String koloneZaInsert() {
-        return "(id, naziv, nivo, sertifikat)";
+        return "(naziv, nivo, sertifikat)";
     }
 
     @Override

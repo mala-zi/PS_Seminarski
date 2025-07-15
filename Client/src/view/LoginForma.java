@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.Document;
+import session.Session;
 
 /**
  *
@@ -22,14 +23,14 @@ public class LoginForma extends javax.swing.JFrame {
      * Creates new form LoginForma
      */
     public LoginForma() {
-        
+
         initComponents();
         setTitle("Login forma");
         setResizable(false);
         setLocationRelativeTo(null);
         txtErrorLozinka.setVisible(false);
         unos();
-        
+
     }
 
     /**
@@ -147,20 +148,22 @@ public class LoginForma extends javax.swing.JFrame {
     private void btnUlogujSeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUlogujSeActionPerformed
         // TODO add your handling code here:
         try {
-            //Controller controller=new Controller();
-            
+            if (txtKorisnickoIme.getText().isEmpty() || String.valueOf(txtLozinka.getPassword()).isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Sva polja moraju biti popunjena!",
+                        "Popunite polja", JOptionPane.WARNING_MESSAGE);
+            }
             Controller controller = Controller.getInstance();
-            String user=txtKorisnickoIme.getText();
-            String pass=String.valueOf(txtLozinka.getPassword());
-           Cvecar cvecar=new Cvecar(user,pass);
-           // System.out.println(cvecar);
-            cvecar=controller.prijaviCvecara(cvecar);
-            JOptionPane.showMessageDialog(this, cvecar.getIme()+" logged in!", "Login", JOptionPane.INFORMATION_MESSAGE);
-            JFrame frame=new GlavnaForma(cvecar);
+            String user = txtKorisnickoIme.getText();
+            String pass = String.valueOf(txtLozinka.getPassword());
+            Cvecar cvecar = new Cvecar(user, pass);
+            cvecar = controller.prijaviCvecara(cvecar);
+            Session.getInstance().setUlogovani(cvecar);
+            JOptionPane.showMessageDialog(this, cvecar.getIme() + " logged in!", "Login", JOptionPane.INFORMATION_MESSAGE);
+            JFrame frame = new GlavnaForma(cvecar);
             frame.setVisible(true);
             this.dispose();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Login unsucessful!\n"+ex.getMessage(), "Login", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Login unsucessful!\n" + ex.getMessage(), "Login", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnUlogujSeActionPerformed
 

@@ -585,7 +585,7 @@ public class KreirajOtp extends javax.swing.JDialog {
 
     private void popuniAranzmaneIzBaze() throws Exception {
         comboAranzmani.removeAllItems();
-        List<Aranzman> aranzmani = Controller.getInstance().popuniAranzmaneIzBaze();
+        List<Aranzman> aranzmani = Controller.getInstance().ucitajAranzmaneIzBaze();
         for (Aranzman a : aranzmani) {
             comboAranzmani.addItem(a);
         }

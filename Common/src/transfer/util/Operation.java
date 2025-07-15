@@ -27,5 +27,10 @@ public static final int VRATI_LISTU_SVI_KUPCI = 12;
 public static final int VRATI_LISTU_SVI_ARANZMANI = 13;
 public static final int OBRISI_STAVKU_OTPREMNICE = 14;
 public static final int PROMENI_LOZINKU_CVECARA = 15;
+public static final int DODAJ_STRUCNASPREMA=16;
+public static final int PROMENI_STRUCNASPREMA=17;
+public static final int VRATI_LISTU_SVI_STRUCNASPREMA=18;
+public static final int KREIRAJ_KUPCA = 19;
+public static final int VRATI_LISTU_SVI_MESTO=20;
     
 }

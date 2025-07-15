@@ -12,8 +12,6 @@ import domain.Otpremnica;
 import domain.StrucnaSprema;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
-import so.OpstaSistemskaOperacija;
 import so.aranzman.SOKreirajAranzman;
 import so.aranzman.SOObrisiAranzman;
 import so.aranzman.SOPromeniAranzman;
@@ -157,7 +155,5 @@ public class ServerController {
     public void promeniStrSpremu(StrucnaSprema strucnaSpremaChange) throws Exception {
         (new SOPromeniStrSprema()).templateExecute(strucnaSpremaChange);
     }
-
-    
 
 }
