@@ -32,8 +32,10 @@ import so.mesto.SOVratiListuSviMesto;
 import so.otpremnica.SOKreirajOtpremnicu;
 import so.otpremnica.SOPromeniOtpremnicu;
 import so.otpremnica.SOVratiListuSviOtpremnica;
+import so.strsprema.SOObrisiStrSprema;
 import so.strsprema.SOPromeniStrSprema;
 import so.strsprema.SOUbaciStrSprema;
+import so.strsprema.SOVratiListuSviStrSprema;
 
 /**
  *
@@ -136,7 +138,7 @@ public class ServerController {
     }
 
     public void kreirajOtpremnicu(Otpremnica otpAdd) throws Exception {
-       (new SOKreirajOtpremnicu()).templateExecute(otpAdd);
+        (new SOKreirajOtpremnicu()).templateExecute(otpAdd);
     }
 
     public ArrayList<Otpremnica> ucitajOtpremniceIzBaze() throws Exception {
@@ -144,9 +146,11 @@ public class ServerController {
         so.templateExecute(new Otpremnica());
         return so.getList();
     }
+
     public void promeniOtpremnicu(Otpremnica otpremnicaChange) throws Exception {
-       (new SOPromeniOtpremnicu()).templateExecute(otpremnicaChange);
+        (new SOPromeniOtpremnicu()).templateExecute(otpremnicaChange);
     }
+    
 
     public void ubaciStrSpremu(StrucnaSprema strucnaSpremaAdd) throws Exception {
         (new SOUbaciStrSprema()).templateExecute(strucnaSpremaAdd);
@@ -156,4 +160,13 @@ public class ServerController {
         (new SOPromeniStrSprema()).templateExecute(strucnaSpremaChange);
     }
 
+    public ArrayList<StrucnaSprema> ucitajStrucneSpremeIzBaze() throws Exception {
+        SOVratiListuSviStrSprema so = new SOVratiListuSviStrSprema();
+        so.templateExecute(new StrucnaSprema());
+        return so.getList();
+    }
+
+    public void obrisiStrSprema(StrucnaSprema strSpremaDelete) throws Exception {
+        (new SOObrisiStrSprema()).templateExecute(strSpremaDelete);
+    }
 }

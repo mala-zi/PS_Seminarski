@@ -4,6 +4,13 @@
  */
 package view;
 
+import controller.Controller;
+import domain.Mesto;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import tableModel.TableModelMesto;
 
 /**
@@ -13,6 +20,7 @@ import tableModel.TableModelMesto;
 public class PregledMestaForma extends javax.swing.JFrame {
 
     private boolean promena = false;
+    private ArrayList<Mesto> lista;
     private boolean uspeh = false;
 
     public boolean isUspeh() {
@@ -23,6 +31,14 @@ public class PregledMestaForma extends javax.swing.JFrame {
         this.uspeh = uspeh;
     }
 
+    public JTable getTblMesta() {
+        return tblMesta;
+    }
+
+    public void setTblMesta(JTable tblMesta) {
+        this.tblMesta = tblMesta;
+    }
+
     /**
      * Creates new form PregledMestaForma
      */
@@ -30,22 +46,15 @@ public class PregledMestaForma extends javax.swing.JFrame {
         initComponents();
         setTitle("Mesta");
         setResizable(false);
-        btnObrisiMesto.setVisible(true);
-        btnPromeniMesto.setVisible(true);
         setLocationRelativeTo(null);
+        try {
+            tblMesta.setModel(new TableModelMesto(controller.Controller.getInstance().ucitajMestaIzBaze()));
+        } catch (Exception ex) {
+            Logger.getLogger(PregledMestaForma.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    public PregledMestaForma(boolean promena) throws Exception {
-        initComponents();
-        this.promena = promena;
-        btnObrisiMesto.setVisible(false);
-        btnPromeniMesto.setVisible(false);
-        setTitle("Mesta");
-        setResizable(false);
-        setLocationRelativeTo(null);
-        tblMesta.setModel(new TableModelMesto(controller.Controller.getInstance().ucitajMestaIzBaze()));
-    }
-
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -78,10 +87,25 @@ public class PregledMestaForma extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblMesta);
 
         btnDodajMesto.setText("dodaj");
+        btnDodajMesto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDodajMestoActionPerformed(evt);
+            }
+        });
 
         btnPromeniMesto.setText("promeni");
+        btnPromeniMesto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPromeniMestoActionPerformed(evt);
+            }
+        });
 
         btnObrisiMesto.setText("obrisi");
+        btnObrisiMesto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnObrisiMestoActionPerformed(evt);
+            }
+        });
 
         btnCancel.setText("nazad");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -133,6 +157,54 @@ public class PregledMestaForma extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnDodajMestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajMestoActionPerformed
+        try {
+            // TODO add your handling code here:
+            KreirajMestoForma kmf=new KreirajMestoForma(this);
+            kmf.setVisible(true);
+                //tblMesta.setModel(new TableModelMesto(controller.Controller.getInstance().ucitajMestaIzBaze()));//msm da ovo nece refresh
+        } catch (Exception ex) {
+            Logger.getLogger(PregledMestaForma.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+    }//GEN-LAST:event_btnDodajMestoActionPerformed
+
+    private void btnObrisiMestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiMestoActionPerformed
+        // TODO add your handling code here:
+        try {
+            int selektovanRed =  tblMesta.getSelectedRow();
+            if (selektovanRed == -1) {
+                JOptionPane.showMessageDialog(this, "Nista nije selektovano", "Greska", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            Controller.getInstance().obrisiMesto(lista.get(selektovanRed));
+
+            JOptionPane.showMessageDialog(this, "Mesto obrisano", "greska", JOptionPane.INFORMATION_MESSAGE);
+
+            tblMesta.setModel(new TableModelMesto(Controller.getInstance().ucitajMestaIzBaze()));
+        } catch (Exception ex) {
+            Logger.getLogger(PromeniCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnObrisiMestoActionPerformed
+
+    private void btnPromeniMestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromeniMestoActionPerformed
+        // TODO add your handling code here:
+         int selektovanRed=tblMesta.getSelectedRow();
+        if(selektovanRed==-1){
+            JOptionPane.showMessageDialog(this, "Nista nije selektovano","greska",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        Mesto m=lista.get(selektovanRed);
+        KreirajMestoForma mf=new KreirajMestoForma(this, m);
+        mf.setVisible(true);
+        try {
+            tblMesta.setModel(new TableModelMesto(Controller.getInstance().ucitajMestaIzBaze()));
+        } catch (Exception ex) {
+            Logger.getLogger(PromeniCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnPromeniMestoActionPerformed
 
     /**
      * @param args the command line arguments

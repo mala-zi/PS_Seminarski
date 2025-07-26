@@ -4,10 +4,9 @@
  */
 package tableModel;
 
-import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import domain.Otpremnica;
 import domain.StavkaOtpremnice;
+import java.util.ArrayList;
 
 /**
  *
@@ -15,12 +14,12 @@ import domain.StavkaOtpremnice;
  */
 public class TableModelOtpremnica extends AbstractTableModel{
 
-    private List<StavkaOtpremnice> listaStavki;
+    private ArrayList<StavkaOtpremnice> listaStavki;
     private int i=1;
     private final String[] kolone={"RB","Kolicina","Aranzman","Cena Bez PDV",
         "Cena Sa PDV", "Iznos Bez PDV","Iznos Sa PDV","Napomena"};
 
-    public TableModelOtpremnica(List<StavkaOtpremnice> listaStavki) {
+    public TableModelOtpremnica(ArrayList<StavkaOtpremnice> listaStavki) {
         this.listaStavki = listaStavki;
     }
 

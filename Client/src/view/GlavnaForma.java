@@ -51,7 +51,7 @@ Cvecar cvecar;
         itemCvecarChange = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
         itemSSAdd = new javax.swing.JMenuItem();
-        itemSSChange = new javax.swing.JMenuItem();
+        itemSSControl = new javax.swing.JMenuItem();
         meniOtpremnica = new javax.swing.JMenu();
         itemOtpAdd = new javax.swing.JMenuItem();
         itemOtpChange = new javax.swing.JMenuItem();
@@ -116,13 +116,13 @@ Cvecar cvecar;
         });
         meniCvecar.add(itemSSAdd);
 
-        itemSSChange.setText("Promeni strucnu spremu");
-        itemSSChange.addActionListener(new java.awt.event.ActionListener() {
+        itemSSControl.setText("Upravljaj strucnim spremama");
+        itemSSControl.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemSSChangeActionPerformed(evt);
+                itemSSControlActionPerformed(evt);
             }
         });
-        meniCvecar.add(itemSSChange);
+        meniCvecar.add(itemSSControl);
 
         jMenuBar1.add(meniCvecar);
 
@@ -243,9 +243,13 @@ Cvecar cvecar;
     }//GEN-LAST:event_itemOtpAddActionPerformed
 
     private void itemKupacChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemKupacChangeActionPerformed
+    try {
         // TODO add your handling code here:
         PromeniKupacForma pkf=new PromeniKupacForma(false);
         pkf.setVisible(true);
+    } catch (Exception ex) {
+        Logger.getLogger(GlavnaForma.class.getName()).log(Level.SEVERE, null, ex);
+    }
     }//GEN-LAST:event_itemKupacChangeActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -301,19 +305,25 @@ Cvecar cvecar;
         ssf.setVisible(true);
     }//GEN-LAST:event_itemSSAddActionPerformed
 
-    private void itemSSChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSSChangeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_itemSSChangeActionPerformed
-
     private void itemOtpSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemOtpSearchActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_itemOtpSearchActionPerformed
 
     private void itemMestoViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMestoViewActionPerformed
+    try {
         // TODO add your handling code here:
         PregledMestaForma pmf=new PregledMestaForma();
         pmf.setVisible(true);
+    } catch (Exception ex) {
+        Logger.getLogger(GlavnaForma.class.getName()).log(Level.SEVERE, null, ex);
+    }
     }//GEN-LAST:event_itemMestoViewActionPerformed
+
+    private void itemSSControlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSSControlActionPerformed
+        // TODO add your handling code here:
+        UpravljajStrucnimSpremama pssf=new UpravljajStrucnimSpremama();
+        pssf.setVisible(true);
+    }//GEN-LAST:event_itemSSControlActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem itemCvecarChange;
@@ -324,7 +334,7 @@ Cvecar cvecar;
     private javax.swing.JMenuItem itemOtpChange;
     private javax.swing.JMenuItem itemOtpSearch;
     private javax.swing.JMenuItem itemSSAdd;
-    private javax.swing.JMenuItem itemSSChange;
+    private javax.swing.JMenuItem itemSSControl;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;

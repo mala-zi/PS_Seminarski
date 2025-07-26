@@ -4,19 +4,19 @@
  */
 package tableModel;
 
-import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import domain.Kupac;
+import java.util.ArrayList;
 
 /**
  *
  * @author Saki
  */
 public class TableModelKupac  extends AbstractTableModel{
-    private List<Kupac> listaKupaca;
+    private ArrayList<Kupac> listaKupaca;
     private String[] kolone={"ID","Naziv","PIB","Telefon","Email","Mesto"};
 
-    public TableModelKupac(List<Kupac> listaKupaca) {
+    public TableModelKupac(ArrayList<Kupac> listaKupaca) {
         this.listaKupaca = listaKupaca;
     }
 

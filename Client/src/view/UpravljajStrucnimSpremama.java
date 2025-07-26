@@ -16,7 +16,7 @@ import tableModel.TableModelStrucnaSprema;
  *
  * @author Saki
  */
-public class PromeniStrucnuSpremuForma extends javax.swing.JFrame {
+public class UpravljajStrucnimSpremama extends javax.swing.JFrame {
 
     private List<StrucnaSprema> lista;
     TableModelStrucnaSprema tmss;
@@ -24,7 +24,7 @@ public class PromeniStrucnuSpremuForma extends javax.swing.JFrame {
     /**
      * Creates new form PromeniStrucnuSpremuForma
      */
-    public PromeniStrucnuSpremuForma() {
+    public UpravljajStrucnimSpremama() {
         initComponents();
     }
 
@@ -71,6 +71,11 @@ public class PromeniStrucnuSpremuForma extends javax.swing.JFrame {
         });
 
         btnObrisi.setText("obrisi");
+        btnObrisi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnObrisiActionPerformed(evt);
+            }
+        });
 
         btnCancel.setText("otkazi");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -122,7 +127,7 @@ public class PromeniStrucnuSpremuForma extends javax.swing.JFrame {
         // TODO add your handling code here:
         int selektovanRed = tblStrSprema.getSelectedRow();
         if (selektovanRed == -1) {
-            JOptionPane.showMessageDialog(this, "Nista nije selektovano", "greska", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Nista nije selektovano", "Greska", JOptionPane.ERROR_MESSAGE);
             return;
         }
         StrucnaSprema ss = lista.get(selektovanRed);
@@ -130,9 +135,9 @@ public class PromeniStrucnuSpremuForma extends javax.swing.JFrame {
         ussf.setVisible(true);
         
         try {
-            tblStrSprema.setModel(new TableModelStrucnaSprema(Controller.getInstance().ucitajStrucnuSpremuIzBaze()));
+            tblStrSprema.setModel(new TableModelStrucnaSprema(Controller.getInstance().ucitajStrucneSpremeIzBaze()));
         } catch (Exception ex) {
-            Logger.getLogger(PromeniStrucnuSpremuForma.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UpravljajStrucnimSpremama.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }//GEN-LAST:event_btnPromeniActionPerformed
@@ -144,6 +149,25 @@ public class PromeniStrucnuSpremuForma extends javax.swing.JFrame {
             btnPromeni.setEnabled(true);
         }
     }//GEN-LAST:event_tblStrSpremaMouseClicked
+
+    private void btnObrisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiActionPerformed
+        // TODO add your handling code here:
+         try {
+            int selektovanRed = tblStrSprema.getSelectedRow();
+            if (selektovanRed == -1) {
+                JOptionPane.showMessageDialog(this, "Nista nije selektovano", "Greska", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            Controller.getInstance().obrisiStrSprema(lista.get(selektovanRed));
+
+            JOptionPane.showMessageDialog(this, "Strucna sprema obrisana", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+
+            tblStrSprema.setModel(new TableModelStrucnaSprema(Controller.getInstance().ucitajStrucneSpremeIzBaze()));
+        } catch (Exception ex) {
+            Logger.getLogger(PromeniCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnObrisiActionPerformed
 
     /**
      * @param args the command line arguments
@@ -162,20 +186,21 @@ public class PromeniStrucnuSpremuForma extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PromeniStrucnuSpremuForma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpravljajStrucnimSpremama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PromeniStrucnuSpremuForma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpravljajStrucnimSpremama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PromeniStrucnuSpremuForma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpravljajStrucnimSpremama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PromeniStrucnuSpremuForma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpravljajStrucnimSpremama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PromeniStrucnuSpremuForma().setVisible(true);
+                new UpravljajStrucnimSpremama().setVisible(true);
             }
         });
     }

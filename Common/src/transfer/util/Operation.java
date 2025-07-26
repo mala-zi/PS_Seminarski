@@ -32,5 +32,9 @@ public static final int PROMENI_STRUCNASPREMA=17;
 public static final int VRATI_LISTU_SVI_STRUCNASPREMA=18;
 public static final int KREIRAJ_KUPCA = 19;
 public static final int VRATI_LISTU_SVI_MESTO=20;
+public static final int OBRISI_STRUCNASPREMA=21;
+public static final int KREIRAJ_MESTO=22;
+public static final int OBRISI_MESTO=23;
+public static final int PROMENI_MESTO=24;
     
 }

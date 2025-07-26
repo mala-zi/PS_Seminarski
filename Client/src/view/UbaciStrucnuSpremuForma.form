@@ -28,7 +28,6 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Component id="txtNaziv" min="-2" pref="93" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
@@ -46,14 +45,9 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnPromeni" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Component id="txtNivo" min="-2" pref="92" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="comboSertifikat" min="-2" pref="95" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <Component id="txtNivo" min="-2" pref="92" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="comboSertifikat" min="-2" pref="95" max="-2" attributes="0"/>
                       <EmptySpace pref="17" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -82,9 +76,7 @@
                   <Component id="txtNivo" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="comboSertifikat" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="14" max="32767" attributes="0"/>
-              <Component id="btnPromeni" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace pref="55" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnCancel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnInsert" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -101,7 +93,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnInsert">
       <Properties>
-        <Property name="text" type="java.lang.String" value="ubaci"/>
+        <Property name="text" type="java.lang.String" value="sacuvaj"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInsertActionPerformed"/>
@@ -142,11 +134,6 @@
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnPromeni">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="promeni"/>
-      </Properties>
     </Component>
   </SubComponents>
 </Form>

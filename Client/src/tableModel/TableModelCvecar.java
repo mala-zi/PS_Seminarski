@@ -4,19 +4,19 @@
  */
 package tableModel;
 
-import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import domain.Cvecar;
+import java.util.ArrayList;
 
 /**
  *
  * @author Saki
  */
 public class TableModelCvecar extends AbstractTableModel {
-    private List<Cvecar> listaCvecara;
+    private ArrayList<Cvecar> listaCvecara;
     private String[] kolone={"Ime","Prezime"};
 
-    public TableModelCvecar(List<Cvecar> listaCvecara) {
+    public TableModelCvecar(ArrayList<Cvecar> listaCvecara) {
         this.listaCvecara = listaCvecara;
     }
 

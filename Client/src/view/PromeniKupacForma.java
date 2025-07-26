@@ -8,29 +8,45 @@ import tableModel.TableModelKupac;
 import controller.Controller;
 import javax.swing.JOptionPane;
 import domain.Kupac;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JTable;
 
 /**
  *
  * @author Saki
  */
 public class PromeniKupacForma extends javax.swing.JFrame {
+
+    public JTable getTblKupci() {
+        return tblKupci;
+    }
+
+    public void setTblKupci(JTable tblKupci) {
+        this.tblKupci = tblKupci;
+    }
  
-    TableModelKupac mtk=new TableModelKupac(Controller.getInstance().ucitajKupceIzBaze());
+    private ArrayList<Kupac> lista;
     /**
      * Creates new form PromeniKupacForma
      */
-    public PromeniKupacForma(boolean obrisiKupca) {
+    public PromeniKupacForma(boolean obrisiKupca) throws Exception {
         initComponents();
+        lista = Controller.getInstance().ucitajKupceIzBaze();
         btnObrisi.setVisible(false);
        setTitle("Izmeni kupca");
         setResizable(false);
         setLocationRelativeTo(null);
-        tblKupci.setModel(mtk);
         if(obrisiKupca==true){
             btnObrisi.setVisible(true);
             btnPromeni.setVisible(false);
         }
-                
+        try {
+            tblKupci.setModel(new TableModelKupac(Controller.getInstance().ucitajKupceIzBaze()));
+        } catch (Exception ex) {
+            Logger.getLogger(PromeniKupacForma.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -118,31 +134,41 @@ public class PromeniKupacForma extends javax.swing.JFrame {
 
     private void btnObrisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiActionPerformed
         // TODO add your handling code here:
-        int selektovanRed = tblKupci.getSelectedRow();
-        if (selektovanRed == -1) {
-            JOptionPane.showMessageDialog(this, "Nista nije selektovano!", "Greska", JOptionPane.ERROR_MESSAGE);
-            return;
+       try {
+            int selektovanRed = tblKupci.getSelectedRow();
+            if (selektovanRed == -1) {
+                JOptionPane.showMessageDialog(this, "Nista nije selektovano", "Greska", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            Controller.getInstance().obrisiKupca(lista.get(selektovanRed));
+
+            JOptionPane.showMessageDialog(this, "Kupac obrisan", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+
+            tblKupci.setModel(new TableModelKupac(Controller.getInstance().ucitajKupceIzBaze()));
+        } catch (Exception ex) {
+            Logger.getLogger(PromeniCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Kupac kupac = Controller.getInstance().ucitajKupceIzBaze().get(selektovanRed);
-        Controller.getInstance().obrisiKupca(kupac);
-        mtk=new TableModelKupac(Controller.getInstance().ucitajKupceIzBaze());
-        tblKupci.setModel(mtk);
     }//GEN-LAST:event_btnObrisiActionPerformed
 
     private void btnPromeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromeniActionPerformed
-        // TODO add your handling code here:
-
-        int selektovanRed = tblKupci.getSelectedRow();
-        if (selektovanRed == -1) {
-            JOptionPane.showMessageDialog(this, "Nista nije selektovano!", "Greska", JOptionPane.ERROR_MESSAGE);
-            return;
+        try {
+            // TODO add your handling code here:
+            
+            int selektovanRed = tblKupci.getSelectedRow();
+            if (selektovanRed == -1) {
+                JOptionPane.showMessageDialog(this, "Nista nije selektovano!", "Greska", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            Kupac kupac = Controller.getInstance().ucitajKupceIzBaze().get(selektovanRed);
+            KreirajKupcaForma kf = new KreirajKupcaForma(this,kupac);
+            kf.setVisible(true);
+            // mtk=new ModelTableKupac(Controller.getInstance().ucitajKupceIzBaze());
+            
+            tblKupci.setModel(new TableModelKupac(Controller.getInstance().ucitajKupceIzBaze()));
+        } catch (Exception ex) {
+            Logger.getLogger(PromeniKupacForma.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Kupac kupac = Controller.getInstance().ucitajKupceIzBaze().get(selektovanRed);
-        KreirajKupcaForma kf = new KreirajKupcaForma(this,kupac);
-        kf.setVisible(true);
-       // mtk=new ModelTableKupac(Controller.getInstance().ucitajKupceIzBaze());
-        
-        tblKupci.setModel(mtk);
        
                 
     }//GEN-LAST:event_btnPromeniActionPerformed

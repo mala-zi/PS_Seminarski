@@ -5,7 +5,7 @@
 package tableModel;
 
 import domain.StrucnaSprema;
-import java.util.List;
+import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -14,11 +14,11 @@ import javax.swing.table.AbstractTableModel;
  */
 public class TableModelStrucnaSprema extends AbstractTableModel {
 
-    private List<StrucnaSprema> listaSs;
+    private ArrayList<StrucnaSprema> listaSs;
     private int i = 1;
     private final String[] kolone = {"Naziv", "Nivo", "Sertifikat"};
 
-    public TableModelStrucnaSprema(List<StrucnaSprema> listaSs) {
+    public TableModelStrucnaSprema(ArrayList<StrucnaSprema> listaSs) {
         this.listaSs = listaSs;
     }
 

@@ -15,7 +15,6 @@ import domain.StrucnaSprema;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.List;
 import session.Session;
 import transfer.Request;
 import transfer.Response;
@@ -79,6 +78,10 @@ public class Controller {
         sendRequest(Operation.OBRISI_CVECARA, cvecarDelete);
     }
 
+    public void obrisiStrSprema(StrucnaSprema strSpremaDelete) throws Exception {
+        sendRequest(Operation.OBRISI_STRUCNASPREMA, strSpremaDelete);
+    }
+
     public void dodajOtpremnicu(Otpremnica otpremnica) throws Exception {
         sendRequest(Operation.KREIRAJ_OTPREMNICU, otpremnica);
     }
@@ -108,19 +111,37 @@ public class Controller {
         sendRequest(Operation.PROMENI_STRUCNASPREMA, ss);
     }
 
-    public ArrayList<StrucnaSprema> ucitajStrucnuSpremuIzBaze() throws Exception {
+    public ArrayList<StrucnaSprema> ucitajStrucneSpremeIzBaze() throws Exception {
         return (ArrayList<StrucnaSprema>) sendRequest(Operation.VRATI_LISTU_SVI_STRUCNASPREMA, null);
     }
 
     public void dodajKupca(Kupac k) throws Exception {
-       sendRequest(Operation.KREIRAJ_KUPCA, k);
+        sendRequest(Operation.KREIRAJ_KUPCA, k);
     }
 
     public void izmeniKupca(Kupac k) throws Exception {
-       sendRequest(Operation.PROMENI_KUPCA, k);
+        sendRequest(Operation.PROMENI_KUPCA, k);
     }
 
     public ArrayList<Mesto> ucitajMestaIzBaze() throws Exception {
         return (ArrayList<Mesto>) sendRequest(Operation.VRATI_LISTU_SVI_MESTO, null);
+    }
+
+    public void dodajMesto(Mesto m) throws Exception {
+        sendRequest(Operation.KREIRAJ_MESTO, m);
+    }
+
+    public void obrisiMesto(Mesto mestoDelete) throws Exception {
+        sendRequest(Operation.OBRISI_MESTO, mestoDelete);
+
+    }
+
+    public void promeniMesto(Mesto mestoChange) throws Exception {
+        sendRequest(Operation.PROMENI_MESTO, mestoChange);
+
+    }
+
+    public void obrisiKupca(Kupac get) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

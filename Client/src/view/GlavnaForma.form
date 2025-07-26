@@ -33,12 +33,12 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemSSAddActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="itemSSChange">
+            <MenuItem class="javax.swing.JMenuItem" name="itemSSControl">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Promeni strucnu spremu"/>
+                <Property name="text" type="java.lang.String" value="Upravljaj strucnim spremama"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemSSChangeActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemSSControlActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

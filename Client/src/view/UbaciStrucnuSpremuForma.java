@@ -18,14 +18,13 @@ import javax.swing.JOptionPane;
 public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
 
     StrucnaSprema ss;
-    PromeniStrucnuSpremuForma pssf;
+    UpravljajStrucnimSpremama pssf;
     /**
      * Creates new form UbaciStrucnuSpremuForma
      */
     public UbaciStrucnuSpremuForma() {
         initComponents();
         setResizable(false);
-        btnPromeni.setVisible(false);
         setLocationRelativeTo(null);
         comboSertifikat.addItem("NE");
         comboSertifikat.addItem("DA");
@@ -35,13 +34,12 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
     public UbaciStrucnuSpremuForma(JFrame parent, StrucnaSprema strsprema) {
         initComponents();
         setResizable(false);
-        btnPromeni.setVisible(true);
         setLocationRelativeTo(null);
         comboSertifikat.addItem("NE");
         comboSertifikat.addItem("DA");
         if(strsprema!=null){
             ss=strsprema;
-            pssf=(PromeniStrucnuSpremuForma) parent;
+            pssf=(UpravljajStrucnimSpremama) parent;
             popuniIzmenuStrSprema(ss);
         }
 
@@ -63,11 +61,10 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         comboSertifikat = new javax.swing.JComboBox<>();
-        btnPromeni = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnInsert.setText("ubaci");
+        btnInsert.setText("sacuvaj");
         btnInsert.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInsertActionPerformed(evt);
@@ -93,8 +90,6 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
             }
         });
 
-        btnPromeni.setText("promeni");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -103,8 +98,7 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(txtNaziv, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))
+                        .addComponent(txtNaziv, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -118,12 +112,9 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
                         .addGap(41, 41, 41))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnPromeni)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtNivo, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(comboSertifikat, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtNivo, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(comboSertifikat, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(17, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(67, 67, 67)
@@ -145,9 +136,7 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
                     .addComponent(txtNaziv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboSertifikat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                .addComponent(btnPromeni)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel)
                     .addComponent(btnInsert))
@@ -238,7 +227,6 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnInsert;
-    private javax.swing.JButton btnPromeni;
     private javax.swing.JComboBox<String> comboSertifikat;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

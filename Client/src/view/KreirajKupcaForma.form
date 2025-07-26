@@ -24,27 +24,24 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
+              <EmptySpace min="43" pref="43" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="43" pref="43" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel4" min="-2" pref="37" max="-2" attributes="0"/>
-                              <Component id="jLabel1" alignment="1" min="-2" pref="37" max="-2" attributes="0"/>
-                              <Component id="jLabel5" alignment="0" min="-2" pref="37" max="-2" attributes="0"/>
-                              <Component id="lblId" alignment="1" min="-2" pref="37" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="btnNazad" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="66" max="32767" attributes="0"/>
-                              <Component id="btnSacuvaj" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="jLabel4" min="-2" pref="37" max="-2" attributes="0"/>
+                          <Component id="jLabel1" alignment="1" min="-2" pref="37" max="-2" attributes="0"/>
+                          <Component id="jLabel5" alignment="0" min="-2" pref="37" max="-2" attributes="0"/>
+                          <Component id="lblId" alignment="1" min="-2" pref="37" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="btnNazad" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="66" max="32767" attributes="0"/>
+                          <Component id="btnSacuvaj" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
                       <Component id="jLabel2" min="-2" pref="37" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="txtId" min="-2" pref="123" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -54,13 +51,10 @@
                               <Component id="comboBoxMesto" alignment="0" max="32767" attributes="0"/>
                               <Component id="txtNaziv" alignment="0" min="-2" pref="123" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="btnMestoView" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnMestoAdd" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-                      <Component id="jLabel3" min="-2" pref="53" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="jLabel3" min="-2" pref="53" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
           </Group>
@@ -99,7 +93,7 @@
                   <Component id="comboBoxMesto" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="btnMestoView" min="-2" max="-2" attributes="0"/>
+              <Component id="btnMestoAdd" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="18" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnNazad" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -177,12 +171,12 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtId">
     </Component>
-    <Component class="javax.swing.JToggleButton" name="btnMestoView">
+    <Component class="javax.swing.JToggleButton" name="btnMestoAdd">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Upravljaj mestima"/>
+        <Property name="text" type="java.lang.String" value="Dodaj mesto"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMestoViewActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMestoAddActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

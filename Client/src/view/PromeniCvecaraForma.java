@@ -6,7 +6,7 @@ package view;
 
 import controller.Controller;
 import domain.Cvecar;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -18,7 +18,7 @@ import tableModel.TableModelCvecar;
  */
 public class PromeniCvecaraForma extends javax.swing.JFrame {
 
-    private List<Cvecar> lista;
+    private ArrayList<Cvecar> lista;
     TableModelCvecar mtc;
 
     /**

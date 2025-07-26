@@ -4,19 +4,19 @@
  */
 package tableModel;
 
-import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import domain.Mesto;
+import java.util.ArrayList;
 
 /**
  *
  * @author Saki
  */
 public class TableModelMesto  extends AbstractTableModel{
-    private List<Mesto> listaMesta;
+    private ArrayList<Mesto> listaMesta;
     private String[] kolone={"Grad","Postanski Broj","Ulica"};
 
-    public TableModelMesto(List<Mesto> listaKupaca) {
+    public TableModelMesto(ArrayList<Mesto> listaKupaca) {
         this.listaMesta = listaKupaca;
     }
 

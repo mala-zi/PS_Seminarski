@@ -28,6 +28,12 @@ public class Mesto extends OpstiDomenskiObjekat{
         this.postanskiBroj = postanskiBroj;
         this.ulica = ulica;
     }
+     public Mesto( String grad, int postanskiBroj, String ulica) {
+        this.grad = grad;
+        this.postanskiBroj = postanskiBroj;
+        this.ulica = ulica;
+    }
+
 
     public int getId() {
         return id;
@@ -63,7 +69,7 @@ public class Mesto extends OpstiDomenskiObjekat{
 
     @Override
     public String toString() {
-        return  grad ;
+        return  grad +", "+ulica;
     }
 
     @Override
