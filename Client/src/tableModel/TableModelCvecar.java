@@ -38,8 +38,6 @@ public class TableModelCvecar extends AbstractTableModel {
                 return c.getIme();
             case 1:
                 return c.getPrezime();
-            case 2:
-                return c.getKorisnickoIme();
             default:
                 return null;
                         

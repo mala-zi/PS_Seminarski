@@ -155,7 +155,9 @@ public class LoginForma extends javax.swing.JFrame {
             Controller controller = Controller.getInstance();
             String user = txtKorisnickoIme.getText();
             String pass = String.valueOf(txtLozinka.getPassword());
-            Cvecar cvecar = new Cvecar(user, pass);
+            Cvecar cvecar = new Cvecar();
+            cvecar.setKorisnickoIme(user);
+            cvecar.setLozinka(pass);
             cvecar = controller.prijaviCvecara(cvecar);
             Session.getInstance().setUlogovani(cvecar);
             JOptionPane.showMessageDialog(this, cvecar.getIme() + " logged in!", "Login", JOptionPane.INFORMATION_MESSAGE);

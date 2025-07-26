@@ -24,15 +24,19 @@ public class UpravljajCvecarimaForma extends javax.swing.JFrame {
     /**
      * Creates new form PromeniCvecaraForma
      */
-    public UpravljajCvecarimaForma() throws Exception {
-        initComponents();
-        lista = Controller.getInstance().ucitajCvecareIzBaze();
-        mtc= new TableModelCvecar(lista);
-        setResizable(false);
-        setLocationRelativeTo(null);
-        tblCvecari.setModel(mtc);
-        btnPromeni.setEnabled(false);
-        btnObrisi.setEnabled(false);
+    public UpravljajCvecarimaForma(){
+        try {
+            initComponents();
+            lista = Controller.getInstance().ucitajCvecareIzBaze();
+            mtc= new TableModelCvecar(lista);
+            setResizable(false);
+            setLocationRelativeTo(null);
+            tblCvecari.setModel(mtc);
+            btnPromeni.setEnabled(false);
+            btnObrisi.setEnabled(false);
+        } catch (Exception ex) {
+            Logger.getLogger(UpravljajCvecarimaForma.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -84,7 +88,7 @@ public class UpravljajCvecarimaForma extends javax.swing.JFrame {
             }
         });
 
-        btnNazad.setText("nazad");
+        btnNazad.setText("Otkazi");
         btnNazad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNazadActionPerformed(evt);
@@ -96,30 +100,32 @@ public class UpravljajCvecarimaForma extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnPromeni, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnObrisi, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnNazad, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(53, 53, 53))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(46, 46, 46)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnPromeni)
+                            .addComponent(btnObrisi)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(183, 183, 183)
+                        .addComponent(btnNazad)))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(btnPromeni)
-                        .addGap(41, 41, 41)
-                        .addComponent(btnObrisi)
+                        .addComponent(btnPromeni, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnNazad))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(23, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18))
+                        .addComponent(btnObrisi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addComponent(btnNazad, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28))
         );
 
         pack();

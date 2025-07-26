@@ -143,7 +143,7 @@ public class Cvecar extends OpstiDomenskiObjekat{
 
     @Override
     public String uslov() {
-        return "korisnickoIme = '" + korisnickoIme + "' AND lozinka = '" + lozinka + "'";
+        return "WHERE korisnickoIme = '" + korisnickoIme + "' AND lozinka = '" + lozinka + "'";
     }
 
 }

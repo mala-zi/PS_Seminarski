@@ -246,7 +246,23 @@ public class Otpremnica extends OpstiDomenskiObjekat {
 
     @Override
     public String uslov() {
-        return "";
+        ArrayList<String> uslovi = new ArrayList<>();
+
+    if (cvecar != null && cvecar.getId() > 0) {
+        uslovi.add("o.idCvecar = " + cvecar.getId());
+    }
+    if (kupac != null && kupac.getId() > 0) {
+        uslovi.add("o.idKupac = " + kupac.getId());
+    }
+    if (datumIzdavanja != null) {
+        java.sql.Date sqlDatum = new java.sql.Date(datumIzdavanja.getTime());
+        uslovi.add("o.datumIzdavanja = '" + sqlDatum + "'");
+    }
+
+    if (uslovi.isEmpty()) {
+        return ""; 
+    }
+    return "WHERE " + String.join(" AND ", uslovi);
     }
 
 }

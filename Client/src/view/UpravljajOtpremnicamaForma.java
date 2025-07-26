@@ -6,8 +6,11 @@ package view;
 
 import tableModel.TableModelOtpremnica;
 import controller.Controller;
+import domain.Cvecar;
+import domain.Kupac;
 import domain.Otpremnica;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -17,22 +20,28 @@ import javax.swing.JOptionPane;
  * @author Saki
  */
 public class UpravljajOtpremnicamaForma extends javax.swing.JDialog {
-    
+
     /**
      * Creates new form PromeniForma
      */
     public UpravljajOtpremnicamaForma() {
         try {
             initComponents();
-            btnSearch.setVisible(false);
-            lblcvecar.setVisible(false);
-            lblkupac.setVisible(false);
-            datum.setVisible(false);
-            comboCvecar.setVisible(false);
-            comboDatum.setVisible(false);
-            comboKupac.setVisible(false);
             promena();
             setTitle("Upravljaj otpremnicama");
+            setResizable(false);
+            setLocationRelativeTo(null);
+            tblOtp.setModel(new TableModelOtpremnica(Controller.getInstance().ucitajOtpremniceIzBaze()));
+        } catch (Exception ex) {
+            Logger.getLogger(UpravljajOtpremnicamaForma.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public UpravljajOtpremnicamaForma(boolean pretraga) {
+        try {
+            initComponents();
+            popuniCombo();
+            setTitle("Pretrazi otpremnicu");
             setResizable(false);
             setLocationRelativeTo(null);
             tblOtp.setModel(new TableModelOtpremnica(Controller.getInstance().ucitajOtpremniceIzBaze()));
@@ -100,18 +109,17 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JDialog {
         });
 
         btnSearch.setText("Pretrazi");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
 
         datum.setText("Datum izdavanja");
 
         lblcvecar.setText("Cvecar");
 
         lblkupac.setText("Kupac");
-
-        comboKupac.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        comboCvecar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        comboDatum.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -147,8 +155,8 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JDialog {
                         .addGap(49, 49, 49)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnChange, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnSearch)
-                            .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -192,15 +200,16 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JDialog {
     private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
         try {
             // TODO add your handling code here:
-            ArrayList<Otpremnica> lista=Controller.getInstance().ucitajOtpremniceIzBaze();
-            int selektovanRed=tblOtp.getSelectedRow();
-            if(selektovanRed==-1){
+            ArrayList<Otpremnica> lista = Controller.getInstance().ucitajOtpremniceIzBaze();
+            int selektovanRed = tblOtp.getSelectedRow();
+            if (selektovanRed == -1) {
                 JOptionPane.showMessageDialog(this, "Nijedan red nije selektovan", "Greska", JOptionPane.ERROR_MESSAGE);
-            }else{
-                
+            } else {
+
                 try {
-                    Otpremnica otpremnica=lista.get(selektovanRed);
-                    KreirajOtpremnicuForma kof=new KreirajOtpremnicuForma(this,otpremnica);
+                    TableModelOtpremnica model = (TableModelOtpremnica) tblOtp.getModel();
+                    Otpremnica otpremnica = model.getOtpremnica(selektovanRed);
+                    KreirajOtpremnicuForma kof = new KreirajOtpremnicuForma(this, otpremnica);
                     kof.setVisible(true);
                     tblOtp.setModel(new TableModelOtpremnica(Controller.getInstance().ucitajOtpremniceIzBaze()));
                 } catch (Exception ex) {
@@ -214,7 +223,40 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JDialog {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
+        try {
+            int selektovanRed = tblOtp.getSelectedRow();
+            if (selektovanRed == -1) {
+                JOptionPane.showMessageDialog(this, "Nista nije selektovano", "Greska", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            TableModelOtpremnica model = (TableModelOtpremnica) tblOtp.getModel();
+            Otpremnica zaBrisanje = model.getOtpremnica(selektovanRed);
+            Controller.getInstance().obrisiOtpremnicu(zaBrisanje);
+            JOptionPane.showMessageDialog(this, "Otpremnica obrisana", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+
+             tblOtp.setModel(new TableModelOtpremnica(Controller.getInstance().ucitajOtpremniceIzBaze()));
+        } catch (Exception ex) {
+            Logger.getLogger(UpravljajCvecarimaForma.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        try {
+            // TODO add your handling code here:
+            Date datum = (Date) comboDatum.getSelectedItem();
+            Cvecar cvecar = (Cvecar) comboCvecar.getSelectedItem();
+            Kupac kupac = (Kupac) comboKupac.getSelectedItem();
+
+            Otpremnica filter = new Otpremnica();
+            filter.setDatumIzdavanja(datum);
+            filter.setCvecar(cvecar);
+            filter.setKupac(kupac);
+            ArrayList<Otpremnica> filtriraneOtpremnice = Controller.getInstance().pretraziOtpremnice(filter);
+            tblOtp.setModel(new TableModelOtpremnica(filtriraneOtpremnice));
+        } catch (Exception ex) {
+            Logger.getLogger(UpravljajOtpremnicamaForma.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnSearchActionPerformed
 
     /**
      * @param args the command line arguments
@@ -257,9 +299,9 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JDialog {
     private javax.swing.JButton btnChange;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnSearch;
-    private javax.swing.JComboBox<String> comboCvecar;
-    private javax.swing.JComboBox<String> comboDatum;
-    private javax.swing.JComboBox<String> comboKupac;
+    private javax.swing.JComboBox<Cvecar> comboCvecar;
+    private javax.swing.JComboBox<Date> comboDatum;
+    private javax.swing.JComboBox<Kupac> comboKupac;
     private javax.swing.JLabel datum;
     private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -267,4 +309,33 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JDialog {
     private javax.swing.JLabel lblkupac;
     private javax.swing.JTable tblOtp;
     // End of variables declaration//GEN-END:variables
+
+    private void promena() {
+        btnSearch.setVisible(false);
+        lblcvecar.setVisible(false);
+        lblkupac.setVisible(false);
+        datum.setVisible(false);
+        comboCvecar.setVisible(false);
+        comboDatum.setVisible(false);
+        comboKupac.setVisible(false);
+    }
+
+    private void popuniCombo() throws Exception {
+
+        comboKupac.removeAllItems();
+        ArrayList<Kupac> kupci = Controller.getInstance().ucitajKupceIzBaze();
+        for (Kupac k : kupci) {
+            comboKupac.addItem(k);
+        }
+        comboCvecar.removeAllItems();
+        ArrayList<Cvecar> cvecari = Controller.getInstance().ucitajCvecareIzBaze();
+        for (Cvecar c : cvecari) {
+            comboCvecar.addItem(c);
+        }
+        comboDatum.removeAllItems();
+        ArrayList<Otpremnica> otpremnice = Controller.getInstance().ucitajOtpremniceIzBaze();
+        for (Otpremnica o : otpremnice) {
+            comboDatum.addItem(o.getDatumIzdavanja());
+        }
+    }
 }

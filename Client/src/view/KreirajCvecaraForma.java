@@ -201,7 +201,7 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
         String lozinka = txtLozinka.getText();
 
         if (cvecar == null) {
-            Cvecar c = new Cvecar(ime, prezime, korisnickoIme, lozinka);
+            Cvecar c = new Cvecar(-1,ime, prezime, korisnickoIme, lozinka);
             try {
                 Controller.getInstance().dodajCvecara(c);
             } catch (Exception ex) {

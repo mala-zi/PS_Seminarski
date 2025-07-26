@@ -24,10 +24,10 @@ public class SOPrijaviCvecara extends OpstaSistemskaOperacija{
     }
 
     @Override
-    protected void execute(OpstiDomenskiObjekat ado) throws Exception {
-        Cvecar c= (Cvecar) ado;
+    protected void execute(OpstiDomenskiObjekat odo) throws Exception {
+        Cvecar c= (Cvecar) odo;
         ArrayList<Cvecar> listaCvecara= (ArrayList<Cvecar>) (ArrayList<?>)
-                DatabaseBroker.getInstance().select(ado);
+                DatabaseBroker.getInstance().select(odo);
         for (Cvecar cvecar : listaCvecara) {
             if(cvecar.getKorisnickoIme().equals(c.getKorisnickoIme()) &&
                     cvecar.getLozinka().equals(c.getLozinka())){

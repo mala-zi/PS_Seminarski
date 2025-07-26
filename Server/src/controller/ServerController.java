@@ -4,11 +4,13 @@
  */
 package controller;
 
+import dbb.PasswordHash;
 import domain.Aranzman;
 import domain.Cvecar;
 import domain.Kupac;
 import domain.Mesto;
 import domain.Otpremnica;
+import domain.StavkaOtpremnice;
 import domain.StrucnaSprema;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -31,8 +33,10 @@ import so.mesto.SOPromeniMesto;
 import so.mesto.SOVratiListuSviMesto;
 import so.otpremnica.SOKreirajOtpremnicu;
 import so.otpremnica.SOObrisiOtpremnicu;
+import so.otpremnica.SOPretraziOtpremnicu;
 import so.otpremnica.SOPromeniOtpremnicu;
 import so.otpremnica.SOVratiListuSviOtpremnica;
+import so.stavkaotpremnice.SOVratiListuSviStavkiOtpremnice;
 import so.strsprema.SOObrisiStrSprema;
 import so.strsprema.SOPromeniStrSprema;
 import so.strsprema.SOUbaciStrSprema;
@@ -60,6 +64,8 @@ public class ServerController {
 
     public Cvecar prijaviCvecara(Cvecar cvecar) throws SQLException, Exception {
         SOPrijaviCvecara soPrijavi = new SOPrijaviCvecara();
+        String hash=PasswordHash.hashPassword(cvecar.getLozinka());
+        cvecar.setLozinka(hash);
         soPrijavi.templateExecute(cvecar);
         return soPrijavi.getPrijavljenCvecar();
 
@@ -151,7 +157,6 @@ public class ServerController {
     public void promeniOtpremnicu(Otpremnica otpremnicaChange) throws Exception {
         (new SOPromeniOtpremnicu()).templateExecute(otpremnicaChange);
     }
-    
 
     public void ubaciStrSpremu(StrucnaSprema strucnaSpremaAdd) throws Exception {
         (new SOUbaciStrSprema()).templateExecute(strucnaSpremaAdd);
@@ -170,7 +175,23 @@ public class ServerController {
     public void obrisiStrSprema(StrucnaSprema strSpremaDelete) throws Exception {
         (new SOObrisiStrSprema()).templateExecute(strSpremaDelete);
     }
+
     public void obrisiOtpremnicu(Otpremnica otpremnicaDelete) throws Exception {
         (new SOObrisiOtpremnicu()).templateExecute(otpremnicaDelete);
+    }
+
+    public Object ucitajStavkeOtpremniceIzBaze(Otpremnica otpremnica) throws Exception {//mozda promenim na Arraylist posle
+        SOVratiListuSviStavkiOtpremnice so = new SOVratiListuSviStavkiOtpremnice();
+        StavkaOtpremnice s = new StavkaOtpremnice();
+        s.setOtpremnica(otpremnica);
+        so.templateExecute(s);
+        return so.getLista();
+
+    }
+
+    public ArrayList<Otpremnica> pretraziOtpremnicu(Otpremnica kriterijum) throws Exception {
+        SOPretraziOtpremnicu so = new SOPretraziOtpremnicu();
+        so.templateExecute(kriterijum);
+        return so.getLista();
     }
 }

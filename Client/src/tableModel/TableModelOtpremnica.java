@@ -12,19 +12,16 @@ import java.util.ArrayList;
  *
  * @author Saki
  */
-public class TableModelOtpremnica extends AbstractTableModel{
+public class TableModelOtpremnica extends AbstractTableModel {
 
     private ArrayList<Otpremnica> lista;
-    private int i=1;
-    private final String[] kolone={"ID","Datum izdavanja", "Iznos Sa PDV-om","Iznos Bez PDV-a","Cvecar","Kupac"};
+    private int i = 1;
+    private final String[] kolone = {"ID", "Datum izdavanja", "Iznos Sa PDV-om", "Iznos Bez PDV-a", "Cvecar", "Kupac"};
 
     public TableModelOtpremnica(ArrayList<Otpremnica> lista) {
         this.lista = lista;
     }
 
-    
-    
-    
     @Override
     public int getRowCount() {
         return lista.size();
@@ -37,8 +34,8 @@ public class TableModelOtpremnica extends AbstractTableModel{
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Otpremnica o=lista.get(rowIndex);
-        switch(columnIndex){
+        Otpremnica o = lista.get(rowIndex);
+        switch (columnIndex) {
             case 0:
                 return i++;
             case 1:
@@ -48,19 +45,19 @@ public class TableModelOtpremnica extends AbstractTableModel{
             case 3:
                 return o.getUkupanIznosBezPDv();
             case 4:
-                return o.getCvecar().getIme()+" "+o.getCvecar().getPrezime();
+                return o.getCvecar().getIme() + " " + o.getCvecar().getPrezime();
             case 5:
                 return o.getKupac().getNaziv();
-             
+
             default:
                 return null;
-                
+
         }
     }
 
     @Override
     public String getColumnName(int column) {
-        return kolone[column]; 
+        return kolone[column];
     }
 
     @Override
@@ -68,4 +65,7 @@ public class TableModelOtpremnica extends AbstractTableModel{
         return columnIndex == 1;
     }
 
+    public Otpremnica getOtpremnica(int row) {
+        return lista.get(row);
+    }
 }

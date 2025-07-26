@@ -446,6 +446,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
         Cvecar c = (Cvecar) comboBoxCvecar.getSelectedItem();
         Kupac k = (Kupac) comboBoxKupac.getSelectedItem();
         try {
+            //fali slucaj kad je promena
         TableModelStavkaOtpremnice tmodel = (TableModelStavkaOtpremnice) tableStavke.getModel();
             ArrayList<StavkaOtpremnice> stavke = tmodel.getListaStavki();
             Otpremnica otpremnica=new Otpremnica(ukupnaBez, ukupnaSa, ukupanPopust, datumIzdavanja, c, k);
@@ -584,7 +585,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
 
     private void popuniKupceIzBaze() throws Exception {
         comboBoxKupac.removeAllItems();
-        List<Kupac> kupci = Controller.getInstance().ucitajKupceIzBaze();
+        ArrayList<Kupac> kupci = Controller.getInstance().ucitajKupceIzBaze();
         for (Kupac k : kupci) {
             comboBoxKupac.addItem(k);
         }
@@ -592,7 +593,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
 
     private void popuniAranzmaneIzBaze() throws Exception {
         comboAranzmani.removeAllItems();
-        List<Aranzman> aranzmani = Controller.getInstance().ucitajAranzmaneIzBaze();
+        ArrayList<Aranzman> aranzmani = Controller.getInstance().ucitajAranzmaneIzBaze();
         for (Aranzman a : aranzmani) {
             comboAranzmani.addItem(a);
         }

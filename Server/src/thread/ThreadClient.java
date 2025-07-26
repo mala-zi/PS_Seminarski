@@ -5,8 +5,10 @@
 package thread;
 
 import controller.ServerController;
+import domain.Aranzman;
 import domain.Cvecar;
 import domain.Kupac;
+import domain.Mesto;
 import domain.Otpremnica;
 import domain.StrucnaSprema;
 import java.io.ObjectInputStream;
@@ -77,6 +79,57 @@ public class ThreadClient extends Thread {
                     break;
                 case Operation.VRATI_LISTU_SVI_ARANZMANI:
                     response.setData(ServerController.getInstance().ucitajAranzmaneIzBaze());
+                    break;
+                case Operation.VRATI_LISTU_SVI_CVECAR:
+                    response.setData(ServerController.getInstance().ucitajCvecareIzBaze());
+                    break;
+                case Operation.KREIRAJ_KUPCA:
+                    ServerController.getInstance().dodajKupca((Kupac) request.getData());
+                    break;
+                case Operation.KREIRAJ_ARANZMAN:
+                    ServerController.getInstance().dodajAranzman((Aranzman) request.getData());
+                    break;
+                case Operation.OBRISI_ARANZMAN:
+                    ServerController.getInstance().obrisiAranzman((Aranzman) request.getData());
+                    break;
+                case Operation.PROMENI_ARANZMAN:
+                    ServerController.getInstance().promeniAranzman((Aranzman) request.getData());
+                    break;
+                case Operation.KREIRAJ_MESTO:
+                    ServerController.getInstance().dodajMesto((Mesto) request.getData());
+                    break;
+                case Operation.PROMENI_MESTO:
+                    ServerController.getInstance().promeniMesto((Mesto) request.getData());
+                    break;
+                case Operation.OBRISI_MESTO:
+                    ServerController.getInstance().obrisiMesto((Mesto) request.getData());
+                    break;
+                case Operation.VRATI_LISTU_SVI_MESTO:
+                    response.setData(ServerController.getInstance().ucitajMestaIzBaze());
+                    break;
+                case Operation.PROMENI_OTPREMNICU:
+                    ServerController.getInstance().promeniOtpremnicu((Otpremnica) request.getData());
+                    break;
+                case Operation.OBRISI_OTPREMNICU:
+                    ServerController.getInstance().obrisiOtpremnicu((Otpremnica) request.getData());
+                    break;
+                case Operation.VRATI_LISTU_SVI_OTPREMNICA:
+                    response.setData(ServerController.getInstance().ucitajOtpremniceIzBaze());
+                    break;
+                case Operation.PRETRAZI_OTPREMNICU:
+                    response.setData(ServerController.getInstance().pretraziOtpremnicu((Otpremnica) request.getData()));
+                    break;
+                case Operation.VRATI_LISTU_STAVKI_OTPREMNICE:
+                    response.setData(ServerController.getInstance().ucitajStavkeOtpremniceIzBaze((Otpremnica) request.getData()));
+                    break;
+                case Operation.PROMENI_STRUCNASPREMA:
+                    ServerController.getInstance().promeniStrSpremu((StrucnaSprema) request.getData());
+                    break;
+                case Operation.OBRISI_STRUCNASPREMA:
+                    ServerController.getInstance().obrisiStrSprema((StrucnaSprema) request.getData());
+                    break;
+                case Operation.VRATI_LISTU_SVI_STRUCNASPREMA:
+                    response.setData(ServerController.getInstance().ucitajStrucneSpremeIzBaze());
                     break;
                 default:
                     return null;

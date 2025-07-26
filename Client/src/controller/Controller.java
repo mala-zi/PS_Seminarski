@@ -86,10 +86,6 @@ public class Controller {
         sendRequest(Operation.KREIRAJ_OTPREMNICU, otpremnica);
     }
 
-    public void dodajStavkuOtpremnice(StavkaOtpremnice so) throws Exception {
-        sendRequest(Operation.DODAJ_STAVKU_OTPREMNICE, so);
-    }
-
     public ArrayList<Kupac> ucitajKupceIzBaze() throws Exception {
         return (ArrayList<Kupac>) sendRequest(Operation.VRATI_LISTU_SVI_KUPCI, null);
 
@@ -145,7 +141,7 @@ public class Controller {
     }
 
     public void dodajAranzman(Aranzman aranzmanAdd) throws Exception {
-         sendRequest(Operation.KREIRAJ_ARANZMAN, aranzmanAdd);
+        sendRequest(Operation.KREIRAJ_ARANZMAN, aranzmanAdd);
     }
 
     public void promeniAranzman(Aranzman aranzmanChange) throws Exception {
@@ -154,7 +150,7 @@ public class Controller {
     }
 
     public void obrisiAranzman(Aranzman aranzmanDelete) throws Exception {
-         sendRequest(Operation.OBRISI_ARANZMAN, aranzmanDelete);
+        sendRequest(Operation.OBRISI_ARANZMAN, aranzmanDelete);
     }
 
     public ArrayList<Otpremnica> ucitajOtpremniceIzBaze() throws Exception {
@@ -162,8 +158,20 @@ public class Controller {
     }
 
     public ArrayList<StavkaOtpremnice> ucitajStavkeOtpremniceIzBaze(Otpremnica otpremnica) throws Exception {
-         return (ArrayList<StavkaOtpremnice>) sendRequest(Operation.VRATI_LISTU_STAVKI_OTPREMNICE, otpremnica);
+        return (ArrayList<StavkaOtpremnice>) sendRequest(Operation.VRATI_LISTU_STAVKI_OTPREMNICE, otpremnica);
     }
 
-    
+    public void obrisiOtpremnicu(Otpremnica otpremnicaDelete) throws Exception {
+        sendRequest(Operation.OBRISI_OTPREMNICU, otpremnicaDelete);
+
+    }
+
+    public ArrayList<Otpremnica> pretraziOtpremnice(Otpremnica kriterijum) throws Exception {
+        return (ArrayList<Otpremnica>) sendRequest(Operation.PRETRAZI_OTPREMNICU, kriterijum);
+    }
+
+    public void promeniOtpremnicu(Otpremnica otpremnicaChange) throws Exception {
+        sendRequest(Operation.PROMENI_OTPREMNICU, otpremnicaChange);
+
+    }
 }

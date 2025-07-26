@@ -145,7 +145,7 @@ public class DatabaseBroker {
 
     public ArrayList<OpstiDomenskiObjekat> select(OpstiDomenskiObjekat odo) throws SQLException {
         String upit = "SELECT * FROM " + odo.nazivTabele() + " " + odo.alijas()
-                + " " + odo.join() + " " + odo.uslov();
+                + " " + odo.join() + " "+ odo.uslov();
         System.out.println(upit);
         Statement s = connection.createStatement();
         ResultSet rs = s.executeQuery(upit);

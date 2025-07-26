@@ -10,27 +10,27 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import session.Session;
 
-
-
 /**
  *
  * @author Saki
  */
 public class GlavnaForma extends javax.swing.JFrame {
-Cvecar cvecar;
-  //  ModelTableOtpremnica mto= new ModelTableOtpremnica( Controller.getInstance().ucitajOtpremniceIzBaze());
+
+    Cvecar cvecar;
+    //  ModelTableOtpremnica mto= new ModelTableOtpremnica( Controller.getInstance().ucitajOtpremniceIzBaze());
+
     /**
      * Creates new form MainForma
      */
     public GlavnaForma(Cvecar c) {
         initComponents();
-        cvecar=c;
-        setTitle(cvecar.getIme()+" "+cvecar.getPrezime());
+        cvecar = c;
+        setTitle(cvecar.getIme() + " " + cvecar.getPrezime());
+        txtLogovan.setText("Zdravo, " + cvecar.getIme() + "!");
         setResizable(false);
         setLocationRelativeTo(null);
         //tblOtp.setModel(new model);
-        
-       
+
     }
 
     /**
@@ -43,9 +43,7 @@ Cvecar cvecar;
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblOtp = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
+        txtLogovan = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         meniCvecar = new javax.swing.JMenu();
         itemCvecarChange = new javax.swing.JMenuItem();
@@ -74,21 +72,8 @@ Cvecar cvecar;
             }
         });
 
-        tblOtp.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(tblOtp);
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
-        jLabel1.setText("Otpremnice");
+        txtLogovan.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        txtLogovan.setText("jLabel1");
 
         meniCvecar.setText("Cvecar");
 
@@ -212,139 +197,129 @@ Cvecar cvecar;
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(182, 182, 182)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(187, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(25, 25, 25)
+                .addComponent(txtLogovan, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addGap(284, 284, 284))
+                .addGap(27, 27, 27))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(50, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(46, 46, 46)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(jButton1)
-                .addGap(31, 31, 31))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtLogovan, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void itemOtpAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemOtpAddActionPerformed
-    try {
-        // TODO add your handling code here:
-        KreirajOtpremnicuForma ko=new KreirajOtpremnicuForma();
-        ko.setVisible(true);
-        //tblOtp.setModel(mto);
-    } catch (Exception ex) {
-        Logger.getLogger(GlavnaForma.class.getName()).log(Level.SEVERE, null, ex);
-    }
-        
+        try {
+            // TODO add your handling code here:
+            KreirajOtpremnicuForma ko = new KreirajOtpremnicuForma();
+            ko.setVisible(true);
+            //tblOtp.setModel(mto);
+        } catch (Exception ex) {
+            Logger.getLogger(GlavnaForma.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_itemOtpAddActionPerformed
 
     private void itemKupacChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemKupacChangeActionPerformed
-    try {
-        // TODO add your handling code here:
-        UpravljajKupcimaForma pkf=new UpravljajKupcimaForma(false);
-        pkf.setVisible(true);
-    } catch (Exception ex) {
-        Logger.getLogger(GlavnaForma.class.getName()).log(Level.SEVERE, null, ex);
-    }
+        try {
+            // TODO add your handling code here:
+            UpravljajKupcimaForma pkf = new UpravljajKupcimaForma(false);
+            pkf.setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(GlavnaForma.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_itemKupacChangeActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        int odgovor= JOptionPane.showConfirmDialog(this,
-                "Da li ste sigurni da zelite da se odjavite?", 
+        int odgovor = JOptionPane.showConfirmDialog(this,
+                "Da li ste sigurni da zelite da se odjavite?",
                 "Odjava",
                 JOptionPane.YES_NO_OPTION);
-        
-        if(odgovor==JOptionPane.NO_OPTION) return;
-        else if(odgovor==JOptionPane.YES_OPTION) {
+
+        if (odgovor == JOptionPane.NO_OPTION)
+            return;
+        else if (odgovor == JOptionPane.YES_OPTION) {
             Session.getInstance().setUlogovani(null);
-            LoginForma lf= new LoginForma();
+            LoginForma lf = new LoginForma();
             lf.setVisible(true);
-                 
+
             this.dispose();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void itemOtpChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemOtpChangeActionPerformed
         // TODO add your handling code here:
-        UpravljajOtpremnicamaForma pf=new UpravljajOtpremnicamaForma();
+        UpravljajOtpremnicamaForma pf = new UpravljajOtpremnicamaForma();
         pf.setVisible(true);
     }//GEN-LAST:event_itemOtpChangeActionPerformed
 
     private void itemKupacAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemKupacAddActionPerformed
         // TODO add your handling code here:
-        KreirajKupcaForma kf=new KreirajKupcaForma();
+        KreirajKupcaForma kf = new KreirajKupcaForma();
         kf.setVisible(true);
     }//GEN-LAST:event_itemKupacAddActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-  
-        // TODO add your handling code here:
-        UpravljajCvecarimaForma pc;
-        try {
-            pc = new UpravljajCvecarimaForma();
-            pc.setVisible(true);
-        } catch (Exception ex) {
-            Logger.getLogger(GlavnaForma.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        UpravljajCvecarimaForma pc = new UpravljajCvecarimaForma();
+        pc.setVisible(true);
+
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     private void itemCvecarChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCvecarChangeActionPerformed
         // TODO add your handling code here:
-        KreirajCvecaraForma kcf=new KreirajCvecaraForma();
+        KreirajCvecaraForma kcf = new KreirajCvecaraForma();
         kcf.setVisible(true);
     }//GEN-LAST:event_itemCvecarChangeActionPerformed
 
     private void itemSSAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSSAddActionPerformed
         // TODO add your handling code here:
-        UbaciStrucnuSpremuForma ssf=new UbaciStrucnuSpremuForma();
+        UbaciStrucnuSpremuForma ssf = new UbaciStrucnuSpremuForma();
         ssf.setVisible(true);
     }//GEN-LAST:event_itemSSAddActionPerformed
 
     private void itemOtpSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemOtpSearchActionPerformed
         // TODO add your handling code here:
-        UpravljajOtpremnicamaForma uof=new UpravljajOtpremnicamaForma();
+        boolean pretraga = true;
+        UpravljajOtpremnicamaForma uof = new UpravljajOtpremnicamaForma(pretraga);
+        uof.setVisible(true);
     }//GEN-LAST:event_itemOtpSearchActionPerformed
 
     private void itemMestoViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMestoViewActionPerformed
-    try {
-        // TODO add your handling code here:
-        PregledMestaForma pmf=new PregledMestaForma();
-        pmf.setVisible(true);
-    } catch (Exception ex) {
-        Logger.getLogger(GlavnaForma.class.getName()).log(Level.SEVERE, null, ex);
-    }
+        try {
+            // TODO add your handling code here:
+            PregledMestaForma pmf = new PregledMestaForma();
+            pmf.setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(GlavnaForma.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_itemMestoViewActionPerformed
 
     private void itemSSControlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSSControlActionPerformed
         // TODO add your handling code here:
-        UpravljajStrucnimSpremamaForma pssf=new UpravljajStrucnimSpremamaForma();
+        UpravljajStrucnimSpremamaForma pssf = new UpravljajStrucnimSpremamaForma();
         pssf.setVisible(true);
     }//GEN-LAST:event_itemSSControlActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-        KreirajAranzmanForma kaf=new KreirajAranzmanForma();
+        KreirajAranzmanForma kaf = new KreirajAranzmanForma();
         kaf.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
         // TODO add your handling code here:
-        UpravljajAranzmanimaForma uaf=new UpravljajAranzmanimaForma();
+        UpravljajAranzmanimaForma uaf = new UpravljajAranzmanimaForma();
         uaf.setVisible(true);
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
@@ -359,17 +334,15 @@ Cvecar cvecar;
     private javax.swing.JMenuItem itemSSAdd;
     private javax.swing.JMenuItem itemSSControl;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem14;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu meniAranzman;
     private javax.swing.JMenu meniCvecar;
     private javax.swing.JMenu meniKupac;
     private javax.swing.JMenu meniMesto;
     private javax.swing.JMenu meniOtpremnica;
-    private javax.swing.JTable tblOtp;
+    private javax.swing.JLabel txtLogovan;
     // End of variables declaration//GEN-END:variables
 }

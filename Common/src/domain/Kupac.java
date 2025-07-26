@@ -156,7 +156,7 @@ public class Kupac extends OpstiDomenskiObjekat{
 
     @Override
     public String uslov() {
-        return "id = " + id;
+        return "WHERE id = " + id;
     }
 
 }
