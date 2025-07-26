@@ -221,6 +221,7 @@ public class StavkaOtpremnice extends OpstiDomenskiObjekat {
                     rs.getDouble("ukupanPopust"),
                     rs.getDate("datumIzdavanja"),
                     rs.getDouble("ukupnaCena"),
+                    
                     cvecar,
                     kupac,null
             );

@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
 public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
 
     StrucnaSprema ss;
-    UpravljajStrucnimSpremama pssf;
+    UpravljajStrucnimSpremamaForma pssf;
     /**
      * Creates new form UbaciStrucnuSpremuForma
      */
@@ -39,7 +39,7 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
         comboSertifikat.addItem("DA");
         if(strsprema!=null){
             ss=strsprema;
-            pssf=(UpravljajStrucnimSpremama) parent;
+            pssf=(UpravljajStrucnimSpremamaForma) parent;
             popuniIzmenuStrSprema(ss);
         }
 

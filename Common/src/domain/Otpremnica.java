@@ -20,9 +20,8 @@ public class Otpremnica extends OpstiDomenskiObjekat {
     private int id;
     private double ukupanIznosBezPDv;
     private double ukupanIznosSaPDV;
-    private double ukupanPopust;
     private Date datumIzdavanja;
-    private double ukupnaCena;
+    private double ukupanPopust;
     private Cvecar cvecar;
     private Kupac kupac;
     private ArrayList<StavkaOtpremnice> stavkeOtpremnice;
@@ -30,26 +29,24 @@ public class Otpremnica extends OpstiDomenskiObjekat {
     public Otpremnica() {
     }
 
-    public Otpremnica(double ukupanIznosBezPDv, double ukupanIznosSaPDV, double ukupanPopust, Date datumIzdavanja, double ukupnaCena, Cvecar cvecar, Kupac kupac) {
+    public Otpremnica(double ukupanIznosBezPDv, double ukupanIznosSaPDV,double ukupanPopust, Date datumIzdavanja, Cvecar cvecar, Kupac kupac) {
 
         this.ukupanIznosBezPDv = ukupanIznosBezPDv;
         this.ukupanIznosSaPDV = ukupanIznosSaPDV;
-        this.ukupanPopust = ukupanPopust;
         this.datumIzdavanja = datumIzdavanja;
-        this.ukupnaCena = ukupnaCena;
         this.cvecar = cvecar;
         this.kupac = kupac;
+        this.ukupanPopust=ukupanPopust;
     }
 
-    public Otpremnica(int id, double ukupanIznosBezPDv, double ukupanIznosSaPDV, double ukupanPopust, Date datumIzdavanja, double ukupnaCena, Cvecar cvecar, Kupac kupac, ArrayList<StavkaOtpremnice> stavkeOtpremnice) {
+    public Otpremnica(int id, double ukupanIznosBezPDv, double ukupanIznosSaPDV,double ukupanPopust, Date datumIzdavanja, double ukupnaCena, Cvecar cvecar, Kupac kupac, ArrayList<StavkaOtpremnice> stavkeOtpremnice) {
         this.id = id;
         this.ukupanIznosBezPDv = ukupanIznosBezPDv;
         this.ukupanIznosSaPDV = ukupanIznosSaPDV;
-        this.ukupanPopust = ukupanPopust;
         this.datumIzdavanja = datumIzdavanja;
-        this.ukupnaCena = ukupnaCena;
         this.cvecar = cvecar;
         this.kupac = kupac;
+        this.ukupanPopust=ukupanPopust;
         this.stavkeOtpremnice = stavkeOtpremnice;
     }
 
@@ -59,6 +56,14 @@ public class Otpremnica extends OpstiDomenskiObjekat {
 
     public void setStavkeOtpremnice(ArrayList<StavkaOtpremnice> stavkeOtpremnice) {
         this.stavkeOtpremnice = stavkeOtpremnice;
+    }
+
+    public double getUkupanPopust() {
+        return ukupanPopust;
+    }
+
+    public void setUkupanPopust(double ukupanPopust) {
+        this.ukupanPopust = ukupanPopust;
     }
 
    
@@ -87,13 +92,7 @@ public class Otpremnica extends OpstiDomenskiObjekat {
         this.ukupanIznosSaPDV = ukupanIznosSaPDV;
     }
 
-    public double getUkupanPopust() {
-        return ukupanPopust;
-    }
-
-    public void setUkupanPopust(double ukupanPopust) {
-        this.ukupanPopust = ukupanPopust;
-    }
+   
 
     public Date getDatumIzdavanja() {
         return datumIzdavanja;
@@ -103,13 +102,6 @@ public class Otpremnica extends OpstiDomenskiObjekat {
         this.datumIzdavanja = datumIzdavanja;
     }
 
-    public double getUkupnaCena() {
-        return ukupnaCena;
-    }
-
-    public void setUkupnaCena(double ukupnaCena) {
-        this.ukupnaCena = ukupnaCena;
-    }
 
     public Cvecar getCvecar() {
         return cvecar;
@@ -129,7 +121,7 @@ public class Otpremnica extends OpstiDomenskiObjekat {
 
     @Override
     public String toString() {
-        return "Otpremnica{" + "id=" + id + ", ukupanIznosBezPDv=" + ukupanIznosBezPDv + ", ukupanIznosSaPDV=" + ukupanIznosSaPDV + ", ukupanPopust=" + ukupanPopust + ", datumIzdavanja=" + datumIzdavanja + ", ukupnaCena=" + ukupnaCena + ", cvecar=" + cvecar + ", kupac=" + kupac + '}';
+        return "Otpremnica{" + "id=" + id + ", ukupanIznosBezPDv=" + ukupanIznosBezPDv + ", ukupanIznosSaPDV=" + ukupanIznosSaPDV + ", datumIzdavanja=" + datumIzdavanja + ", cvecar=" + cvecar + ", kupac=" + kupac + '}';
     }
 
     @Override
@@ -207,7 +199,7 @@ public class Otpremnica extends OpstiDomenskiObjekat {
                     rs.getDouble("o.ukupanIznosBezPDv"),
                     rs.getDouble("o.ukupanIznosSaPDV"),
                     rs.getDouble("o.ukupanPopust"),
-                    rs.getDate("o.datumIzdavanja"),
+                    rs.getDate("o.datumIzdavanja"),                  
                     rs.getDouble("o.ukupnaCena"),
                     cvecar,
                     kupac,null
@@ -222,7 +214,7 @@ public class Otpremnica extends OpstiDomenskiObjekat {
 
     @Override
     public String koloneZaInsert() {
-        return "(ukupanIznosBezPDv, ukupanIznosSaPDV, ukupanPopust, datumIzdavanja, ukupnaCena, idCvecar, idKupac)";
+        return "(ukupanIznosBezPDv, ukupanIznosSaPDV,ukupanPopust, datumIzdavanja, ukupnaCena, idCvecar, idKupac)";
     }
 
     @Override
@@ -235,8 +227,8 @@ public class Otpremnica extends OpstiDomenskiObjekat {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String datumStr = (datumIzdavanja != null) ? "'" + sdf.format(datumIzdavanja) + "'" : "NULL";
 
-        return ukupanIznosBezPDv + ", " + ukupanIznosSaPDV + ", " + ukupanPopust + ", "
-                + datumStr + ", " + ukupnaCena + ", " + cvecar.getId() + ", " + kupac.getId();
+        return ukupanIznosBezPDv + ", " + ukupanIznosSaPDV +  ", "+ukupanPopust+", "
+                + datumStr + ", " + cvecar.getId() + ", " + kupac.getId();
     }
 
     @Override
@@ -246,9 +238,8 @@ public class Otpremnica extends OpstiDomenskiObjekat {
 
         return "ukupanIznosBezPDv = " + ukupanIznosBezPDv
                 + ", ukupanIznosSaPDV = " + ukupanIznosSaPDV
-                + ", ukupanPopust = " + ukupanPopust
+                +", ukupanPopust = "+ukupanPopust
                 + ", datumIzdavanja = " + datumStr
-                + ", ukupnaCena = " + ukupnaCena
                 + ", idCvecar = " + cvecar.getId()
                 + ", idKupac = " + kupac.getId();
     }

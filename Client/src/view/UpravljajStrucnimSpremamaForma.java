@@ -16,7 +16,7 @@ import tableModel.TableModelStrucnaSprema;
  *
  * @author Saki
  */
-public class UpravljajStrucnimSpremama extends javax.swing.JFrame {
+public class UpravljajStrucnimSpremamaForma extends javax.swing.JFrame {
 
     private List<StrucnaSprema> lista;
     TableModelStrucnaSprema tmss;
@@ -24,7 +24,7 @@ public class UpravljajStrucnimSpremama extends javax.swing.JFrame {
     /**
      * Creates new form PromeniStrucnuSpremuForma
      */
-    public UpravljajStrucnimSpremama() {
+    public UpravljajStrucnimSpremamaForma() {
         initComponents();
     }
 
@@ -137,7 +137,7 @@ public class UpravljajStrucnimSpremama extends javax.swing.JFrame {
         try {
             tblStrSprema.setModel(new TableModelStrucnaSprema(Controller.getInstance().ucitajStrucneSpremeIzBaze()));
         } catch (Exception ex) {
-            Logger.getLogger(UpravljajStrucnimSpremama.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UpravljajStrucnimSpremamaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }//GEN-LAST:event_btnPromeniActionPerformed
@@ -165,7 +165,7 @@ public class UpravljajStrucnimSpremama extends javax.swing.JFrame {
 
             tblStrSprema.setModel(new TableModelStrucnaSprema(Controller.getInstance().ucitajStrucneSpremeIzBaze()));
         } catch (Exception ex) {
-            Logger.getLogger(PromeniCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UpravljajCvecarimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnObrisiActionPerformed
 
@@ -186,21 +186,23 @@ public class UpravljajStrucnimSpremama extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UpravljajStrucnimSpremama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpravljajStrucnimSpremamaForma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UpravljajStrucnimSpremama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpravljajStrucnimSpremamaForma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UpravljajStrucnimSpremama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpravljajStrucnimSpremamaForma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UpravljajStrucnimSpremama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpravljajStrucnimSpremamaForma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UpravljajStrucnimSpremama().setVisible(true);
+                new UpravljajStrucnimSpremamaForma().setVisible(true);
             }
         });
     }

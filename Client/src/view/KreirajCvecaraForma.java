@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 public class KreirajCvecaraForma extends javax.swing.JFrame {
 
     Cvecar cvecar;
-    PromeniCvecaraForma pcf;
+    UpravljajCvecarimaForma pcf;
 
     /**
      * Creates new form KreirajCvecaraForma
@@ -40,14 +40,14 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         txtId.setVisible(true);
         jLabel5.setVisible(true);
-        setTitle("Novi cvecar");
+        setTitle("Promeni cvecara");
         txtId.setEnabled(false);
         jLabel4.setVisible(false);
         txtLozinka.setVisible(false);
         btnNovaLozinka.setVisible(true);
         if (c != null) {
             cvecar = c;
-            pcf = (PromeniCvecaraForma) parent;
+            pcf = (UpravljajCvecarimaForma) parent;
             popuniIzmenuCvecar(cvecar);
         }
     }

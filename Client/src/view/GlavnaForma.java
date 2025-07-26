@@ -92,7 +92,7 @@ Cvecar cvecar;
 
         meniCvecar.setText("Cvecar");
 
-        itemCvecarChange.setText("Kreiraj Cvecara");
+        itemCvecarChange.setText("Kreiraj cvecara");
         itemCvecarChange.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemCvecarChangeActionPerformed(evt);
@@ -128,7 +128,7 @@ Cvecar cvecar;
 
         meniOtpremnica.setText("Otpremnica");
 
-        itemOtpAdd.setText("Kreiraj otp");
+        itemOtpAdd.setText("Kreiraj otpremnicu");
         itemOtpAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemOtpAddActionPerformed(evt);
@@ -136,7 +136,7 @@ Cvecar cvecar;
         });
         meniOtpremnica.add(itemOtpAdd);
 
-        itemOtpChange.setText("Promeni otp");
+        itemOtpChange.setText("Upravljaj otpremnicama");
         itemOtpChange.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemOtpChangeActionPerformed(evt);
@@ -144,7 +144,7 @@ Cvecar cvecar;
         });
         meniOtpremnica.add(itemOtpChange);
 
-        itemOtpSearch.setText("Pretrazi otp");
+        itemOtpSearch.setText("Pretrazi otpremnicu");
         itemOtpSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemOtpSearchActionPerformed(evt);
@@ -164,7 +164,7 @@ Cvecar cvecar;
         });
         meniKupac.add(itemKupacAdd);
 
-        itemKupacChange.setText("Promeni kupca");
+        itemKupacChange.setText("Upravljaj kupcima");
         itemKupacChange.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemKupacChangeActionPerformed(evt);
@@ -177,16 +177,26 @@ Cvecar cvecar;
         meniAranzman.setText("Aranzman");
 
         jMenuItem1.setText("Kreiraj aranzman");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         meniAranzman.add(jMenuItem1);
 
-        jMenuItem14.setText("Promeni aranzman");
+        jMenuItem14.setText("Upravljaj aranzmanima");
+        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem14ActionPerformed(evt);
+            }
+        });
         meniAranzman.add(jMenuItem14);
 
         jMenuBar1.add(meniAranzman);
 
         meniMesto.setText("Mesto");
 
-        itemMestoView.setText("Pregled Mesta");
+        itemMestoView.setText("Pregled mesta");
         itemMestoView.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemMestoViewActionPerformed(evt);
@@ -233,7 +243,7 @@ Cvecar cvecar;
     private void itemOtpAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemOtpAddActionPerformed
     try {
         // TODO add your handling code here:
-        KreirajOtp ko=new KreirajOtp(this, true);
+        KreirajOtpremnicuForma ko=new KreirajOtpremnicuForma();
         ko.setVisible(true);
         //tblOtp.setModel(mto);
     } catch (Exception ex) {
@@ -245,7 +255,7 @@ Cvecar cvecar;
     private void itemKupacChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemKupacChangeActionPerformed
     try {
         // TODO add your handling code here:
-        PromeniKupacForma pkf=new PromeniKupacForma(false);
+        UpravljajKupcimaForma pkf=new UpravljajKupcimaForma(false);
         pkf.setVisible(true);
     } catch (Exception ex) {
         Logger.getLogger(GlavnaForma.class.getName()).log(Level.SEVERE, null, ex);
@@ -271,22 +281,22 @@ Cvecar cvecar;
 
     private void itemOtpChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemOtpChangeActionPerformed
         // TODO add your handling code here:
-        FormaPromeni pf=new FormaPromeni(this, true);
+        UpravljajOtpremnicamaForma pf=new UpravljajOtpremnicamaForma();
         pf.setVisible(true);
     }//GEN-LAST:event_itemOtpChangeActionPerformed
 
     private void itemKupacAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemKupacAddActionPerformed
         // TODO add your handling code here:
-        KreirajKupcaForma kf=new KreirajKupcaForma(null,null);
+        KreirajKupcaForma kf=new KreirajKupcaForma();
         kf.setVisible(true);
     }//GEN-LAST:event_itemKupacAddActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
   
         // TODO add your handling code here:
-        PromeniCvecaraForma pc;
+        UpravljajCvecarimaForma pc;
         try {
-            pc = new PromeniCvecaraForma();
+            pc = new UpravljajCvecarimaForma();
             pc.setVisible(true);
         } catch (Exception ex) {
             Logger.getLogger(GlavnaForma.class.getName()).log(Level.SEVERE, null, ex);
@@ -307,6 +317,7 @@ Cvecar cvecar;
 
     private void itemOtpSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemOtpSearchActionPerformed
         // TODO add your handling code here:
+        UpravljajOtpremnicamaForma uof=new UpravljajOtpremnicamaForma();
     }//GEN-LAST:event_itemOtpSearchActionPerformed
 
     private void itemMestoViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMestoViewActionPerformed
@@ -321,9 +332,21 @@ Cvecar cvecar;
 
     private void itemSSControlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSSControlActionPerformed
         // TODO add your handling code here:
-        UpravljajStrucnimSpremama pssf=new UpravljajStrucnimSpremama();
+        UpravljajStrucnimSpremamaForma pssf=new UpravljajStrucnimSpremamaForma();
         pssf.setVisible(true);
     }//GEN-LAST:event_itemSSControlActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        KreirajAranzmanForma kaf=new KreirajAranzmanForma();
+        kaf.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
+        // TODO add your handling code here:
+        UpravljajAranzmanimaForma uaf=new UpravljajAranzmanimaForma();
+        uaf.setVisible(true);
+    }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem itemCvecarChange;

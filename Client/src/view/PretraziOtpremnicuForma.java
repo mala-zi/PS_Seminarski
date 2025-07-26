@@ -19,16 +19,16 @@ import domain.Otpremnica;
  *
  * @author Saki
  */
-public class PromeniOtp extends javax.swing.JDialog {
+public class PretraziOtpremnicuForma extends javax.swing.JDialog {
 
     private Otpremnica novaOtp;
-    private FormaPromeni pf;
+    private UpravljajOtpremnicamaForma pf;
     /**
      * Creates new form PromeniOtp
      */
-    public PromeniOtp(java.awt.Dialog parent, boolean modal, Otpremnica otp) {
+    public PretraziOtpremnicuForma(java.awt.Dialog parent, boolean modal, Otpremnica otp) {
         super(parent, modal);
-        this.pf=(FormaPromeni)parent;
+        this.pf=(UpravljajOtpremnicamaForma)parent;
         initComponents();
         setTitle("Promeni otpremnicu");
         setResizable(false);

@@ -16,7 +16,7 @@ import tableModel.TableModelCvecar;
  *
  * @author Saki
  */
-public class PromeniCvecaraForma extends javax.swing.JFrame {
+public class UpravljajCvecarimaForma extends javax.swing.JFrame {
 
     private ArrayList<Cvecar> lista;
     TableModelCvecar mtc;
@@ -24,7 +24,7 @@ public class PromeniCvecaraForma extends javax.swing.JFrame {
     /**
      * Creates new form PromeniCvecaraForma
      */
-    public PromeniCvecaraForma() throws Exception {
+    public UpravljajCvecarimaForma() throws Exception {
         initComponents();
         lista = Controller.getInstance().ucitajCvecareIzBaze();
         mtc= new TableModelCvecar(lista);
@@ -138,7 +138,7 @@ public class PromeniCvecaraForma extends javax.swing.JFrame {
         try {
             tblCvecari.setModel(new TableModelCvecar(Controller.getInstance().ucitajCvecareIzBaze()));
         } catch (Exception ex) {
-            Logger.getLogger(PromeniCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UpravljajCvecarimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnPromeniActionPerformed
 
@@ -170,7 +170,7 @@ public class PromeniCvecaraForma extends javax.swing.JFrame {
 
             tblCvecari.setModel(new TableModelCvecar(Controller.getInstance().ucitajCvecareIzBaze()));
         } catch (Exception ex) {
-            Logger.getLogger(PromeniCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UpravljajCvecarimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnObrisiActionPerformed
 

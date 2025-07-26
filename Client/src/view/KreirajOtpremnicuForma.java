@@ -4,7 +4,6 @@
  */
 package view;
 
-import tableModel.TableModelOtpremnica;
 import controller.Controller;
 import domain.Aranzman;
 import java.text.ParseException;
@@ -19,28 +18,26 @@ import domain.StavkaOtpremnice;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import tableModel.TableModelStavkaOtpremnice;
 import validator.Validator;
 
 /**
  *
  * @author Saki
  */
-public class KreirajOtp extends javax.swing.JDialog {
+public class KreirajOtpremnicuForma extends javax.swing.JDialog {
 
-    private GlavnaForma mf;
+    private UpravljajOtpremnicamaForma uof;
     private Otpremnica otpremnica;
-    private List<StavkaOtpremnice> listaStavki=new ArrayList<>();
-    private double ukupnaSa=0;
-    private double ukupnaBez=0;
-    private double ukupanPopust=0;
+    private ArrayList<StavkaOtpremnice> listaStavki = new ArrayList<>();
+    private double ukupnaSa = 0;
+    private double ukupnaBez = 0;
+    private double ukupanPopust = 0;
 
     /**
      * Creates new form KreirajOtp
      */
-    public KreirajOtp(java.awt.Frame parent, boolean modal) throws Exception {
-
-        super(parent, modal);
-        this.mf = (GlavnaForma) parent;
+    public KreirajOtpremnicuForma() throws Exception {
         initComponents();
         setTitle("Kreiraj otpremnicu");
         setResizable(false);
@@ -48,7 +45,22 @@ public class KreirajOtp extends javax.swing.JDialog {
         popuniCvecareIzBaze();
         popuniKupceIzBaze();
         popuniAranzmaneIzBaze();
-        tableStavke.setModel(new TableModelOtpremnica(listaStavki));
+        tableStavke.setModel(new TableModelStavkaOtpremnice());
+    }
+
+    public KreirajOtpremnicuForma(UpravljajOtpremnicamaForma parent, Otpremnica otpremnica) throws Exception {
+
+        this.uof = (UpravljajOtpremnicamaForma) parent;
+        this.otpremnica = otpremnica;
+        initComponents();
+        setTitle("Promeni otpremnicu");
+        setResizable(false);
+        setLocationRelativeTo(null);
+        popuniCvecareIzBaze();
+        popuniKupceIzBaze();
+        popuniAranzmaneIzBaze();
+        popuniPromena(otpremnica);
+        tableStavke.setModel(new TableModelStavkaOtpremnice(otpremnica));
     }
 
     /**
@@ -67,7 +79,7 @@ public class KreirajOtp extends javax.swing.JDialog {
         comboBoxCvecar = new javax.swing.JComboBox<>();
         comboBoxKupac = new javax.swing.JComboBox<>();
         btnOdustani = new javax.swing.JButton();
-        btnKreiraj = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableStavke = new javax.swing.JTable();
         btnDodajStavku = new javax.swing.JToggleButton();
@@ -113,17 +125,17 @@ public class KreirajOtp extends javax.swing.JDialog {
             }
         });
 
-        btnOdustani.setText("odustani");
+        btnOdustani.setText("Otkazi");
         btnOdustani.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOdustaniActionPerformed(evt);
             }
         });
 
-        btnKreiraj.setText("kreiraj");
-        btnKreiraj.addActionListener(new java.awt.event.ActionListener() {
+        btnSave.setText("Sacuvaj");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnKreirajActionPerformed(evt);
+                btnSaveActionPerformed(evt);
             }
         });
 
@@ -199,7 +211,7 @@ public class KreirajOtp extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnKreiraj, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(347, 347, 347))
             .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
@@ -237,27 +249,21 @@ public class KreirajOtp extends javax.swing.JDialog {
                                     .addComponent(txtPopust, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(34, 34, 34)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(10, 10, 10))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(8, 8, 8))
+                                        .addGap(37, 37, 37)
+                                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(14, 14, 14)
-                                        .addComponent(jLabel16)
-                                        .addGap(8, 8, 8))))
+                                        .addGap(52, 52, 52)
+                                        .addComponent(jLabel16)))
+                                .addGap(10, 10, 10))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(26, 26, 26)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtCenaBezPDVPopust, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtCenaBezPDVBezPopusta, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(txtCenaBezPDVPopust, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtCenaBezPDVBezPopusta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(66, 66, 66)
-                                .addComponent(jLabel10))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(70, 70, 70)
                                 .addComponent(jLabel15))
@@ -265,25 +271,31 @@ public class KreirajOtp extends javax.swing.JDialog {
                                 .addGap(59, 59, 59)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtCenaSaPDVBezPopusta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtCenaSaPDVPopust, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jLabel17)
-                                        .addGap(20, 20, 20)))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtCenaSaPDVPopust, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(73, 73, 73)
+                                .addGap(66, 66, 66)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel17)
+                                    .addComponent(jLabel10))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(257, 257, 257)
+                                        .addComponent(btnDodajStavku))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnUkloniStavku)))
+                                .addContainerGap(30, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(149, 149, 149)
                                 .addComponent(jLabel12)
-                                .addGap(125, 125, 125)
-                                .addComponent(btnDodajStavku))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnUkloniStavku)))
-                        .addContainerGap(30, Short.MAX_VALUE))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel13)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtDatumIzdavanja, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -298,29 +310,33 @@ public class KreirajOtp extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(comboBoxKupac, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(comboBoxCvecar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(87, 87, 87)
-                        .addComponent(btnOdustani)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnOdustani, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(51, 51, 51))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel3)
                                 .addComponent(comboBoxCvecar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(27, 27, 27)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(comboBoxKupac, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDatumIzdavanja, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel4)
+                                    .addComponent(comboBoxKupac, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtDatumIzdavanja, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnOdustani, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)))
+                        .addGap(35, 35, 35)
+                        .addComponent(btnOdustani, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(29, 29, 29)
@@ -336,34 +352,31 @@ public class KreirajOtp extends javax.swing.JDialog {
                                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                                     .addComponent(jLabel14)
-                                                    .addComponent(jLabel15))
+                                                    .addComponent(jLabel15)
+                                                    .addComponent(jLabel12))
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(txtCenaBezPDVBezPopusta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(comboAranzmani, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(txtCenaSaPDVBezPopusta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(18, 18, 18)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addGap(0, 0, Short.MAX_VALUE)
                                                 .addComponent(jLabel2)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(txtPopust, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                    .addComponent(txtPopust, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(txtCenaBezPDVPopust, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(txtCenaSaPDVPopust, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                             .addGroup(layout.createSequentialGroup()
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                                     .addComponent(jLabel9)
                                                     .addComponent(jLabel10))
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addGroup(layout.createSequentialGroup()
-                                                        .addComponent(jLabel16)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                        .addComponent(txtCenaBezPDVPopust, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                    .addGroup(layout.createSequentialGroup()
-                                                        .addComponent(jLabel17)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                        .addComponent(txtCenaSaPDVPopust, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                .addGap(0, 0, Short.MAX_VALUE))))
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                    .addComponent(jLabel16)
+                                                    .addComponent(jLabel17))
+                                                .addGap(0, 52, Short.MAX_VALUE))))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(0, 0, Short.MAX_VALUE)
                                         .addComponent(jLabel11)
@@ -377,8 +390,7 @@ public class KreirajOtp extends javax.swing.JDialog {
                                 .addComponent(btnUkloniStavku, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel12)
-                        .addGap(29, 29, 29)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(69, 69, 69)))
                 .addComponent(jLabel13)
@@ -401,7 +413,7 @@ public class KreirajOtp extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(txtUkupnoBez, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(btnKreiraj, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -413,29 +425,8 @@ public class KreirajOtp extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnOdustaniActionPerformed
 
-    private void btnKreirajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKreirajActionPerformed
-        
-        try {
-            otpremnica.setUkupanPopust(ukupanPopust);
-            otpremnica.setUkupanIznosSaPDV(ukupnaSa);
-            otpremnica.setUkupanIznosBezPDv(ukupnaBez);
-            
-            Otpremnica o=Controller.getInstance().dodajOtpremnicu(otpremnica);
-            for (StavkaOtpremnice so : listaStavki) {
-                so.setOtpremnica(o);
-                Controller.getInstance().dodajStavkuOtpremnice(so);
-            }
-            
-            JOptionPane.showMessageDialog(this, "Otpremnica je dodata", "obavestenje", JOptionPane.INFORMATION_MESSAGE);
-            this.dispose();
-        } catch (Exception ex) {
-            Logger.getLogger(KreirajOtp.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    }//GEN-LAST:event_btnKreirajActionPerformed
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
 
-    private void btnDodajStavkuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajStavkuActionPerformed
-        // TODO add your handling code here:
         Date datumIzdavanja = new Date();
         try {
 
@@ -446,41 +437,60 @@ public class KreirajOtp extends javax.swing.JDialog {
             }
             if (!Validator.isValidDate(txtDatumIzdavanja.getText())) {
                 throw new ParseException("", ERROR);
-            }datumIzdavanja = dateFormat.parse(txtDatumIzdavanja.getText());
+            }
+            datumIzdavanja = dateFormat.parse(txtDatumIzdavanja.getText());
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(this, "Pogresan format datuma!\nDatum treba da bude u formatu YYYY-MM-DD", "Greska", JOptionPane.ERROR_MESSAGE);
             return;
         }
         Cvecar c = (Cvecar) comboBoxCvecar.getSelectedItem();
         Kupac k = (Kupac) comboBoxKupac.getSelectedItem();
+        try {
+        TableModelStavkaOtpremnice tmodel = (TableModelStavkaOtpremnice) tableStavke.getModel();
+            ArrayList<StavkaOtpremnice> stavke = tmodel.getListaStavki();
+            Otpremnica otpremnica=new Otpremnica(ukupnaBez, ukupnaSa, ukupanPopust, datumIzdavanja, c, k);
+            Controller.getInstance().dodajOtpremnicu(otpremnica);
+            resetPodataka();
+            JOptionPane.showMessageDialog(this, "Otpremnica je dodata", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+
+        }
+
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnDodajStavkuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajStavkuActionPerformed
+        // TODO add your handling code here:
+        if (txtKolicina.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Nisu sva polja popunjena", "Greska", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         Aranzman a = (Aranzman) comboAranzmani.getSelectedItem();
         int kolicina = Integer.parseInt(txtKolicina.getText());
         if (!Validator.isValidNumber(txtCenaBezPDVPopust.getText()) || !Validator.isValidNumber(txtCenaSaPDVPopust.getText())) {
             JOptionPane.showMessageDialog(this, "Pogresan format cene!", "Greska", JOptionPane.ERROR_MESSAGE);
 
         }
-        double cenaBez=Double.parseDouble(txtCenaBezPDVPopust.getText());
+        double cenaBez = Double.parseDouble(txtCenaBezPDVPopust.getText());
         double cenaSa = Double.parseDouble(txtCenaSaPDVPopust.getText());
         String napomena = txtNapomena.getText();
         double iznosBez = kolicina * cenaBez;
         double iznosSa = kolicina * cenaSa;
-        Otpremnica o = new Otpremnica();
-        o.setDatumIzdavanja(datumIzdavanja);
-        o.setCvecar(c);
-        o.setKupac(k);
-        otpremnica=o;
+        TableModelStavkaOtpremnice tmodel = (TableModelStavkaOtpremnice) tableStavke.getModel();
         StavkaOtpremnice s1 = new StavkaOtpremnice(kolicina, napomena, iznosBez, iznosSa, cenaBez, cenaSa, a);
-        if(listaStavki.contains(s1)){
-            JOptionPane.showMessageDialog(this, "Stavka je vec dodata u otpremnicu!","Obavestenje",JOptionPane.INFORMATION_MESSAGE);
+
+        if (tmodel.unetAranzman(a)) {
+            JOptionPane.showMessageDialog(this, "Aranzman je vec dodat u otpremnicu!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-        listaStavki.add(s1);
-        resetPodataka();
-        tableStavke.setModel(new TableModelOtpremnica(listaStavki));
+        tmodel.dodajStavkuOtpremnice(s1);
 
-        ukupnaSa = ukupnaSa + s1.getIznosSaPDV();
-        ukupnaBez = ukupnaBez + s1.getIznosBezPDV();
-        ukupanPopust = ukupanPopust + (s1.getKolicina() * a.getCenaBezPDV()) - s1.getIznosBezPDV();
+        resetPodataka();
+        ukupnaSa = tmodel.getUkupnaCenaSaPDV();
+        ukupnaBez = tmodel.getUkupnaCenaBezPDV();
+        ukupanPopust = tmodel.getUkupanPopust();
 
         txtUkupnoSaPDV.setText(ukupnaSa + "");
         txtUkupnoBez.setText(ukupnaBez + "");
@@ -489,28 +499,26 @@ public class KreirajOtp extends javax.swing.JDialog {
 
     private void comboAranzmaniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboAranzmaniActionPerformed
         // TODO add your handling code here:
-        Aranzman a=(Aranzman) comboAranzmani.getSelectedItem();
-        double cenaBez=a.getCenaBezPDV()*(1-a.getPopust()/100);
-        double cenaSa=(a.getCenaBezPDV()*(1-a.getPopust()/100))*(1+(a.getPoreskaStopa().getVrednost())/100);
-        txtCenaBezPDVPopust.setText(cenaBez+"");
-        txtCenaBezPDVBezPopusta.setText(a.getCenaBezPDV()+"");
-        txtCenaSaPDVBezPopusta.setText(a.getCenaSaPDV()+"");
-        txtPopust.setText(a.getPopust()+"");
-        txtCenaSaPDVPopust.setText(cenaSa+"");
-        
+        Aranzman a = (Aranzman) comboAranzmani.getSelectedItem();
+        double cenaBez = a.getCenaBezPDV() * (1 - a.getPopust() / 100);
+        double cenaSa = (a.getCenaBezPDV() * (1 - a.getPopust() / 100)) * (1 + (a.getPoreskaStopa().getVrednost()) / 100);
+        txtCenaBezPDVPopust.setText(cenaBez + "");
+        txtCenaBezPDVBezPopusta.setText(a.getCenaBezPDV() + "");
+        txtCenaSaPDVBezPopusta.setText(a.getCenaSaPDV() + "");
+        txtCenaSaPDVPopust.setText(cenaSa + "");
+
     }//GEN-LAST:event_comboAranzmaniActionPerformed
 
     private void btnUkloniStavkuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUkloniStavkuActionPerformed
         // TODO add your handling code here:
-        int selected=tableStavke.getSelectedRow();
-        if(selected==-1){
-            JOptionPane.showMessageDialog(this, "Nista nije selektovano iz tabele","Greska",JOptionPane.ERROR_MESSAGE);
+        int selected = tableStavke.getSelectedRow();
+        if (selected == -1) {
+            JOptionPane.showMessageDialog(this, "Nista nije selektovano iz tabele", "Greska", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        StavkaOtpremnice so=listaStavki.get(selected);
-        listaStavki.remove(so);
-         tableStavke.setModel(new TableModelOtpremnica(listaStavki));
-        
+        TableModelStavkaOtpremnice tmodel = (TableModelStavkaOtpremnice) tableStavke.getModel();
+        tmodel.obrisiStavkuOtpremnice(selected);
+
     }//GEN-LAST:event_btnUkloniStavkuActionPerformed
 
     private void comboBoxCvecarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxCvecarActionPerformed
@@ -520,8 +528,8 @@ public class KreirajOtp extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnDodajStavku;
-    private javax.swing.JButton btnKreiraj;
     private javax.swing.JButton btnOdustani;
+    private javax.swing.JButton btnSave;
     private javax.swing.JButton btnUkloniStavku;
     private javax.swing.JComboBox<Aranzman> comboAranzmani;
     private javax.swing.JComboBox<Cvecar> comboBoxCvecar;
@@ -562,23 +570,22 @@ public class KreirajOtp extends javax.swing.JDialog {
     private void popuniCvecareIzBaze() throws Exception {
         txtCenaBezPDVPopust.setEnabled(false);
         txtCenaSaPDVPopust.setEnabled(false);
-        txtPopust.setEnabled(false);
         txtCenaBezPDVBezPopusta.setEnabled(false);
         txtCenaSaPDVBezPopusta.setEnabled(false);
         txtUkupnoBez.setEnabled(false);
         txtUkupnoSaPDV.setEnabled(false);
         txtUkupanPopust.setEnabled(false);
         comboBoxKupac.removeAllItems();
-        List<Cvecar> cvecari=Controller.getInstance().ucitajCvecareIzBaze();
-        for(Cvecar c: cvecari){
+        List<Cvecar> cvecari = Controller.getInstance().ucitajCvecareIzBaze();
+        for (Cvecar c : cvecari) {
             comboBoxCvecar.addItem(c);
         }
     }
 
     private void popuniKupceIzBaze() throws Exception {
         comboBoxKupac.removeAllItems();
-        List<Kupac> kupci=Controller.getInstance().popuniKupceIzBaze();
-        for(Kupac k: kupci){
+        List<Kupac> kupci = Controller.getInstance().ucitajKupceIzBaze();
+        for (Kupac k : kupci) {
             comboBoxKupac.addItem(k);
         }
     }
@@ -597,10 +604,24 @@ public class KreirajOtp extends javax.swing.JDialog {
         comboBoxKupac.setEnabled(false);
         txtCenaBezPDVPopust.setText("");
         txtCenaSaPDVPopust.setText("");
-        txtPopust.setText("");
         txtCenaBezPDVBezPopusta.setText("");
         txtCenaSaPDVBezPopusta.setText("");
         txtKolicina.setText("");
         txtNapomena.setText("");
+    }
+
+    private void popuniPromena(Otpremnica otpremnica) {
+        try {
+            txtDatumIzdavanja.setText(otpremnica.getDatumIzdavanja() + "");
+            comboBoxCvecar.setSelectedItem(otpremnica.getCvecar());
+            comboBoxKupac.setSelectedItem(otpremnica.getKupac());
+            txtUkupnoBez.setText(otpremnica.getUkupanIznosBezPDv() + "");
+            txtUkupnoSaPDV.setText(otpremnica.getUkupanIznosSaPDV() + "");
+            txtUkupanPopust.setText(otpremnica.getUkupanPopust()+"");
+            tableStavke.setModel(new TableModelStavkaOtpremnice(otpremnica));
+        } catch (Exception ex) {
+            Logger.getLogger(KreirajOtpremnicuForma.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 }

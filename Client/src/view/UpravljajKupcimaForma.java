@@ -17,7 +17,7 @@ import javax.swing.JTable;
  *
  * @author Saki
  */
-public class PromeniKupacForma extends javax.swing.JFrame {
+public class UpravljajKupcimaForma extends javax.swing.JFrame {
 
     public JTable getTblKupci() {
         return tblKupci;
@@ -31,11 +31,10 @@ public class PromeniKupacForma extends javax.swing.JFrame {
     /**
      * Creates new form PromeniKupacForma
      */
-    public PromeniKupacForma(boolean obrisiKupca) throws Exception {
+    public UpravljajKupcimaForma(boolean obrisiKupca) throws Exception {
         initComponents();
         lista = Controller.getInstance().ucitajKupceIzBaze();
-        btnObrisi.setVisible(false);
-       setTitle("Izmeni kupca");
+       setTitle("Upravljaj kupcima");
         setResizable(false);
         setLocationRelativeTo(null);
         if(obrisiKupca==true){
@@ -45,7 +44,7 @@ public class PromeniKupacForma extends javax.swing.JFrame {
         try {
             tblKupci.setModel(new TableModelKupac(Controller.getInstance().ucitajKupceIzBaze()));
         } catch (Exception ex) {
-            Logger.getLogger(PromeniKupacForma.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UpravljajKupcimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -147,7 +146,7 @@ public class PromeniKupacForma extends javax.swing.JFrame {
 
             tblKupci.setModel(new TableModelKupac(Controller.getInstance().ucitajKupceIzBaze()));
         } catch (Exception ex) {
-            Logger.getLogger(PromeniCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UpravljajCvecarimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnObrisiActionPerformed
 
@@ -167,7 +166,7 @@ public class PromeniKupacForma extends javax.swing.JFrame {
             
             tblKupci.setModel(new TableModelKupac(Controller.getInstance().ucitajKupceIzBaze()));
         } catch (Exception ex) {
-            Logger.getLogger(PromeniKupacForma.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UpravljajKupcimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
        
                 

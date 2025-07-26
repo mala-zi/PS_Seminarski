@@ -4,8 +4,8 @@
  */
 package tableModel;
 
+import domain.Otpremnica;
 import javax.swing.table.AbstractTableModel;
-import domain.StavkaOtpremnice;
 import java.util.ArrayList;
 
 /**
@@ -14,13 +14,12 @@ import java.util.ArrayList;
  */
 public class TableModelOtpremnica extends AbstractTableModel{
 
-    private ArrayList<StavkaOtpremnice> listaStavki;
+    private ArrayList<Otpremnica> lista;
     private int i=1;
-    private final String[] kolone={"RB","Kolicina","Aranzman","Cena Bez PDV",
-        "Cena Sa PDV", "Iznos Bez PDV","Iznos Sa PDV","Napomena"};
+    private final String[] kolone={"ID","Datum izdavanja", "Iznos Sa PDV-om","Iznos Bez PDV-a","Cvecar","Kupac"};
 
-    public TableModelOtpremnica(ArrayList<StavkaOtpremnice> listaStavki) {
-        this.listaStavki = listaStavki;
+    public TableModelOtpremnica(ArrayList<Otpremnica> lista) {
+        this.lista = lista;
     }
 
     
@@ -28,7 +27,7 @@ public class TableModelOtpremnica extends AbstractTableModel{
     
     @Override
     public int getRowCount() {
-        return listaStavki.size();
+        return lista.size();
     }
 
     @Override
@@ -38,24 +37,21 @@ public class TableModelOtpremnica extends AbstractTableModel{
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        StavkaOtpremnice st=listaStavki.get(rowIndex);
+        Otpremnica o=lista.get(rowIndex);
         switch(columnIndex){
             case 0:
                 return i++;
             case 1:
-                return st.getKolicina();
+                return o.getDatumIzdavanja();
             case 2:
-                return st.getAranzman().getNaziv();
+                return o.getUkupanIznosSaPDV();
             case 3:
-                return st.getCenaBezPDV();
+                return o.getUkupanIznosBezPDv();
             case 4:
-                return st.getCenaSaPdDV();
+                return o.getCvecar().getIme()+" "+o.getCvecar().getPrezime();
             case 5:
-                return st.getIznosBezPDV();
-            case 6:
-                return st.getIznosSaPDV();
-            case 7:
-                return st.getNapomena();
+                return o.getKupac().getNaziv();
+             
             default:
                 return null;
                 
@@ -70,16 +66,6 @@ public class TableModelOtpremnica extends AbstractTableModel{
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
         return columnIndex == 1;
-    }
-
-    @Override
-    public void setValueAt(Object value, int rowIndex, int columnIndex) {
-        StavkaOtpremnice st = listaStavki.get(rowIndex);
-
-        if (columnIndex == 1) {  
-            st.setKolicina(Integer.parseInt((String) value));  
-
-        }
     }
 
 }

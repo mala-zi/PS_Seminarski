@@ -30,6 +30,7 @@ import so.mesto.SOObrisiMesto;
 import so.mesto.SOPromeniMesto;
 import so.mesto.SOVratiListuSviMesto;
 import so.otpremnica.SOKreirajOtpremnicu;
+import so.otpremnica.SOObrisiOtpremnicu;
 import so.otpremnica.SOPromeniOtpremnicu;
 import so.otpremnica.SOVratiListuSviOtpremnica;
 import so.strsprema.SOObrisiStrSprema;
@@ -168,5 +169,8 @@ public class ServerController {
 
     public void obrisiStrSprema(StrucnaSprema strSpremaDelete) throws Exception {
         (new SOObrisiStrSprema()).templateExecute(strSpremaDelete);
+    }
+    public void obrisiOtpremnicu(Otpremnica otpremnicaDelete) throws Exception {
+        (new SOObrisiOtpremnicu()).templateExecute(otpremnicaDelete);
     }
 }

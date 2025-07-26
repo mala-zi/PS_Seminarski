@@ -138,10 +138,32 @@ public class Controller {
 
     public void promeniMesto(Mesto mestoChange) throws Exception {
         sendRequest(Operation.PROMENI_MESTO, mestoChange);
+    }
+
+    public void obrisiKupca(Kupac kupacDelete) throws Exception {
+        sendRequest(Operation.OBRISI_KUPCA, kupacDelete);
+    }
+
+    public void dodajAranzman(Aranzman aranzmanAdd) throws Exception {
+         sendRequest(Operation.KREIRAJ_ARANZMAN, aranzmanAdd);
+    }
+
+    public void promeniAranzman(Aranzman aranzmanChange) throws Exception {
+        sendRequest(Operation.PROMENI_ARANZMAN, aranzmanChange);
 
     }
 
-    public void obrisiKupca(Kupac get) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void obrisiAranzman(Aranzman aranzmanDelete) throws Exception {
+         sendRequest(Operation.OBRISI_ARANZMAN, aranzmanDelete);
     }
+
+    public ArrayList<Otpremnica> ucitajOtpremniceIzBaze() throws Exception {
+        return (ArrayList<Otpremnica>) sendRequest(Operation.VRATI_LISTU_SVI_OTPREMNICA, null);
+    }
+
+    public ArrayList<StavkaOtpremnice> ucitajStavkeOtpremniceIzBaze(Otpremnica otpremnica) throws Exception {
+         return (ArrayList<StavkaOtpremnice>) sendRequest(Operation.VRATI_LISTU_STAVKI_OTPREMNICE, otpremnica);
+    }
+
+    
 }

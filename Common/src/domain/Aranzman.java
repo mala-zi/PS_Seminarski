@@ -8,18 +8,20 @@ import java.util.Objects;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 /**
  *
  * @author Saki
  */
-public class Aranzman extends OpstiDomenskiObjekat{
+public class Aranzman extends OpstiDomenskiObjekat {
+
     private int id;
     private String naziv;
     private String opis;
     private PoreskaStopa poreskaStopa;
     private double cenaBezPDV;
     private double cenaSaPDV;
-    private double popust;
+    public double popust;
 
     public Aranzman() {
     }
@@ -34,7 +36,15 @@ public class Aranzman extends OpstiDomenskiObjekat{
         this.popust = popust;
     }
 
-    
+    public Aranzman(String naziv, String opis, PoreskaStopa poreskaStopa, double cenaBezPDV, double cenaSaPDV, double popust) {
+
+        this.naziv = naziv;
+        this.opis = opis;
+        this.poreskaStopa = poreskaStopa;
+        this.cenaBezPDV = cenaBezPDV;
+        this.cenaSaPDV = cenaSaPDV;
+        this.popust = popust;
+    }
 
     public int getId() {
         return id;
@@ -56,6 +66,14 @@ public class Aranzman extends OpstiDomenskiObjekat{
         return opis;
     }
 
+    public double getPopust() {
+        return popust;
+    }
+
+    public void setPopust(double popust) {
+        this.popust = popust;
+    }
+
     public void setOpis(String opis) {
         this.opis = opis;
     }
@@ -67,8 +85,6 @@ public class Aranzman extends OpstiDomenskiObjekat{
     public void setPoreskaStopa(PoreskaStopa poreskaStopa) {
         this.poreskaStopa = poreskaStopa;
     }
-
-    
 
     public double getCenaBezPDV() {
         return cenaBezPDV;
@@ -86,19 +102,9 @@ public class Aranzman extends OpstiDomenskiObjekat{
         this.cenaSaPDV = cenaSaPDV;
     }
 
-    public double getPopust() {
-        return popust;
-    }
-
-    public void setPopust(double popust) {
-        this.popust = popust;
-    }
-
-   
-
     @Override
     public String toString() {
-        return naziv ;
+        return naziv;
     }
 
     @Override
@@ -125,7 +131,7 @@ public class Aranzman extends OpstiDomenskiObjekat{
         return Objects.equals(this.naziv, other.naziv);
     }
 
-     @Override
+    @Override
     public String nazivTabele() {
         return "aranzman";
     }
@@ -147,13 +153,13 @@ public class Aranzman extends OpstiDomenskiObjekat{
         while (rs.next()) {
             PoreskaStopa ps = new PoreskaStopa(rs.getInt("id"), rs.getDouble("vrednost"));
             Aranzman a = new Aranzman(
-                rs.getInt("id"),
-                rs.getString("naziv"),
-                rs.getString("opis"),
-                ps,
-                rs.getDouble("cenaBezPDV"),
-                rs.getDouble("cenaSaPDV"),
-                rs.getDouble("popust")
+                    rs.getInt("id"),
+                    rs.getString("naziv"),
+                    rs.getString("opis"),
+                    ps,
+                    rs.getDouble("cenaBezPDV"),
+                    rs.getDouble("cenaSaPDV"),
+                    rs.getDouble("popust")
             );
             lista.add(a);
         }
@@ -169,14 +175,14 @@ public class Aranzman extends OpstiDomenskiObjekat{
 
     @Override
     public String vrednostiZaInsert() {
-        return id + ", '" + naziv + "', '" + opis + "', " + poreskaStopa.getId() + ", " +
-               cenaBezPDV + ", " + cenaSaPDV + ", " + popust;
+        return id + ", '" + naziv + "', '" + opis + "', " + poreskaStopa.getId() + ", "
+                + cenaBezPDV + ", " + cenaSaPDV+", "+popust;
     }
 
     @Override
     public String vrednostiZaUpdate() {
-        return "naziv = '" + naziv + "', opis = '" + opis + "', poreskaStopa = " + poreskaStopa.getId() +
-               ", cenaBezPDV = " + cenaBezPDV + ", cenaSaPDV = " + cenaSaPDV + ", popust = " + popust;
+        return "naziv = '" + naziv + "', opis = '" + opis + "', poreskaStopa = " + poreskaStopa.getId()
+                + ", cenaBezPDV = " + cenaBezPDV + ", cenaSaPDV = " + cenaSaPDV+", "+popust;
     }
 
     @Override
@@ -188,5 +194,5 @@ public class Aranzman extends OpstiDomenskiObjekat{
     public String uslov() {
         return " WHERE id = " + id;
     }
-    
+
 }

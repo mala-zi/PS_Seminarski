@@ -20,22 +20,29 @@ import java.util.logging.Logger;
  */
 public class KreirajKupcaForma extends javax.swing.JFrame {
     Kupac kupac;
-    PromeniKupacForma pkf;
+    UpravljajKupcimaForma pkf;
     /**
      * Creates new form KreirajKupcaForma
      */
-    public KreirajKupcaForma(JFrame parent,Kupac k) {
+     public KreirajKupcaForma(JFrame parent,Kupac k) {
         setTitle("Kreiraj kupca");
         setResizable(false);
         setLocationRelativeTo(null);
         initComponents();
         inicijalizujPolja();
         if(k!=null){
-            setTitle("Izmeni kupca");
+            setTitle("Promeni kupca");
             kupac=k;
-            pkf=(PromeniKupacForma) parent;
+            pkf=(UpravljajKupcimaForma) parent;
             popuniIzmenuKupac(kupac);
         }
+    }
+    public KreirajKupcaForma() {
+        setTitle("Kreiraj kupca");
+        setResizable(false);
+        setLocationRelativeTo(null);
+        initComponents();
+
     }
 
     /**

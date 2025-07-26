@@ -11,7 +11,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="itemCvecarChange">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Kreiraj Cvecara"/>
+                <Property name="text" type="java.lang.String" value="Kreiraj cvecara"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemCvecarChangeActionPerformed"/>
@@ -50,7 +50,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="itemOtpAdd">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Kreiraj otp"/>
+                <Property name="text" type="java.lang.String" value="Kreiraj otpremnicu"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemOtpAddActionPerformed"/>
@@ -58,7 +58,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemOtpChange">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Promeni otp"/>
+                <Property name="text" type="java.lang.String" value="Upravljaj otpremnicama"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemOtpChangeActionPerformed"/>
@@ -66,7 +66,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemOtpSearch">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Pretrazi otp"/>
+                <Property name="text" type="java.lang.String" value="Pretrazi otpremnicu"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemOtpSearchActionPerformed"/>
@@ -89,7 +89,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemKupacChange">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Promeni kupca"/>
+                <Property name="text" type="java.lang.String" value="Upravljaj kupcima"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemKupacChangeActionPerformed"/>
@@ -106,11 +106,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Kreiraj aranzman"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1ActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem14">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Promeni aranzman"/>
+                <Property name="text" type="java.lang.String" value="Upravljaj aranzmanima"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem14ActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -121,7 +127,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="itemMestoView">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Pregled Mesta"/>
+                <Property name="text" type="java.lang.String" value="Pregled mesta"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemMestoViewActionPerformed"/>

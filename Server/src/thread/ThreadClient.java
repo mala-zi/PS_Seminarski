@@ -66,9 +66,6 @@ public class ThreadClient extends Thread {
                 case Operation.OBRISI_KUPCA:
                     ServerController.getInstance().obrisiKupca((Kupac) request.getData());
                     break;
-                case Operation.VRATI_LISTU_CVECAR:
-                    response.setData(ServerController.getInstance().ucitajCvecareIzBaze());
-                    break;
                 case Operation.PROMENI_CVECARA:
                     ServerController.getInstance().promeniCvecara((Cvecar) request.getData());
                     break;

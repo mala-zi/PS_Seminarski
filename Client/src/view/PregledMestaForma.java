@@ -185,7 +185,7 @@ public class PregledMestaForma extends javax.swing.JFrame {
 
             tblMesta.setModel(new TableModelMesto(Controller.getInstance().ucitajMestaIzBaze()));
         } catch (Exception ex) {
-            Logger.getLogger(PromeniCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UpravljajCvecarimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnObrisiMestoActionPerformed
 
@@ -202,7 +202,7 @@ public class PregledMestaForma extends javax.swing.JFrame {
         try {
             tblMesta.setModel(new TableModelMesto(Controller.getInstance().ucitajMestaIzBaze()));
         } catch (Exception ex) {
-            Logger.getLogger(PromeniCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UpravljajCvecarimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnPromeniMestoActionPerformed
 
