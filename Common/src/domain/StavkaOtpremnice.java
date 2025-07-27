@@ -168,7 +168,11 @@ public class StavkaOtpremnice extends OpstiDomenskiObjekat {
     @Override
     public String join() {
         return "JOIN aranzman a ON (so.idAranzman = a.id) "
-                + "JOIN otpremnica o ON (so.idOtpremnica = o.id)";
+                + "JOIN otpremnica o ON (so.idOtpremnica = o.id)"
+                +"JOIN poreskastopa ps ON(a.poreskaStopa = ps.id)"
+                +"JOIN cvecar c ON(c.id = o.idCvecar)"
+                +"JOIN kupac k ON (k.id = o.idKupac)"
+                +"JOIN mesto m ON (m.id = k.idMesto)";
     }
 
     @Override
@@ -177,51 +181,49 @@ public class StavkaOtpremnice extends OpstiDomenskiObjekat {
 
         while (rs.next()) {
             PoreskaStopa ps = new PoreskaStopa(
-                    rs.getInt("id"),
-                    rs.getDouble("vrednost")
+                    rs.getInt("ps.id"),
+                    rs.getDouble("ps.vrednost")
             );
 
             // Aranzman
             Aranzman aranzman = new Aranzman(
-                    rs.getInt("id"),
-                    rs.getString("naziv"),
-                    rs.getString("opis"),
+                    rs.getInt("a.id"),
+                    rs.getString("a.naziv"),
+                    rs.getString("a.opis"),
                     ps,
-                    rs.getDouble("cenaBezPDV"),
-                    rs.getDouble("cenaSaPDV"),
-                    rs.getDouble("popust")
+                    rs.getDouble("a.cenaBezPDV"),
+                    rs.getDouble("a.cenaSaPDV"),
+                    rs.getDouble("a.popust")
             );
             Cvecar cvecar = new Cvecar(
-                    rs.getInt("id"),
-                    rs.getString("ime"),
-                    rs.getString("prezime"),
-                    rs.getString("korisnickoIme"),
-                    rs.getString("lozinka")
+                    rs.getInt("c.id"),
+                    rs.getString("c.ime"),
+                    rs.getString("c.prezime"),
+                    rs.getString("c.korisnickoIme"),
+                    rs.getString("c.lozinka")
             );
             Mesto mesto = new Mesto(
-                    rs.getInt("id"),
-                    rs.getString("grad"),
-                    rs.getInt("postanskiBroj"),
-                    rs.getString("ulica")
+                    rs.getInt("m.id"),
+                    rs.getString("m.grad"),
+                    rs.getInt("m.postanskiBroj"),
+                    rs.getString("m.ulica")
             );
 
             Kupac kupac = new Kupac(
-                    rs.getInt("id"),
-                    rs.getInt("pib"),
-                    rs.getString("telefon"),
-                    rs.getString("email"),
+                    rs.getInt("k.id"),
+                    rs.getInt("k.pib"),
+                    rs.getString("k.telefon"),
+                    rs.getString("k.email"),
                     mesto,
-                    rs.getString("naziv")
+                    rs.getString("k.naziv")
             );
 
             Otpremnica otpremnica = new Otpremnica(
-                    rs.getInt("id"),
-                    rs.getDouble("ukupanIznosBezPDV"),
-                    rs.getDouble("ukupanIznosSaPDV"),
-                    rs.getDouble("ukupanPopust"),
-                    rs.getDate("datumIzdavanja"),
-                    rs.getDouble("ukupnaCena"),
-                    
+                    rs.getInt("o.id"),
+                    rs.getDouble("o.ukupanIznosBezPDV"),
+                    rs.getDouble("o.ukupanIznosSaPDV"),
+                    rs.getDouble("o.ukupanPopust"),
+                    rs.getDate("o.datumIzdavanja"),                   
                     cvecar,
                     kupac,null
             );
@@ -269,7 +271,7 @@ public class StavkaOtpremnice extends OpstiDomenskiObjekat {
 
     @Override
     public String uslov() {
-        return " WHERE o.idOtpremnica = " + otpremnica.getId();
+        return " WHERE o.id = " + otpremnica.getId();
     }
 
 }

@@ -4,9 +4,12 @@
  */
 package tableModel;
 
+import controller.Controller;
 import javax.swing.table.AbstractTableModel;
 import domain.Mesto;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,8 +19,12 @@ public class TableModelMesto  extends AbstractTableModel{
     private ArrayList<Mesto> listaMesta;
     private String[] kolone={"Grad","Postanski Broj","Ulica"};
 
-    public TableModelMesto(ArrayList<Mesto> listaKupaca) {
-        this.listaMesta = listaKupaca;
+    public TableModelMesto() {
+        try {
+            listaMesta=Controller.getInstance().ucitajMestaIzBaze();
+        } catch (Exception ex) {
+            Logger.getLogger(TableModelMesto.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     
@@ -50,6 +57,17 @@ public class TableModelMesto  extends AbstractTableModel{
     public String getColumnName(int column) {
         return kolone[column];
     }
-    
+    public Mesto getMesto(int row) {
+        return listaMesta.get(row);
+    }
+
+     private void refresh()  {
+        try {
+            listaMesta=Controller.getInstance().ucitajMestaIzBaze();
+            fireTableDataChanged();
+        } catch (Exception ex) {
+            Logger.getLogger(TableModelOtpremnica.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
 }

@@ -4,7 +4,10 @@
  */
 package tableModel;
 
+import controller.Controller;
 import domain.Otpremnica;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 
@@ -18,8 +21,12 @@ public class TableModelOtpremnica extends AbstractTableModel {
     private int i = 1;
     private final String[] kolone = {"ID", "Datum izdavanja", "Iznos Sa PDV-om", "Iznos Bez PDV-a", "Cvecar", "Kupac"};
 
-    public TableModelOtpremnica(ArrayList<Otpremnica> lista) {
-        this.lista = lista;
+    public TableModelOtpremnica() {
+        try {
+            lista = Controller.getInstance().ucitajOtpremniceIzBaze();
+        } catch (Exception ex) {
+            Logger.getLogger(TableModelOtpremnica.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
@@ -67,5 +74,13 @@ public class TableModelOtpremnica extends AbstractTableModel {
 
     public Otpremnica getOtpremnica(int row) {
         return lista.get(row);
+    }
+     private void refresh()  {
+        try {
+            lista=Controller.getInstance().ucitajOtpremniceIzBaze();
+            fireTableDataChanged();
+        } catch (Exception ex) {
+            Logger.getLogger(TableModelOtpremnica.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

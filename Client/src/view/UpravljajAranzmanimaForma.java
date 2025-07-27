@@ -18,18 +18,19 @@ import tableModel.TableModelAranzman;
  */
 public class UpravljajAranzmanimaForma extends javax.swing.JFrame {
 
-    private ArrayList<Aranzman> lista;
+
     /**
      * Creates new form UpravljajAranzmanima
      */
     public UpravljajAranzmanimaForma() {
         try {
-            lista=Controller.getInstance().ucitajAranzmaneIzBaze();
-            tblAranzmani.setModel(new TableModelAranzman(lista));
+            initComponents();
+            TableModelAranzman tma = new TableModelAranzman();
+            tblAranzmani.setModel(tma);
             setTitle("Upravljaj aranzmanima");
             setResizable(false);
             setLocationRelativeTo(null);
-            initComponents();
+            
         } catch (Exception ex) {
             Logger.getLogger(UpravljajAranzmanimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -128,18 +129,19 @@ public class UpravljajAranzmanimaForma extends javax.swing.JFrame {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-         try {
+        try {
             int selektovanRed = tblAranzmani.getSelectedRow();
             if (selektovanRed == -1) {
                 JOptionPane.showMessageDialog(this, "Nista nije selektovano", "Greska", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-
-            Controller.getInstance().obrisiAranzman(lista.get(selektovanRed));
+            TableModelAranzman tmm = (TableModelAranzman) tblAranzmani.getModel();
+            Aranzman a = tmm.getAranzman(selektovanRed);
+            Controller.getInstance().obrisiAranzman(a);
 
             JOptionPane.showMessageDialog(this, "Aranzman obrisan", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
-
-            tblAranzmani.setModel(new TableModelAranzman(Controller.getInstance().ucitajAranzmaneIzBaze()));
+            TableModelAranzman tma = new TableModelAranzman();
+            tblAranzmani.setModel(tma);
         } catch (Exception ex) {
             Logger.getLogger(UpravljajCvecarimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -147,24 +149,26 @@ public class UpravljajAranzmanimaForma extends javax.swing.JFrame {
 
     private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
         // TODO add your handling code here:
-         try {
+        try {
             // TODO add your handling code here:
-            
+
             int selektovanRed = tblAranzmani.getSelectedRow();
             if (selektovanRed == -1) {
                 JOptionPane.showMessageDialog(this, "Nista nije selektovano!", "Greska", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            Aranzman aranzman = Controller.getInstance().ucitajAranzmaneIzBaze().get(selektovanRed);
-            KreirajAranzmanForma kaf=new KreirajAranzmanForma(this,aranzman);
+            TableModelAranzman tmm = (TableModelAranzman) tblAranzmani.getModel();
+            Aranzman a = tmm.getAranzman(selektovanRed);
+            KreirajAranzmanForma kaf = new KreirajAranzmanForma(this, a);
             kaf.setVisible(true);
             // mtk=new ModelTableKupac(Controller.getInstance().ucitajKupceIzBaze());
-            
-           tblAranzmani.setModel(new TableModelAranzman(Controller.getInstance().ucitajAranzmaneIzBaze()));
+
+            TableModelAranzman tma = new TableModelAranzman();
+            tblAranzmani.setModel(tma);
         } catch (Exception ex) {
             Logger.getLogger(UpravljajKupcimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
+
     }//GEN-LAST:event_btnChangeActionPerformed
 
     /**

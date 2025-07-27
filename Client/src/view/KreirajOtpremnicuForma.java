@@ -165,6 +165,18 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
 
         jLabel7.setText("Ukupan popust");
 
+        txtUkupnoBez.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUkupnoBezActionPerformed(evt);
+            }
+        });
+
+        txtUkupnoSaPDV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUkupnoSaPDVActionPerformed(evt);
+            }
+        });
+
         comboAranzmani.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboAranzmaniActionPerformed(evt);
@@ -196,6 +208,12 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
         });
 
         jLabel2.setText("Popust aranzmana");
+
+        txtPopust.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPopustActionPerformed(evt);
+            }
+        });
 
         jLabel14.setText("Cena bez PDV-a");
 
@@ -507,7 +525,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
         txtCenaBezPDVBezPopusta.setText(a.getCenaBezPDV() + "");
         txtCenaSaPDVBezPopusta.setText(a.getCenaSaPDV() + "");
         txtCenaSaPDVPopust.setText(cenaSa + "");
-
+        txtPopust.setText(a.getPopust()+"");
     }//GEN-LAST:event_comboAranzmaniActionPerformed
 
     private void btnUkloniStavkuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUkloniStavkuActionPerformed
@@ -525,6 +543,18 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
     private void comboBoxCvecarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxCvecarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboBoxCvecarActionPerformed
+
+    private void txtUkupnoBezActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUkupnoBezActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUkupnoBezActionPerformed
+
+    private void txtUkupnoSaPDVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUkupnoSaPDVActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUkupnoSaPDVActionPerformed
+
+    private void txtPopustActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPopustActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPopustActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -573,11 +603,12 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
         txtCenaSaPDVPopust.setEnabled(false);
         txtCenaBezPDVBezPopusta.setEnabled(false);
         txtCenaSaPDVBezPopusta.setEnabled(false);
+        txtUkupanPopust.setEnabled(false);
         txtUkupnoBez.setEnabled(false);
         txtUkupnoSaPDV.setEnabled(false);
-        txtUkupanPopust.setEnabled(false);
+        txtPopust.setEnabled(false);
         comboBoxKupac.removeAllItems();
-        List<Cvecar> cvecari = Controller.getInstance().ucitajCvecareIzBaze();
+        ArrayList<Cvecar> cvecari = Controller.getInstance().ucitajCvecareIzBaze();
         for (Cvecar c : cvecari) {
             comboBoxCvecar.addItem(c);
         }

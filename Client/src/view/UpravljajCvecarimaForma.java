@@ -158,6 +158,7 @@ public class UpravljajCvecarimaForma extends javax.swing.JFrame {
         int selektovanRed = tblCvecari.getSelectedRow();
             if (selektovanRed != -1) {
                 btnPromeni.setEnabled(true);
+                btnObrisi.setEnabled(true);
             }
     }//GEN-LAST:event_tblCvecariMouseClicked
 

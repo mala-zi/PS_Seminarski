@@ -4,8 +4,11 @@
  */
 package tableModel;
 
+import controller.Controller;
 import domain.StrucnaSprema;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -18,8 +21,12 @@ public class TableModelStrucnaSprema extends AbstractTableModel {
     private int i = 1;
     private final String[] kolone = {"Naziv", "Nivo", "Sertifikat"};
 
-    public TableModelStrucnaSprema(ArrayList<StrucnaSprema> listaSs) {
-        this.listaSs = listaSs;
+    public TableModelStrucnaSprema() {
+        try {
+            listaSs= Controller.getInstance().ucitajStrucneSpremeIzBaze();
+        } catch (Exception ex) {
+            Logger.getLogger(TableModelStrucnaSprema.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
@@ -64,6 +71,16 @@ public class TableModelStrucnaSprema extends AbstractTableModel {
         return columnIndex == 1;
     }
 
-    
+    public StrucnaSprema getStrucnaSprema(int row) {
+        return listaSs.get(row);
+    }
+     public void refresh()  {
+        try {
+            listaSs=Controller.getInstance().ucitajStrucneSpremeIzBaze();
+            fireTableDataChanged();
+        } catch (Exception ex) {
+            Logger.getLogger(TableModelOtpremnica.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
 }

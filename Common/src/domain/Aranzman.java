@@ -151,15 +151,15 @@ public class Aranzman extends OpstiDomenskiObjekat {
         ArrayList<OpstiDomenskiObjekat> lista = new ArrayList<>();
 
         while (rs.next()) {
-            PoreskaStopa ps = new PoreskaStopa(rs.getInt("id"), rs.getDouble("vrednost"));
+            PoreskaStopa ps = new PoreskaStopa(rs.getInt("ps.id"), rs.getDouble("ps.vrednost"));
             Aranzman a = new Aranzman(
-                    rs.getInt("id"),
-                    rs.getString("naziv"),
-                    rs.getString("opis"),
+                    rs.getInt("a.id"),
+                    rs.getString("a.naziv"),
+                    rs.getString("a.opis"),
                     ps,
-                    rs.getDouble("cenaBezPDV"),
-                    rs.getDouble("cenaSaPDV"),
-                    rs.getDouble("popust")
+                    rs.getDouble("a.cenaBezPDV"),
+                    rs.getDouble("a.cenaSaPDV"),
+                    rs.getDouble("a.popust")
             );
             lista.add(a);
         }
@@ -192,7 +192,7 @@ public class Aranzman extends OpstiDomenskiObjekat {
 
     @Override
     public String uslov() {
-        return " WHERE id = " + id;
+        return "";
     }
 
 }

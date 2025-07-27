@@ -31,19 +31,21 @@ public class KreirajMestoForma extends javax.swing.JFrame {
     }
 
     public KreirajMestoForma(PregledMestaForma viewForm) {
+        initComponents();
         this.viewForm = viewForm;
         setTitle("Kreiraj mesto");
         setResizable(false);
         setLocationRelativeTo(null);
-        initComponents();
+        
     }
 
     public KreirajMestoForma(PregledMestaForma viewForm, Mesto m) {
+        initComponents();
         this.viewForm = viewForm;
         setTitle("Kreiraj mesto");
         setResizable(false);
         setLocationRelativeTo(null);
-        initComponents();
+        
         if (m != null) {
             setTitle("Izmeni mesto");
             mesto = m;
@@ -52,11 +54,12 @@ public class KreirajMestoForma extends javax.swing.JFrame {
     }
 
     public KreirajMestoForma(boolean dodaj) {
-        this.dodaj = dodaj;
+         initComponents();
+         this.dodaj = dodaj;
         setTitle("Kreiraj mesto");
         setResizable(false);
         setLocationRelativeTo(null);
-        initComponents();
+       
     }
 
     /**
@@ -79,14 +82,14 @@ public class KreirajMestoForma extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnCancel.setText("otkazi");
+        btnCancel.setText("Otkazi");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelActionPerformed(evt);
             }
         });
 
-        btnAdd.setText("dodaj");
+        btnAdd.setText("Sacuvaj");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
@@ -164,11 +167,12 @@ public class KreirajMestoForma extends javax.swing.JFrame {
             int pb = Integer.parseInt(txtPostanskiBroj.getText());
 
             if (mesto == null) {
-                Mesto m = new Mesto(txtGrad.getText(), pb, txtUlica.getText());
+                Mesto m = new Mesto(-1,txtGrad.getText(), pb, txtUlica.getText());
                 Controller.getInstance().dodajMesto(m);
                 if (dodaj == false) {
                     //probacu da ovde setuje tabelu a ne tamo, mislim da tamo nece raditi refresh
-                    viewForm.getTblMesta().setModel(new TableModelMesto(controller.Controller.getInstance().ucitajMestaIzBaze()));
+                    TableModelMesto tmodel=new TableModelMesto();
+                    viewForm.getTblMesta().setModel(tmodel);
                     //pregled, update tabele
                 } else {
                     //true promeni uspeh na true

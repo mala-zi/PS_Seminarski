@@ -26,19 +26,19 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
      * Creates new form KreirajAranzmanForma
      */
     public KreirajAranzmanForma() {
-        setTitle("Kreiraj aranzman");
+       initComponents();
+       setTitle("Kreiraj aranzman");
         setResizable(false);
-        setLocationRelativeTo(null);
-        initComponents();
+        setLocationRelativeTo(null);       
         popuniCombo();
     }
     
     public KreirajAranzmanForma(JFrame parent, Aranzman a) {
+        initComponents();
         this.aranzman = a;
         setTitle("Promeni aranzman");
         setResizable(false);
         setLocationRelativeTo(null);
-        initComponents();
         popuniCombo();
          if (a != null) {
             aranzman= a;
@@ -90,8 +90,6 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
         });
 
         jLabel1.setText("Naziv");
-
-        comboPoreskaStopa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel2.setText("Poreska stopa");
 
@@ -198,7 +196,7 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
         double popust=Double.parseDouble(txtPopust.getText()+"");
         if (aranzman == null) {
             try {
-                Aranzman a = new Aranzman(txtNaziv.getText(), txtOpis.getText(), ps, cenaBez, cenaSa,popust);
+                Aranzman a = new Aranzman(-1,txtNaziv.getText(), txtOpis.getText(), ps, cenaBez, cenaSa,popust);
                 Controller.getInstance().dodajAranzman(a);
                 JOptionPane.showMessageDialog(this, "Aranzman je dodat", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
@@ -261,7 +259,7 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCancel;
-    private javax.swing.JComboBox<String> comboPoreskaStopa;
+    private javax.swing.JComboBox<PoreskaStopa> comboPoreskaStopa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -278,9 +276,9 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
 
     private void popuniCombo() {
         try {
-            ArrayList<Aranzman> aranzman = Controller.getInstance().ucitajAranzmaneIzBaze();
-            for (Aranzman a : aranzman) {
-                comboPoreskaStopa.addItem(a.getPoreskaStopa().getVrednost() + "");
+            ArrayList<PoreskaStopa> poreskaStopa = Controller.getInstance().ucitajPoreskeStopeIzBaze();
+            for (PoreskaStopa ps : poreskaStopa) {
+                comboPoreskaStopa.addItem(ps);
             }
         } catch (Exception ex) {
             Logger.getLogger(KreirajAranzmanForma.class.getName()).log(Level.SEVERE, null, ex);

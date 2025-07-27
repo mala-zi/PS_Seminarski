@@ -4,23 +4,30 @@
  */
 package tableModel;
 
+import controller.Controller;
 import domain.Aranzman;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
 
 /**
  *
  * @author Saki
  */
-public class TableModelAranzman extends AbstractTableModel{
-    private ArrayList<Aranzman> listaAranzmana;
-    private String[] kolone={"Naziv","Poreska Stopa","Cena Bez PDV-a","Cena Sa PDV-om","Opis"};
+public class TableModelAranzman extends AbstractTableModel {
 
-    public TableModelAranzman(ArrayList<Aranzman> listaAranzmana) {
-        this.listaAranzmana = listaAranzmana;
+    private ArrayList<Aranzman> listaAranzmana;
+    private String[] kolone = {"Naziv", "Poreska Stopa", "Cena Bez PDV-a", "Cena Sa PDV-om", "Opis"};
+
+    public TableModelAranzman() {
+        try {
+            listaAranzmana = Controller.getInstance().ucitajAranzmaneIzBaze();
+        } catch (Exception ex) {
+            Logger.getLogger(TableModelAranzman.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    
     @Override
     public int getRowCount() {
         return listaAranzmana.size();
@@ -33,8 +40,8 @@ public class TableModelAranzman extends AbstractTableModel{
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Aranzman a=listaAranzmana.get(rowIndex);
-        switch(columnIndex){
+        Aranzman a = listaAranzmana.get(rowIndex);
+        switch (columnIndex) {
             case 0:
                 return a.getNaziv();
             case 1:
@@ -54,6 +61,18 @@ public class TableModelAranzman extends AbstractTableModel{
     public String getColumnName(int column) {
         return kolone[column];
     }
-    
-    
+
+    public Aranzman getAranzman(int row) {
+        return listaAranzmana.get(row);
+    }
+
+    private void refresh() {
+        try {
+            listaAranzmana = Controller.getInstance().ucitajAranzmaneIzBaze();
+            fireTableDataChanged();
+        } catch (Exception ex) {
+            Logger.getLogger(TableModelAranzman.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 }

@@ -92,10 +92,10 @@ public class Mesto extends OpstiDomenskiObjekat{
         ArrayList<OpstiDomenskiObjekat> lista = new ArrayList<>();
         while (rs.next()) {
             Mesto m = new Mesto(
-                rs.getInt("id"),
-                rs.getString("grad"),
-                rs.getInt("postanskiBroj"),
-                rs.getString("ulica")
+                rs.getInt("m.id"),
+                rs.getString("m.grad"),
+                rs.getInt("m.postanskiBroj"),
+                rs.getString("m.ulica")
             );
             lista.add(m);
         }

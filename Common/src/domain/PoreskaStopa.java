@@ -43,7 +43,8 @@ public class PoreskaStopa extends OpstiDomenskiObjekat {
 
     @Override
     public String toString() {
-        return "PoreskaStopa{" + "id=" + id + ", vrednost=" + vrednost + '}';
+       // return "PoreskaStopa{" + "id=" + id + ", vrednost=" + vrednost + '}';
+       return vrednost+"";
     }
 
     @Override
@@ -67,8 +68,8 @@ public class PoreskaStopa extends OpstiDomenskiObjekat {
 
         while (rs.next()) {
             PoreskaStopa ps = new PoreskaStopa(
-                    rs.getInt("id"),
-                    rs.getDouble("vrednost") 
+                    rs.getInt("ps.id"),
+                    rs.getDouble("ps.vrednost") 
             );
             lista.add(ps);
         }
@@ -99,6 +100,6 @@ public class PoreskaStopa extends OpstiDomenskiObjekat {
 
     @Override
     public String uslov() {
-        return " WHERE id = " + id;
+        return "";
     }
 }

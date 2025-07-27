@@ -90,10 +90,10 @@ public class StrucnaSprema extends OpstiDomenskiObjekat {
 
         while (rs.next()) {
             StrucnaSprema ss = new StrucnaSprema(
-                rs.getInt("id"),
-                rs.getString("naziv"),
-                rs.getString("nivo"),
-                rs.getBoolean("sertifikat")
+                rs.getInt("ss.id"),
+                rs.getString("ss.naziv"),
+                rs.getString("ss.nivo"),
+                rs.getBoolean("ss.sertifikat")
             );
             lista.add(ss);
         }
@@ -124,6 +124,6 @@ public class StrucnaSprema extends OpstiDomenskiObjekat {
 
     @Override
     public String uslov() {
-        return " WHERE id = " + id;
+        return "";
     }
 }

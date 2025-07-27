@@ -115,18 +115,18 @@ public class Kupac extends OpstiDomenskiObjekat{
         ArrayList<OpstiDomenskiObjekat> lista = new ArrayList<>();
         while (rs.next()) {
             Mesto m = new Mesto(
-            rs.getInt("id"),
-            rs.getString("grad"),
-            rs.getInt("postanskiBroj"),
-            rs.getString("ulica")
+            rs.getInt("m.id"),
+            rs.getString("m.grad"),
+            rs.getInt("m.postanskiBroj"),
+            rs.getString("m.ulica")
         );
             Kupac k = new Kupac(
-                    rs.getInt("id"),
-                    rs.getInt("pib"),
-                    rs.getString("telefon"),
-                    rs.getString("email"),
+                    rs.getInt("k.id"),
+                    rs.getInt("k.pib"),
+                    rs.getString("k.telefon"),
+                    rs.getString("k.email"),
                     m,
-                    rs.getString("naziv")
+                    rs.getString("k.naziv")
             );
             lista.add(k);
         }
@@ -156,7 +156,7 @@ public class Kupac extends OpstiDomenskiObjekat{
 
     @Override
     public String uslov() {
-        return "WHERE id = " + id;
+        return "";
     }
 
 }

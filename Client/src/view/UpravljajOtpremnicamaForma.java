@@ -31,7 +31,8 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JDialog {
             setTitle("Upravljaj otpremnicama");
             setResizable(false);
             setLocationRelativeTo(null);
-            tblOtp.setModel(new TableModelOtpremnica(Controller.getInstance().ucitajOtpremniceIzBaze()));
+            TableModelOtpremnica tmodel = new TableModelOtpremnica();
+            tblOtp.setModel(tmodel);
         } catch (Exception ex) {
             Logger.getLogger(UpravljajOtpremnicamaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -44,7 +45,8 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JDialog {
             setTitle("Pretrazi otpremnicu");
             setResizable(false);
             setLocationRelativeTo(null);
-            tblOtp.setModel(new TableModelOtpremnica(Controller.getInstance().ucitajOtpremniceIzBaze()));
+            TableModelOtpremnica tmodel = new TableModelOtpremnica();
+            tblOtp.setModel(tmodel);
         } catch (Exception ex) {
             Logger.getLogger(UpravljajOtpremnicamaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -199,8 +201,6 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JDialog {
 
     private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
         try {
-            // TODO add your handling code here:
-            ArrayList<Otpremnica> lista = Controller.getInstance().ucitajOtpremniceIzBaze();
             int selektovanRed = tblOtp.getSelectedRow();
             if (selektovanRed == -1) {
                 JOptionPane.showMessageDialog(this, "Nijedan red nije selektovan", "Greska", JOptionPane.ERROR_MESSAGE);
@@ -211,7 +211,8 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JDialog {
                     Otpremnica otpremnica = model.getOtpremnica(selektovanRed);
                     KreirajOtpremnicuForma kof = new KreirajOtpremnicuForma(this, otpremnica);
                     kof.setVisible(true);
-                    tblOtp.setModel(new TableModelOtpremnica(Controller.getInstance().ucitajOtpremniceIzBaze()));
+                    TableModelOtpremnica tmodel = new TableModelOtpremnica();
+                    tblOtp.setModel(tmodel);
                 } catch (Exception ex) {
                     Logger.getLogger(UpravljajOtpremnicamaForma.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -234,7 +235,8 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JDialog {
             Controller.getInstance().obrisiOtpremnicu(zaBrisanje);
             JOptionPane.showMessageDialog(this, "Otpremnica obrisana", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
 
-             tblOtp.setModel(new TableModelOtpremnica(Controller.getInstance().ucitajOtpremniceIzBaze()));
+            TableModelOtpremnica tmodel= new TableModelOtpremnica();
+           tblOtp.setModel(tmodel);
         } catch (Exception ex) {
             Logger.getLogger(UpravljajCvecarimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -252,7 +254,8 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JDialog {
             filter.setCvecar(cvecar);
             filter.setKupac(kupac);
             ArrayList<Otpremnica> filtriraneOtpremnice = Controller.getInstance().pretraziOtpremnice(filter);
-            tblOtp.setModel(new TableModelOtpremnica(filtriraneOtpremnice));
+            TableModelOtpremnica model = (TableModelOtpremnica) tblOtp.getModel();
+            tblOtp.setModel(model);
         } catch (Exception ex) {
             Logger.getLogger(UpravljajOtpremnicamaForma.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -48,13 +48,13 @@ public class PregledMestaForma extends javax.swing.JFrame {
         setResizable(false);
         setLocationRelativeTo(null);
         try {
-            tblMesta.setModel(new TableModelMesto(controller.Controller.getInstance().ucitajMestaIzBaze()));
+            TableModelMesto tmodel = new TableModelMesto();
+            tblMesta.setModel(tmodel);
         } catch (Exception ex) {
             Logger.getLogger(PregledMestaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -161,29 +161,31 @@ public class PregledMestaForma extends javax.swing.JFrame {
     private void btnDodajMestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajMestoActionPerformed
         try {
             // TODO add your handling code here:
-            KreirajMestoForma kmf=new KreirajMestoForma(this);
+            KreirajMestoForma kmf = new KreirajMestoForma(this);
             kmf.setVisible(true);
-                //tblMesta.setModel(new TableModelMesto(controller.Controller.getInstance().ucitajMestaIzBaze()));//msm da ovo nece refresh
+            //tblMesta.setModel(new TableModelMesto(controller.Controller.getInstance().ucitajMestaIzBaze()));//msm da ovo nece refresh
         } catch (Exception ex) {
             Logger.getLogger(PregledMestaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
-            
+
     }//GEN-LAST:event_btnDodajMestoActionPerformed
 
     private void btnObrisiMestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiMestoActionPerformed
         // TODO add your handling code here:
         try {
-            int selektovanRed =  tblMesta.getSelectedRow();
+            int selektovanRed = tblMesta.getSelectedRow();
             if (selektovanRed == -1) {
                 JOptionPane.showMessageDialog(this, "Nista nije selektovano", "Greska", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-
-            Controller.getInstance().obrisiMesto(lista.get(selektovanRed));
+            TableModelMesto tmm = (TableModelMesto) tblMesta.getModel();
+            Mesto m = tmm.getMesto(selektovanRed);
+            Controller.getInstance().obrisiMesto(m);
 
             JOptionPane.showMessageDialog(this, "Mesto obrisano", "greska", JOptionPane.INFORMATION_MESSAGE);
 
-            tblMesta.setModel(new TableModelMesto(Controller.getInstance().ucitajMestaIzBaze()));
+            TableModelMesto tmodel = new TableModelMesto();
+            tblMesta.setModel(tmodel);
         } catch (Exception ex) {
             Logger.getLogger(UpravljajCvecarimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -191,16 +193,18 @@ public class PregledMestaForma extends javax.swing.JFrame {
 
     private void btnPromeniMestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromeniMestoActionPerformed
         // TODO add your handling code here:
-         int selektovanRed=tblMesta.getSelectedRow();
-        if(selektovanRed==-1){
-            JOptionPane.showMessageDialog(this, "Nista nije selektovano","greska",JOptionPane.ERROR_MESSAGE);
+        int selektovanRed = tblMesta.getSelectedRow();
+        if (selektovanRed == -1) {
+            JOptionPane.showMessageDialog(this, "Nista nije selektovano", "greska", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        Mesto m=lista.get(selektovanRed);
-        KreirajMestoForma mf=new KreirajMestoForma(this, m);
+        TableModelMesto tmm = (TableModelMesto) tblMesta.getModel();
+        Mesto m = tmm.getMesto(selektovanRed);
+        KreirajMestoForma mf = new KreirajMestoForma(this, m);
         mf.setVisible(true);
         try {
-            tblMesta.setModel(new TableModelMesto(Controller.getInstance().ucitajMestaIzBaze()));
+            TableModelMesto tmodel = new TableModelMesto();
+            tblMesta.setModel(tmodel);
         } catch (Exception ex) {
             Logger.getLogger(UpravljajCvecarimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }

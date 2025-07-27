@@ -10,6 +10,7 @@ import domain.Cvecar;
 import domain.Kupac;
 import domain.Mesto;
 import domain.Otpremnica;
+import domain.PoreskaStopa;
 import domain.StavkaOtpremnice;
 import domain.StrucnaSprema;
 import java.io.ObjectInputStream;
@@ -173,5 +174,9 @@ public class Controller {
     public void promeniOtpremnicu(Otpremnica otpremnicaChange) throws Exception {
         sendRequest(Operation.PROMENI_OTPREMNICU, otpremnicaChange);
 
+    }
+
+    public ArrayList<PoreskaStopa> ucitajPoreskeStopeIzBaze() throws Exception {
+        return (ArrayList<PoreskaStopa>) sendRequest(Operation.VRATI_LISTU_PORESKA_STOPA, null);
     }
 }

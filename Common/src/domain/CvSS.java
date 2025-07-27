@@ -78,14 +78,13 @@ public class CvSS extends OpstiDomenskiObjekat{
 
         while (rs.next()) {
             Cvecar cvecar = new Cvecar();
-            cvecar.setId(rs.getInt("id"));
-            // Populate more fields if necessary
+            cvecar.setId(rs.getInt("c.id"));
 
             StrucnaSprema ss = new StrucnaSprema();
-            ss.setId(rs.getInt("id"));
-            ss.setNaziv(rs.getString("naziv"));
-            ss.setNivo(rs.getString("nivo"));
-            ss.setSertifikat(rs.getBoolean("sertifikat"));
+            ss.setId(rs.getInt("ss.id"));
+            ss.setNaziv(rs.getString("ss.naziv"));
+            ss.setNivo(rs.getString("ss.nivo"));
+            ss.setSertifikat(rs.getBoolean("ss.sertifikat"));
 
             CvSS cvss = new CvSS(cvecar, ss, rs.getDate("DatumObuke"));
 

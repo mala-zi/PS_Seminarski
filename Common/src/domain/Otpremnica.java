@@ -39,7 +39,7 @@ public class Otpremnica extends OpstiDomenskiObjekat {
         this.ukupanPopust=ukupanPopust;
     }
 
-    public Otpremnica(int id, double ukupanIznosBezPDv, double ukupanIznosSaPDV,double ukupanPopust, Date datumIzdavanja, double ukupnaCena, Cvecar cvecar, Kupac kupac, ArrayList<StavkaOtpremnice> stavkeOtpremnice) {
+    public Otpremnica(int id, double ukupanIznosBezPDv, double ukupanIznosSaPDV,double ukupanPopust, Date datumIzdavanja, Cvecar cvecar, Kupac kupac, ArrayList<StavkaOtpremnice> stavkeOtpremnice) {
         this.id = id;
         this.ukupanIznosBezPDv = ukupanIznosBezPDv;
         this.ukupanIznosSaPDV = ukupanIznosSaPDV;
@@ -164,7 +164,8 @@ public class Otpremnica extends OpstiDomenskiObjekat {
     @Override
     public String join() {
         return " JOIN cvecar c ON (c.id = o.idCvecar) "
-                + "JOIN kupac k ON (k.id = o.idKupac)";
+                + "JOIN kupac k ON (k.id = o.idKupac)"
+                + "JOIN mesto m ON (k.idMesto = m.id)";
     }
 
     @Override
@@ -199,10 +200,10 @@ public class Otpremnica extends OpstiDomenskiObjekat {
                     rs.getDouble("o.ukupanIznosBezPDv"),
                     rs.getDouble("o.ukupanIznosSaPDV"),
                     rs.getDouble("o.ukupanPopust"),
-                    rs.getDate("o.datumIzdavanja"),                  
-                    rs.getDouble("o.ukupnaCena"),
+                    rs.getDate("o.datumIzdavanja"),
                     cvecar,
-                    kupac,null
+                    kupac,
+                    null
             );
 
             lista.add(o);
@@ -214,7 +215,7 @@ public class Otpremnica extends OpstiDomenskiObjekat {
 
     @Override
     public String koloneZaInsert() {
-        return "(ukupanIznosBezPDv, ukupanIznosSaPDV,ukupanPopust, datumIzdavanja, ukupnaCena, idCvecar, idKupac)";
+        return "(ukupanIznosBezPDv, ukupanIznosSaPDV,ukupanPopust, datumIzdavanja, idCvecar, idKupac)";
     }
 
     @Override

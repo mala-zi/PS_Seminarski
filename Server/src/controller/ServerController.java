@@ -10,6 +10,7 @@ import domain.Cvecar;
 import domain.Kupac;
 import domain.Mesto;
 import domain.Otpremnica;
+import domain.PoreskaStopa;
 import domain.StavkaOtpremnice;
 import domain.StrucnaSprema;
 import java.sql.SQLException;
@@ -36,6 +37,7 @@ import so.otpremnica.SOObrisiOtpremnicu;
 import so.otpremnica.SOPretraziOtpremnicu;
 import so.otpremnica.SOPromeniOtpremnicu;
 import so.otpremnica.SOVratiListuSviOtpremnica;
+import so.poreskastopa.SOVratiListuSviPoreskaStopa;
 import so.stavkaotpremnice.SOVratiListuSviStavkiOtpremnice;
 import so.strsprema.SOObrisiStrSprema;
 import so.strsprema.SOPromeniStrSprema;
@@ -193,5 +195,11 @@ public class ServerController {
         SOPretraziOtpremnicu so = new SOPretraziOtpremnicu();
         so.templateExecute(kriterijum);
         return so.getLista();
+    }
+
+    public Object ucitajPoreskaStopeIzBaze() throws Exception {
+        SOVratiListuSviPoreskaStopa so = new SOVratiListuSviPoreskaStopa();
+        so.templateExecute(new PoreskaStopa());
+        return so.getList();
     }
 }

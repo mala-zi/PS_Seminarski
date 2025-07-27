@@ -25,10 +25,11 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
      * Creates new form KreirajKupcaForma
      */
      public KreirajKupcaForma(JFrame parent,Kupac k) {
+        initComponents();
         setTitle("Kreiraj kupca");
         setResizable(false);
         setLocationRelativeTo(null);
-        initComponents();
+        
         inicijalizujPolja();
         if(k!=null){
             setTitle("Promeni kupca");
@@ -66,8 +67,6 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
         btnNazad = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         comboBoxMesto = new javax.swing.JComboBox<>();
-        lblId = new javax.swing.JLabel();
-        txtId = new javax.swing.JTextField();
         btnMestoAdd = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -96,8 +95,6 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
 
         jLabel5.setText("Mesto");
 
-        lblId.setText("ID");
-
         btnMestoAdd.setText("Dodaj mesto");
         btnMestoAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,8 +113,7 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblId, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(btnNazad)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
@@ -126,7 +122,6 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(txtPIB, javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(txtTelefon, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -140,10 +135,7 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblId)
-                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(6, 6, 6)
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtNaziv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -165,7 +157,7 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
                     .addComponent(comboBoxMesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnMestoAdd)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNazad)
                     .addComponent(btnSacuvaj))
@@ -207,7 +199,7 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
        
         if(kupac==null){
             try {
-                Kupac k=new Kupac( pib, telefon, email, mesto, naziv);
+                Kupac k=new Kupac( -1,pib, telefon, email, mesto, naziv);
                 Controller.getInstance().dodajKupca(k);
                 JOptionPane.showMessageDialog(this, "Kupac je dodat","Obavestenje",JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
@@ -216,8 +208,7 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
             }
         }else{
             try {
-                int id=Integer.parseInt(txtId.getText());
-                Kupac k=new Kupac(id, pib, telefon, email, mesto, naziv);
+                Kupac k=new Kupac(-1, pib, telefon, email, mesto, naziv);
                 Controller.getInstance().izmeniKupca(k);
                 JOptionPane.showMessageDialog(this, "Kupac uspesno izmenjen","Obavestenje",JOptionPane.INFORMATION_MESSAGE);
                 pkf.getTblKupci().setModel(new TableModelKupac(Controller.getInstance().ucitajKupceIzBaze()));
@@ -264,19 +255,13 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel lblId;
     private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNaziv;
     private javax.swing.JTextField txtPIB;
     private javax.swing.JTextField txtTelefon;
     // End of variables declaration//GEN-END:variables
 
     private void popuniIzmenuKupac(Kupac kupac) {
-        txtId.setVisible(true);
-        lblId.setVisible(true);
-        txtId.setEnabled(false);
-        txtId.setText(kupac.getId()+"");
         txtNaziv.setText(kupac.getNaziv());
         txtEmail.setText(kupac.getEmail());
         txtPIB.setText(kupac.getPib()+"");
@@ -286,8 +271,6 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
 
     private void inicijalizujPolja() {
         try {
-            lblId.setVisible(false);
-            txtId.setVisible(false);
             List<Mesto> mesto=Controller.getInstance().ucitajMestaIzBaze();
             for(Mesto m:mesto){
                 comboBoxMesto.addItem(m);

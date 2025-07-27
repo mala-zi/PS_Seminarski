@@ -86,7 +86,7 @@ public class Cvecar extends OpstiDomenskiObjekat{
 
     @Override
     public String toString() {
-        return "Cvecar{" + "id=" + id + ", ime=" + ime + ", prezime=" + prezime + ", korisnickoIme=" + korisnickoIme + ", lozinka=" + lozinka + '}';
+        return ime+" "+prezime;
     }
 
     @Override
@@ -109,11 +109,11 @@ public class Cvecar extends OpstiDomenskiObjekat{
         ArrayList<OpstiDomenskiObjekat> lista = new ArrayList<>();
         while (rs.next()) {
             Cvecar c = new Cvecar(
-                    rs.getInt("id"),
-                    rs.getString("ime"),
-                    rs.getString("prezime"),
-                    rs.getString("korisnickoIme"),
-                    rs.getString("lozinka")
+                    rs.getInt("c.id"),
+                    rs.getString("c.ime"),
+                    rs.getString("c.prezime"),
+                    rs.getString("c.korisnickoIme"),
+                    rs.getString("c.lozinka")
             );
             lista.add(c);
         }
@@ -143,7 +143,7 @@ public class Cvecar extends OpstiDomenskiObjekat{
 
     @Override
     public String uslov() {
-        return "WHERE korisnickoIme = '" + korisnickoIme + "' AND lozinka = '" + lozinka + "'";
+        return "";
     }
 
 }

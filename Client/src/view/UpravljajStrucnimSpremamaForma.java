@@ -27,7 +27,9 @@ public class UpravljajStrucnimSpremamaForma extends javax.swing.JFrame {
     public UpravljajStrucnimSpremamaForma() {
         initComponents();
         setResizable(false);
-            setLocationRelativeTo(null);
+        setLocationRelativeTo(null);
+        TableModelStrucnaSprema tmodel = new TableModelStrucnaSprema();
+        tblStrSprema.setModel(tmodel);
     }
 
     /**
@@ -134,16 +136,18 @@ public class UpravljajStrucnimSpremamaForma extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Nista nije selektovano", "Greska", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        StrucnaSprema ss = lista.get(selektovanRed);
-        UbaciStrucnuSpremuForma ussf = new UbaciStrucnuSpremuForma(this, ss);
+        TableModelStrucnaSprema model = (TableModelStrucnaSprema) tblStrSprema.getModel();
+        StrucnaSprema zaPromenu = model.getStrucnaSprema(selektovanRed);
+        UbaciStrucnuSpremuForma ussf = new UbaciStrucnuSpremuForma(this, zaPromenu);
         ussf.setVisible(true);
-        
+
         try {
-            tblStrSprema.setModel(new TableModelStrucnaSprema(Controller.getInstance().ucitajStrucneSpremeIzBaze()));
+            TableModelStrucnaSprema tmodel = new TableModelStrucnaSprema();
+            tblStrSprema.setModel(tmodel);
         } catch (Exception ex) {
             Logger.getLogger(UpravljajStrucnimSpremamaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_btnPromeniActionPerformed
 
     private void tblStrSpremaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblStrSpremaMouseClicked
@@ -151,23 +155,25 @@ public class UpravljajStrucnimSpremamaForma extends javax.swing.JFrame {
         int selektovanRed = tblStrSprema.getSelectedRow();
         if (selektovanRed != -1) {
             btnPromeni.setEnabled(true);
+            btnObrisi.setEnabled(true);
         }
     }//GEN-LAST:event_tblStrSpremaMouseClicked
 
     private void btnObrisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiActionPerformed
         // TODO add your handling code here:
-         try {
+        try {
             int selektovanRed = tblStrSprema.getSelectedRow();
             if (selektovanRed == -1) {
                 JOptionPane.showMessageDialog(this, "Nista nije selektovano", "Greska", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-
-            Controller.getInstance().obrisiStrSprema(lista.get(selektovanRed));
+            TableModelStrucnaSprema model = (TableModelStrucnaSprema) tblStrSprema.getModel();
+            StrucnaSprema zaBrisanje = model.getStrucnaSprema(selektovanRed);
+            Controller.getInstance().obrisiStrSprema(zaBrisanje);
 
             JOptionPane.showMessageDialog(this, "Strucna sprema obrisana", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
-
-            tblStrSprema.setModel(new TableModelStrucnaSprema(Controller.getInstance().ucitajStrucneSpremeIzBaze()));
+            model.refresh();
+            tblStrSprema.setModel(model);
         } catch (Exception ex) {
             Logger.getLogger(UpravljajCvecarimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
