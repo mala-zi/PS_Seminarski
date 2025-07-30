@@ -5,6 +5,7 @@
 package view;
 
 import domain.Cvecar;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -33,6 +34,7 @@ public class ValidationForm extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
         txtIme.setText(cvecar.getIme());
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setTitle("Validacija cvecara");
     }
 
@@ -82,13 +84,14 @@ public class ValidationForm extends javax.swing.JFrame {
                         .addGap(32, 32, 32)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(txtValidatePass, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtValidatePass, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 53, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtIme, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(29, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtIme, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btnValidate)
@@ -118,6 +121,8 @@ public class ValidationForm extends javax.swing.JFrame {
         String pass = String.valueOf(txtValidatePass.getPassword());
         if (pass.equals(cvecar.getLozinka())) {
             correctUser = true;
+            JOptionPane.showMessageDialog(this, "Uspesna validacija!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
         } else {
             correctUser = false;
             JOptionPane.showMessageDialog(this, "Neuspesna validacija!", "Greska", JOptionPane.ERROR_MESSAGE);

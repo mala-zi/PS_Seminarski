@@ -85,7 +85,7 @@ public class PoreskaStopa extends OpstiDomenskiObjekat {
 
     @Override
     public String vrednostiZaInsert() {
-        return id + ", " + vrednost;
+        return  ""+vrednost;
     }
 
     @Override

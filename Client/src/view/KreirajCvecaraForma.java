@@ -223,6 +223,9 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
             if (txtLozinka.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Morate popuniti sva polja!", "Greska", JOptionPane.ERROR_MESSAGE);
                 return;
+            }else if((txtLozinka.getText()).length()<8){
+                JOptionPane.showMessageDialog(this, "Lozinka mora da ima minimum 8 karaktera!", "Greska", JOptionPane.ERROR_MESSAGE);
+                return;
             }
             String lozinka = txtLozinka.getText();
             Cvecar c = new Cvecar(-1, ime, prezime, korisnickoIme, lozinka);

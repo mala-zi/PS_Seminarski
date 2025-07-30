@@ -174,12 +174,12 @@ public class LoginForma extends javax.swing.JFrame {
             cvecar.setLozinka(pass);
             cvecar = controller.prijaviCvecara(cvecar);
             Session.getInstance().setUlogovani(cvecar);
-            JOptionPane.showMessageDialog(this, cvecar.getIme() + " logged in!", "Login", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, cvecar.getIme() + " se ulogovao/la!", "Login", JOptionPane.INFORMATION_MESSAGE);
             JFrame frame = new GlavnaForma(cvecar);
             frame.setVisible(true);
             this.dispose();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Login unsucessful!\n" + ex.getMessage(), "Login", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Neuspesna prijava!\n" + ex.getMessage(), "Login", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnUlogujSeActionPerformed
 
