@@ -109,7 +109,7 @@ public class StrucnaSprema extends OpstiDomenskiObjekat {
 
     @Override
     public String vrednostiZaInsert() {
-        return id + ", '" + naziv + "', '" + nivo + "', " + (sertifikat ? 1 : 0);
+        return  naziv + "', '" + nivo + "', " + (sertifikat ? 1 : 0);
     }
 
     @Override

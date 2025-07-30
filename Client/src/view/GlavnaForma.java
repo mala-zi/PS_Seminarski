@@ -7,6 +7,7 @@ package view;
 import domain.Cvecar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import session.Session;
 
@@ -17,7 +18,6 @@ import session.Session;
 public class GlavnaForma extends javax.swing.JFrame {
 
     Cvecar cvecar;
-    //  ModelTableOtpremnica mto= new ModelTableOtpremnica( Controller.getInstance().ucitajOtpremniceIzBaze());
 
     /**
      * Creates new form MainForma
@@ -29,7 +29,6 @@ public class GlavnaForma extends javax.swing.JFrame {
         txtLogovan.setText("Zdravo, " + cvecar.getIme() + "!");
         setResizable(false);
         setLocationRelativeTo(null);
-        //tblOtp.setModel(new model);
 
     }
 

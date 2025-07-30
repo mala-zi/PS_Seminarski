@@ -9,6 +9,7 @@ import domain.Mesto;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.ArrayList;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import tableModel.TableModelMesto;
@@ -47,6 +48,7 @@ public class PregledMestaForma extends javax.swing.JFrame {
         setTitle("Mesta");
         setResizable(false);
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         try {
             TableModelMesto tmodel = new TableModelMesto();
             tblMesta.setModel(tmodel);
@@ -115,6 +117,7 @@ public class PregledMestaForma extends javax.swing.JFrame {
         });
 
         btnCancel.setBackground(new java.awt.Color(153, 255, 204));
+        btnCancel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnCancel.setText("Otkazi");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

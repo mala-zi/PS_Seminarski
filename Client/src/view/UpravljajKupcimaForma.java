@@ -11,6 +11,7 @@ import domain.Kupac;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JTable;
 
 /**
@@ -37,12 +38,13 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
        setTitle("Upravljaj kupcima");
         setResizable(false);
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         if(obrisiKupca==true){
             btnObrisi.setVisible(true);
             btnPromeni.setVisible(false);
         }
         try {
-            tblKupci.setModel(new TableModelKupac(Controller.getInstance().ucitajKupceIzBaze()));
+            tblKupci.setModel(new TableModelKupac());
         } catch (Exception ex) {
             Logger.getLogger(UpravljajKupcimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -152,7 +154,7 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(this, "Kupac obrisan", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
 
-            tblKupci.setModel(new TableModelKupac(Controller.getInstance().ucitajKupceIzBaze()));
+            tblKupci.setModel(new TableModelKupac());
         } catch (Exception ex) {
             Logger.getLogger(UpravljajCvecarimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -172,7 +174,7 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
             kf.setVisible(true);
             // mtk=new ModelTableKupac(Controller.getInstance().ucitajKupceIzBaze());
             
-            tblKupci.setModel(new TableModelKupac(Controller.getInstance().ucitajKupceIzBaze()));
+            tblKupci.setModel(new TableModelKupac());
         } catch (Exception ex) {
             Logger.getLogger(UpravljajKupcimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }

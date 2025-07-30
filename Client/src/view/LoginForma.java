@@ -30,6 +30,7 @@ public class LoginForma extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         txtErrorLozinka.setVisible(false);
         unos();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
     }
 

@@ -131,8 +131,11 @@ public class ThreadClient extends Thread {
                 case Operation.VRATI_LISTU_SVI_STRUCNASPREMA:
                     response.setData(ServerController.getInstance().ucitajStrucneSpremeIzBaze());
                     break;
-                    case Operation.VRATI_LISTU_PORESKA_STOPA:
+                case Operation.VRATI_LISTU_PORESKA_STOPA:
                     response.setData(ServerController.getInstance().ucitajPoreskaStopeIzBaze());
+                    break;
+                case Operation.DODAJ_STRUCNASPREMA:
+                    ServerController.getInstance().dodajStrSprema((StrucnaSprema) request.getData());
                     break;
                 default:
                     return null;

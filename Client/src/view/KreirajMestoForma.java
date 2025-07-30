@@ -8,6 +8,7 @@ import controller.Controller;
 import domain.Mesto;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import tableModel.TableModelMesto;
 
@@ -36,6 +37,7 @@ public class KreirajMestoForma extends javax.swing.JFrame {
         setTitle("Kreiraj mesto");
         setResizable(false);
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
     }
 
@@ -45,7 +47,7 @@ public class KreirajMestoForma extends javax.swing.JFrame {
         setTitle("Kreiraj mesto");
         setResizable(false);
         setLocationRelativeTo(null);
-        
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         if (m != null) {
             setTitle("Izmeni mesto");
             mesto = m;
@@ -59,6 +61,7 @@ public class KreirajMestoForma extends javax.swing.JFrame {
         setTitle("Kreiraj mesto");
         setResizable(false);
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
        
     }
 

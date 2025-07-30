@@ -8,6 +8,7 @@ import controller.Controller;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import domain.Cvecar;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,6 +20,7 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
 
     Cvecar cvecar;
     UpravljajCvecarimaForma pcf;
+    private ArrayList<Cvecar> novaLista;
 
     /**
      * Creates new form KreirajCvecaraForma
@@ -28,6 +30,7 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
         setResizable(false);
         setTitle("Kreiraj cvecara");
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         txtId.setVisible(false);
         jLabel5.setVisible(false);
         btnNovaLozinka.setVisible(false);
@@ -45,6 +48,7 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
         jLabel4.setVisible(false);
         txtLozinka.setVisible(false);
         btnNovaLozinka.setVisible(true);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         if (c != null) {
             cvecar = c;
             pcf = (UpravljajCvecarimaForma) parent;
@@ -152,9 +156,9 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
                                 .addGroup(layout.createSequentialGroup()
                                     .addGap(26, 26, 26)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(txtId, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
-                                        .addComponent(txtIme)
-                                        .addComponent(txtPrezime)))
+                                        .addComponent(txtIme, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                                        .addComponent(txtPrezime)
+                                        .addComponent(txtId, javax.swing.GroupLayout.Alignment.TRAILING)))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                                     .addComponent(txtLozinka, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -163,7 +167,7 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
                             .addGap(18, 18, 18)
                             .addComponent(txtKorisnickoIme))
                         .addComponent(btnNovaLozinka, javax.swing.GroupLayout.Alignment.TRAILING)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,13 +176,10 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(txtIme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtIme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
@@ -215,14 +216,16 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Morate popuniti sva polja!", "Greska", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
         String ime = txtIme.getText();
         String prezime = txtPrezime.getText();
         String korisnickoIme = txtKorisnickoIme.getText();
-        String lozinka = txtLozinka.getText();
-
         if (cvecar == null) {
-            Cvecar c = new Cvecar(-1,ime, prezime, korisnickoIme, lozinka);
+            if (txtLozinka.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Morate popuniti sva polja!", "Greska", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            String lozinka = txtLozinka.getText();
+            Cvecar c = new Cvecar(-1, ime, prezime, korisnickoIme, lozinka);
             try {
                 Controller.getInstance().dodajCvecara(c);
             } catch (Exception ex) {
@@ -231,16 +234,29 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Cvecar je dodat", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
         } else {
-            // Cvecar c=new Cvecar( ime, prezime, korisnickoIme, lozinka);//novi i nema id tkd u brokeru kad trazi update za ovaj id ne moze da ga nadje
-            cvecar.setIme(ime);
-            cvecar.setKorisnickoIme(korisnickoIme);
-            cvecar.setPrezime(prezime);
             try {
-                Controller.getInstance().promeniCvecara(cvecar);
+                novaLista = Controller.getInstance().ucitajCvecareIzBaze();
             } catch (Exception ex) {
                 Logger.getLogger(KreirajCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
             }
-            this.dispose();
+            cvecar = vratiAzuriranogCvecara();//za slucaj da user promeni sifru opet moramo u bazu da bi azurirali user-a
+            //a zatim da ga tako azuriranog prosledimo validaciji da bi se proverila nova sifra a ne stara
+            if (cvecar != null) {
+                ValidationForm vf = new ValidationForm(cvecar);
+                vf.setVisible(true);
+                boolean validation = vf.isCorrectUser();
+                if (validation == true) {
+                    cvecar.setIme(ime);
+                    cvecar.setKorisnickoIme(korisnickoIme);
+                    cvecar.setPrezime(prezime);
+                    try {
+                        Controller.getInstance().promeniCvecara(cvecar);
+                    } catch (Exception ex) {
+                        Logger.getLogger(KreirajCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    this.dispose();
+                }
+            }
         }
     }//GEN-LAST:event_btnSacuvajActionPerformed
 
@@ -277,6 +293,18 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
         txtPrezime.setText(cvecar.getPrezime());
         txtKorisnickoIme.setText(cvecar.getKorisnickoIme());
         txtLozinka.setText("");
+    }
+
+    private Cvecar vratiAzuriranogCvecara() {
+
+        for (Cvecar c : novaLista) {
+            if (c.getKorisnickoIme().equals(cvecar.getKorisnickoIme())
+                    && c.getIme().equals(cvecar.getIme()) && c.getPrezime().equals(cvecar.getPrezime())) {
+                return c;
+            }
+        }
+        return null;
+
     }
 
 }

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -31,6 +32,7 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JDialog {
             setTitle("Upravljaj otpremnicama");
             setResizable(false);
             setLocationRelativeTo(null);
+            setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             btnSearch.setVisible(false);
             comboCvecar.setVisible(false);
             comboDatum.setVisible(false);

@@ -66,7 +66,7 @@ public class ServerController {
 
     public Cvecar prijaviCvecara(Cvecar cvecar) throws SQLException, Exception {
         SOPrijaviCvecara soPrijavi = new SOPrijaviCvecara();
-        String hash=PasswordHash.hashPassword(cvecar.getLozinka());
+        String hash = PasswordHash.hashPassword(cvecar.getLozinka());
         cvecar.setLozinka(hash);
         soPrijavi.templateExecute(cvecar);
         return soPrijavi.getPrijavljenCvecar();
@@ -202,4 +202,9 @@ public class ServerController {
         so.templateExecute(new PoreskaStopa());
         return so.getList();
     }
+
+    public void dodajStrSprema(StrucnaSprema strucnaSprema) throws Exception {
+        (new SOUbaciStrSprema()).templateExecute(strucnaSprema);
+    }
+
 }

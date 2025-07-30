@@ -9,6 +9,7 @@ import domain.Cvecar;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import tableModel.TableModelCvecar;
 
@@ -19,19 +20,19 @@ import tableModel.TableModelCvecar;
 public class UpravljajCvecarimaForma extends javax.swing.JFrame {
 
     private ArrayList<Cvecar> lista;
-    TableModelCvecar mtc;
+    TableModelCvecar tma;
 
     /**
      * Creates new form PromeniCvecaraForma
      */
-    public UpravljajCvecarimaForma(){
+    public UpravljajCvecarimaForma() {
         try {
             initComponents();
-            lista = Controller.getInstance().ucitajCvecareIzBaze();
-            mtc= new TableModelCvecar(lista);
+            tma = new TableModelCvecar();
+            tblCvecari.setModel(tma);
             setResizable(false);
             setLocationRelativeTo(null);
-            tblCvecari.setModel(mtc);
+            setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             btnPromeni.setEnabled(false);
             btnObrisi.setEnabled(false);
         } catch (Exception ex) {
@@ -138,16 +139,20 @@ public class UpravljajCvecarimaForma extends javax.swing.JFrame {
 
     private void btnPromeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromeniActionPerformed
         // TODO add your handling code here:
-        int selektovanRed=tblCvecari.getSelectedRow();
-        if(selektovanRed==-1){
-            JOptionPane.showMessageDialog(this, "Nista nije selektovano","greska",JOptionPane.ERROR_MESSAGE);
+        int selektovanRed = tblCvecari.getSelectedRow();
+        if (selektovanRed == -1) {
+            JOptionPane.showMessageDialog(this, "Nista nije selektovano", "greska", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        Cvecar c=lista.get(selektovanRed);
-        KreirajCvecaraForma kf=new KreirajCvecaraForma(this, c);
+        TableModelCvecar tmm = (TableModelCvecar) tblCvecari.getModel();
+        Cvecar c = tmm.getCvecar(selektovanRed);
+        KreirajCvecaraForma kf = new KreirajCvecaraForma(this, c);
         kf.setVisible(true);
         try {
-            tblCvecari.setModel(new TableModelCvecar(Controller.getInstance().ucitajCvecareIzBaze()));
+            /*tmm = new TableModelCvecar();
+            tblCvecari.setModel(tmm);*/
+            tmm.refresh();
+            tblCvecari.setModel(tmm);
         } catch (Exception ex) {
             Logger.getLogger(UpravljajCvecarimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -161,10 +166,10 @@ public class UpravljajCvecarimaForma extends javax.swing.JFrame {
     private void tblCvecariMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCvecariMouseClicked
         // TODO add your handling code here:
         int selektovanRed = tblCvecari.getSelectedRow();
-            if (selektovanRed != -1) {
-                btnPromeni.setEnabled(true);
-                btnObrisi.setEnabled(true);
-            }
+        if (selektovanRed != -1) {
+            btnPromeni.setEnabled(true);
+            btnObrisi.setEnabled(true);
+        }
     }//GEN-LAST:event_tblCvecariMouseClicked
 
     private void btnObrisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiActionPerformed
@@ -176,17 +181,21 @@ public class UpravljajCvecarimaForma extends javax.swing.JFrame {
                 return;
             }
 
-            Controller.getInstance().obrisiCvecara(lista.get(selektovanRed));
+            TableModelCvecar tmm = (TableModelCvecar) tblCvecari.getModel();
+            Cvecar cvecarDelete = tmm.getCvecar(selektovanRed);
+            Controller.getInstance().obrisiCvecara(cvecarDelete);
 
             JOptionPane.showMessageDialog(this, "Cvecar obrisan", "greska", JOptionPane.INFORMATION_MESSAGE);
 
-            tblCvecari.setModel(new TableModelCvecar(Controller.getInstance().ucitajCvecareIzBaze()));
+            //tma = new TableModelCvecar();
+           // tblCvecari.setModel(tma);
+           tmm.refresh();
+           tblCvecari.setModel(tmm);
         } catch (Exception ex) {
             Logger.getLogger(UpravljajCvecarimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnObrisiActionPerformed
 
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNazad;

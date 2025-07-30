@@ -66,7 +66,7 @@ public class TableModelAranzman extends AbstractTableModel {
         return listaAranzmana.get(row);
     }
 
-    private void refresh() {
+    public void refresh() {
         try {
             listaAranzmana = Controller.getInstance().ucitajAranzmaneIzBaze();
             fireTableDataChanged();

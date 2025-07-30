@@ -8,7 +8,11 @@ import controller.Controller;
 import domain.Cvecar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.Document;
 import validator.Validator;
 
 /**
@@ -27,6 +31,11 @@ public class PromeniLozinkuForma extends javax.swing.JDialog {
         setResizable(false);
         setLocationRelativeTo(null);
         cvecar=c;
+        txtNovaLozinka.setEnabled(false);
+        btnPromeni.setEnabled(false);
+        txtErrorPass.setVisible(false);
+        unos();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -38,14 +47,17 @@ public class PromeniLozinkuForma extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
+        lblNewPass = new javax.swing.JLabel();
         btnPromeni = new javax.swing.JButton();
         txtNovaLozinka = new javax.swing.JTextField();
+        lblOldPass = new javax.swing.JLabel();
+        txtOldPass = new javax.swing.JPasswordField();
+        txtErrorPass = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel2.setText("Nova lozinka");
+        lblNewPass.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblNewPass.setText("Nova lozinka");
 
         btnPromeni.setBackground(new java.awt.Color(153, 255, 204));
         btnPromeni.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -58,27 +70,52 @@ public class PromeniLozinkuForma extends javax.swing.JDialog {
 
         txtNovaLozinka.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
+        lblOldPass.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblOldPass.setText("Stara lozinka");
+
+        txtOldPass.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        txtErrorPass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtErrorPassActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jLabel2)
-                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNovaLozinka, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPromeni))
-                .addContainerGap(24, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(132, 132, 132)
+                        .addComponent(btnPromeni))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblNewPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblOldPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtNovaLozinka)
+                            .addComponent(txtOldPass)
+                            .addComponent(txtErrorPass, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtOldPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblOldPass))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtErrorPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNovaLozinka, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                    .addComponent(lblNewPass))
+                .addGap(18, 18, 18)
                 .addComponent(btnPromeni, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
@@ -95,7 +132,7 @@ public class PromeniLozinkuForma extends javax.swing.JDialog {
                 return;
             }
             cvecar.setLozinka(nova);
-            Controller.getInstance().promeniLozinkuCvecara(cvecar);
+            Controller.getInstance().promeniCvecara(cvecar);
            JOptionPane.showMessageDialog(this, "Lozinka uspesno promenjena!","Obavestenje",JOptionPane.INFORMATION_MESSAGE);
            this.dispose();
 
@@ -104,11 +141,61 @@ public class PromeniLozinkuForma extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnPromeniActionPerformed
 
+    private void txtErrorPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtErrorPassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtErrorPassActionPerformed
+
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPromeni;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel lblNewPass;
+    private javax.swing.JLabel lblOldPass;
+    private javax.swing.JTextField txtErrorPass;
     private javax.swing.JTextField txtNovaLozinka;
+    private javax.swing.JPasswordField txtOldPass;
     // End of variables declaration//GEN-END:variables
+
+    private void unos() {
+        MyDocumentListener listener = new MyDocumentListener();
+        txtOldPass.getDocument().addDocumentListener(listener);
+    }
+
+    public class MyDocumentListener implements DocumentListener {
+
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            validate(e);
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+            validate(e);
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+            validate(e);
+        }
+
+        private void validate(DocumentEvent e) {
+            Document source = e.getDocument();
+
+            if (source == txtOldPass.getDocument()) {
+                String pass = String.valueOf(txtOldPass.getPassword());
+                if (pass.equals(cvecar.getLozinka())) {
+                    txtErrorPass.setText("");
+                    txtErrorPass.setVisible(false);
+                    txtNovaLozinka.setEnabled(true);
+                    btnPromeni.setEnabled(true);
+
+                } else {
+                    txtErrorPass.setVisible(true);
+                    txtErrorPass.setText("Pogresna lozinka");
+                }
+            }
+            txtErrorPass.getParent().revalidate();
+        }
+
+    }
 }

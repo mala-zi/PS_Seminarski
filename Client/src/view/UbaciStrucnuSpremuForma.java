@@ -26,6 +26,7 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         comboSertifikat.addItem("NE");
         comboSertifikat.addItem("DA");
 
@@ -35,6 +36,7 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         comboSertifikat.addItem("NE");
         comboSertifikat.addItem("DA");
         if(strsprema!=null){
@@ -184,7 +186,7 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
             sertifikat = false;
         }
         if(ss==null){
-        StrucnaSprema strs = new StrucnaSprema(txtNaziv.getText(), txtNivo.getText(), sertifikat);
+        StrucnaSprema strs = new StrucnaSprema(-1,txtNaziv.getText(), txtNivo.getText(), sertifikat);
             try {
                 Controller.getInstance().ubaciStrSprema(strs);
             } catch (Exception ex) {

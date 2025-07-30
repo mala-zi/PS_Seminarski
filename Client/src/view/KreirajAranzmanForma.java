@@ -31,6 +31,7 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
         setResizable(false);
         setLocationRelativeTo(null);       
         popuniCombo();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
     
     public KreirajAranzmanForma(JFrame parent, Aranzman a) {
@@ -39,6 +40,7 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
         setTitle("Promeni aranzman");
         setResizable(false);
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         popuniCombo();
          if (a != null) {
             aranzman= a;

@@ -9,6 +9,7 @@ import domain.StrucnaSprema;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import tableModel.TableModelStrucnaSprema;
 
@@ -30,6 +31,7 @@ public class UpravljajStrucnimSpremamaForma extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         TableModelStrucnaSprema tmodel = new TableModelStrucnaSprema();
         tblStrSprema.setModel(tmodel);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**

@@ -61,7 +61,7 @@ public class TableModelMesto  extends AbstractTableModel{
         return listaMesta.get(row);
     }
 
-     private void refresh()  {
+     public void refresh()  {
         try {
             listaMesta=Controller.getInstance().ucitajMestaIzBaze();
             fireTableDataChanged();

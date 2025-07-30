@@ -26,6 +26,7 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
      */
      public KreirajKupcaForma(JFrame parent,Kupac k) {
         initComponents();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
         setLocationRelativeTo(null);
         inicijalizujPolja();
@@ -38,6 +39,7 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
     }
     public KreirajKupcaForma() {
         initComponents();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         inicijalizujPolja();
         setTitle("Kreiraj kupca");
         setResizable(false);
@@ -236,7 +238,7 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
                 Kupac k=new Kupac(-1, pib, telefon, email, mesto, naziv);
                 Controller.getInstance().izmeniKupca(k);
                 JOptionPane.showMessageDialog(this, "Kupac uspesno izmenjen","Obavestenje",JOptionPane.INFORMATION_MESSAGE);
-                pkf.getTblKupci().setModel(new TableModelKupac(Controller.getInstance().ucitajKupceIzBaze()));
+                pkf.getTblKupci().setModel(new TableModelKupac());
                 
                 this.dispose();
             } catch (Exception ex) {

@@ -75,7 +75,7 @@ public class TableModelOtpremnica extends AbstractTableModel {
     public Otpremnica getOtpremnica(int row) {
         return lista.get(row);
     }
-     private void refresh()  {
+     public void refresh()  {
         try {
             lista=Controller.getInstance().ucitajOtpremniceIzBaze();
             fireTableDataChanged();

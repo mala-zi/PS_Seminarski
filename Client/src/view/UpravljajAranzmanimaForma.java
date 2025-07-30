@@ -9,6 +9,7 @@ import domain.Aranzman;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.ArrayList;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import tableModel.TableModelAranzman;
 
@@ -30,6 +31,7 @@ public class UpravljajAranzmanimaForma extends javax.swing.JFrame {
             setTitle("Upravljaj aranzmanima");
             setResizable(false);
             setLocationRelativeTo(null);
+            setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             
         } catch (Exception ex) {
             Logger.getLogger(UpravljajAranzmanimaForma.class.getName()).log(Level.SEVERE, null, ex);

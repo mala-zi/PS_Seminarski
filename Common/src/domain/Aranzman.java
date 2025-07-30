@@ -175,7 +175,7 @@ public class Aranzman extends OpstiDomenskiObjekat {
 
     @Override
     public String vrednostiZaInsert() {
-        return id + ", '" + naziv + "', '" + opis + "', " + poreskaStopa.getId() + ", "
+        return  naziv + "', '" + opis + "', " + poreskaStopa.getId() + ", "
                 + cenaBezPDV + ", " + cenaSaPDV+", "+popust;
     }
 

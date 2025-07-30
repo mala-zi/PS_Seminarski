@@ -4,8 +4,11 @@
  */
 package tableModel;
 
+import controller.Controller;
 import javax.swing.table.AbstractTableModel;
 import domain.Cvecar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.ArrayList;
 
 /**
@@ -16,8 +19,12 @@ public class TableModelCvecar extends AbstractTableModel {
     private ArrayList<Cvecar> listaCvecara;
     private String[] kolone={"Ime","Prezime"};
 
-    public TableModelCvecar(ArrayList<Cvecar> listaCvecara) {
-        this.listaCvecara = listaCvecara;
+    public TableModelCvecar() {
+        try {
+            listaCvecara = Controller.getInstance().ucitajCvecareIzBaze();
+        } catch (Exception ex) {
+            Logger.getLogger(TableModelCvecar.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
@@ -48,6 +55,17 @@ public class TableModelCvecar extends AbstractTableModel {
     public String getColumnName(int column) {
         return kolone[column];
     }
-    
+    public Cvecar getCvecar(int row) {
+        return listaCvecara.get(row);
+    }
+
+    public void refresh() {
+        try {
+            listaCvecara = Controller.getInstance().ucitajCvecareIzBaze();
+            fireTableDataChanged();
+        } catch (Exception ex) {
+            Logger.getLogger(TableModelCvecar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
 }

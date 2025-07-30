@@ -4,8 +4,12 @@
  */
 package tableModel;
 
+import controller.Controller;
 import javax.swing.table.AbstractTableModel;
 import domain.Kupac;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.ArrayList;
 
 /**
@@ -16,8 +20,12 @@ public class TableModelKupac  extends AbstractTableModel{
     private ArrayList<Kupac> listaKupaca;
     private String[] kolone={"ID","Naziv","PIB","Telefon","Email","Mesto"};
 
-    public TableModelKupac(ArrayList<Kupac> listaKupaca) {
-        this.listaKupaca = listaKupaca;
+    public TableModelKupac() {
+        try {
+            listaKupaca = Controller.getInstance().ucitajKupceIzBaze();
+        } catch (Exception ex) {
+            Logger.getLogger(TableModelKupac.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     
@@ -56,6 +64,18 @@ public class TableModelKupac  extends AbstractTableModel{
     public String getColumnName(int column) {
         return kolone[column];
     }
-    
+    public Kupac getAranzman(int row) {
+        return listaKupaca.get(row);
+    }
+
+    public void refresh() {
+        try {
+            listaKupaca = Controller.getInstance().ucitajKupceIzBaze();
+            fireTableDataChanged();
+        } catch (Exception ex) {
+            Logger.getLogger(TableModelKupac.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     
 }
