@@ -65,7 +65,9 @@ public class GlavnaForma extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("izloguj se");
+        jButton1.setBackground(new java.awt.Color(153, 255, 204));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButton1.setText("Izloguj se");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -76,7 +78,9 @@ public class GlavnaForma extends javax.swing.JFrame {
         txtLogovan.setText("jLabel1");
 
         meniCvecar.setText("Cvecar");
+        meniCvecar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
+        itemCvecarChange.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         itemCvecarChange.setText("Kreiraj cvecara");
         itemCvecarChange.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,6 +89,7 @@ public class GlavnaForma extends javax.swing.JFrame {
         });
         meniCvecar.add(itemCvecarChange);
 
+        jMenuItem10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jMenuItem10.setText("Upravljaj cvecarima");
         jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,6 +98,7 @@ public class GlavnaForma extends javax.swing.JFrame {
         });
         meniCvecar.add(jMenuItem10);
 
+        itemSSAdd.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         itemSSAdd.setText("Ubaci strucnu spremu");
         itemSSAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -101,6 +107,7 @@ public class GlavnaForma extends javax.swing.JFrame {
         });
         meniCvecar.add(itemSSAdd);
 
+        itemSSControl.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         itemSSControl.setText("Upravljaj strucnim spremama");
         itemSSControl.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,7 +119,9 @@ public class GlavnaForma extends javax.swing.JFrame {
         jMenuBar1.add(meniCvecar);
 
         meniOtpremnica.setText("Otpremnica");
+        meniOtpremnica.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
+        itemOtpAdd.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         itemOtpAdd.setText("Kreiraj otpremnicu");
         itemOtpAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,6 +130,7 @@ public class GlavnaForma extends javax.swing.JFrame {
         });
         meniOtpremnica.add(itemOtpAdd);
 
+        itemOtpChange.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         itemOtpChange.setText("Upravljaj otpremnicama");
         itemOtpChange.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,6 +139,7 @@ public class GlavnaForma extends javax.swing.JFrame {
         });
         meniOtpremnica.add(itemOtpChange);
 
+        itemOtpSearch.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         itemOtpSearch.setText("Pretrazi otpremnicu");
         itemOtpSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -140,7 +151,9 @@ public class GlavnaForma extends javax.swing.JFrame {
         jMenuBar1.add(meniOtpremnica);
 
         meniKupac.setText("Kupac");
+        meniKupac.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
+        itemKupacAdd.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         itemKupacAdd.setText("Kreiraj kupca");
         itemKupacAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,6 +162,7 @@ public class GlavnaForma extends javax.swing.JFrame {
         });
         meniKupac.add(itemKupacAdd);
 
+        itemKupacChange.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         itemKupacChange.setText("Upravljaj kupcima");
         itemKupacChange.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -160,7 +174,9 @@ public class GlavnaForma extends javax.swing.JFrame {
         jMenuBar1.add(meniKupac);
 
         meniAranzman.setText("Aranzman");
+        meniAranzman.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
+        jMenuItem1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jMenuItem1.setText("Kreiraj aranzman");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -169,6 +185,7 @@ public class GlavnaForma extends javax.swing.JFrame {
         });
         meniAranzman.add(jMenuItem1);
 
+        jMenuItem14.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jMenuItem14.setText("Upravljaj aranzmanima");
         jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -180,7 +197,9 @@ public class GlavnaForma extends javax.swing.JFrame {
         jMenuBar1.add(meniAranzman);
 
         meniMesto.setText("Mesto");
+        meniMesto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
+        itemMestoView.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         itemMestoView.setText("Pregled mesta");
         itemMestoView.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -198,20 +217,20 @@ public class GlavnaForma extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(23, 23, 23)
                 .addComponent(txtLogovan, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addGap(27, 27, 27))
+                .addGap(19, 19, 19))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(43, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtLogovan, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addGap(30, 30, 30))
         );
 
         pack();
