@@ -29,6 +29,10 @@ public class TableModelOtpremnica extends AbstractTableModel {
         }
     }
 
+    public TableModelOtpremnica(ArrayList<Otpremnica> lista) {
+        this.lista = lista;
+    }
+
     @Override
     public int getRowCount() {
         return lista.size();
@@ -75,9 +79,10 @@ public class TableModelOtpremnica extends AbstractTableModel {
     public Otpremnica getOtpremnica(int row) {
         return lista.get(row);
     }
-     public void refresh()  {
+
+    public void refresh() {
         try {
-            lista=Controller.getInstance().ucitajOtpremniceIzBaze();
+            lista = Controller.getInstance().ucitajOtpremniceIzBaze();
             fireTableDataChanged();
         } catch (Exception ex) {
             Logger.getLogger(TableModelOtpremnica.class.getName()).log(Level.SEVERE, null, ex);

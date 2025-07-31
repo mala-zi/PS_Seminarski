@@ -149,10 +149,8 @@ public class UpravljajCvecarimaForma extends javax.swing.JFrame {
         KreirajCvecaraForma kf = new KreirajCvecaraForma(this, c);
         kf.setVisible(true);
         try {
-            /*tmm = new TableModelCvecar();
-            tblCvecari.setModel(tmm);*/
-            tmm.refresh();
-            tblCvecari.setModel(tmm);
+            TableModelCvecar tmm2 = new TableModelCvecar();
+            tblCvecari.setModel(tmm2);
         } catch (Exception ex) {
             Logger.getLogger(UpravljajCvecarimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -168,8 +168,6 @@ public class UpravljajAranzmanimaForma extends javax.swing.JFrame {
             Aranzman a = tmm.getAranzman(selektovanRed);
             KreirajAranzmanForma kaf = new KreirajAranzmanForma(this, a);
             kaf.setVisible(true);
-            // mtk=new ModelTableKupac(Controller.getInstance().ucitajKupceIzBaze());
-
             TableModelAranzman tma = new TableModelAranzman();
             tblAranzmani.setModel(tma);
         } catch (Exception ex) {

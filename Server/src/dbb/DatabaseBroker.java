@@ -5,6 +5,7 @@
  */
 package dbb;
 
+import validator.PasswordHash;
 import domain.Cvecar;
 import domain.OpstiDomenskiObjekat;
 import java.sql.*;
@@ -23,9 +24,6 @@ public class DatabaseBroker {
         try {
             connect();
             updatePasswordsToHashed();
-            String url = "jdbc://localhost/3306/proba1_baza";
-            connection = DriverManager.getConnection(url, "root", "");
-            connection.setAutoCommit(false);
         } catch (SQLException ex) {
         }
     }
@@ -40,22 +38,23 @@ public class DatabaseBroker {
 
     public void updatePasswordsToHashed() throws SQLException {
         String query = "SELECT id, lozinka FROM cvecar";
+        System.out.println(query);
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery(query);
 
         while (rs.next()) {
             int id = rs.getInt("id");
             String plainPassword = rs.getString("lozinka");
-            if (plainPassword.length() == 64) {
-                break;
-            }
-            String hashedPassword = PasswordHash.hashPassword(plainPassword);
+            if (plainPassword.length() != 64) {
+                String hashedPassword = PasswordHash.hashPassword(plainPassword);
 
-            String updateQuery = "UPDATE cvecar SET lozinka=? WHERE id=?";
-            PreparedStatement ps = connection.prepareStatement(updateQuery);
-            ps.setString(1, hashedPassword);
-            ps.setInt(2, id);
-            ps.executeUpdate();
+                String updateQuery = "UPDATE cvecar SET lozinka=? WHERE id=?";
+                System.out.println(updateQuery);
+                PreparedStatement ps = connection.prepareStatement(updateQuery);
+                ps.setString(1, hashedPassword);
+                ps.setInt(2, id);
+                ps.executeUpdate();
+            }
         }
         connection.commit();
         rs.close();
@@ -66,6 +65,7 @@ public class DatabaseBroker {
         String query = "SELECT lozinka FROM cvecar WHERE id=" + cvecarChange.getId();
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery(query);
+        System.out.println(query);
         System.out.println("usaooo");
         while (rs.next()) {
             String currentPass = rs.getString("lozinka");
@@ -145,7 +145,7 @@ public class DatabaseBroker {
 
     public ArrayList<OpstiDomenskiObjekat> select(OpstiDomenskiObjekat odo) throws SQLException {
         String upit = "SELECT * FROM " + odo.nazivTabele() + " " + odo.alijas()
-                + " " + odo.join() + " "+ odo.uslov();
+                + " " + odo.join() + " " + odo.uslov();
         System.out.println(upit);
         Statement s = connection.createStatement();
         ResultSet rs = s.executeQuery(upit);

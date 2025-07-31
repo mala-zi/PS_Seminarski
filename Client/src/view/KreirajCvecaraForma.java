@@ -20,7 +20,16 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
 
     Cvecar cvecar;
     UpravljajCvecarimaForma pcf;
+    private boolean validation;
     private ArrayList<Cvecar> novaLista;
+
+    public boolean isValidation() {
+        return validation;
+    }
+
+    public void setValidation(boolean validation) {
+        this.validation = validation;
+    }
 
     /**
      * Creates new form KreirajCvecaraForma
@@ -245,19 +254,21 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
             cvecar = vratiAzuriranogCvecara();//za slucaj da user promeni sifru opet moramo u bazu da bi azurirali user-a
             //a zatim da ga tako azuriranog prosledimo validaciji da bi se proverila nova sifra a ne stara
             if (cvecar != null) {
-                ValidationForm vf = new ValidationForm(cvecar);
-                vf.setVisible(true);
-                boolean validation = vf.isCorrectUser();
+                ValidationForm vf = new ValidationForm(this,cvecar);
+                vf.setVisible(true);  
+                System.out.println("va:"+validation);
                 if (validation == true) {
                     cvecar.setIme(ime);
                     cvecar.setKorisnickoIme(korisnickoIme);
                     cvecar.setPrezime(prezime);
                     try {
                         Controller.getInstance().promeniCvecara(cvecar);
+                        JOptionPane.showMessageDialog(this, "Cvecar je promenjen", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
                     } catch (Exception ex) {
                         Logger.getLogger(KreirajCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    this.dispose();
+                    
                 }
             }
         }

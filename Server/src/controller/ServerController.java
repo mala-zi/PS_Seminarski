@@ -4,7 +4,7 @@
  */
 package controller;
 
-import dbb.PasswordHash;
+import validator.PasswordHash;
 import domain.Aranzman;
 import domain.Cvecar;
 import domain.Kupac;
@@ -74,6 +74,8 @@ public class ServerController {
     }
 
     public void dodajCvecara(Cvecar cvecarAdd) throws Exception {
+        String hash = PasswordHash.hashPassword(cvecarAdd.getLozinka());
+        cvecarAdd.setLozinka(hash);
         (new SOKreirajCvecar()).templateExecute(cvecarAdd);
 
     }

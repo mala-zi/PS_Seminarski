@@ -1,21 +1,23 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package view;
 
 import domain.Cvecar;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import validator.PasswordHash;
 
 /**
  *
  * @author Saki
  */
-public class ValidationForm extends javax.swing.JFrame {
+public class ValidationForm extends javax.swing.JDialog {
 
-    private boolean correctUser;
+    private boolean correctUser = false;
     private Cvecar cvecar;
+    private KreirajCvecaraForma kf;
 
     public boolean isCorrectUser() {
         return correctUser;
@@ -28,14 +30,17 @@ public class ValidationForm extends javax.swing.JFrame {
     /**
      * Creates new form ValidationForm
      */
-    public ValidationForm(Cvecar c) {
+    public ValidationForm(KreirajCvecaraForma parent, Cvecar c) {
+        super(parent, true);
         initComponents();
         this.cvecar = c;
+        this.kf = (KreirajCvecaraForma) parent;
         setLocationRelativeTo(null);
         setResizable(false);
         txtIme.setText(cvecar.getIme());
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setTitle("Validacija cvecara");
+
     }
 
     /**
@@ -47,30 +52,28 @@ public class ValidationForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         btnValidate = new javax.swing.JButton();
-        txtValidatePass = new javax.swing.JPasswordField();
-        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        txtTitle = new javax.swing.JLabel();
         txtIme = new javax.swing.JLabel();
+        txtValidation = new javax.swing.JPasswordField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel1.setText("Lozinka");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         btnValidate.setBackground(new java.awt.Color(153, 255, 204));
         btnValidate.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnValidate.setText("Potrvdi");
+        btnValidate.setText("Potvrdi");
         btnValidate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnValidateActionPerformed(evt);
             }
         });
 
-        txtValidatePass.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel1.setText("Lozinka");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel2.setText("Unesite lozinku kako biste potvrdili da ste");
+        txtTitle.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtTitle.setText("Unesite lozinku kako bi potvrdili da ste");
 
         txtIme.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
@@ -79,38 +82,38 @@ public class ValidationForm extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtValidatePass, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 53, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel2)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtIme, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnValidate)
-                .addGap(136, 136, 136))
+                        .addComponent(txtValidation, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtTitle)
+                        .addGap(5, 5, 5)
+                        .addComponent(txtIme, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnValidate)
+                        .addGap(119, 119, 119)))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTitle))
                     .addComponent(txtIme, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtValidatePass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(btnValidate, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+                    .addComponent(txtValidation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnValidate, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
         );
 
         pack();
@@ -118,13 +121,17 @@ public class ValidationForm extends javax.swing.JFrame {
 
     private void btnValidateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidateActionPerformed
         // TODO add your handling code here:
-        String pass = String.valueOf(txtValidatePass.getPassword());
-        if (pass.equals(cvecar.getLozinka())) {
-            correctUser = true;
+        String pass = String.valueOf(txtValidation.getPassword());
+        System.out.println("pas:" + cvecar.getLozinka());
+        String hashed = PasswordHash.hashPassword(pass);
+        System.out.println("hashed:" + hashed);
+        if (hashed.equals(cvecar.getLozinka())) {
+            kf.setValidation(true);
             JOptionPane.showMessageDialog(this, "Uspesna validacija!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+            kf.dispose();
             this.dispose();
         } else {
-            correctUser = false;
+            kf.setValidation(false);
             JOptionPane.showMessageDialog(this, "Neuspesna validacija!", "Greska", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -157,7 +164,7 @@ public class ValidationForm extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
             }
@@ -167,8 +174,8 @@ public class ValidationForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnValidate;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel txtIme;
-    private javax.swing.JPasswordField txtValidatePass;
+    private javax.swing.JLabel txtTitle;
+    private javax.swing.JPasswordField txtValidation;
     // End of variables declaration//GEN-END:variables
 }

@@ -176,7 +176,8 @@ public class PregledMestaForma extends javax.swing.JFrame {
             // TODO add your handling code here:
             KreirajMestoForma kmf = new KreirajMestoForma(this);
             kmf.setVisible(true);
-            //tblMesta.setModel(new TableModelMesto(controller.Controller.getInstance().ucitajMestaIzBaze()));//msm da ovo nece refresh
+             TableModelMesto tmodel = new TableModelMesto();
+            tblMesta.setModel(tmodel);
         } catch (Exception ex) {
             Logger.getLogger(PregledMestaForma.class.getName()).log(Level.SEVERE, null, ex);
         }

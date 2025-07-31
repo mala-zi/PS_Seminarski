@@ -291,7 +291,7 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JDialog {
             filter.setCvecar(cvecar);
             filter.setKupac(kupac);
             ArrayList<Otpremnica> filtriraneOtpremnice = Controller.getInstance().pretraziOtpremnice(filter);
-            TableModelOtpremnica model = (TableModelOtpremnica) tblOtp.getModel();
+            TableModelOtpremnica model = new TableModelOtpremnica(filtriraneOtpremnice);
             tblOtp.setModel(model);
         } catch (Exception ex) {
             Logger.getLogger(UpravljajOtpremnicamaForma.class.getName()).log(Level.SEVERE, null, ex);

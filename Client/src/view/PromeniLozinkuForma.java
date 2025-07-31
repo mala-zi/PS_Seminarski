@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.Document;
+import validator.PasswordHash;
 import validator.Validator;
 
 /**
@@ -22,15 +23,16 @@ import validator.Validator;
 public class PromeniLozinkuForma extends javax.swing.JDialog {
 
     private Cvecar cvecar;
+
     /**
      * Creates new form PromeniLozinkuForma
      */
-    public PromeniLozinkuForma(java.awt.Frame parent, boolean modal,Cvecar c) {
+    public PromeniLozinkuForma(java.awt.Frame parent, boolean modal, Cvecar c) {
         super(parent, modal);
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
-        cvecar=c;
+        cvecar = c;
         txtNovaLozinka.setEnabled(false);
         btnPromeni.setEnabled(false);
         txtErrorPass.setVisible(false);
@@ -95,11 +97,11 @@ public class PromeniLozinkuForma extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblNewPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblOldPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(26, 26, 26)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtNovaLozinka)
-                            .addComponent(txtOldPass)
-                            .addComponent(txtErrorPass, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtOldPass, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                            .addComponent(txtErrorPass)
+                            .addComponent(txtNovaLozinka))))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -126,15 +128,17 @@ public class PromeniLozinkuForma extends javax.swing.JDialog {
     private void btnPromeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromeniActionPerformed
         try {
             // TODO add your handling code here:
-            String nova=txtNovaLozinka.getText();
-            if(Validator.isValidPassword(nova)==false){
-                JOptionPane.showMessageDialog(this, "Lozinka mora da ima minimum 8 karaktera!","Greska",JOptionPane.ERROR_MESSAGE);
+            String nova = txtNovaLozinka.getText();
+            if (Validator.isValidPassword(nova) == false) {
+                JOptionPane.showMessageDialog(this, "Lozinka mora da ima minimum 8 karaktera!", "Greska", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            cvecar.setLozinka(nova);
+            String hashed = PasswordHash.hashPassword(nova);
+            System.out.println("hashed nova:" + hashed);
+            cvecar.setLozinka(hashed);
             Controller.getInstance().promeniCvecara(cvecar);
-           JOptionPane.showMessageDialog(this, "Lozinka uspesno promenjena!","Obavestenje",JOptionPane.INFORMATION_MESSAGE);
-           this.dispose();
+            JOptionPane.showMessageDialog(this, "Lozinka uspesno promenjena!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
 
         } catch (Exception ex) {
             Logger.getLogger(PromeniLozinkuForma.class.getName()).log(Level.SEVERE, null, ex);
@@ -145,7 +149,6 @@ public class PromeniLozinkuForma extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtErrorPassActionPerformed
 
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPromeni;
@@ -183,7 +186,9 @@ public class PromeniLozinkuForma extends javax.swing.JDialog {
 
             if (source == txtOldPass.getDocument()) {
                 String pass = String.valueOf(txtOldPass.getPassword());
-                if (pass.equals(cvecar.getLozinka())) {
+                String hashed = PasswordHash.hashPassword(pass);
+                System.out.println("hashed promeni:" + hashed);
+                if (hashed.equals(cvecar.getLozinka())) {
                     txtErrorPass.setText("");
                     txtErrorPass.setVisible(false);
                     txtNovaLozinka.setEnabled(true);

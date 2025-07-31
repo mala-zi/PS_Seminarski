@@ -172,8 +172,6 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
             Kupac kupac = Controller.getInstance().ucitajKupceIzBaze().get(selektovanRed);
             KreirajKupcaForma kf = new KreirajKupcaForma(this,kupac);
             kf.setVisible(true);
-            // mtk=new ModelTableKupac(Controller.getInstance().ucitajKupceIzBaze());
-            
             tblKupci.setModel(new TableModelKupac());
         } catch (Exception ex) {
             Logger.getLogger(UpravljajKupcimaForma.class.getName()).log(Level.SEVERE, null, ex);
