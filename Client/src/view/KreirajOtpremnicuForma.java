@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import tableModel.TableModelOtpremnica;
 import tableModel.TableModelStavkaOtpremnice;
 import validator.Validator;
 
@@ -27,7 +28,7 @@ import validator.Validator;
  * @author Saki
  */
 public class KreirajOtpremnicuForma extends javax.swing.JDialog {
-
+    
     private UpravljajOtpremnicamaForma uof;
     private Otpremnica otpremnica;
     private ArrayList<StavkaOtpremnice> listaStavki = new ArrayList<>();
@@ -49,9 +50,9 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         tableStavke.setModel(new TableModelStavkaOtpremnice());
     }
-
+    
     public KreirajOtpremnicuForma(UpravljajOtpremnicamaForma parent, Otpremnica otpremnica) throws Exception {
-
+        
         this.uof = (UpravljajOtpremnicamaForma) parent;
         this.otpremnica = otpremnica;
         initComponents();
@@ -503,10 +504,10 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
     }//GEN-LAST:event_btnOdustaniActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-
+        
         Date datumIzdavanja = new Date();
         try {
-
+            
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             if (txtDatumIzdavanja.getText().isEmpty() || txtCenaBezPDVPopust.getText().isEmpty() || txtCenaSaPDVPopust.getText().isEmpty() || txtKolicina.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Nisu sva polja popunjena", "Greska", JOptionPane.ERROR_MESSAGE);
@@ -530,10 +531,11 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
             Controller.getInstance().dodajOtpremnicu(otpremnica);
             resetPodataka();
             JOptionPane.showMessageDialog(this, "Otpremnica je dodata", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+            uof.getTblOtp().setModel(new TableModelOtpremnica());
             this.dispose();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage());
-
+            
         }
 
     }//GEN-LAST:event_btnSaveActionPerformed
@@ -544,12 +546,12 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Nisu sva polja popunjena", "Greska", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
+        
         Aranzman a = (Aranzman) comboAranzmani.getSelectedItem();
         int kolicina = Integer.parseInt(txtKolicina.getText());
         if (!Validator.isValidNumber(txtCenaBezPDVPopust.getText()) || !Validator.isValidNumber(txtCenaSaPDVPopust.getText())) {
             JOptionPane.showMessageDialog(this, "Pogresan format cene!", "Greska", JOptionPane.ERROR_MESSAGE);
-
+            
         }
         double cenaBez = Double.parseDouble(txtCenaBezPDVPopust.getText());
         double cenaSa = Double.parseDouble(txtCenaSaPDVPopust.getText());
@@ -558,7 +560,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
         double iznosSa = kolicina * cenaSa;
         TableModelStavkaOtpremnice tmodel = (TableModelStavkaOtpremnice) tableStavke.getModel();
         StavkaOtpremnice s1 = new StavkaOtpremnice(kolicina, napomena, iznosBez, iznosSa, cenaBez, cenaSa, a);
-
+        
         if (tmodel.unetAranzman(a)) {
             JOptionPane.showMessageDialog(this, "Aranzman je vec dodat u otpremnicu!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
             return;
@@ -569,7 +571,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
         ukupnaSa = tmodel.getUkupnaCenaSaPDV();
         ukupnaBez = tmodel.getUkupnaCenaBezPDV();
         ukupanPopust = tmodel.getUkupanPopust();
-
+        
         txtUkupnoSaPDV.setText(ukupnaSa + "");
         txtUkupnoBez.setText(ukupnaBez + "");
         txtUkupanPopust.setText(ukupanPopust + "");
@@ -674,7 +676,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
             comboBoxCvecar.addItem(c);
         }
     }
-
+    
     private void popuniKupceIzBaze() throws Exception {
         comboBoxKupac.removeAllItems();
         ArrayList<Kupac> kupci = Controller.getInstance().ucitajKupceIzBaze();
@@ -682,7 +684,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
             comboBoxKupac.addItem(k);
         }
     }
-
+    
     private void popuniAranzmaneIzBaze() throws Exception {
         comboAranzmani.removeAllItems();
         ArrayList<Aranzman> aranzmani = Controller.getInstance().ucitajAranzmaneIzBaze();
@@ -690,7 +692,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
             comboAranzmani.addItem(a);
         }
     }
-
+    
     private void resetPodataka() {
         txtDatumIzdavanja.setEnabled(false);
         comboBoxCvecar.setEnabled(false);
@@ -702,7 +704,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
         txtKolicina.setText("");
         txtNapomena.setText("");
     }
-
+    
     private void popuniPromena(Otpremnica otpremnica) {
         try {
             txtDatumIzdavanja.setText(otpremnica.getDatumIzdavanja() + "");
@@ -715,6 +717,6 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
         } catch (Exception ex) {
             Logger.getLogger(KreirajOtpremnicuForma.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
     }
 }

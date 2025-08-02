@@ -11,6 +11,7 @@ import domain.Cvecar;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import tableModel.TableModelCvecar;
 
 /**
  *
@@ -207,7 +208,7 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNazad, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSacuvaj, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -225,6 +226,11 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Morate popuniti sva polja!", "Greska", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        if (cvecar==null && txtKorisnickoIme.getText().equals("admin")) {
+            JOptionPane.showMessageDialog(this, "Izabrano korisnicko ime je nedostupno", "Greska", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         String ime = txtIme.getText();
         String prezime = txtPrezime.getText();
         String korisnickoIme = txtKorisnickoIme.getText();
@@ -232,7 +238,7 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
             if (txtLozinka.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Morate popuniti sva polja!", "Greska", JOptionPane.ERROR_MESSAGE);
                 return;
-            }else if((txtLozinka.getText()).length()<8){
+            } else if ((txtLozinka.getText()).length() < 8) {
                 JOptionPane.showMessageDialog(this, "Lozinka mora da ima minimum 8 karaktera!", "Greska", JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -254,9 +260,9 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
             cvecar = vratiAzuriranogCvecara();//za slucaj da user promeni sifru opet moramo u bazu da bi azurirali user-a
             //a zatim da ga tako azuriranog prosledimo validaciji da bi se proverila nova sifra a ne stara
             if (cvecar != null) {
-                ValidationForm vf = new ValidationForm(this,cvecar);
-                vf.setVisible(true);  
-                System.out.println("va:"+validation);
+                ValidationForm vf = new ValidationForm(this, cvecar);
+                vf.setVisible(true);
+                System.out.println("va:" + validation);
                 if (validation == true) {
                     cvecar.setIme(ime);
                     cvecar.setKorisnickoIme(korisnickoIme);
@@ -264,11 +270,12 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
                     try {
                         Controller.getInstance().promeniCvecara(cvecar);
                         JOptionPane.showMessageDialog(this, "Cvecar je promenjen", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
-            this.dispose();
+                        pcf.getTblCvecari().setModel(new TableModelCvecar());
+                        this.dispose();
                     } catch (Exception ex) {
                         Logger.getLogger(KreirajCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    
+
                 }
             }
         }

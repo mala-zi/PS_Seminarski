@@ -9,18 +9,28 @@ import controller.Controller;
 import domain.Cvecar;
 import domain.Kupac;
 import domain.Otpremnica;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 
 /**
  *
  * @author Saki
  */
 public class UpravljajOtpremnicamaForma extends javax.swing.JDialog {
+
+    public JTable getTblOtp() {
+        return tblOtp;
+    }
+
+    public void setTblOtp(JTable tblOtp) {
+        this.tblOtp = tblOtp;
+    }
 
     /**
      * Creates new form PromeniForma
@@ -268,11 +278,16 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JDialog {
             }
             TableModelOtpremnica model = (TableModelOtpremnica) tblOtp.getModel();
             Otpremnica zaBrisanje = model.getOtpremnica(selektovanRed);
-            Controller.getInstance().obrisiOtpremnicu(zaBrisanje);
+            try {
+                Controller.getInstance().obrisiOtpremnicu(zaBrisanje);
+            } catch (SQLIntegrityConstraintViolationException ex) {
+                JOptionPane.showMessageDialog(this, "Ne mozete obrisati otpremnicu jer ima povezane stavke otpremnice", "Greska", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
             JOptionPane.showMessageDialog(this, "Otpremnica obrisana", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
 
-            TableModelOtpremnica tmodel= new TableModelOtpremnica();
-           tblOtp.setModel(tmodel);
+            TableModelOtpremnica tmodel = new TableModelOtpremnica();
+            tblOtp.setModel(tmodel);
         } catch (Exception ex) {
             Logger.getLogger(UpravljajCvecarimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }

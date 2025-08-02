@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import tableModel.TableModelStrucnaSprema;
 
 /**
  *
@@ -18,7 +19,7 @@ import javax.swing.JOptionPane;
 public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
 
     StrucnaSprema ss;
-    UpravljajStrucnimSpremamaForma pssf;
+    UpravljajStrucnimSpremamaForma ussf;
     /**
      * Creates new form UbaciStrucnuSpremuForma
      */
@@ -41,7 +42,7 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
         comboSertifikat.addItem("DA");
         if(strsprema!=null){
             ss=strsprema;
-            pssf=(UpravljajStrucnimSpremamaForma) parent;
+            ussf=(UpravljajStrucnimSpremamaForma) parent;
             popuniIzmenuStrSprema(ss);
         }
 
@@ -201,6 +202,7 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
             try {
                 Controller.getInstance().promeniStrSpremu(ss);
                 JOptionPane.showMessageDialog(this, "Strucna sprema uspesno promenjena!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                ussf.getTblStrSprema().setModel(new TableModelStrucnaSprema());
                 this.dispose();
             } catch (Exception ex) {
                 Logger.getLogger(UbaciStrucnuSpremuForma.class.getName()).log(Level.SEVERE, null, ex);

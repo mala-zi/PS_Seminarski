@@ -8,6 +8,7 @@ import tableModel.TableModelKupac;
 import controller.Controller;
 import javax.swing.JOptionPane;
 import domain.Kupac;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,19 +28,20 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
     public void setTblKupci(JTable tblKupci) {
         this.tblKupci = tblKupci;
     }
- 
+
     private ArrayList<Kupac> lista;
+
     /**
      * Creates new form PromeniKupacForma
      */
     public UpravljajKupcimaForma(boolean obrisiKupca) throws Exception {
         initComponents();
         lista = Controller.getInstance().ucitajKupceIzBaze();
-       setTitle("Upravljaj kupcima");
+        setTitle("Upravljaj kupcima");
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        if(obrisiKupca==true){
+        if (obrisiKupca == true) {
             btnObrisi.setVisible(true);
             btnPromeni.setVisible(false);
         }
@@ -143,15 +145,18 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
 
     private void btnObrisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiActionPerformed
         // TODO add your handling code here:
-       try {
+        try {
             int selektovanRed = tblKupci.getSelectedRow();
             if (selektovanRed == -1) {
                 JOptionPane.showMessageDialog(this, "Nista nije selektovano", "Greska", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-
-            Controller.getInstance().obrisiKupca(lista.get(selektovanRed));
-
+            try {
+                Controller.getInstance().obrisiKupca(lista.get(selektovanRed));
+            } catch (SQLIntegrityConstraintViolationException ex) {
+                JOptionPane.showMessageDialog(this, "Ne mozete obrisati kupca jer je povezan sa otpremnicama", "Greska", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
             JOptionPane.showMessageDialog(this, "Kupac obrisan", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
 
             tblKupci.setModel(new TableModelKupac());
@@ -163,21 +168,21 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
     private void btnPromeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromeniActionPerformed
         try {
             // TODO add your handling code here:
-            
+
             int selektovanRed = tblKupci.getSelectedRow();
             if (selektovanRed == -1) {
                 JOptionPane.showMessageDialog(this, "Nista nije selektovano!", "Greska", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             Kupac kupac = Controller.getInstance().ucitajKupceIzBaze().get(selektovanRed);
-            KreirajKupcaForma kf = new KreirajKupcaForma(this,kupac);
+            KreirajKupcaForma kf = new KreirajKupcaForma(this, kupac);
             kf.setVisible(true);
-            tblKupci.setModel(new TableModelKupac());
+           // tblKupci.setModel(new TableModelKupac());
         } catch (Exception ex) {
             Logger.getLogger(UpravljajKupcimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
-                
+
+
     }//GEN-LAST:event_btnPromeniActionPerformed
 
     private void btnNazadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNazadActionPerformed
@@ -185,7 +190,6 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnNazadActionPerformed
 
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNazad;

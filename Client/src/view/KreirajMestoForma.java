@@ -6,6 +6,7 @@ package view;
 
 import controller.Controller;
 import domain.Mesto;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -21,6 +22,7 @@ public class KreirajMestoForma extends javax.swing.JFrame {
     private boolean uspeh = false;
     private Mesto mesto;
     private PregledMestaForma viewForm;
+    private KreirajKupcaForma kupacForm;
     private boolean dodaj = false;
 
     public boolean isUspeh() {
@@ -34,6 +36,7 @@ public class KreirajMestoForma extends javax.swing.JFrame {
     public KreirajMestoForma(PregledMestaForma viewForm) {
         initComponents();
         this.viewForm = viewForm;
+        this.mesto = null;
         setTitle("Kreiraj mesto");
         setResizable(false);
         setLocationRelativeTo(null);
@@ -44,7 +47,6 @@ public class KreirajMestoForma extends javax.swing.JFrame {
     public KreirajMestoForma(PregledMestaForma viewForm, Mesto m) {
         initComponents();
         this.viewForm = viewForm;
-        setTitle("Kreiraj mesto");
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -55,9 +57,11 @@ public class KreirajMestoForma extends javax.swing.JFrame {
         }
     }
 
-    public KreirajMestoForma(boolean dodaj) {
+    public KreirajMestoForma(KreirajKupcaForma kupacForm, boolean dodaj) {
         initComponents();
         this.dodaj = dodaj;
+        this.kupacForm = kupacForm;
+        this.mesto = null;
         setTitle("Kreiraj mesto");
         setResizable(false);
         setLocationRelativeTo(null);
@@ -185,17 +189,20 @@ public class KreirajMestoForma extends javax.swing.JFrame {
                 Mesto m = new Mesto(-1, txtGrad.getText(), pb, txtUlica.getText());
                 Controller.getInstance().dodajMesto(m);
                 if (dodaj == false) {
-                    //probacu da ovde setuje tabelu a ne tamo, mislim da tamo nece raditi refresh
-                    TableModelMesto tmodel = new TableModelMesto();
-                    viewForm.getTblMesta().setModel(tmodel);
-                    //pregled, update tabele
+                    JOptionPane.showMessageDialog(this, "Mesto je dodato", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                    viewForm.getTblMesta().setModel(new TableModelMesto());
+                    this.dispose();
                 } else {
-                    //true promeni uspeh na true
                     JOptionPane.showMessageDialog(this, "Mesto je dodato", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
                     uspeh = true;
+                    kupacForm.getComboBoxMesto().removeAllItems();
+                    ArrayList<Mesto> listaMesta = Controller.getInstance().ucitajMestaIzBaze();
+                    for (Mesto mesto1 : listaMesta) {
+                        kupacForm.getComboBoxMesto().addItem(mesto1);
+                    }
                     this.dispose();
-
                 }
+
             } else {
                 mesto.setGrad(txtGrad.getText());
                 mesto.setUlica(txtUlica.getText());
@@ -205,9 +212,11 @@ public class KreirajMestoForma extends javax.swing.JFrame {
                 } catch (Exception ex) {
                     Logger.getLogger(KreirajCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                JOptionPane.showMessageDialog(this, "Mesto je izmenjeno", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                viewForm.getTblMesta().setModel(new TableModelMesto());
+                this.dispose();
             }
-            JOptionPane.showMessageDialog(this, "Mesto je izmenjeno", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
-            this.dispose();
+
         } catch (Exception ex) {
             Logger.getLogger(KreirajMestoForma.class.getName()).log(Level.SEVERE, null, ex);
         }

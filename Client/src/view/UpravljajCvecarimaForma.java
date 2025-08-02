@@ -6,11 +6,13 @@ package view;
 
 import controller.Controller;
 import domain.Cvecar;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import tableModel.TableModelCvecar;
 
 /**
@@ -21,20 +23,30 @@ public class UpravljajCvecarimaForma extends javax.swing.JFrame {
 
     private ArrayList<Cvecar> lista;
     TableModelCvecar tma;
+    private Cvecar ulogovani;
+
+    public JTable getTblCvecari() {
+        return tblCvecari;
+    }
+
+    public void setTblCvecari(JTable tblCvecari) {
+        this.tblCvecari = tblCvecari;
+    }
 
     /**
      * Creates new form PromeniCvecaraForma
      */
-    public UpravljajCvecarimaForma() {
+    public UpravljajCvecarimaForma(Cvecar ulogovani) {
         try {
             initComponents();
+            this.ulogovani = ulogovani;
+            adminCheck();
             tma = new TableModelCvecar();
             tblCvecari.setModel(tma);
             setResizable(false);
             setLocationRelativeTo(null);
             setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             btnPromeni.setEnabled(false);
-            btnObrisi.setEnabled(false);
         } catch (Exception ex) {
             Logger.getLogger(UpravljajCvecarimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -148,12 +160,12 @@ public class UpravljajCvecarimaForma extends javax.swing.JFrame {
         Cvecar c = tmm.getCvecar(selektovanRed);
         KreirajCvecaraForma kf = new KreirajCvecaraForma(this, c);
         kf.setVisible(true);
-        try {
+        /*try {
             TableModelCvecar tmm2 = new TableModelCvecar();
             tblCvecari.setModel(tmm2);
         } catch (Exception ex) {
             Logger.getLogger(UpravljajCvecarimaForma.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        }*/
     }//GEN-LAST:event_btnPromeniActionPerformed
 
     private void btnNazadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNazadActionPerformed
@@ -166,7 +178,9 @@ public class UpravljajCvecarimaForma extends javax.swing.JFrame {
         int selektovanRed = tblCvecari.getSelectedRow();
         if (selektovanRed != -1) {
             btnPromeni.setEnabled(true);
-            btnObrisi.setEnabled(true);
+            if (btnObrisi.isVisible() == true) {
+                btnObrisi.setEnabled(true);
+            }
         }
     }//GEN-LAST:event_tblCvecariMouseClicked
 
@@ -181,14 +195,18 @@ public class UpravljajCvecarimaForma extends javax.swing.JFrame {
 
             TableModelCvecar tmm = (TableModelCvecar) tblCvecari.getModel();
             Cvecar cvecarDelete = tmm.getCvecar(selektovanRed);
-            Controller.getInstance().obrisiCvecara(cvecarDelete);
-
+            try {
+                Controller.getInstance().obrisiCvecara(cvecarDelete);
+            } catch (SQLIntegrityConstraintViolationException ex) {
+                JOptionPane.showMessageDialog(this, "Ne mozete obrisati cvecara jer je povezan sa otpremnicama", "Greska", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
             JOptionPane.showMessageDialog(this, "Cvecar obrisan", "greska", JOptionPane.INFORMATION_MESSAGE);
 
             //tma = new TableModelCvecar();
-           // tblCvecari.setModel(tma);
-           tmm.refresh();
-           tblCvecari.setModel(tmm);
+            // tblCvecari.setModel(tma);
+            tmm.refresh();
+            tblCvecari.setModel(tmm);
         } catch (Exception ex) {
             Logger.getLogger(UpravljajCvecarimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -202,4 +220,13 @@ public class UpravljajCvecarimaForma extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblCvecari;
     // End of variables declaration//GEN-END:variables
+
+    private void adminCheck() {
+        if (!ulogovani.getKorisnickoIme().equals("admin")) {
+            btnObrisi.setVisible(false);
+        } else {
+            btnObrisi.setVisible(true);
+            btnObrisi.setEnabled(false);
+        }
+    }
 }

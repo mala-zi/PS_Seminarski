@@ -289,7 +289,7 @@ public class GlavnaForma extends javax.swing.JFrame {
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
 
-        UpravljajCvecarimaForma pc = new UpravljajCvecarimaForma();
+        UpravljajCvecarimaForma pc = new UpravljajCvecarimaForma(cvecar);
         pc.setVisible(true);
 
     }//GEN-LAST:event_jMenuItem10ActionPerformed
@@ -325,7 +325,7 @@ public class GlavnaForma extends javax.swing.JFrame {
 
     private void itemSSControlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSSControlActionPerformed
         // TODO add your handling code here:
-        UpravljajStrucnimSpremamaForma pssf = new UpravljajStrucnimSpremamaForma();
+        UpravljajStrucnimSpremamaForma pssf = new UpravljajStrucnimSpremamaForma(cvecar);
         pssf.setVisible(true);
     }//GEN-LAST:event_itemSSControlActionPerformed
 

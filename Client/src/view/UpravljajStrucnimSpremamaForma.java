@@ -5,13 +5,16 @@
 package view;
 
 import controller.Controller;
+import domain.Cvecar;
 import domain.StrucnaSprema;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import tableModel.TableModelStrucnaSprema;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 /**
  *
@@ -21,16 +24,28 @@ public class UpravljajStrucnimSpremamaForma extends javax.swing.JFrame {
 
     private List<StrucnaSprema> lista;
     TableModelStrucnaSprema tmss;
+    private Cvecar ulogovani;
+
+    public JTable getTblStrSprema() {
+        return tblStrSprema;
+    }
+
+    public void setTblStrSprema(JTable tblStrSprema) {
+        this.tblStrSprema = tblStrSprema;
+    }
 
     /**
      * Creates new form PromeniStrucnuSpremuForma
      */
-    public UpravljajStrucnimSpremamaForma() {
+    public UpravljajStrucnimSpremamaForma(Cvecar ulogovani) {
         initComponents();
+        this.ulogovani = ulogovani;
+        adminCheck();
         setResizable(false);
         setLocationRelativeTo(null);
         TableModelStrucnaSprema tmodel = new TableModelStrucnaSprema();
         tblStrSprema.setModel(tmodel);
+        btnPromeni.setEnabled(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
@@ -149,14 +164,6 @@ public class UpravljajStrucnimSpremamaForma extends javax.swing.JFrame {
         StrucnaSprema zaPromenu = model.getStrucnaSprema(selektovanRed);
         UbaciStrucnuSpremuForma ussf = new UbaciStrucnuSpremuForma(this, zaPromenu);
         ussf.setVisible(true);
-
-        try {
-            TableModelStrucnaSprema tmodel = new TableModelStrucnaSprema();
-            tblStrSprema.setModel(tmodel);
-        } catch (Exception ex) {
-            Logger.getLogger(UpravljajStrucnimSpremamaForma.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
     }//GEN-LAST:event_btnPromeniActionPerformed
 
     private void tblStrSpremaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblStrSpremaMouseClicked
@@ -164,7 +171,9 @@ public class UpravljajStrucnimSpremamaForma extends javax.swing.JFrame {
         int selektovanRed = tblStrSprema.getSelectedRow();
         if (selektovanRed != -1) {
             btnPromeni.setEnabled(true);
-            btnObrisi.setEnabled(true);
+            if (btnObrisi.isVisible() == true) {
+                btnObrisi.setEnabled(true);
+            }
         }
     }//GEN-LAST:event_tblStrSpremaMouseClicked
 
@@ -178,8 +187,12 @@ public class UpravljajStrucnimSpremamaForma extends javax.swing.JFrame {
             }
             TableModelStrucnaSprema model = (TableModelStrucnaSprema) tblStrSprema.getModel();
             StrucnaSprema zaBrisanje = model.getStrucnaSprema(selektovanRed);
-            Controller.getInstance().obrisiStrSprema(zaBrisanje);
-
+            try {
+                Controller.getInstance().obrisiStrSprema(zaBrisanje);
+            } catch (SQLIntegrityConstraintViolationException ex) {
+                JOptionPane.showMessageDialog(this, "Ne mozete obrisati strucnu spremu jer je povezana sa cvecarima", "Greska", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
             JOptionPane.showMessageDialog(this, "Strucna sprema obrisana", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
             model.refresh();
             tblStrSprema.setModel(model);
@@ -218,12 +231,6 @@ public class UpravljajStrucnimSpremamaForma extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new UpravljajStrucnimSpremamaForma().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -233,4 +240,13 @@ public class UpravljajStrucnimSpremamaForma extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblStrSprema;
     // End of variables declaration//GEN-END:variables
+
+    private void adminCheck() {
+        if (!ulogovani.getKorisnickoIme().equals("admin")) {
+            btnObrisi.setVisible(false);
+        } else {
+            btnObrisi.setVisible(true);
+            btnObrisi.setEnabled(false);
+        }
+    }
 }

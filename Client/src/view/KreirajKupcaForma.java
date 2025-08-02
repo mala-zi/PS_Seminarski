@@ -13,6 +13,7 @@ import domain.Kupac;
 import domain.Mesto;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -21,6 +22,15 @@ import java.util.logging.Logger;
 public class KreirajKupcaForma extends javax.swing.JFrame {
     Kupac kupac;
     UpravljajKupcimaForma pkf;
+
+    public JComboBox<Mesto> getComboBoxMesto() {
+        return comboBoxMesto;
+    }
+
+    public void setComboBoxMesto(JComboBox<Mesto> comboBoxMesto) {
+        this.comboBoxMesto = comboBoxMesto;
+    }
+    
     /**
      * Creates new form KreirajKupcaForma
      */
@@ -251,19 +261,11 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             boolean dodaj=true;
-            KreirajMestoForma kmf=new KreirajMestoForma(dodaj);
+            KreirajMestoForma kmf=new KreirajMestoForma(this,dodaj);
             kmf.setVisible(true);
             boolean uspeh= kmf.isUspeh();
             if(uspeh==true){
-                try {
-                    comboBoxMesto.removeAllItems();
-                    List<Mesto> mesto=Controller.getInstance().ucitajMestaIzBaze();
-                    for(Mesto m:mesto){
-                        comboBoxMesto.addItem(m);
-                    }
-                } catch (Exception ex) {
-                    Logger.getLogger(KreirajKupcaForma.class.getName()).log(Level.SEVERE, null, ex);
-                }
+               
             }
         } catch (Exception ex) {
             Logger.getLogger(KreirajKupcaForma.class.getName()).log(Level.SEVERE, null, ex);

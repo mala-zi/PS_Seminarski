@@ -6,6 +6,7 @@ package view;
 
 import controller.Controller;
 import domain.Mesto;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.ArrayList;
@@ -176,7 +177,7 @@ public class PregledMestaForma extends javax.swing.JFrame {
             // TODO add your handling code here:
             KreirajMestoForma kmf = new KreirajMestoForma(this);
             kmf.setVisible(true);
-             TableModelMesto tmodel = new TableModelMesto();
+            TableModelMesto tmodel = new TableModelMesto();
             tblMesta.setModel(tmodel);
         } catch (Exception ex) {
             Logger.getLogger(PregledMestaForma.class.getName()).log(Level.SEVERE, null, ex);
@@ -194,8 +195,12 @@ public class PregledMestaForma extends javax.swing.JFrame {
             }
             TableModelMesto tmm = (TableModelMesto) tblMesta.getModel();
             Mesto m = tmm.getMesto(selektovanRed);
-            Controller.getInstance().obrisiMesto(m);
-
+            try {
+                Controller.getInstance().obrisiMesto(m);
+            } catch (SQLIntegrityConstraintViolationException ex) {
+                JOptionPane.showMessageDialog(this, "Ne mozete obrisati mesto jer je povezano za kupca", "Greska", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
             JOptionPane.showMessageDialog(this, "Mesto obrisano", "greska", JOptionPane.INFORMATION_MESSAGE);
 
             TableModelMesto tmodel = new TableModelMesto();
@@ -216,12 +221,6 @@ public class PregledMestaForma extends javax.swing.JFrame {
         Mesto m = tmm.getMesto(selektovanRed);
         KreirajMestoForma mf = new KreirajMestoForma(this, m);
         mf.setVisible(true);
-        try {
-            TableModelMesto tmodel = new TableModelMesto();
-            tblMesta.setModel(tmodel);
-        } catch (Exception ex) {
-            Logger.getLogger(UpravljajCvecarimaForma.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }//GEN-LAST:event_btnPromeniMestoActionPerformed
 
     /**

@@ -6,11 +6,12 @@ package view;
 
 import controller.Controller;
 import domain.Aranzman;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import tableModel.TableModelAranzman;
 
 /**
@@ -19,6 +20,13 @@ import tableModel.TableModelAranzman;
  */
 public class UpravljajAranzmanimaForma extends javax.swing.JFrame {
 
+    public JTable getTblAranzmani() {
+        return tblAranzmani;
+    }
+
+    public void setTblAranzmani(JTable tblAranzmani) {
+        this.tblAranzmani = tblAranzmani;
+    }
 
     /**
      * Creates new form UpravljajAranzmanima
@@ -32,7 +40,7 @@ public class UpravljajAranzmanimaForma extends javax.swing.JFrame {
             setResizable(false);
             setLocationRelativeTo(null);
             setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            
+
         } catch (Exception ex) {
             Logger.getLogger(UpravljajAranzmanimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -144,8 +152,12 @@ public class UpravljajAranzmanimaForma extends javax.swing.JFrame {
             }
             TableModelAranzman tmm = (TableModelAranzman) tblAranzmani.getModel();
             Aranzman a = tmm.getAranzman(selektovanRed);
-            Controller.getInstance().obrisiAranzman(a);
-
+            try {
+                Controller.getInstance().obrisiAranzman(a);
+            } catch (SQLIntegrityConstraintViolationException ex) {
+                JOptionPane.showMessageDialog(this, "Ne mozete obrisati aranzman jer se nalazi u stavkama otpremnice", "Greska", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
             JOptionPane.showMessageDialog(this, "Aranzman obrisan", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
             TableModelAranzman tma = new TableModelAranzman();
             tblAranzmani.setModel(tma);

@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import tableModel.TableModelAranzman;
 
 /**
  *
@@ -237,7 +238,7 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
                 
                 Controller.getInstance().promeniAranzman(aranzman);
                 JOptionPane.showMessageDialog(this, "Aranzman uspesno izmenjen", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
-                
+                uaf.getTblAranzmani().setModel(new TableModelAranzman());
                 this.dispose();
             } catch (Exception ex) {
                 Logger.getLogger(KreirajKupcaForma.class.getName()).log(Level.SEVERE, null, ex);
