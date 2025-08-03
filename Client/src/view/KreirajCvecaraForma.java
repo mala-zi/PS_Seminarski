@@ -134,6 +134,11 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
         jLabel5.setText("ID");
 
         txtId.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIdActionPerformed(evt);
+            }
+        });
 
         btnNovaLozinka.setBackground(new java.awt.Color(153, 255, 204));
         btnNovaLozinka.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -287,6 +292,10 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
         PromeniLozinkuForma forma = new PromeniLozinkuForma(pcf, true, cvecar);
         forma.setVisible(true);
     }//GEN-LAST:event_btnNovaLozinkaActionPerformed
+
+    private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdActionPerformed
 
     /**
      * @param args the command line arguments

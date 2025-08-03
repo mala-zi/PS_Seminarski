@@ -113,8 +113,8 @@ public class TableModelStavkaOtpremnice extends AbstractTableModel {
     public void dodajStavkuOtpremnice(StavkaOtpremnice so) {
         rbrStavke = listaStavki.size();
         so.setRb(++rbrStavke);
-        so.setIznosBezPDV(izracunajIznos(so.getKolicina(), so.getAranzman().getCenaBezPDV()));
-        so.setIznosSaPDV(izracunajIznos(so.getKolicina(), so.getAranzman().getCenaSaPDV()));
+        so.setIznosBezPDV(izracunajIznos(so.getKolicina(), so.getCenaBezPDV()));
+        so.setIznosSaPDV(izracunajIznos(so.getKolicina(), so.getCenaSaPdDV()));
         listaStavki.add(so);
         fireTableDataChanged();
     }
@@ -151,9 +151,7 @@ public class TableModelStavkaOtpremnice extends AbstractTableModel {
     public double getUkupanPopust() {
         double ukupanPopust = 0;
         for (StavkaOtpremnice stavkaOtpremnice : listaStavki) {
-             ukupanPopust += (stavkaOtpremnice.getKolicina()*
-                     stavkaOtpremnice.getAranzman().getCenaBezPDV()*
-                     (1-stavkaOtpremnice.getAranzman().getPopust()/100));
+             ukupanPopust += (stavkaOtpremnice.getKolicina()*(stavkaOtpremnice.getAranzman().getCenaSaPDV()-stavkaOtpremnice.getCenaSaPdDV()));
         }
         return  ukupanPopust;
     }

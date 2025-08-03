@@ -29,8 +29,8 @@ public class Otpremnica extends OpstiDomenskiObjekat {
     public Otpremnica() {
     }
 
-    public Otpremnica(double ukupanIznosBezPDv, double ukupanIznosSaPDV,double ukupanPopust, Date datumIzdavanja, Cvecar cvecar, Kupac kupac) {
-
+    public Otpremnica(double ukupanIznosBezPDv, double ukupanIznosSaPDV,double ukupanPopust, Date datumIzdavanja, Cvecar cvecar, Kupac kupac,ArrayList<StavkaOtpremnice> stavkeOtpremnice ) {
+        this.stavkeOtpremnice=stavkeOtpremnice;
         this.ukupanIznosBezPDv = ukupanIznosBezPDv;
         this.ukupanIznosSaPDV = ukupanIznosSaPDV;
         this.datumIzdavanja = datumIzdavanja;
