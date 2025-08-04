@@ -18,7 +18,6 @@ import javax.swing.table.AbstractTableModel;
 public class TableModelStrucnaSprema extends AbstractTableModel {
 
     private ArrayList<StrucnaSprema> listaSs;
-    private int i = 1;
     private final String[] kolone = {"Naziv", "Nivo", "Sertifikat"};
 
     public TableModelStrucnaSprema() {

@@ -18,20 +18,15 @@ public class SOPromeniOtpremnicu extends OpstaSistemskaOperacija {
 
     @Override
     protected void validate(OpstiDomenskiObjekat odo) throws Exception {
-        System.out.println("Usao u validate");
-
         if (!(odo instanceof Otpremnica)) {
             throw new Exception("Prosledjeni objekat nije instanca klase Otpremnica !");
         }
-        System.out.println("Jeste klase otpremnica");
 
         Otpremnica otpremnica = (Otpremnica) odo;
 
         if (otpremnica.getStavkeOtpremnice().isEmpty()) {
             throw new Exception("Otpremnica mora imati stavke!");
         }
-        System.out.println("Izasao iz validate");
-
     }
 
     @Override

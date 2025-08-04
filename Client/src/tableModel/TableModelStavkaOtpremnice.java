@@ -20,7 +20,6 @@ import java.util.logging.Logger;
 public class TableModelStavkaOtpremnice extends AbstractTableModel {
 
     private ArrayList<StavkaOtpremnice> listaStavki;
-    private int i = 1;
     private int rbrStavke = 0;
     private final String[] kolone = {"RB", "Kolicina", "Aranzman", "Cena Bez PDV",
         "Cena Sa PDV", "Iznos Bez PDV", "Iznos Sa PDV", "Napomena"};
@@ -60,7 +59,7 @@ public class TableModelStavkaOtpremnice extends AbstractTableModel {
         StavkaOtpremnice st = listaStavki.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return i++;
+                return rowIndex+1;
             case 1:
                 return st.getKolicina();
             case 2:

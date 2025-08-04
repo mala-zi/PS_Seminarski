@@ -18,7 +18,6 @@ import java.util.ArrayList;
 public class TableModelOtpremnica extends AbstractTableModel {
 
     private ArrayList<Otpremnica> lista;
-    private int i = 1;
     private final String[] kolone = {"ID", "Datum izdavanja", "Iznos Sa PDV-om", "Iznos Bez PDV-a", "Cvecar", "Kupac"};
 
     public TableModelOtpremnica() {
@@ -48,7 +47,7 @@ public class TableModelOtpremnica extends AbstractTableModel {
         Otpremnica o = lista.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return i++;
+                return o.getId();
             case 1:
                 return o.getDatumIzdavanja();
             case 2:
