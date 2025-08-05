@@ -21,7 +21,7 @@ public class StavkaOtpremnice extends OpstiDomenskiObjekat {
     private double iznosBezPDV;
     private double iznosSaPDV;
     private double cenaBezPDV;
-    private double cenaSaPdDV;
+    private double cenaSaPDV;
     private Aranzman aranzman;
     private Otpremnica otpremnica;
 
@@ -35,20 +35,21 @@ public class StavkaOtpremnice extends OpstiDomenskiObjekat {
         this.iznosBezPDV = iznosBezPDV;
         this.iznosSaPDV = iznosSaPDV;
         this.cenaBezPDV = cenaBezPDV;
-        this.cenaSaPdDV = cenaSaPdDV;
+        this.cenaSaPDV = cenaSaPdDV;
         this.aranzman = aranzman;
         this.otpremnica = otpremnica;
     }
 
-    public StavkaOtpremnice(int kolicina, String napomena, double iznosBezPDV, double iznosSaPDV, double cenaBezPDV, double cenaSaPdDV, Aranzman aranzman) {
+    public StavkaOtpremnice(int kolicina, String napomena, double iznosBezPDV, double iznosSaPDV, double cenaBezPDV, double cenaSaPdDV, Aranzman aranzman, Otpremnica otpremnica) {
 
         this.kolicina = kolicina;
         this.napomena = napomena;
         this.iznosBezPDV = iznosBezPDV;
         this.iznosSaPDV = iznosSaPDV;
         this.cenaBezPDV = cenaBezPDV;
-        this.cenaSaPdDV = cenaSaPdDV;
+        this.cenaSaPDV = cenaSaPdDV;
         this.aranzman = aranzman;
+        this.otpremnica = otpremnica;
     }
 
     public int getRb() {
@@ -99,12 +100,12 @@ public class StavkaOtpremnice extends OpstiDomenskiObjekat {
         this.cenaBezPDV = cenaBezPDV;
     }
 
-    public double getCenaSaPdDV() {
-        return cenaSaPdDV;
+    public double getCenaSaPDV() {
+        return cenaSaPDV;
     }
 
-    public void setCenaSaPdDV(double cenaSaPdDV) {
-        this.cenaSaPdDV = cenaSaPdDV;
+    public void setCenaSaPDV(double cenaSaPdDV) {
+        this.cenaSaPDV = cenaSaPdDV;
     }
 
     public Aranzman getAranzman() {
@@ -125,7 +126,7 @@ public class StavkaOtpremnice extends OpstiDomenskiObjekat {
 
     @Override
     public String toString() {
-        return "StavkaOtpremnice{" + "rb=" + rb + ", kolicina=" + kolicina + ", napomena=" + napomena + ", iznosBezPDV=" + iznosBezPDV + ", iznosSaPDV=" + iznosSaPDV + ", cenaBezPDV=" + cenaBezPDV + ", cenaSaPdDV=" + cenaSaPdDV + ", aranzman=" + aranzman + ", otpremnica=" + otpremnica + '}';
+        return "StavkaOtpremnice{" + "rb=" + rb + ", kolicina=" + kolicina + ", napomena=" + napomena + ", iznosBezPDV=" + iznosBezPDV + ", iznosSaPDV=" + iznosSaPDV + ", cenaBezPDV=" + cenaBezPDV + ", cenaSaPdDV=" + cenaSaPDV + ", aranzman=" + aranzman + ", otpremnica=" + otpremnica + '}';
     }
 
     @Override
@@ -256,7 +257,7 @@ public class StavkaOtpremnice extends OpstiDomenskiObjekat {
     public String vrednostiZaInsert() {
         return " " + otpremnica.getId() + ", " + rb + ", " + kolicina + ", '"
                 + napomena + "', " + iznosBezPDV + ", " + iznosSaPDV + ", "
-                + cenaBezPDV + ", " + cenaSaPdDV + ", " + aranzman.getId() + " ";
+                + cenaBezPDV + ", " + cenaSaPDV + ", " + aranzman.getId() + " ";
     }
 
     @Override

@@ -5,6 +5,7 @@
 package thread;
 
 import java.io.IOException;
+import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Level;
@@ -21,6 +22,8 @@ public class ThreadServer extends Thread {
     public ThreadServer() {
         try {
             serverSocket = new ServerSocket(9000);
+        } catch (BindException ex) {
+            System.err.println("Port se vec koristi. Samo jedan server se moze pokrenuti");
         } catch (IOException ex) {
             Logger.getLogger(ThreadServer.class.getName()).log(Level.SEVERE, null, ex);
         }

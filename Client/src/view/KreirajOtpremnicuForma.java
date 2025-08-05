@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JTextField;
 import tableModel.TableModelOtpremnica;
 import tableModel.TableModelStavkaOtpremnice;
 import validator.Validator;
@@ -29,18 +30,66 @@ import validator.Validator;
 public class KreirajOtpremnicuForma extends javax.swing.JDialog {
 
     private UpravljajOtpremnicamaForma uof;
-    private Otpremnica otpremnica;
-    private ArrayList<StavkaOtpremnice> listaStavki = new ArrayList<>();
+    private Otpremnica otpremnicaInsert;
+    private Otpremnica otpremnicaChange;
     private double ukupnaSa = 0;
     private double ukupnaBez = 0;
     private double ukupanPopust = 0;
+
+    public double getUkupnaSa() {
+        return ukupnaSa;
+    }
+
+    public void setUkupnaSa(double ukupnaSa) {
+        this.ukupnaSa = ukupnaSa;
+    }
+
+    public double getUkupnaBez() {
+        return ukupnaBez;
+    }
+
+    public void setUkupnaBez(double ukupnaBez) {
+        this.ukupnaBez = ukupnaBez;
+    }
+
+    public double getUkupanPopust() {
+        return ukupanPopust;
+    }
+
+    public void setUkupanPopust(double ukupanPopust) {
+        this.ukupanPopust = ukupanPopust;
+    }
+
+    public JTextField getTxtUkupanPopust() {
+        return txtUkupanPopust;
+    }
+
+    public void setTxtUkupanPopust(JTextField txtUkupanPopust) {
+        this.txtUkupanPopust = txtUkupanPopust;
+    }
+
+    public JTextField getTxtUkupnoBez() {
+        return txtUkupnoBez;
+    }
+
+    public void setTxtUkupnoBez(JTextField txtUkupnoBez) {
+        this.txtUkupnoBez = txtUkupnoBez;
+    }
+
+    public JTextField getTxtUkupnoSaPDV() {
+        return txtUkupnoSaPDV;
+    }
+
+    public void setTxtUkupnoSaPDV(JTextField txtUkupnoSaPDV) {
+        this.txtUkupnoSaPDV = txtUkupnoSaPDV;
+    }
 
     /**
      * Creates new form KreirajOtp
      */
     public KreirajOtpremnicuForma() throws Exception {
         initComponents();
-        this.otpremnica = null;
+        this.otpremnicaChange = null;
         setTitle("Kreiraj otpremnicu");
         setResizable(false);
         setLocationRelativeTo(null);
@@ -54,7 +103,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
     public KreirajOtpremnicuForma(UpravljajOtpremnicamaForma parent, Otpremnica otpremnica) throws Exception {
 
         this.uof = (UpravljajOtpremnicamaForma) parent;
-        this.otpremnica = otpremnica;
+        this.otpremnicaChange = otpremnica;
         initComponents();
         setTitle("Promeni otpremnicu");
         setResizable(false);
@@ -405,11 +454,12 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
                         .addGap(12, 12, 12)
                         .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel15)
-                    .addComponent(jLabel12))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel8)
+                        .addComponent(jLabel15)
+                        .addComponent(jLabel12)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -446,6 +496,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
                         .addComponent(btnUkloniStavku, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(24, 24, 24)
                 .addComponent(jLabel13)
+                .addGap(0, 0, 0)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -497,13 +548,13 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
         }
         Cvecar c = (Cvecar) comboBoxCvecar.getSelectedItem();
         Kupac k = (Kupac) comboBoxKupac.getSelectedItem();
-        if (otpremnica == null) {
+        if (otpremnicaChange == null) {
             System.out.println("ot null");
             try {
                 TableModelStavkaOtpremnice tmodel = (TableModelStavkaOtpremnice) tableStavke.getModel();
                 ArrayList<StavkaOtpremnice> stavke = tmodel.getListaStavki();
-                Otpremnica otp = new Otpremnica(ukupnaBez, ukupnaSa, ukupanPopust, datumIzdavanja, c, k,stavke);
-                Controller.getInstance().dodajOtpremnicu(otp);
+                otpremnicaInsert = new Otpremnica(-1, ukupnaBez, ukupnaSa, ukupanPopust, datumIzdavanja, c, k, stavke);
+                Controller.getInstance().dodajOtpremnicu(otpremnicaInsert);
                 JOptionPane.showMessageDialog(this, "Otpremnica je dodata.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
             } catch (Exception ex) {
@@ -515,14 +566,14 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
             try {
                 TableModelStavkaOtpremnice tmodel = (TableModelStavkaOtpremnice) tableStavke.getModel();
                 ArrayList<StavkaOtpremnice> stavke = tmodel.getListaStavki();
-                otpremnica.setCvecar(c);
-                otpremnica.setDatumIzdavanja(datumIzdavanja);
-                otpremnica.setKupac(k);
-                otpremnica.setUkupanIznosBezPDv(ukupnaBez);
-                otpremnica.setUkupanIznosSaPDV(ukupnaSa);
-                otpremnica.setUkupanPopust(ukupanPopust);
-                otpremnica.setStavkeOtpremnice(stavke);
-                Controller.getInstance().promeniOtpremnicu(otpremnica);
+                otpremnicaChange.setCvecar(c);
+                otpremnicaChange.setDatumIzdavanja(datumIzdavanja);
+                otpremnicaChange.setKupac(k);
+                otpremnicaChange.setUkupanIznosBezPDv(ukupnaBez);
+                otpremnicaChange.setUkupanIznosSaPDV(ukupnaSa);
+                otpremnicaChange.setUkupanPopust(ukupanPopust);
+                otpremnicaChange.setStavkeOtpremnice(stavke);
+                Controller.getInstance().promeniOtpremnicu(otpremnicaChange);
                 JOptionPane.showMessageDialog(this, "Otpremnica je izmenjena.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
                 uof.getTblOtp().setModel(new TableModelOtpremnica());
                 this.dispose();
@@ -548,11 +599,13 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
         double cenaBez = Double.parseDouble(txtCenaBezPDVPopust.getText());
         double cenaSa = Double.parseDouble(txtCenaSaPDVPopust.getText());
         String napomena = txtNapomena.getText();
-        //double iznosBez = kolicina * cenaBez;
-        //double iznosSa = kolicina * cenaSa;
         TableModelStavkaOtpremnice tmodel = (TableModelStavkaOtpremnice) tableStavke.getModel();
-        StavkaOtpremnice s1 = new StavkaOtpremnice(kolicina, napomena, 0, 0, cenaBez, cenaSa, a);
-
+        StavkaOtpremnice s1;
+        if (otpremnicaChange == null) {
+            s1 = new StavkaOtpremnice(-1, kolicina, napomena, 0, 0, cenaBez, cenaSa, a, otpremnicaInsert);
+        } else {
+            s1 = new StavkaOtpremnice(-1, kolicina, napomena, 0, 0, cenaBez, cenaSa, a, otpremnicaChange);
+        }
         if (tmodel.unetAranzman(a)) {
             JOptionPane.showMessageDialog(this, "Aranzman je vec dodat u otpremnicu!", "Greska", JOptionPane.INFORMATION_MESSAGE);
             return;
@@ -591,6 +644,9 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
         TableModelStavkaOtpremnice tmodel = (TableModelStavkaOtpremnice) tableStavke.getModel();
         tmodel.obrisiStavkuOtpremnice(selected);
         tableStavke.setModel(tmodel);
+        ukupnaBez = tmodel.getUkupnaCenaBezPDV();
+        ukupnaSa = tmodel.getUkupnaCenaSaPDV();
+        ukupanPopust = tmodel.getUkupanPopust();
         txtUkupnoBez.setText(tmodel.getUkupnaCenaBezPDV() + "");
         txtUkupnoSaPDV.setText(tmodel.getUkupnaCenaSaPDV() + "");
         txtUkupanPopust.setText(tmodel.getUkupanPopust() + "");
@@ -701,6 +757,9 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
     private void popuniPromena(Otpremnica otpremnica) {
         try {
             txtDatumIzdavanja.setText(otpremnica.getDatumIzdavanja() + "");
+            ukupnaBez = otpremnica.getUkupanIznosBezPDv();
+            ukupnaSa = otpremnica.getUkupanIznosSaPDV();
+            ukupanPopust = otpremnica.getUkupanPopust();
             comboBoxCvecar.setSelectedItem(otpremnica.getCvecar());
             comboBoxKupac.setSelectedItem(otpremnica.getKupac());
             txtUkupnoBez.setText(otpremnica.getUkupanIznosBezPDv() + "");

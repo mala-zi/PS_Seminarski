@@ -11,9 +11,11 @@ import domain.Kupac;
 import domain.Mesto;
 import domain.Otpremnica;
 import domain.StrucnaSprema;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.SocketException;
 import transfer.Request;
 import transfer.Response;
 import transfer.util.Operation;
@@ -41,8 +43,11 @@ public class ThreadClient extends Thread {
                 ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
                 out.writeObject(response);
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (SocketException e) {
+            System.out.println("Klijent se odvezao: " + e.getMessage());
+
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Greska prilikom obrade klijentskog zahteva: " + e.getMessage());
         }
     }
 

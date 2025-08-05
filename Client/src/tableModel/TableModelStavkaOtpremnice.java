@@ -59,7 +59,7 @@ public class TableModelStavkaOtpremnice extends AbstractTableModel {
         StavkaOtpremnice st = listaStavki.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return rowIndex+1;
+                return rowIndex + 1;
             case 1:
                 return st.getKolicina();
             case 2:
@@ -67,7 +67,7 @@ public class TableModelStavkaOtpremnice extends AbstractTableModel {
             case 3:
                 return st.getCenaBezPDV();
             case 4:
-                return st.getCenaSaPdDV();
+                return st.getCenaSaPDV();
             case 5:
                 return st.getIznosBezPDV();
             case 6:
@@ -96,7 +96,12 @@ public class TableModelStavkaOtpremnice extends AbstractTableModel {
 
         if (columnIndex == 1) {
             st.setKolicina(Integer.parseInt((String) value));
-
+            st.setCenaBezPDV(st.getAranzman().getCenaBezPDV() * (1 - st.getAranzman().getPopust() / 100));
+            st.setCenaSaPDV((st.getAranzman().getCenaBezPDV() * (1 - st.getAranzman().getPopust() / 100)) * (1 + (st.getAranzman().getPoreskaStopa().getVrednost()) / 100));
+            st.setIznosBezPDV(izracunajIznos(st.getKolicina(), st.getCenaBezPDV()));
+            st.setIznosSaPDV(izracunajIznos(st.getKolicina(), st.getCenaSaPDV()));
+            
+             fireTableRowsUpdated(rowIndex, rowIndex);
         }
     }
 
@@ -113,7 +118,7 @@ public class TableModelStavkaOtpremnice extends AbstractTableModel {
         rbrStavke = listaStavki.size();
         so.setRb(++rbrStavke);
         so.setIznosBezPDV(izracunajIznos(so.getKolicina(), so.getCenaBezPDV()));
-        so.setIznosSaPDV(izracunajIznos(so.getKolicina(), so.getCenaSaPdDV()));
+        so.setIznosSaPDV(izracunajIznos(so.getKolicina(), so.getCenaSaPDV()));
         listaStavki.add(so);
         fireTableDataChanged();
     }
@@ -150,8 +155,8 @@ public class TableModelStavkaOtpremnice extends AbstractTableModel {
     public double getUkupanPopust() {
         double ukupanPopust = 0;
         for (StavkaOtpremnice stavkaOtpremnice : listaStavki) {
-             ukupanPopust += (stavkaOtpremnice.getKolicina()*(stavkaOtpremnice.getAranzman().getCenaSaPDV()-stavkaOtpremnice.getCenaSaPdDV()));
+            ukupanPopust += (stavkaOtpremnice.getKolicina() * (stavkaOtpremnice.getAranzman().getCenaSaPDV() - stavkaOtpremnice.getCenaSaPDV()));
         }
-        return  ukupanPopust;
+        return ukupanPopust;
     }
 }
