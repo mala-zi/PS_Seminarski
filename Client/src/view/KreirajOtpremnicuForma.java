@@ -97,7 +97,9 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
         popuniKupceIzBaze();
         popuniAranzmaneIzBaze();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        tableStavke.setModel(new TableModelStavkaOtpremnice());
+        TableModelStavkaOtpremnice tmodel = new TableModelStavkaOtpremnice();
+        tmodel.setKof(this);
+        tableStavke.setModel(tmodel);
     }
 
     public KreirajOtpremnicuForma(UpravljajOtpremnicamaForma parent, Otpremnica otpremnica) throws Exception {
@@ -113,7 +115,9 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
         popuniKupceIzBaze();
         popuniAranzmaneIzBaze();
         popuniPromena(otpremnica);
-        tableStavke.setModel(new TableModelStavkaOtpremnice(otpremnica));
+        TableModelStavkaOtpremnice tmodel = new TableModelStavkaOtpremnice(otpremnica);
+        tmodel.setKof(this);
+        tableStavke.setModel(tmodel);
     }
 
     /**
@@ -549,9 +553,9 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
         Cvecar c = (Cvecar) comboBoxCvecar.getSelectedItem();
         Kupac k = (Kupac) comboBoxKupac.getSelectedItem();
         if (otpremnicaChange == null) {
-            System.out.println("ot null");
             try {
                 TableModelStavkaOtpremnice tmodel = (TableModelStavkaOtpremnice) tableStavke.getModel();
+                tmodel.setKof(this);
                 ArrayList<StavkaOtpremnice> stavke = tmodel.getListaStavki();
                 otpremnicaInsert = new Otpremnica(-1, ukupnaBez, ukupnaSa, ukupanPopust, datumIzdavanja, c, k, stavke);
                 Controller.getInstance().dodajOtpremnicu(otpremnicaInsert);
@@ -562,9 +566,9 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
 
             }
         } else {
-            System.out.println("ot not null");
             try {
                 TableModelStavkaOtpremnice tmodel = (TableModelStavkaOtpremnice) tableStavke.getModel();
+                tmodel.setKof(this);
                 ArrayList<StavkaOtpremnice> stavke = tmodel.getListaStavki();
                 otpremnicaChange.setCvecar(c);
                 otpremnicaChange.setDatumIzdavanja(datumIzdavanja);
@@ -596,8 +600,8 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Pogresan format cene!", "Greska", JOptionPane.ERROR_MESSAGE);
 
         }
-        double cenaBez = Double.parseDouble(txtCenaBezPDVPopust.getText());
-        double cenaSa = Double.parseDouble(txtCenaSaPDVPopust.getText());
+        double cenaBez = Math.floor(Double.parseDouble(txtCenaBezPDVPopust.getText()) * 100.0) / 100.0;
+        double cenaSa = Math.floor(Double.parseDouble(txtCenaSaPDVPopust.getText()) * 100.0) / 100.0;
         String napomena = txtNapomena.getText();
         TableModelStavkaOtpremnice tmodel = (TableModelStavkaOtpremnice) tableStavke.getModel();
         StavkaOtpremnice s1;
@@ -617,16 +621,16 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
         ukupnaBez = tmodel.getUkupnaCenaBezPDV();
         ukupanPopust = tmodel.getUkupanPopust();
 
-        txtUkupnoSaPDV.setText(ukupnaSa + "");
         txtUkupnoBez.setText(ukupnaBez + "");
+        txtUkupnoSaPDV.setText(ukupnaSa + "");
         txtUkupanPopust.setText(ukupanPopust + "");
     }//GEN-LAST:event_btnDodajStavkuActionPerformed
 
     private void comboAranzmaniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboAranzmaniActionPerformed
         // TODO add your handling code here:
         Aranzman a = (Aranzman) comboAranzmani.getSelectedItem();
-        double cenaBez = a.getCenaBezPDV() * (1 - a.getPopust() / 100);
-        double cenaSa = (a.getCenaBezPDV() * (1 - a.getPopust() / 100)) * (1 + (a.getPoreskaStopa().getVrednost()) / 100);
+        double cenaBez = Math.floor(a.getCenaBezPDV() * (1 - a.getPopust() / 100) * 100.0) / 100.0;
+        double cenaSa = Math.floor((a.getCenaBezPDV() * (1 - a.getPopust() / 100)) *(1 + (a.getPoreskaStopa().getVrednost()) / 100) * 100) / 100.0;
         txtCenaBezPDVPopust.setText(cenaBez + "");
         txtCenaBezPDVBezPopusta.setText(a.getCenaBezPDV() + "");
         txtCenaSaPDVBezPopusta.setText(a.getCenaSaPDV() + "");
@@ -644,12 +648,12 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
         TableModelStavkaOtpremnice tmodel = (TableModelStavkaOtpremnice) tableStavke.getModel();
         tmodel.obrisiStavkuOtpremnice(selected);
         tableStavke.setModel(tmodel);
-        ukupnaBez = tmodel.getUkupnaCenaBezPDV();
         ukupnaSa = tmodel.getUkupnaCenaSaPDV();
-        ukupanPopust = tmodel.getUkupanPopust();
-        txtUkupnoBez.setText(tmodel.getUkupnaCenaBezPDV() + "");
-        txtUkupnoSaPDV.setText(tmodel.getUkupnaCenaSaPDV() + "");
-        txtUkupanPopust.setText(tmodel.getUkupanPopust() + "");
+        ukupnaBez =tmodel.getUkupnaCenaBezPDV();
+        ukupanPopust =tmodel.getUkupanPopust();
+        txtUkupnoBez.setText(tmodel.getUkupnaCenaBezPDV()+"");
+        txtUkupnoSaPDV.setText( tmodel.getUkupnaCenaSaPDV()+"");
+        txtUkupanPopust.setText(tmodel.getUkupanPopust()+"");
 
     }//GEN-LAST:event_btnUkloniStavkuActionPerformed
 
@@ -757,8 +761,8 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
     private void popuniPromena(Otpremnica otpremnica) {
         try {
             txtDatumIzdavanja.setText(otpremnica.getDatumIzdavanja() + "");
-            ukupnaBez = otpremnica.getUkupanIznosBezPDv();
             ukupnaSa = otpremnica.getUkupanIznosSaPDV();
+            ukupnaBez = otpremnica.getUkupanIznosBezPDv();
             ukupanPopust = otpremnica.getUkupanPopust();
             comboBoxCvecar.setSelectedItem(otpremnica.getCvecar());
             comboBoxKupac.setSelectedItem(otpremnica.getKupac());

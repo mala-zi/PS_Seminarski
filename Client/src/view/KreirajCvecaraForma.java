@@ -95,7 +95,6 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
         jLabel1.setText("Ime");
 
         txtIme.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtIme.setText(" ");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Prezime");

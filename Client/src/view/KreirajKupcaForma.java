@@ -248,8 +248,12 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
             }
         }else{
             try {
-                Kupac k=new Kupac(-1, pib, telefon, email, mesto, naziv);
-                Controller.getInstance().izmeniKupca(k);
+                kupac.setEmail(txtEmail.getText());
+                kupac.setMesto((Mesto) comboBoxMesto.getSelectedItem());
+                kupac.setNaziv(txtNaziv.getText());
+                kupac.setPib(Integer.parseInt(txtPIB.getText()));
+                kupac.setTelefon(txtTelefon.getText());
+                Controller.getInstance().izmeniKupca(kupac);
                 JOptionPane.showMessageDialog(this, "Kupac uspesno izmenjen","Obavestenje",JOptionPane.INFORMATION_MESSAGE);
                 pkf.getTblKupci().setModel(new TableModelKupac());
                 

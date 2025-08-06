@@ -26,6 +26,7 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
     public UbaciStrucnuSpremuForma() {
         initComponents();
         setResizable(false);
+        setTitle("Kreiraj strucnu spremu");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         comboSertifikat.addItem("NE");

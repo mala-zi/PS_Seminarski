@@ -41,6 +41,7 @@ public class UpravljajCvecarimaForma extends javax.swing.JFrame {
             initComponents();
             this.ulogovani = ulogovani;
             adminCheck();
+            setTitle("Upravljaj cvecarima");
             tma = new TableModelCvecar();
             tblCvecari.setModel(tma);
             setResizable(false);

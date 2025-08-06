@@ -43,6 +43,7 @@ public class UpravljajStrucnimSpremamaForma extends javax.swing.JFrame {
         adminCheck();
         setResizable(false);
         setLocationRelativeTo(null);
+        setTitle("Upravljaj strucnim spremama");
         TableModelStrucnaSprema tmodel = new TableModelStrucnaSprema();
         tblStrSprema.setModel(tmodel);
         btnPromeni.setEnabled(false);

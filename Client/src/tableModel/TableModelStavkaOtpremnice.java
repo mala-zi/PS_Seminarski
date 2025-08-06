@@ -12,6 +12,7 @@ import domain.StavkaOtpremnice;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import view.KreirajOtpremnicuForma;
 
 /**
  *
@@ -20,6 +21,7 @@ import java.util.logging.Logger;
 public class TableModelStavkaOtpremnice extends AbstractTableModel {
 
     private ArrayList<StavkaOtpremnice> listaStavki;
+    private KreirajOtpremnicuForma kof;
     private int rbrStavke = 0;
     private final String[] kolone = {"RB", "Kolicina", "Aranzman", "Cena Bez PDV",
         "Cena Sa PDV", "Iznos Bez PDV", "Iznos Sa PDV", "Napomena"};
@@ -34,6 +36,14 @@ public class TableModelStavkaOtpremnice extends AbstractTableModel {
         } catch (Exception ex) {
             Logger.getLogger(TableModelStavkaOtpremnice.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public KreirajOtpremnicuForma getKof() {
+        return kof;
+    }
+
+    public void setKof(KreirajOtpremnicuForma kof) {
+        this.kof = kof;
     }
 
     public ArrayList<StavkaOtpremnice> getListaStavki() {
@@ -96,12 +106,17 @@ public class TableModelStavkaOtpremnice extends AbstractTableModel {
 
         if (columnIndex == 1) {
             st.setKolicina(Integer.parseInt((String) value));
-            st.setCenaBezPDV(st.getAranzman().getCenaBezPDV() * (1 - st.getAranzman().getPopust() / 100));
-            st.setCenaSaPDV((st.getAranzman().getCenaBezPDV() * (1 - st.getAranzman().getPopust() / 100)) * (1 + (st.getAranzman().getPoreskaStopa().getVrednost()) / 100));
+            st.setCenaBezPDV(Math.floor(st.getAranzman().getCenaBezPDV() * (1 - st.getAranzman().getPopust() / 100) * 100.0) / 100.0);
+            st.setCenaSaPDV(Math.floor( (st.getAranzman().getCenaBezPDV() * (1 - st.getAranzman().getPopust() / 100)) * (1 + st.getAranzman().getPoreskaStopa().getVrednost() / 100) * 100.0 ) / 100.0);
             st.setIznosBezPDV(izracunajIznos(st.getKolicina(), st.getCenaBezPDV()));
             st.setIznosSaPDV(izracunajIznos(st.getKolicina(), st.getCenaSaPDV()));
-            
-             fireTableRowsUpdated(rowIndex, rowIndex);
+            kof.setUkupnaSa(getUkupnaCenaSaPDV());
+            kof.setUkupnaBez(getUkupnaCenaBezPDV());
+            kof.setUkupanPopust(getUkupanPopust());
+            kof.getTxtUkupanPopust().setText(getUkupanPopust()+"");
+            kof.getTxtUkupnoBez().setText(getUkupnaCenaBezPDV()+"");
+            kof.getTxtUkupnoSaPDV().setText(getUkupnaCenaSaPDV()+"");
+            fireTableRowsUpdated(rowIndex, rowIndex);
         }
     }
 
@@ -124,7 +139,7 @@ public class TableModelStavkaOtpremnice extends AbstractTableModel {
     }
 
     private double izracunajIznos(double kolicina, double cena) {
-        return kolicina * cena;
+        return  kolicina * cena;
     }
 
     public void obrisiStavkuOtpremnice(int selected) {
@@ -141,7 +156,7 @@ public class TableModelStavkaOtpremnice extends AbstractTableModel {
         for (StavkaOtpremnice stavkaOtpremnice : listaStavki) {
             ukupnaCenaSa += stavkaOtpremnice.getIznosSaPDV();
         }
-        return ukupnaCenaSa;
+        return Math.round(ukupnaCenaSa * 100.0) / 100.0;
     }
 
     public double getUkupnaCenaBezPDV() {
@@ -149,7 +164,7 @@ public class TableModelStavkaOtpremnice extends AbstractTableModel {
         for (StavkaOtpremnice stavkaOtpremnice : listaStavki) {
             ukupnaCenaBez += stavkaOtpremnice.getIznosBezPDV();
         }
-        return ukupnaCenaBez;
+        return Math.round(ukupnaCenaBez * 100.0) / 100.0;
     }
 
     public double getUkupanPopust() {
@@ -157,6 +172,6 @@ public class TableModelStavkaOtpremnice extends AbstractTableModel {
         for (StavkaOtpremnice stavkaOtpremnice : listaStavki) {
             ukupanPopust += (stavkaOtpremnice.getKolicina() * (stavkaOtpremnice.getAranzman().getCenaSaPDV() - stavkaOtpremnice.getCenaSaPDV()));
         }
-        return ukupanPopust;
+        return Math.round(ukupanPopust * 100.0) / 100.0;
     }
 }
