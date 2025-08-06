@@ -559,7 +559,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
                 ArrayList<StavkaOtpremnice> stavke = tmodel.getListaStavki();
                 otpremnicaInsert = new Otpremnica(-1, ukupnaBez, ukupnaSa, ukupanPopust, datumIzdavanja, c, k, stavke);
                 Controller.getInstance().dodajOtpremnicu(otpremnicaInsert);
-                JOptionPane.showMessageDialog(this, "Otpremnica je dodata.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Otpremnica je uspesno kreirana!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage());
@@ -578,7 +578,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
                 otpremnicaChange.setUkupanPopust(ukupanPopust);
                 otpremnicaChange.setStavkeOtpremnice(stavke);
                 Controller.getInstance().promeniOtpremnicu(otpremnicaChange);
-                JOptionPane.showMessageDialog(this, "Otpremnica je izmenjena.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Otpremnica je uspesno izmenjena!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
                 uof.getTblOtp().setModel(new TableModelOtpremnica());
                 this.dispose();
             } catch (Exception ex) {

@@ -190,7 +190,7 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
         StrucnaSprema strs = new StrucnaSprema(-1,txtNaziv.getText(), txtNivo.getText(), sertifikat);
             try {
                 Controller.getInstance().ubaciStrSprema(strs);
-                JOptionPane.showMessageDialog(this, "Strucna sprema uspesno dodata!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem je uspesno kreirao strucnu spremu!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
             } catch (Exception ex) {
                 Logger.getLogger(UbaciStrucnuSpremuForma.class.getName()).log(Level.SEVERE, null, ex);
@@ -201,7 +201,7 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
             ss.setSertifikat(sertifikat);
             try {
                 Controller.getInstance().promeniStrSpremu(ss);
-                JOptionPane.showMessageDialog(this, "Strucna sprema uspesno promenjena!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem je uspenso izmenio strucnu spremu!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
                 ussf.getTblStrSprema().setModel(new TableModelStrucnaSprema());
                 this.dispose();
             } catch (Exception ex) {

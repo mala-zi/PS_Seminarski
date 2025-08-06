@@ -281,7 +281,7 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "Ne mozete obrisati otpremnicu jer ima povezane stavke otpremnice", "Greska", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
-            JOptionPane.showMessageDialog(this, "Otpremnica obrisana", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Sistem je uspesno obrisao otpremnicu", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
 
             TableModelOtpremnica tmodel = new TableModelOtpremnica();
             tblOtp.setModel(tmodel);
@@ -317,6 +317,13 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JDialog {
             ArrayList<Otpremnica> filtriraneOtpremnice = Controller.getInstance().pretraziOtpremnice(filter);
             TableModelOtpremnica model = new TableModelOtpremnica(filtriraneOtpremnice);
             tblOtp.setModel(model);
+            if(model.getRowCount()==0){
+                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da nadje otpremnice", "Greska", JOptionPane.ERROR_MESSAGE);
+                return;
+            }else{
+                JOptionPane.showMessageDialog(this, "Sistem je nasao otpremnice po zadatim kriterijumima", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
         } catch (Exception ex) {
             Logger.getLogger(UpravljajOtpremnicamaForma.class.getName()).log(Level.SEVERE, null, ex);
         }

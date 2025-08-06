@@ -159,7 +159,7 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Ne mozete obrisati kupca jer je povezan sa otpremnicama", "Greska", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
-            JOptionPane.showMessageDialog(this, "Kupac obrisan", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Sistem je uspesno obrisao kupca!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
 
             tblKupci.setModel(new TableModelKupac());
         } catch (Exception ex) {

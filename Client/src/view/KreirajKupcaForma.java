@@ -241,7 +241,7 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
             try {
                 Kupac k=new Kupac( -1,pib, telefon, email, mesto, naziv);
                 Controller.getInstance().dodajKupca(k);
-                JOptionPane.showMessageDialog(this, "Kupac je dodat","Obavestenje",JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem je uspesno kreirao kupca!","Obavestenje",JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
             } catch (Exception ex) {
                 Logger.getLogger(KreirajKupcaForma.class.getName()).log(Level.SEVERE, null, ex);
@@ -254,7 +254,7 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
                 kupac.setPib(Integer.parseInt(txtPIB.getText()));
                 kupac.setTelefon(txtTelefon.getText());
                 Controller.getInstance().izmeniKupca(kupac);
-                JOptionPane.showMessageDialog(this, "Kupac uspesno izmenjen","Obavestenje",JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem je uspesno izmenio kupca!","Obavestenje",JOptionPane.INFORMATION_MESSAGE);
                 pkf.getTblKupci().setModel(new TableModelKupac());
                 
                 this.dispose();
