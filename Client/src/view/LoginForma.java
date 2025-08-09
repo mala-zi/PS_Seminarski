@@ -174,12 +174,19 @@ public class LoginForma extends javax.swing.JFrame {
             cvecar.setLozinka(pass);
             cvecar = controller.prijaviCvecara(cvecar);
             Session.getInstance().setUlogovani(cvecar);
-            JOptionPane.showMessageDialog(this, cvecar.getIme() + " se ulogovao/la!", "Login", JOptionPane.INFORMATION_MESSAGE);
-            GlavnaForma gf = new GlavnaForma(cvecar);
-            gf.setVisible(true);
-            this.dispose();
+            //JOptionPane.showMessageDialog(this, cvecar.getIme() + " se ulogovao/la!", "Login", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Korisnicko ime i sifra su ispravni!", "Login", JOptionPane.INFORMATION_MESSAGE);
+            try {
+                //throw new RuntimeException("Test greška - simulacija greske glavne forme");
+                GlavnaForma gf = new GlavnaForma(cvecar);
+                gf.setVisible(true);
+                this.dispose();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this,"Ne moze da se otvori glavna forma meni","Greska",JOptionPane.ERROR_MESSAGE);
+            }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Neuspesna prijava!\n" + ex.getMessage(), "Login", JOptionPane.ERROR_MESSAGE);
+            //JOptionPane.showMessageDialog(this, "Neuspesna prijava!\n" + ex.getMessage(), "Login", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Korisnicko ime i sifra nisu ispravni!", "Login", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnUlogujSeActionPerformed
 

@@ -142,6 +142,9 @@ public class ThreadClient extends Thread {
                 case Operation.DODAJ_STRUCNASPREMA:
                     ServerController.getInstance().dodajStrSprema((StrucnaSprema) request.getData());
                     break;
+                case Operation.PRETRAZI_KUPCA:
+                    response.setData(ServerController.getInstance().pretraziKupca((Kupac) request.getData()));
+                    break;
                 default:
                     return null;
             }

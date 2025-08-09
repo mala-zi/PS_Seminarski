@@ -179,4 +179,8 @@ public class Controller {
     public ArrayList<PoreskaStopa> ucitajPoreskeStopeIzBaze() throws Exception {
         return (ArrayList<PoreskaStopa>) sendRequest(Operation.VRATI_LISTU_PORESKA_STOPA, null);
     }
+
+    public ArrayList<Kupac> pretraziKupce(Kupac filter) throws Exception {
+        return (ArrayList<Kupac>) sendRequest(Operation.PRETRAZI_KUPCA, filter);
+    }
 }

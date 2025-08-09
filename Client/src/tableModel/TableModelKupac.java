@@ -16,9 +16,10 @@ import java.util.ArrayList;
  *
  * @author Saki
  */
-public class TableModelKupac  extends AbstractTableModel{
+public class TableModelKupac extends AbstractTableModel {
+
     private ArrayList<Kupac> listaKupaca;
-    private String[] kolone={"ID","Naziv","PIB","Telefon","Email","Mesto"};
+    private String[] kolone = {"ID", "Naziv", "PIB", "Telefon", "Email", "Mesto"};
 
     public TableModelKupac() {
         try {
@@ -28,7 +29,10 @@ public class TableModelKupac  extends AbstractTableModel{
         }
     }
 
-    
+    public TableModelKupac(ArrayList<Kupac> lista) {
+        this.listaKupaca = lista;
+    }
+
     @Override
     public int getRowCount() {
         return listaKupaca.size();
@@ -41,8 +45,8 @@ public class TableModelKupac  extends AbstractTableModel{
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Kupac k=listaKupaca.get(rowIndex);
-        switch(columnIndex){
+        Kupac k = listaKupaca.get(rowIndex);
+        switch (columnIndex) {
             case 0:
                 return k.getId();
             case 1:
@@ -64,10 +68,12 @@ public class TableModelKupac  extends AbstractTableModel{
     public String getColumnName(int column) {
         return kolone[column];
     }
-    public Kupac getAranzman(int row) {
+
+    public Kupac getKupac(int row) {
         return listaKupaca.get(row);
     }
 
+    
     public void refresh() {
         try {
             listaKupaca = Controller.getInstance().ucitajKupceIzBaze();
@@ -77,5 +83,4 @@ public class TableModelKupac  extends AbstractTableModel{
         }
     }
 
-    
 }

@@ -252,12 +252,14 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JDialog {
                 try {
                     TableModelOtpremnica model = (TableModelOtpremnica) tblOtp.getModel();
                     Otpremnica otpremnica = model.getOtpremnica(selektovanRed);
+                    JOptionPane.showMessageDialog(this, "Sistem je nasao otpremnicu!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
                     KreirajOtpremnicuForma kof = new KreirajOtpremnicuForma(this, otpremnica);
                     kof.setVisible(true);
                     TableModelOtpremnica tmodel = new TableModelOtpremnica();
                     tblOtp.setModel(tmodel);
                 } catch (Exception ex) {
-                    Logger.getLogger(UpravljajOtpremnicamaForma.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(this, "Sistem nije uspeo da nadje otpremnicu!", "Greska", JOptionPane.ERROR_MESSAGE);
+                    return;
                 }
             }
         } catch (Exception ex) {
@@ -276,9 +278,10 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JDialog {
             TableModelOtpremnica model = (TableModelOtpremnica) tblOtp.getModel();
             Otpremnica zaBrisanje = model.getOtpremnica(selektovanRed);
             try {
+                //throw new RuntimeException("Simulacija greske");
                 Controller.getInstance().obrisiOtpremnicu(zaBrisanje);
             } catch (SQLIntegrityConstraintViolationException ex) {
-                JOptionPane.showMessageDialog(this, "Ne mozete obrisati otpremnicu jer ima povezane stavke otpremnice", "Greska", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem ne moze da obrise otpremnicu!", "Greska", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             JOptionPane.showMessageDialog(this, "Sistem je uspesno obrisao otpremnicu", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
@@ -294,22 +297,22 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JDialog {
         try {
             // TODO add your handling code here:
             Object obj = (Object) comboDatum.getSelectedItem();
-            Date datum=new Date();
-            if(obj.equals("Bilo koji")){
-                datum=null;
-            }else{
-                datum=(Date)comboDatum.getSelectedItem();
+            Date datum = new Date();
+            if (obj.equals("Bilo koji")) {
+                datum = null;
+            } else {
+                datum = (Date) comboDatum.getSelectedItem();
             }
             Cvecar cvecar = (Cvecar) comboCvecar.getSelectedItem();
             Kupac kupac = (Kupac) comboKupac.getSelectedItem();
             btnChange.setVisible(true);
             btnDelete.setVisible(true);
             Otpremnica filter = new Otpremnica();
-            if(cvecar.getIme().equals("Bilo") && cvecar.getPrezime().equals("koji")){
-                cvecar=null;
+            if (cvecar.getIme().equals("Bilo") && cvecar.getPrezime().equals("koji")) {
+                cvecar = null;
             }
-            if(kupac.getNaziv().equals("Bilo koji")){
-                kupac=null;
+            if (kupac.getNaziv().equals("Bilo koji")) {
+                kupac = null;
             }
             filter.setDatumIzdavanja(datum);
             filter.setCvecar(cvecar);
@@ -317,11 +320,11 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JDialog {
             ArrayList<Otpremnica> filtriraneOtpremnice = Controller.getInstance().pretraziOtpremnice(filter);
             TableModelOtpremnica model = new TableModelOtpremnica(filtriraneOtpremnice);
             tblOtp.setModel(model);
-            if(model.getRowCount()==0){
-                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da nadje otpremnice", "Greska", JOptionPane.ERROR_MESSAGE);
+            if (model.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da nadje otpremnice po zadatim kriterijumima!", "Greska", JOptionPane.ERROR_MESSAGE);
                 return;
-            }else{
-                JOptionPane.showMessageDialog(this, "Sistem je nasao otpremnice po zadatim kriterijumima", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Sistem je nasao otpremnice po zadatim kriterijumima!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
         } catch (Exception ex) {
@@ -398,7 +401,7 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JDialog {
     private void popuniCombo() throws Exception {
 
         comboKupac.removeAllItems();
-        Kupac defaultKupac=new Kupac();
+        Kupac defaultKupac = new Kupac();
         defaultKupac.setNaziv("Bilo koji");
         comboKupac.addItem(defaultKupac);
         ArrayList<Kupac> kupci = Controller.getInstance().ucitajKupceIzBaze();
@@ -406,7 +409,7 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JDialog {
             comboKupac.addItem(k);
         }
         comboCvecar.removeAllItems();
-        Cvecar defaultCvecar=new Cvecar();
+        Cvecar defaultCvecar = new Cvecar();
         defaultCvecar.setIme("Bilo");
         defaultCvecar.setPrezime("koji");
         comboCvecar.addItem(defaultCvecar);

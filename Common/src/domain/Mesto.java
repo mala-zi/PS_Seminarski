@@ -8,12 +8,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
 /**
  *
  * @author Saki
  */
-public class Mesto extends OpstiDomenskiObjekat{
+public class Mesto extends OpstiDomenskiObjekat {
+
     private int id;
     private String grad;
     private int postanskiBroj;
@@ -28,19 +28,19 @@ public class Mesto extends OpstiDomenskiObjekat{
         this.postanskiBroj = postanskiBroj;
         this.ulica = ulica;
     }
-     public Mesto( String grad, int postanskiBroj, String ulica) {
+
+    public Mesto(String grad, int postanskiBroj, String ulica) {
         this.grad = grad;
         this.postanskiBroj = postanskiBroj;
         this.ulica = ulica;
     }
-
 
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
-        this.id= id;
+        this.id = id;
     }
 
     public String getGrad() {
@@ -69,7 +69,11 @@ public class Mesto extends OpstiDomenskiObjekat{
 
     @Override
     public String toString() {
-        return  grad +", "+ulica;
+        if (ulica != null) {
+            return grad + ", " + ulica;
+        } else {
+            return grad;
+        }
     }
 
     @Override
@@ -84,7 +88,7 @@ public class Mesto extends OpstiDomenskiObjekat{
 
     @Override
     public String join() {
-        return ""; 
+        return "";
     }
 
     @Override
@@ -92,10 +96,10 @@ public class Mesto extends OpstiDomenskiObjekat{
         ArrayList<OpstiDomenskiObjekat> lista = new ArrayList<>();
         while (rs.next()) {
             Mesto m = new Mesto(
-                rs.getInt("m.id"),
-                rs.getString("m.grad"),
-                rs.getInt("m.postanskiBroj"),
-                rs.getString("m.ulica")
+                    rs.getInt("m.id"),
+                    rs.getString("m.grad"),
+                    rs.getInt("m.postanskiBroj"),
+                    rs.getString("m.ulica")
             );
             lista.add(m);
         }
@@ -149,5 +153,5 @@ public class Mesto extends OpstiDomenskiObjekat{
         final Mesto other = (Mesto) obj;
         return this.id == other.id;
     }
-    
+
 }

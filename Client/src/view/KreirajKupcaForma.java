@@ -244,7 +244,8 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Sistem je uspesno kreirao kupca!","Obavestenje",JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
             } catch (Exception ex) {
-                Logger.getLogger(KreirajKupcaForma.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da kreira kupca!", "Greska", JOptionPane.ERROR_MESSAGE);
+                return;
             }
         }else{
             try {
@@ -254,12 +255,13 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
                 kupac.setPib(Integer.parseInt(txtPIB.getText()));
                 kupac.setTelefon(txtTelefon.getText());
                 Controller.getInstance().izmeniKupca(kupac);
-                JOptionPane.showMessageDialog(this, "Sistem je uspesno izmenio kupca!","Obavestenje",JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem je uspesno sacuvao kupca!","Obavestenje",JOptionPane.INFORMATION_MESSAGE);
                 pkf.getTblKupci().setModel(new TableModelKupac());
                 
                 this.dispose();
             } catch (Exception ex) {
-                Logger.getLogger(KreirajKupcaForma.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da sacuva kupca!", "Greska", JOptionPane.ERROR_MESSAGE);
+                return;
             }
         }
     }//GEN-LAST:event_btnSacuvajActionPerformed

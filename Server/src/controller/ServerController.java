@@ -28,6 +28,7 @@ import so.kupac.SOObrisiKupac;
 import so.kupac.SOPromeniKupca;
 import so.kupac.SOVratiListuSviKupac;
 import so.kupac.SOKreirajKupca;
+import so.kupac.SOPretraziKupca;
 import so.mesto.SOKreirajMesto;
 import so.mesto.SOObrisiMesto;
 import so.mesto.SOPromeniMesto;
@@ -184,7 +185,7 @@ public class ServerController {
         (new SOObrisiOtpremnicu()).templateExecute(otpremnicaDelete);
     }
 
-    public Object ucitajStavkeOtpremniceIzBaze(Otpremnica otpremnica) throws Exception {//mozda promenim na Arraylist posle
+    public ArrayList<StavkaOtpremnice> ucitajStavkeOtpremniceIzBaze(Otpremnica otpremnica) throws Exception {//mozda promenim na Arraylist posle
         SOVratiListuSviStavkiOtpremnice so = new SOVratiListuSviStavkiOtpremnice();
         StavkaOtpremnice s = new StavkaOtpremnice();
         s.setOtpremnica(otpremnica);
@@ -199,7 +200,7 @@ public class ServerController {
         return so.getLista();
     }
 
-    public Object ucitajPoreskaStopeIzBaze() throws Exception {
+    public ArrayList<PoreskaStopa> ucitajPoreskaStopeIzBaze() throws Exception {
         SOVratiListuSviPoreskaStopa so = new SOVratiListuSviPoreskaStopa();
         so.templateExecute(new PoreskaStopa());
         return so.getList();
@@ -207,6 +208,12 @@ public class ServerController {
 
     public void dodajStrSprema(StrucnaSprema strucnaSprema) throws Exception {
         (new SOUbaciStrSprema()).templateExecute(strucnaSprema);
+    }
+
+    public ArrayList<Kupac> pretraziKupca(Kupac kupac) throws Exception {
+        SOPretraziKupca so = new SOPretraziKupca();
+        so.templateExecute(kupac);
+        return so.getLista();
     }
 
 }

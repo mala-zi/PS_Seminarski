@@ -156,7 +156,19 @@ public class Kupac extends OpstiDomenskiObjekat{
 
     @Override
     public String uslov() {
-        return "";
+       ArrayList<String> uslovi = new ArrayList<>();
+
+    if (mesto != null && mesto.getId() > 0) {
+        uslovi.add("k.idMesto = " + mesto.getId());
+    }
+    if (this != null && this.getNaziv()!=null) {
+        uslovi.add("k.naziv = '" + this.getNaziv()+"'");
+    }
+   
+    if (uslovi.isEmpty()) {
+        return ""; 
+    }
+    return "WHERE " + String.join(" AND ", uslovi);
     }
 
     @Override

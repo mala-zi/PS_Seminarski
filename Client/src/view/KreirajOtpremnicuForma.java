@@ -554,19 +554,22 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
         Kupac k = (Kupac) comboBoxKupac.getSelectedItem();
         if (otpremnicaChange == null) {
             try {
+               // throw new RuntimeException("Simulacija greske");
                 TableModelStavkaOtpremnice tmodel = (TableModelStavkaOtpremnice) tableStavke.getModel();
                 tmodel.setKof(this);
                 ArrayList<StavkaOtpremnice> stavke = tmodel.getListaStavki();
                 otpremnicaInsert = new Otpremnica(-1, ukupnaBez, ukupnaSa, ukupanPopust, datumIzdavanja, c, k, stavke);
                 Controller.getInstance().dodajOtpremnicu(otpremnicaInsert);
-                JOptionPane.showMessageDialog(this, "Otpremnica je uspesno kreirana!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem je sacuvao otpremnicu!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, ex.getMessage());
+                 JOptionPane.showMessageDialog(this, "Sistem ne moze da sacuva otpremnicu!", "Greska", JOptionPane.ERROR_MESSAGE);
+                return;
 
             }
         } else {
             try {
+                //throw new RuntimeException("Simulacija greske");
                 TableModelStavkaOtpremnice tmodel = (TableModelStavkaOtpremnice) tableStavke.getModel();
                 tmodel.setKof(this);
                 ArrayList<StavkaOtpremnice> stavke = tmodel.getListaStavki();
@@ -578,11 +581,12 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
                 otpremnicaChange.setUkupanPopust(ukupanPopust);
                 otpremnicaChange.setStavkeOtpremnice(stavke);
                 Controller.getInstance().promeniOtpremnicu(otpremnicaChange);
-                JOptionPane.showMessageDialog(this, "Otpremnica je uspesno izmenjena!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem je izmenio otpremnicu!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
                 uof.getTblOtp().setModel(new TableModelOtpremnica());
                 this.dispose();
             } catch (Exception ex) {
-                Logger.getLogger(KreirajOtpremnicuForma.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Sistem ne moze da izmeni otpremnicu!", "Greska", JOptionPane.ERROR_MESSAGE);
+                return;
             }
         }
     }//GEN-LAST:event_btnSaveActionPerformed
@@ -611,7 +615,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
             s1 = new StavkaOtpremnice(-1, kolicina, napomena, 0, 0, cenaBez, cenaSa, a, otpremnicaChange);
         }
         if (tmodel.unetAranzman(a)) {
-            JOptionPane.showMessageDialog(this, "Aranzman je vec dodat u otpremnicu!", "Greska", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Aranzman je vec dodat u otpremnicu!", "Greska", JOptionPane.ERROR_MESSAGE);
             return;
         }
         tmodel.dodajStavkuOtpremnice(s1);
