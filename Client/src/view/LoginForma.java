@@ -172,21 +172,24 @@ public class LoginForma extends javax.swing.JFrame {
             Cvecar cvecar = new Cvecar();
             cvecar.setKorisnickoIme(user);
             cvecar.setLozinka(pass);
+
             cvecar = controller.prijaviCvecara(cvecar);
-            Session.getInstance().setUlogovani(cvecar);
             //JOptionPane.showMessageDialog(this, cvecar.getIme() + " se ulogovao/la!", "Login", JOptionPane.INFORMATION_MESSAGE);
-            JOptionPane.showMessageDialog(this, "Korisnicko ime i sifra su ispravni!", "Login", JOptionPane.INFORMATION_MESSAGE);
+
             try {
-                //throw new RuntimeException("Test greška - simulacija greske glavne forme");
-                GlavnaForma gf = new GlavnaForma(cvecar);
-                gf.setVisible(true);
-                this.dispose();
+               // throw new RuntimeException("Simulacija greske");
+                 JOptionPane.showMessageDialog(this, "Korisnicko ime i sifra su ispravni!", "Login", JOptionPane.INFORMATION_MESSAGE);
+                 Session.getInstance().setUlogovani(cvecar);
+                 GlavnaForma gf = new GlavnaForma(cvecar);
+                 gf.setVisible(true);
+                 this.dispose();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(this,"Ne moze da se otvori glavna forma meni","Greska",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Ne moze da se otvori glavna forma meni", "Greska", JOptionPane.ERROR_MESSAGE);
+                Controller.getInstance().odjaviCvecara(cvecar.getKorisnickoIme());
             }
         } catch (Exception ex) {
             //JOptionPane.showMessageDialog(this, "Neuspesna prijava!\n" + ex.getMessage(), "Login", JOptionPane.ERROR_MESSAGE);
-            JOptionPane.showMessageDialog(this, "Korisnicko ime i sifra nisu ispravni!", "Login", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Login", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnUlogujSeActionPerformed
 

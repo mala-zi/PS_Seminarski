@@ -54,8 +54,7 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
         setTitle("Kreiraj kupca");
         setResizable(false);
         setLocationRelativeTo(null);
-        
-
+         JOptionPane.showMessageDialog(this, "Sistem je kreirao kupca!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
     }
 
     /**
@@ -239,16 +238,18 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
        
         if(kupac==null){
             try {
+                //throw new RuntimeException("Simulacija greske");
                 Kupac k=new Kupac( -1,pib, telefon, email, mesto, naziv);
                 Controller.getInstance().dodajKupca(k);
-                JOptionPane.showMessageDialog(this, "Sistem je uspesno kreirao kupca!","Obavestenje",JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem je uspesno sacuvao kupca!","Obavestenje",JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da kreira kupca!", "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da sacuva kupca!", "Greska", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         }else{
             try {
+                //throw new RuntimeException("Simulacija greske");
                 kupac.setEmail(txtEmail.getText());
                 kupac.setMesto((Mesto) comboBoxMesto.getSelectedItem());
                 kupac.setNaziv(txtNaziv.getText());
@@ -256,8 +257,7 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
                 kupac.setTelefon(txtTelefon.getText());
                 Controller.getInstance().izmeniKupca(kupac);
                 JOptionPane.showMessageDialog(this, "Sistem je uspesno sacuvao kupca!","Obavestenje",JOptionPane.INFORMATION_MESSAGE);
-                pkf.getTblKupci().setModel(new TableModelKupac());
-                
+                pkf.getTblKupci().setModel(new TableModelKupac());           
                 this.dispose();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Sistem nije uspeo da sacuva kupca!", "Greska", JOptionPane.ERROR_MESSAGE);

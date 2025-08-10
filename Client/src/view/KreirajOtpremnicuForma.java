@@ -100,6 +100,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
         TableModelStavkaOtpremnice tmodel = new TableModelStavkaOtpremnice();
         tmodel.setKof(this);
         tableStavke.setModel(tmodel);
+        JOptionPane.showMessageDialog(this, "Sistem je kreirao otpremnicu!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public KreirajOtpremnicuForma(UpravljajOtpremnicamaForma parent, Otpremnica otpremnica) throws Exception {
@@ -529,10 +530,10 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
 
-        if (tableStavke.getRowCount() == 0) {
+        /*if (tableStavke.getRowCount() == 0) {
             JOptionPane.showMessageDialog(this, "Nije moguce sacuvati otpremnicu bez ijedne stavke!", "Greska", JOptionPane.ERROR_MESSAGE);
             return;
-        }
+        }*/
         Date datumIzdavanja = new Date();
         try {
 
@@ -554,11 +555,13 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
         Kupac k = (Kupac) comboBoxKupac.getSelectedItem();
         if (otpremnicaChange == null) {
             try {
-               // throw new RuntimeException("Simulacija greske");
+                //throw new RuntimeException("Simulacija greske");
                 TableModelStavkaOtpremnice tmodel = (TableModelStavkaOtpremnice) tableStavke.getModel();
                 tmodel.setKof(this);
                 ArrayList<StavkaOtpremnice> stavke = tmodel.getListaStavki();
                 otpremnicaInsert = new Otpremnica(-1, ukupnaBez, ukupnaSa, ukupanPopust, datumIzdavanja, c, k, stavke);
+                System.out.println("otp:"+otpremnicaInsert);
+                       
                 Controller.getInstance().dodajOtpremnicu(otpremnicaInsert);
                 JOptionPane.showMessageDialog(this, "Sistem je sacuvao otpremnicu!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();

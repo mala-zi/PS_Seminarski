@@ -96,9 +96,9 @@ public class Controller {
         return (ArrayList<Aranzman>) sendRequest(Operation.VRATI_LISTU_SVI_ARANZMANI, null);
     }
 
-    /*public void promeniLozinkuCvecara(Cvecar cvecar) throws Exception {
-        sendRequest(Operation.PROMENI_LOZINKU_CVECARA, cvecar);
-    }*/
+    public void odjaviCvecara(String korisnickoIme) throws Exception {
+        sendRequest(Operation.ODJAVA_CVECARA, korisnickoIme);
+    }
 
     public void ubaciStrSprema(StrucnaSprema strs) throws Exception {
         sendRequest(Operation.DODAJ_STRUCNASPREMA, strs);

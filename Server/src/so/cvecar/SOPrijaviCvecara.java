@@ -36,7 +36,7 @@ public class SOPrijaviCvecara extends OpstaSistemskaOperacija{
             } 
         }
         
-        throw new Exception("Pogresni kredencijali!");
+        throw new Exception("Korisnicko ime i sifra nisu ispravni!");
     }
 
     public Cvecar getPrijavljenCvecar() {

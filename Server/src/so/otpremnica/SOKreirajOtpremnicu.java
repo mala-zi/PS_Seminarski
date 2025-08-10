@@ -16,34 +16,40 @@ import java.sql.ResultSet;
  *
  * @author Saki
  */
-public class SOKreirajOtpremnicu extends OpstaSistemskaOperacija{
+public class SOKreirajOtpremnicu extends OpstaSistemskaOperacija {
 
     @Override
     protected void validate(OpstiDomenskiObjekat odo) throws Exception {
-         if(!(odo instanceof Otpremnica))
+        if (!(odo instanceof Otpremnica)) {
             throw new Exception("Prosledjeni objekat nije instanca klase Otpremnica!");
-    
-         Otpremnica otpremnica= (Otpremnica) odo;
-         
-         if(otpremnica.getStavkeOtpremnice().isEmpty())
-             throw new Exception("Otpremnica mora imati stavke!");
-    
-    }
+        }
 
+        Otpremnica otpremnica = (Otpremnica) odo;
+
+        //if (otpremnica.getStavkeOtpremnice().isEmpty()) {
+        //    throw new Exception("Otpremnica mora imati stavke!");
+        // }
+    }
 
     @Override
     protected void execute(OpstiDomenskiObjekat odo) throws Exception {
-       Otpremnica otpremnica=(Otpremnica) odo;
-        PreparedStatement ps= DatabaseBroker.getInstance().insert(odo);
-        ResultSet keys=ps.getGeneratedKeys();
-        keys.next();
-        int pID= keys.getInt(1);
-        System.out.println("kljuc otpremnice: "+ pID);
-        otpremnica.setId(pID);
-        
-        for (StavkaOtpremnice stavkaOtpremnice : otpremnica.getStavkeOtpremnice()) {
-            stavkaOtpremnice.setOtpremnica(otpremnica);
-            DatabaseBroker.getInstance().insert(stavkaOtpremnice);
+        try {
+            Otpremnica otpremnica = (Otpremnica) odo;
+            PreparedStatement ps = DatabaseBroker.getInstance().insert(odo);
+            ResultSet keys = ps.getGeneratedKeys();
+            keys.next();
+            int pID = keys.getInt(1);
+            System.out.println("kljuc otpremnice: " + pID);
+            otpremnica.setId(pID);
+
+            for (StavkaOtpremnice stavkaOtpremnice : otpremnica.getStavkeOtpremnice()) {
+                stavkaOtpremnice.setOtpremnica(otpremnica);
+                DatabaseBroker.getInstance().insert(stavkaOtpremnice);
+            }
+        } catch (Exception e) {
+            System.err.println("GRESKA U INSERT Otpremnica: " + e.getMessage());
+            throw e;
         }
+
     }
 }

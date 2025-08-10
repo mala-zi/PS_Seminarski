@@ -28,6 +28,7 @@ import transfer.util.ResponseStatus;
 public class ThreadClient extends Thread {
 
     private Socket socket;
+    private Cvecar ulogovaniKorisnik;
 
     public ThreadClient(Socket socket) {
         this.socket = socket;
@@ -48,6 +49,15 @@ public class ThreadClient extends Thread {
 
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Greska prilikom obrade klijentskog zahteva: " + e.getMessage());
+        } finally {
+            try {
+                if (ulogovaniKorisnik != null) {
+                    ThreadServer.ukloniAktivnogKorisnika(ulogovaniKorisnik.getKorisnickoIme());
+                }
+                socket.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
@@ -56,7 +66,15 @@ public class ThreadClient extends Thread {
         try {
             switch (request.getOperation()) {
                 case Operation.PRIJAVI_CVECARA:
-                    response.setData(ServerController.getInstance().prijaviCvecara((Cvecar) request.getData()));
+                    Cvecar zahtevani = (Cvecar) request.getData();
+                    Cvecar prijavljeni = ServerController.getInstance().prijaviCvecara(zahtevani);
+                    if (!ThreadServer.dodajAktivnogKorisnika(zahtevani.getKorisnickoIme())) {//ako postoji vec aktivan korisnik
+                        response.setResponseStatus(ResponseStatus.Error);
+                        response.setException(new Exception("Korisnik je vec ulogovan na drugom klijentu!"));
+                        break;
+                    }
+                    ulogovaniKorisnik = prijavljeni;
+                    response.setData(prijavljeni);
                     break;
                 case Operation.DODAJ_CVECARA:
                     ServerController.getInstance().dodajCvecara((Cvecar) request.getData());
@@ -144,6 +162,11 @@ public class ThreadClient extends Thread {
                     break;
                 case Operation.PRETRAZI_KUPCA:
                     response.setData(ServerController.getInstance().pretraziKupca((Kupac) request.getData()));
+                    break;
+                case Operation.ODJAVA_CVECARA:
+                    String korisnickoIme = (String) request.getData();
+                    ThreadServer.ukloniAktivnogKorisnika(korisnickoIme);
+                    ulogovaniKorisnik = null;
                     break;
                 default:
                     return null;

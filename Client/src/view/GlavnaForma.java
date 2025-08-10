@@ -4,10 +4,10 @@
  */
 package view;
 
+import controller.Controller;
 import domain.Cvecar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import session.Session;
 
@@ -237,12 +237,13 @@ public class GlavnaForma extends javax.swing.JFrame {
 
     private void itemOtpAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemOtpAddActionPerformed
         try {
-            // TODO add your handling code here:
+            //throw new RuntimeException("Simulacija greske");
             KreirajOtpremnicuForma ko = new KreirajOtpremnicuForma();
             ko.setVisible(true);
-            //tblOtp.setModel(mto);
+            // tblOtp.setModel(mto);
         } catch (Exception ex) {
-            Logger.getLogger(GlavnaForma.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Sistem nije uspeo da kreira otpremnicu!", "Greska", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
     }//GEN-LAST:event_itemOtpAddActionPerformed
@@ -267,11 +268,16 @@ public class GlavnaForma extends javax.swing.JFrame {
         if (odgovor == JOptionPane.NO_OPTION)
             return;
         else if (odgovor == JOptionPane.YES_OPTION) {
-            Session.getInstance().setUlogovani(null);
-            LoginForma lf = new LoginForma();
-            lf.setVisible(true);
-
-            this.dispose();
+            try {
+                String korisnickoIme = Session.getInstance().getUlogovani().getKorisnickoIme();
+                Controller.getInstance().odjaviCvecara(korisnickoIme);
+                Session.getInstance().setUlogovani(null);
+                LoginForma lf = new LoginForma();
+                lf.setVisible(true);
+                this.dispose();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Greska prilikom odjave: " + ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -283,8 +289,14 @@ public class GlavnaForma extends javax.swing.JFrame {
 
     private void itemKupacAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemKupacAddActionPerformed
         // TODO add your handling code here:
-        KreirajKupcaForma kf = new KreirajKupcaForma();
-        kf.setVisible(true);
+        try {
+            //throw new RuntimeException("Simulacija greske");
+            KreirajKupcaForma kf = new KreirajKupcaForma();
+            kf.setVisible(true);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Sistem nije uspeo da kreira kupca!", "Greska", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
     }//GEN-LAST:event_itemKupacAddActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed

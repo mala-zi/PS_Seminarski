@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,6 +20,7 @@ import java.util.logging.Logger;
 public class ThreadServer extends Thread {
 
     private ServerSocket serverSocket;
+    private static final Set<String> aktivniKorisnici = new HashSet<>();
 
     public ThreadServer() {
         try {
@@ -51,6 +54,18 @@ public class ThreadServer extends Thread {
             Logger.getLogger(ThreadServer.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+
+    public static synchronized boolean dodajAktivnogKorisnika(String korisnickoIme) {
+        if (aktivniKorisnici.contains(korisnickoIme)) {
+            return false; 
+        }
+        aktivniKorisnici.add(korisnickoIme);
+        return true;
+    }
+
+    public static synchronized void ukloniAktivnogKorisnika(String korisnickoIme) {
+        aktivniKorisnici.remove(korisnickoIme);
     }
 
 }

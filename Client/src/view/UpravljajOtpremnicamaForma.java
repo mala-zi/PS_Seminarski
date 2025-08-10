@@ -250,7 +250,8 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JDialog {
             } else {
 
                 try {
-                    TableModelOtpremnica model = (TableModelOtpremnica) tblOtp.getModel();
+                    //throw new RuntimeException("Simulacija greske");
+                   TableModelOtpremnica model = (TableModelOtpremnica) tblOtp.getModel();
                     Otpremnica otpremnica = model.getOtpremnica(selektovanRed);
                     JOptionPane.showMessageDialog(this, "Sistem je nasao otpremnicu!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
                     KreirajOtpremnicuForma kof = new KreirajOtpremnicuForma(this, otpremnica);

@@ -6,14 +6,17 @@ package session;
 
 import domain.Cvecar;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
+import transfer.Request;
+import transfer.util.Operation;
 
 /**
  *
  * @author 38169
  */
 public class Session {
-    
+
     private static Session instance;
     private Socket socket;
     private Cvecar ulogovani;
@@ -44,4 +47,6 @@ public class Session {
     public Cvecar getUlogovani() {
         return ulogovani;
     }
+
+   
 }

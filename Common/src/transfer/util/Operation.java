@@ -42,4 +42,6 @@ public interface Operation {
     public static final int PROMENI_OTPREMNICU=28;
     public static final int VRATI_LISTU_PORESKA_STOPA=29;
     public static final int PRETRAZI_KUPCA=30;
+    public static final int ODJAVA_CVECARA=31;
+    
 }

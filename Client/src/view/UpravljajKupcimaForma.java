@@ -206,6 +206,7 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
                 return;
             }
             try {
+                //throw new RuntimeException("Simulacija greske");
                 Controller.getInstance().obrisiKupca(lista.get(selektovanRed));
             } catch (SQLIntegrityConstraintViolationException ex) {
                 JOptionPane.showMessageDialog(this, "Sistem ne moze da obrise kupca!", "Greska", JOptionPane.ERROR_MESSAGE);
@@ -230,9 +231,10 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
             }
             TableModelKupac model = (TableModelKupac) tblKupci.getModel();
             Kupac kupacChange = model.getKupac(selektovanRed);
-            JOptionPane.showMessageDialog(this, "Sistem je nasao kupca!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+            
             try {
                 //throw new RuntimeException("Simulacija greske");
+                JOptionPane.showMessageDialog(this, "Sistem je nasao kupca!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
                 KreirajKupcaForma kf = new KreirajKupcaForma(this, kupacChange);
                 kf.setVisible(true);
             } catch (Exception ex) {
