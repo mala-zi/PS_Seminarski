@@ -52,7 +52,6 @@ import so.strsprema.SOVratiListuSviStrSprema;
 public class ServerController {
 
     private static ServerController instance;
-    // private TransactionManager transactionManager;
 
     public static ServerController getInstance() throws Exception {
         if (instance == null) {

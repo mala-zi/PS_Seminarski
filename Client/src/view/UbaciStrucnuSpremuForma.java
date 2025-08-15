@@ -189,10 +189,10 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
         if(ss==null){
         StrucnaSprema strs = new StrucnaSprema(-1,txtNaziv.getText(), txtNivo.getText(), sertifikat);
             try {
-                throw new RuntimeException("Simulacija greske");
-                /*Controller.getInstance().ubaciStrSprema(strs);
+               // throw new RuntimeException("Simulacija greske");
+                Controller.getInstance().ubaciStrSprema(strs);
                 JOptionPane.showMessageDialog(this, "Sistem je sacuvao strucnu spremu!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
-                this.dispose();*/
+                this.dispose();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Sistem ne moze da sacuva strucnu spremu!", "Greska", JOptionPane.ERROR_MESSAGE);
             }

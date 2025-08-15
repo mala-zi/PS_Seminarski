@@ -40,6 +40,10 @@ public class ThreadServer extends Thread {
         this.serverSocket = serverSocket;
     }
 
+    public static Set<String> getAktivniKorisnici() {
+        return aktivniKorisnici;
+    }
+
     @Override
     public void run() {
 

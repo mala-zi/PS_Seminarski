@@ -14,7 +14,6 @@ import java.util.Objects;
  * @author Saki
  */
 public class StavkaOtpremnice extends OpstiDomenskiObjekat {
-
     private int rb;
     private int kolicina;
     private String napomena;
@@ -24,10 +23,8 @@ public class StavkaOtpremnice extends OpstiDomenskiObjekat {
     private double cenaSaPDV;
     private Aranzman aranzman;
     private Otpremnica otpremnica;
-
     public StavkaOtpremnice() {
     }
-
     public StavkaOtpremnice(int rb, int kolicina, String napomena, double iznosBezPDV, double iznosSaPDV, double cenaBezPDV, double cenaSaPdDV, Aranzman aranzman, Otpremnica otpremnica) {
         this.rb = rb;
         this.kolicina = kolicina;
@@ -39,7 +36,6 @@ public class StavkaOtpremnice extends OpstiDomenskiObjekat {
         this.aranzman = aranzman;
         this.otpremnica = otpremnica;
     }
-
     public StavkaOtpremnice(int kolicina, String napomena, double iznosBezPDV, double iznosSaPDV, double cenaBezPDV, double cenaSaPdDV, Aranzman aranzman, Otpremnica otpremnica) {
 
         this.kolicina = kolicina;

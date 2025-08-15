@@ -6,6 +6,7 @@ package main;
 
 import java.sql.SQLException;
 import thread.ThreadServer;
+import view.ServerForm;
 
 /**
  *
@@ -19,6 +20,7 @@ public class Main {
     public static void main(String[] args) throws SQLException {
         ThreadServer server = new ThreadServer();
         server.start();
+       //new ServerForm().setVisible(true);
     }
     
 }

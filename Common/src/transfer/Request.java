@@ -13,20 +13,16 @@ import java.io.Serializable;
 public class Request implements Serializable{
     private int operation;
     private Object data;
-    
-    
-    
-
+   
     public Request() {
        
     }
-
     public Request(int operation, Object data) {
         this.operation = operation;
         this.data = data;
     }
 
-    
+ 
     public int getOperation() {
         return operation;
     }
