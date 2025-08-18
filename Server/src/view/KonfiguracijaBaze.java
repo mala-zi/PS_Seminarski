@@ -17,13 +17,11 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author LENOVO
+ * @author Saki
  */
 public class KonfiguracijaBaze extends javax.swing.JDialog {
 
-    /**
-     * Creates new form KonfiguracijaForma
-     */
+ 
     public KonfiguracijaBaze(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
