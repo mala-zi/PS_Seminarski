@@ -22,7 +22,7 @@ public class Session {
         try {
             socket = new Socket("localhost", 9000);
         } catch (IOException ex) {
-            ex.printStackTrace();
+            throw new RuntimeException("Server nije dostupan. Pokrenite server i pokusajte ponovo.");
         }
     }
 

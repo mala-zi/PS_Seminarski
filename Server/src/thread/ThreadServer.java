@@ -28,7 +28,7 @@ public class ThreadServer extends Thread {
         } catch (BindException ex) {
             System.err.println("Port se vec koristi. Samo jedan server se moze pokrenuti");
         } catch (IOException ex) {
-            Logger.getLogger(ThreadServer.class.getName()).log(Level.SEVERE, null, ex);
+           // Logger.getLogger(ThreadServer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

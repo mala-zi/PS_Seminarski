@@ -174,8 +174,6 @@ public class LoginForma extends javax.swing.JFrame {
             cvecar.setLozinka(pass);
             cvecar = controller.prijaviCvecara(cvecar);
             try {
-               
-                //JOptionPane.showMessageDialog(this, cvecar.getIme() + " se ulogovao/la!", "Login", JOptionPane.INFORMATION_MESSAGE);
                 // throw new RuntimeException("Simulacija greske");
                 JOptionPane.showMessageDialog(this, "Korisnicko ime i sifra su ispravni!", "Login", JOptionPane.INFORMATION_MESSAGE);
                 Session.getInstance().setUlogovani(cvecar);
@@ -186,9 +184,10 @@ public class LoginForma extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Ne moze da se otvori glavna forma meni", "Greska", JOptionPane.ERROR_MESSAGE);
                 Controller.getInstance().odjaviCvecara(cvecar.getKorisnickoIme());
             }
+        } catch (RuntimeException re) {
+            JOptionPane.showMessageDialog(this, re.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
         } catch (Exception ex) {
-            //JOptionPane.showMessageDialog(this, "Neuspesna prijava!\n" + ex.getMessage(), "Login", JOptionPane.ERROR_MESSAGE);
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Login", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnUlogujSeActionPerformed
 

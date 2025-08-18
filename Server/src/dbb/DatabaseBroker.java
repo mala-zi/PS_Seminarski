@@ -8,8 +8,10 @@ package dbb;
 import validator.PasswordHash;
 import domain.Cvecar;
 import domain.OpstiDomenskiObjekat;
+import java.io.FileInputStream;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Properties;
 
 /**
  *
@@ -22,7 +24,20 @@ public class DatabaseBroker {
 
     private DatabaseBroker() throws SQLException {
         try {
-            connect();
+            //  connect();
+            try {
+                Properties properties = new Properties();
+                properties.load(new FileInputStream("dbconfiguration.properties"));
+                String url = properties.getProperty("url");
+                String username = properties.getProperty("username");
+                String password = properties.getProperty("password");
+                connection = DriverManager.getConnection(url, username, password);
+                System.out.println("Konekcija sa bazom podataka uspesno uspostavljena!");
+                connection.setAutoCommit(false);
+            } catch (Exception ex) {
+                System.out.println("Greska! Konekcija sa bazom nije uspesno uspostavljena!\n" + ex.getMessage());
+                ex.printStackTrace();
+            }
             updatePasswordsToHashed();
         } catch (SQLException ex) {
         }

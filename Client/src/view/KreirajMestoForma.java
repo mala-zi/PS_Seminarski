@@ -188,7 +188,10 @@ public class KreirajMestoForma extends javax.swing.JFrame {
                 return;
             }
             int pb = Integer.parseInt(txtPostanskiBroj.getText());
-
+            if (pb < 11000 || pb > 40000) {
+                JOptionPane.showMessageDialog(this, "Postanski broj ne postoji!", "Greska", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             if (mesto == null) {
                 Mesto m = new Mesto(-1, txtGrad.getText(), pb, txtUlica.getText());
                 Controller.getInstance().dodajMesto(m);
