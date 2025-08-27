@@ -56,8 +56,10 @@ public class KonfiguracijaBaze extends javax.swing.JDialog {
 
         jLabel4.setText("Lozinka:");
 
-        btnSacuvaj.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnSacuvaj.setText("SAČUVAJ");
+        btnSacuvaj.setBackground(new java.awt.Color(153, 255, 204));
+        btnSacuvaj.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnSacuvaj.setForeground(new java.awt.Color(0, 0, 0));
+        btnSacuvaj.setText("SACUVAJ");
         btnSacuvaj.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSacuvajActionPerformed(evt);

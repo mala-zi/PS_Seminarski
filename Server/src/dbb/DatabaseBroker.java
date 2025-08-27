@@ -5,6 +5,7 @@
  */
 package dbb;
 
+import com.mysql.cj.jdbc.exceptions.CommunicationsException;
 import validator.PasswordHash;
 import domain.Cvecar;
 import domain.OpstiDomenskiObjekat;
@@ -22,7 +23,7 @@ public class DatabaseBroker {
     private static DatabaseBroker instance;
     private Connection connection;
 
-    private DatabaseBroker() throws SQLException {
+    private DatabaseBroker() throws SQLException, Exception {
         try {
             //  connect();
             try {
@@ -35,15 +36,16 @@ public class DatabaseBroker {
                 System.out.println("Konekcija sa bazom podataka uspesno uspostavljena!");
                 connection.setAutoCommit(false);
             } catch (Exception ex) {
-                System.out.println("Greska! Konekcija sa bazom nije uspesno uspostavljena!\n" + ex.getMessage());
-                ex.printStackTrace();
+                //System.out.println("Greska! Konekcija sa bazom nije uspesno uspostavljena!\n" + ex.getMessage());
+                throw new Exception("Greska! Konekcija sa bazom nije uspesno uspostavljena!");
+        // ex.printStackTrace();
             }
             updatePasswordsToHashed();
         } catch (SQLException ex) {
         }
     }
 
-    public static DatabaseBroker getInstance() throws SQLException {
+    public static DatabaseBroker getInstance() throws SQLException, Exception {
         if (instance == null) {
             instance = new DatabaseBroker();
 

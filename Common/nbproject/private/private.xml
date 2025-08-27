@@ -3,13 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Saki/Documents/NetBeansProjects/PS_Seminarski/PS_Seminarski/Common/src/domain/Aranzman.java</file>
-            <file>file:/C:/Users/Saki/Documents/NetBeansProjects/PS_Seminarski/PS_Seminarski/Common/src/domain/CvSS.java</file>
-            <file>file:/C:/Users/Saki/Documents/NetBeansProjects/PS_Seminarski/PS_Seminarski/Common/src/domain/StavkaOtpremnice.java</file>
-            <file>file:/C:/Users/Saki/Documents/NetBeansProjects/PS_Seminarski/PS_Seminarski/Common/src/domain/OpstiDomenskiObjekat.java</file>
-            <file>file:/C:/Users/Saki/Documents/NetBeansProjects/PS_Seminarski/PS_Seminarski/Common/src/domain/PoreskaStopa.java</file>
-            <file>file:/C:/Users/Saki/Documents/NetBeansProjects/PS_Seminarski/PS_Seminarski/Common/src/domain/StrucnaSprema.java</file>
-            <file>file:/C:/Users/Saki/Documents/NetBeansProjects/PS_Seminarski/PS_Seminarski/Common/src/domain/Otpremnica.java</file>
+            <file>file:/C:/Users/Saki/Documents/NetBeansProjects/PS_Seminarski/PS_Seminarski/Common/src/validator/PasswordHash.java</file>
+            <file>file:/C:/Users/Saki/Documents/NetBeansProjects/PS_Seminarski/PS_Seminarski/Common/src/transfer/util/Operation.java</file>
         </group>
     </open-files>
 </project-private>

@@ -51,8 +51,9 @@ public class ServerForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        btnPokreniServer.setBackground(new java.awt.Color(153, 255, 204));
         btnPokreniServer.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnPokreniServer.setForeground(new java.awt.Color(153, 255, 204));
+        btnPokreniServer.setForeground(new java.awt.Color(0, 0, 0));
         btnPokreniServer.setText("POKRENI SERVER");
         btnPokreniServer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -60,8 +61,9 @@ public class ServerForm extends javax.swing.JFrame {
             }
         });
 
+        btnUgasiServer.setBackground(new java.awt.Color(153, 255, 204));
         btnUgasiServer.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnUgasiServer.setForeground(new java.awt.Color(153, 255, 204));
+        btnUgasiServer.setForeground(new java.awt.Color(0, 0, 0));
         btnUgasiServer.setText("UGASI SERVER");
         btnUgasiServer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -103,13 +105,13 @@ public class ServerForm extends javax.swing.JFrame {
                         .addGap(32, 32, 32)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnPokreniServer, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(57, 57, 57))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(lblServerStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(122, Short.MAX_VALUE))))
+                        .addContainerGap(122, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnPokreniServer, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(61, 61, 61))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

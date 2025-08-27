@@ -87,6 +87,11 @@ public class LoginForma extends javax.swing.JFrame {
 
         txtErrorLozinka.setBackground(new java.awt.Color(255, 255, 255));
         txtErrorLozinka.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtErrorLozinka.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtErrorLozinkaActionPerformed(evt);
+            }
+        });
 
         btnCancel.setBackground(new java.awt.Color(153, 255, 204));
         btnCancel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -195,6 +200,10 @@ public class LoginForma extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void txtErrorLozinkaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtErrorLozinkaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtErrorLozinkaActionPerformed
 
     /**
      * @param args the command line arguments

@@ -28,11 +28,11 @@ public abstract class OpstaSistemskaOperacija {
         }
     }
 
-    public void commit() throws SQLException {
+    public void commit() throws SQLException, Exception {
         DatabaseBroker.getInstance().getConnection().commit();
     }
 
-    public void rollback() throws SQLException {
+    public void rollback() throws SQLException, Exception {
         DatabaseBroker.getInstance().getConnection().rollback();
     }
 

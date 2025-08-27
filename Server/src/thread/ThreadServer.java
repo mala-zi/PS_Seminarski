@@ -55,7 +55,8 @@ public class ThreadServer extends Thread {
                 th.start();
             }
         } catch (IOException ex) {
-            Logger.getLogger(ThreadServer.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(ThreadServer.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Server ugasen: " + ex.getMessage());
         }
 
     }
