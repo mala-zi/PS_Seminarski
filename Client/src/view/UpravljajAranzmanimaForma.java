@@ -36,7 +36,7 @@ public class UpravljajAranzmanimaForma extends javax.swing.JFrame {
             initComponents();
             TableModelAranzman tma = new TableModelAranzman();
             tblAranzmani.setModel(tma);
-            setTitle("Upravljaj aranzmanima");
+            setTitle("Upravljaj aranžmanima");
             setResizable(false);
             setLocationRelativeTo(null);
             setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -65,7 +65,7 @@ public class UpravljajAranzmanimaForma extends javax.swing.JFrame {
 
         btnCancel.setBackground(new java.awt.Color(153, 255, 204));
         btnCancel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCancel.setText("Otkazi");
+        btnCancel.setText("Otkaži");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelActionPerformed(evt);
@@ -83,7 +83,7 @@ public class UpravljajAranzmanimaForma extends javax.swing.JFrame {
 
         btnDelete.setBackground(new java.awt.Color(153, 255, 204));
         btnDelete.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnDelete.setText("Obrisi");
+        btnDelete.setText("Obriši");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteActionPerformed(evt);
@@ -149,7 +149,7 @@ public class UpravljajAranzmanimaForma extends javax.swing.JFrame {
         try {
             int selektovanRed = tblAranzmani.getSelectedRow();
             if (selektovanRed == -1) {
-                JOptionPane.showMessageDialog(this, "Nista nije selektovano", "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Ništa nije označeno!", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             TableModelAranzman tmm = (TableModelAranzman) tblAranzmani.getModel();
@@ -157,10 +157,10 @@ public class UpravljajAranzmanimaForma extends javax.swing.JFrame {
             try {
                 Controller.getInstance().obrisiAranzman(a);
             } catch (SQLIntegrityConstraintViolationException ex) {
-                JOptionPane.showMessageDialog(this, "Ne mozete obrisati aranzman jer se nalazi u stavkama otpremnice", "Greska", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Ne možete obrisati aranžman jer se nalazi u stavkama otpremnice!", "Greška", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
-            JOptionPane.showMessageDialog(this, "Aranzman obrisan", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Aranžman obrisan", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
             TableModelAranzman tma = new TableModelAranzman();
             tblAranzmani.setModel(tma);
         } catch (Exception ex) {
@@ -175,7 +175,7 @@ public class UpravljajAranzmanimaForma extends javax.swing.JFrame {
 
             int selektovanRed = tblAranzmani.getSelectedRow();
             if (selektovanRed == -1) {
-                JOptionPane.showMessageDialog(this, "Nista nije selektovano!", "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Ništa nije označeno!", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             TableModelAranzman tmm = (TableModelAranzman) tblAranzmani.getModel();

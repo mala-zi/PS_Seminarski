@@ -28,7 +28,7 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
      */
     public KreirajAranzmanForma() {
        initComponents();
-       setTitle("Kreiraj aranzman");
+       setTitle("Kreiraj aranžman");
         setResizable(false);
         setLocationRelativeTo(null);       
         popuniCombo();
@@ -38,7 +38,7 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
     public KreirajAranzmanForma(JFrame parent, Aranzman a) {
         initComponents();
         this.aranzman = a;
-        setTitle("Promeni aranzman");
+        setTitle("Promeni aranžman");
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -80,7 +80,7 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
 
         btnCancel.setBackground(new java.awt.Color(153, 255, 204));
         btnCancel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCancel.setText("Otkazi");
+        btnCancel.setText("Otkaži");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelActionPerformed(evt);
@@ -89,7 +89,7 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
 
         btnAdd.setBackground(new java.awt.Color(153, 255, 204));
         btnAdd.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnAdd.setText("Sacuvaj");
+        btnAdd.setText("Sačuvaj");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
@@ -198,7 +198,7 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35))
         );
 
@@ -212,7 +212,7 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
         if (txtNaziv.getText().isEmpty() || txtCenaBezPDV.getText().isEmpty() || txtCenaSaPDV.getText().isEmpty() || txtOpis.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Morate popuniti sva polja!", "Greska", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Morate popuniti sva polja!", "Greška", JOptionPane.ERROR_MESSAGE);
             return;
         }
         PoreskaStopa ps = (PoreskaStopa) comboPoreskaStopa.getSelectedItem();
@@ -223,7 +223,7 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
             try {
                 Aranzman a = new Aranzman(-1,txtNaziv.getText(), txtOpis.getText(), ps, cenaBez, cenaSa,popust);
                 Controller.getInstance().dodajAranzman(a);
-                JOptionPane.showMessageDialog(this, "Aranzman je dodat", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Aranžman je dodat", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
             } catch (Exception ex) {
                 Logger.getLogger(KreirajKupcaForma.class.getName()).log(Level.SEVERE, null, ex);
@@ -237,7 +237,7 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
             try {
                 
                 Controller.getInstance().promeniAranzman(aranzman);
-                JOptionPane.showMessageDialog(this, "Aranzman uspesno izmenjen", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Aranžman uspešno izmenjen", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 uaf.getTblAranzmani().setModel(new TableModelAranzman());
                 this.dispose();
             } catch (Exception ex) {

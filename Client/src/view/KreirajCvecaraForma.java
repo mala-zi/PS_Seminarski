@@ -38,7 +38,7 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
     public KreirajCvecaraForma() {
         initComponents();
         setResizable(false);
-        setTitle("Kreiraj cvecara");
+        setTitle("Kreiraj cvećara");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         txtId.setVisible(false);
@@ -53,7 +53,7 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         txtId.setVisible(true);
         jLabel5.setVisible(true);
-        setTitle("Promeni cvecara");
+        setTitle("Promeni cvećara");
         txtId.setEnabled(false);
         jLabel4.setVisible(false);
         txtLozinka.setVisible(false);
@@ -102,7 +102,7 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
         txtPrezime.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel3.setText("Korisnicko ime");
+        jLabel3.setText("Korisničko ime");
 
         txtKorisnickoIme.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
@@ -113,7 +113,7 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
 
         btnNazad.setBackground(new java.awt.Color(153, 255, 204));
         btnNazad.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnNazad.setText("Otkazi");
+        btnNazad.setText("Otkaži");
         btnNazad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNazadActionPerformed(evt);
@@ -122,7 +122,7 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
 
         btnSacuvaj.setBackground(new java.awt.Color(153, 255, 204));
         btnSacuvaj.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnSacuvaj.setText("Sacuvaj");
+        btnSacuvaj.setText("Sačuvaj");
         btnSacuvaj.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSacuvajActionPerformed(evt);
@@ -153,34 +153,36 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(btnNazad)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnSacuvaj))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(41, 41, 41)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnSacuvaj)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addGap(26, 26, 26)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(txtIme, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
-                                        .addComponent(txtPrezime)
-                                        .addComponent(txtId, javax.swing.GroupLayout.Alignment.TRAILING)))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(26, 26, 26)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(txtIme, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                                                .addComponent(txtPrezime)
+                                                .addComponent(txtId, javax.swing.GroupLayout.Alignment.TRAILING)))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                                            .addComponent(txtLozinka, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                                    .addComponent(txtLozinka, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(jLabel3)
-                            .addGap(18, 18, 18)
-                            .addComponent(txtKorisnickoIme))
-                        .addComponent(btnNovaLozinka, javax.swing.GroupLayout.Alignment.TRAILING)))
+                                    .addComponent(jLabel3)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(txtKorisnickoIme))
+                                .addComponent(btnNovaLozinka, javax.swing.GroupLayout.Alignment.TRAILING))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnNazad)
+                        .addGap(161, 161, 161)))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -208,11 +210,11 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
                     .addComponent(txtLozinka, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(9, 9, 9)
                 .addComponent(btnNovaLozinka)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNazad, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSacuvaj, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(31, 31, 31))
         );
 
         pack();
@@ -227,11 +229,11 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         if (txtIme.getText().isEmpty() || txtPrezime.getText().isEmpty() || txtKorisnickoIme.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Morate popuniti sva polja!", "Greska", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Morate popuniti sva polja!", "Greška", JOptionPane.ERROR_MESSAGE);
             return;
         }
         if (cvecar==null && txtKorisnickoIme.getText().equals("admin")) {
-            JOptionPane.showMessageDialog(this, "Izabrano korisnicko ime je nedostupno", "Greska", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Izabrano korisničko ime je nedostupno!", "Greška", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -240,10 +242,10 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
         String korisnickoIme = txtKorisnickoIme.getText();
         if (cvecar == null) {
             if (txtLozinka.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Morate popuniti sva polja!", "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Morate popuniti sva polja!", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             } else if ((txtLozinka.getText()).length() < 8) {
-                JOptionPane.showMessageDialog(this, "Lozinka mora da ima minimum 8 karaktera!", "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Lozinka mora da ima minimum 8 karaktera!", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             String lozinka = txtLozinka.getText();
@@ -253,7 +255,7 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
             } catch (Exception ex) {
                 Logger.getLogger(KreirajCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
             }
-            JOptionPane.showMessageDialog(this, "Cvecar je dodat", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Cvećar je dodat", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
         } else {
             try {
@@ -273,7 +275,7 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
                     cvecar.setPrezime(prezime);
                     try {
                         Controller.getInstance().promeniCvecara(cvecar);
-                        JOptionPane.showMessageDialog(this, "Cvecar je promenjen", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Cvećar je promenjen", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                         pcf.getTblCvecari().setModel(new TableModelCvecar());
                         this.dispose();
                     } catch (Exception ex) {

@@ -178,13 +178,20 @@ public class Otpremnica extends OpstiDomenskiObjekat {
                     rs.getString("m.grad"),
                     rs.getInt("m.postanskiBroj"),
                     rs.getString("m.ulica"));
+            
+            String tipStr = rs.getString("k.tip");
+            TipKupca tipKupca = TipKupca.valueOf(tipStr);
+            
             Kupac kupac = new Kupac(
                     rs.getInt("k.id"),
                     rs.getInt("k.pib"),
                     rs.getString("k.telefon"),
                     rs.getString("k.email"),
                     m,
-                    rs.getString("k.naziv")
+                    rs.getString("k.naziv"),
+                    rs.getString("k.ime"),
+                    rs.getString("k.prezime"),
+                    tipKupca
             );
 
             Cvecar cvecar = new Cvecar(

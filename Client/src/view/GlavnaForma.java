@@ -76,11 +76,11 @@ public class GlavnaForma extends javax.swing.JFrame {
         txtLogovan.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         txtLogovan.setText("jLabel1");
 
-        meniCvecar.setText("Cvecar");
+        meniCvecar.setText("Cvećar");
         meniCvecar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         itemCvecarChange.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        itemCvecarChange.setText("Kreiraj cvecara");
+        itemCvecarChange.setText("Kreiraj cvećara");
         itemCvecarChange.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemCvecarChangeActionPerformed(evt);
@@ -89,7 +89,7 @@ public class GlavnaForma extends javax.swing.JFrame {
         meniCvecar.add(itemCvecarChange);
 
         jMenuItem10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jMenuItem10.setText("Upravljaj cvecarima");
+        jMenuItem10.setText("Upravljaj cvećarima");
         jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem10ActionPerformed(evt);
@@ -98,7 +98,7 @@ public class GlavnaForma extends javax.swing.JFrame {
         meniCvecar.add(jMenuItem10);
 
         itemSSAdd.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        itemSSAdd.setText("Ubaci strucnu spremu");
+        itemSSAdd.setText("Ubaci stručnu spremu");
         itemSSAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemSSAddActionPerformed(evt);
@@ -107,7 +107,7 @@ public class GlavnaForma extends javax.swing.JFrame {
         meniCvecar.add(itemSSAdd);
 
         itemSSControl.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        itemSSControl.setText("Upravljaj strucnim spremama");
+        itemSSControl.setText("Upravljaj stručnim spremama");
         itemSSControl.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemSSControlActionPerformed(evt);
@@ -139,7 +139,7 @@ public class GlavnaForma extends javax.swing.JFrame {
         meniOtpremnica.add(itemOtpChange);
 
         itemOtpSearch.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        itemOtpSearch.setText("Pretrazi otpremnicu");
+        itemOtpSearch.setText("Pretraži otpremnicu");
         itemOtpSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemOtpSearchActionPerformed(evt);
@@ -172,11 +172,11 @@ public class GlavnaForma extends javax.swing.JFrame {
 
         jMenuBar1.add(meniKupac);
 
-        meniAranzman.setText("Aranzman");
+        meniAranzman.setText("Aranžman");
         meniAranzman.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jMenuItem1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jMenuItem1.setText("Kreiraj aranzman");
+        jMenuItem1.setText("Kreiraj aranžman");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -185,7 +185,7 @@ public class GlavnaForma extends javax.swing.JFrame {
         meniAranzman.add(jMenuItem1);
 
         jMenuItem14.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jMenuItem14.setText("Upravljaj aranzmanima");
+        jMenuItem14.setText("Upravljaj aranžmanima");
         jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem14ActionPerformed(evt);
@@ -242,7 +242,7 @@ public class GlavnaForma extends javax.swing.JFrame {
             ko.setVisible(true);
             // tblOtp.setModel(mto);
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Sistem nije uspeo da kreira otpremnicu!", "Greska", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Sistem nije uspeo da kreira otpremnicu!", "Greška", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -261,7 +261,7 @@ public class GlavnaForma extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         int odgovor = JOptionPane.showConfirmDialog(this,
-                "Da li ste sigurni da zelite da se odjavite?",
+                "Da li ste sigurni da želite da se odjavite?",
                 "Odjava",
                 JOptionPane.YES_NO_OPTION);
 
@@ -276,7 +276,7 @@ public class GlavnaForma extends javax.swing.JFrame {
                 lf.setVisible(true);
                 this.dispose();
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Greska prilikom odjave: " + ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Greška prilikom odjave: " + ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -294,7 +294,7 @@ public class GlavnaForma extends javax.swing.JFrame {
             KreirajKupcaForma kf = new KreirajKupcaForma();
             kf.setVisible(true);
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Sistem nije uspeo da kreira kupca!", "Greska", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Sistem nije uspeo da kreira kupca!", "Greška", JOptionPane.ERROR_MESSAGE);
             return;
         }
     }//GEN-LAST:event_itemKupacAddActionPerformed

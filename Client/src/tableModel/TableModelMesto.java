@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  */
 public class TableModelMesto  extends AbstractTableModel{
     private ArrayList<Mesto> listaMesta;
-    private String[] kolone={"Grad","Postanski Broj","Ulica"};
+    private String[] kolone={"Grad","Poštanski Broj","Ulica"};
 
     public TableModelMesto() {
         try {

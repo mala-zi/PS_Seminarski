@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class TableModelOtpremnica extends AbstractTableModel {
 
     private ArrayList<Otpremnica> lista;
-    private final String[] kolone = {"ID", "Datum izdavanja", "Iznos bez PDV-a", "Iznos sa PDV-om", "Ukupan popust", "Cvecar", "Kupac"};
+    private final String[] kolone = {"ID", "Datum izdavanja", "Iznos bez PDV-a", "Iznos sa PDV-om", "Ukupan popust", "Cvećar", "Kupac"};
 
     public TableModelOtpremnica() {
         try {

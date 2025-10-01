@@ -58,8 +58,7 @@ public class KonfiguracijaBaze extends javax.swing.JDialog {
 
         btnSacuvaj.setBackground(new java.awt.Color(153, 255, 204));
         btnSacuvaj.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnSacuvaj.setForeground(new java.awt.Color(0, 0, 0));
-        btnSacuvaj.setText("SACUVAJ");
+        btnSacuvaj.setText("SAČUVAJ");
         btnSacuvaj.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSacuvajActionPerformed(evt);
@@ -104,7 +103,7 @@ public class KonfiguracijaBaze extends javax.swing.JDialog {
                     .addComponent(jLabel4)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSacuvaj)
+                .addComponent(btnSacuvaj, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 

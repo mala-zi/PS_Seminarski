@@ -55,7 +55,7 @@ public class LoginForma extends javax.swing.JFrame {
         setBackground(new java.awt.Color(255, 255, 255));
 
         lblkorisnickoIme.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblkorisnickoIme.setText("Korisnicko ime:");
+        lblkorisnickoIme.setText("Korisničko ime:");
 
         lblLoznika.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblLoznika.setText("Lozinka");
@@ -95,7 +95,7 @@ public class LoginForma extends javax.swing.JFrame {
 
         btnCancel.setBackground(new java.awt.Color(153, 255, 204));
         btnCancel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCancel.setText("Otkazi");
+        btnCancel.setText("Otkaži");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelActionPerformed(evt);
@@ -180,19 +180,19 @@ public class LoginForma extends javax.swing.JFrame {
             cvecar = controller.prijaviCvecara(cvecar);
             try {
                 // throw new RuntimeException("Simulacija greske");
-                JOptionPane.showMessageDialog(this, "Korisnicko ime i sifra su ispravni!", "Login", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Korisničko ime i šifra su ispravni!", "Prijava", JOptionPane.INFORMATION_MESSAGE);
                 Session.getInstance().setUlogovani(cvecar);
                 GlavnaForma gf = new GlavnaForma(cvecar);
                 gf.setVisible(true);
                 this.dispose();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Ne moze da se otvori glavna forma meni", "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Ne može da se otvori glavna forma meni!", "Greška", JOptionPane.ERROR_MESSAGE);
                 Controller.getInstance().odjaviCvecara(cvecar.getKorisnickoIme());
             }
         } catch (RuntimeException re) {
-            JOptionPane.showMessageDialog(this, re.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, re.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnUlogujSeActionPerformed
 

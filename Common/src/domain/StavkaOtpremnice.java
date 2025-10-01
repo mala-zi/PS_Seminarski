@@ -205,14 +205,20 @@ public class StavkaOtpremnice extends OpstiDomenskiObjekat {
                     rs.getInt("m.postanskiBroj"),
                     rs.getString("m.ulica")
             );
-
+            
+            String tipStr = rs.getString("k.tip");
+            TipKupca tipKupca = TipKupca.valueOf(tipStr);
+            
             Kupac kupac = new Kupac(
                     rs.getInt("k.id"),
                     rs.getInt("k.pib"),
                     rs.getString("k.telefon"),
                     rs.getString("k.email"),
                     mesto,
-                    rs.getString("k.naziv")
+                    rs.getString("k.naziv"),
+                    rs.getString("k.ime"),
+                    rs.getString("k.prezime"),
+                    tipKupca
             );
 
             Otpremnica otpremnica = new Otpremnica(

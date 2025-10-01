@@ -23,8 +23,8 @@ public class TableModelStavkaOtpremnice extends AbstractTableModel {
     private ArrayList<StavkaOtpremnice> listaStavki;
     private KreirajOtpremnicuForma kof;
     private int rbrStavke = 0;
-    private final String[] kolone = {"RB", "Kolicina", "Aranzman", "Cena Bez PDV",
-        "Cena Sa PDV", "Iznos Bez PDV", "Iznos Sa PDV", "Napomena"};
+    private final String[] kolone = {"RB", "Količina", "Aranžman", "Cena bez PDV-a",
+        "Cena sa PDV-om", "Iznos bez PDV-a", "Iznos Ss PDV-om", "Napomena"};
 
     public TableModelStavkaOtpremnice() {
         listaStavki = new ArrayList<>();

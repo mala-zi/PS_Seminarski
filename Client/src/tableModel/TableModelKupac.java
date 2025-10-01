@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class TableModelKupac extends AbstractTableModel {
 
     private ArrayList<Kupac> listaKupaca;
-    private String[] kolone = {"ID", "Naziv", "PIB", "Telefon", "Email", "Mesto"};
+    private String[] kolone = {"ID", "Ime","Prezime","Naziv", "PIB", "Telefon", "Email", "Mesto"};
 
     public TableModelKupac() {
         try {
@@ -50,14 +50,18 @@ public class TableModelKupac extends AbstractTableModel {
             case 0:
                 return k.getId();
             case 1:
-                return k.getNaziv();
+                return k.getIme();
             case 2:
-                return k.getPib();
+                return k.getPrezime();
             case 3:
-                return k.getTelefon();
+                return k.getNaziv();
             case 4:
-                return k.getEmail();
+                return k.getPib();
             case 5:
+                return k.getTelefon();
+            case 6:
+                return k.getEmail();
+            case 7:
                 return k.getMesto().getGrad();
             default:
                 return null;

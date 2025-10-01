@@ -43,7 +43,7 @@ public class UpravljajStrucnimSpremamaForma extends javax.swing.JFrame {
         adminCheck();
         setResizable(false);
         setLocationRelativeTo(null);
-        setTitle("Upravljaj strucnim spremama");
+        setTitle("Upravljaj stručnim spremama");
         TableModelStrucnaSprema tmodel = new TableModelStrucnaSprema();
         tblStrSprema.setModel(tmodel);
         btnPromeni.setEnabled(false);
@@ -97,7 +97,7 @@ public class UpravljajStrucnimSpremamaForma extends javax.swing.JFrame {
 
         btnObrisi.setBackground(new java.awt.Color(153, 255, 204));
         btnObrisi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnObrisi.setText("Obrisi");
+        btnObrisi.setText("Obriši");
         btnObrisi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnObrisiActionPerformed(evt);
@@ -106,7 +106,7 @@ public class UpravljajStrucnimSpremamaForma extends javax.swing.JFrame {
 
         btnCancel.setBackground(new java.awt.Color(153, 255, 204));
         btnCancel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCancel.setText("Otkazi");
+        btnCancel.setText("Otkaži");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelActionPerformed(evt);
@@ -158,7 +158,7 @@ public class UpravljajStrucnimSpremamaForma extends javax.swing.JFrame {
         // TODO add your handling code here:
         int selektovanRed = tblStrSprema.getSelectedRow();
         if (selektovanRed == -1) {
-            JOptionPane.showMessageDialog(this, "Nista nije selektovano", "Greska", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Ništa nije označeno!", "Greška", JOptionPane.ERROR_MESSAGE);
             return;
         }
         TableModelStrucnaSprema model = (TableModelStrucnaSprema) tblStrSprema.getModel();
@@ -183,7 +183,7 @@ public class UpravljajStrucnimSpremamaForma extends javax.swing.JFrame {
         try {
             int selektovanRed = tblStrSprema.getSelectedRow();
             if (selektovanRed == -1) {
-                JOptionPane.showMessageDialog(this, "Nista nije selektovano", "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Ništa nije označeno!", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             TableModelStrucnaSprema model = (TableModelStrucnaSprema) tblStrSprema.getModel();
@@ -191,10 +191,10 @@ public class UpravljajStrucnimSpremamaForma extends javax.swing.JFrame {
             try {
                 Controller.getInstance().obrisiStrSprema(zaBrisanje);
             } catch (SQLIntegrityConstraintViolationException ex) {
-                JOptionPane.showMessageDialog(this, "Ne mozete obrisati strucnu spremu jer je povezana sa cvecarima", "Greska", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Ne možete obrisati stručnu spremu jer je povezana sa cvećarima!", "Greška", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
-            JOptionPane.showMessageDialog(this, "Strucna sprema obrisana", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Stručna sprema je obrisana", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
             model.refresh();
             tblStrSprema.setModel(model);
         } catch (Exception ex) {

@@ -101,7 +101,7 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
 
         btnObrisi.setBackground(new java.awt.Color(153, 255, 204));
         btnObrisi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnObrisi.setText("Obrisi");
+        btnObrisi.setText("Obriši");
         btnObrisi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnObrisiActionPerformed(evt);
@@ -110,7 +110,7 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
 
         btnNazad.setBackground(new java.awt.Color(153, 255, 204));
         btnNazad.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnNazad.setText("Otkazi");
+        btnNazad.setText("Otkaži");
         btnNazad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNazadActionPerformed(evt);
@@ -132,7 +132,7 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
 
         btnPretrazi.setBackground(new java.awt.Color(153, 255, 204));
         btnPretrazi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnPretrazi.setText("Pretrazi");
+        btnPretrazi.setText("Pretraži");
         btnPretrazi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPretraziActionPerformed(evt);
@@ -202,17 +202,17 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
         try {
             int selektovanRed = tblKupci.getSelectedRow();
             if (selektovanRed == -1) {
-                JOptionPane.showMessageDialog(this, "Nista nije selektovano", "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Ništa nije označeno!", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             try {
                 //throw new RuntimeException("Simulacija greske");
                 Controller.getInstance().obrisiKupca(lista.get(selektovanRed));
             } catch (SQLIntegrityConstraintViolationException ex) {
-                JOptionPane.showMessageDialog(this, "Sistem ne moze da obrise kupca!", "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem ne može da obriše kupca!", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            JOptionPane.showMessageDialog(this, "Sistem je uspesno obrisao kupca!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Sistem je uspešno obrisao kupca", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
 
             tblKupci.setModel(new TableModelKupac());
         } catch (Exception ex) {
@@ -226,7 +226,7 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
 
             int selektovanRed = tblKupci.getSelectedRow();
             if (selektovanRed == -1) {
-                JOptionPane.showMessageDialog(this, "Nista nije selektovano!", "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Ništa nije označeno!", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             TableModelKupac model = (TableModelKupac) tblKupci.getModel();
@@ -234,11 +234,11 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
             
             try {
                 //throw new RuntimeException("Simulacija greske");
-                JOptionPane.showMessageDialog(this, "Sistem je nasao kupca!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem je našao kupca", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 KreirajKupcaForma kf = new KreirajKupcaForma(this, kupacChange);
                 kf.setVisible(true);
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da nadje kupca!", "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da nađe kupca!", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         } catch (Exception ex) {
@@ -272,10 +272,10 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
             ArrayList<Kupac> filtriraniKupci = Controller.getInstance().pretraziKupce(filter);
             TableModelKupac model = new TableModelKupac(filtriraniKupci);
             if (model.getRowCount() == 0) {
-                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da nadje kupce po zadatim kriterijumima!", "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da nađe kupce po zadatim kriterijumima!", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             } else {
-                JOptionPane.showMessageDialog(this, "Sistem je nasao kupce po zadatim kriterijumima!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem je našao kupce po zadatim kriterijumima", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 tblKupci.setModel(model);
             }
 

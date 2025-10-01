@@ -100,7 +100,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
         TableModelStavkaOtpremnice tmodel = new TableModelStavkaOtpremnice();
         tmodel.setKof(this);
         tableStavke.setModel(tmodel);
-        JOptionPane.showMessageDialog(this, "Sistem je kreirao otpremnicu!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Sistem je kreirao otpremnicu", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public KreirajOtpremnicuForma(UpravljajOtpremnicamaForma parent, Otpremnica otpremnica) throws Exception {
@@ -178,7 +178,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
         txtDatumIzdavanja.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel3.setText("Cvecar");
+        jLabel3.setText("Cvećar");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setText("Kupac");
@@ -196,7 +196,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
 
         btnOdustani.setBackground(new java.awt.Color(153, 255, 204));
         btnOdustani.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnOdustani.setText("Otkazi");
+        btnOdustani.setText("Otkaži");
         btnOdustani.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOdustaniActionPerformed(evt);
@@ -205,7 +205,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
 
         btnSave.setBackground(new java.awt.Color(153, 255, 204));
         btnSave.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnSave.setText("Sacuvaj");
+        btnSave.setText("Sačuvaj");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSaveActionPerformed(evt);
@@ -269,7 +269,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
         });
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel8.setText("Aranzman");
+        jLabel8.setText("Aranžman");
 
         txtCenaBezPDVPopust.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
@@ -284,7 +284,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
         jLabel10.setText("Cena sa PDV-om");
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel11.setText("Kolicina");
+        jLabel11.setText("Količina");
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel12.setText("Napomena");
@@ -306,7 +306,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
         });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel2.setText("Popust aranzmana");
+        jLabel2.setText("Popust aranžmana");
 
         txtPopust.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtPopust.addActionListener(new java.awt.event.ActionListener() {
@@ -539,16 +539,16 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             if (txtDatumIzdavanja.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Datum nije popunjen!", "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Datum nije popunjen!", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             if (!Validator.isValidDate(txtDatumIzdavanja.getText())) {
-                JOptionPane.showMessageDialog(this, "Uneti datum nije validan. Proveriti da li je format datuma YYYY-MM-DD.", "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Uneti datum nije validan! Proveriti da li je format datuma YYYY-MM-DD", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             datumIzdavanja = dateFormat.parse(txtDatumIzdavanja.getText());
         } catch (ParseException ex) {
-            JOptionPane.showMessageDialog(this, "Pogresan format datuma!\nDatum treba da bude u formatu YYYY-MM-DD", "Greska", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Pogrešan format datuma!\nDatum treba da bude u formatu YYYY-MM-DD", "Greška", JOptionPane.ERROR_MESSAGE);
             return;
         }
         Cvecar c = (Cvecar) comboBoxCvecar.getSelectedItem();
@@ -563,10 +563,10 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
                 System.out.println("otp:"+otpremnicaInsert);
                        
                 Controller.getInstance().dodajOtpremnicu(otpremnicaInsert);
-                JOptionPane.showMessageDialog(this, "Sistem je sacuvao otpremnicu!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem je sačuvao otpremnicu", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
             } catch (Exception ex) {
-                 JOptionPane.showMessageDialog(this, "Sistem ne moze da sacuva otpremnicu!", "Greska", JOptionPane.ERROR_MESSAGE);
+                 JOptionPane.showMessageDialog(this, "Sistem ne može da sačuva otpremnicu!", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
 
             }
@@ -584,11 +584,11 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
                 otpremnicaChange.setUkupanPopust(ukupanPopust);
                 otpremnicaChange.setStavkeOtpremnice(stavke);
                 Controller.getInstance().promeniOtpremnicu(otpremnicaChange);
-                JOptionPane.showMessageDialog(this, "Sistem je izmenio otpremnicu!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem je izmenio otpremnicu", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 uof.getTblOtp().setModel(new TableModelOtpremnica());
                 this.dispose();
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Sistem ne moze da izmeni otpremnicu!", "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem ne može da izmeni otpremnicu!", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         }
@@ -597,14 +597,14 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
     private void btnDodajStavkuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajStavkuActionPerformed
         // TODO add your handling code here:
         if (txtKolicina.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Nisu sva polja popunjena za aranzman!", "Greska", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Nisu sva polja popunjena za aranžman!", "Greška", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         Aranzman a = (Aranzman) comboAranzmani.getSelectedItem();
         int kolicina = Integer.parseInt(txtKolicina.getText());
         if (!Validator.isValidNumber(txtCenaBezPDVPopust.getText()) || !Validator.isValidNumber(txtCenaSaPDVPopust.getText())) {
-            JOptionPane.showMessageDialog(this, "Pogresan format cene!", "Greska", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Pogrešan format cene!", "Greška", JOptionPane.ERROR_MESSAGE);
 
         }
         double cenaBez = Math.floor(Double.parseDouble(txtCenaBezPDVPopust.getText()) * 100.0) / 100.0;
@@ -618,7 +618,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
             s1 = new StavkaOtpremnice(-1, kolicina, napomena, 0, 0, cenaBez, cenaSa, a, otpremnicaChange);
         }
         if (tmodel.unetAranzman(a)) {
-            JOptionPane.showMessageDialog(this, "Aranzman je vec dodat u otpremnicu!", "Greska", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Aranžman je već dodat u otpremnicu!", "Greška", JOptionPane.ERROR_MESSAGE);
             return;
         }
         tmodel.dodajStavkuOtpremnice(s1);
@@ -649,7 +649,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
         // TODO add your handling code here:
         int selected = tableStavke.getSelectedRow();
         if (selected == -1) {
-            JOptionPane.showMessageDialog(this, "Nista nije selektovano iz tabele", "Greska", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Ništa nije označeno iz tabele", "Greška", JOptionPane.ERROR_MESSAGE);
             return;
         }
         TableModelStavkaOtpremnice tmodel = (TableModelStavkaOtpremnice) tableStavke.getModel();

@@ -39,7 +39,7 @@ public class ValidationForm extends javax.swing.JDialog {
         setResizable(false);
         txtIme.setText(cvecar.getIme());
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        setTitle("Validacija cvecara");
+        setTitle("Validacija cvećara");
 
     }
 
@@ -87,16 +87,16 @@ public class ValidationForm extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtValidation, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtValidation, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtTitle)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtIme, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnValidate)
-                        .addGap(119, 119, 119)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                        .addGap(144, 144, 144)
+                        .addComponent(txtIme, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(25, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnValidate)
+                .addGap(198, 198, 198))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,9 +109,9 @@ public class ValidationForm extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtValidation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnValidate, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
+                .addGap(25, 25, 25))
         );
 
         pack();
@@ -125,12 +125,12 @@ public class ValidationForm extends javax.swing.JDialog {
         System.out.println("hashed:" + hashed);
         if (hashed.equals(cvecar.getLozinka())) {
             kf.setValidation(true);
-            JOptionPane.showMessageDialog(this, "Uspesna validacija!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Uspesna validacija!", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
             kf.dispose();
             this.dispose();
         } else {
             kf.setValidation(false);
-            JOptionPane.showMessageDialog(this, "Neuspesna validacija!", "Greska", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Neuspešna validacija!", "Greška", JOptionPane.ERROR_MESSAGE);
             return;
         }
     }//GEN-LAST:event_btnValidateActionPerformed

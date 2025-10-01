@@ -129,14 +129,14 @@ public class PromeniLozinkuForma extends javax.swing.JDialog {
             // TODO add your handling code here:
             String nova = txtNovaLozinka.getText();
             if (Validator.isValidPassword(nova) == false) {
-                JOptionPane.showMessageDialog(this, "Lozinka mora da ima minimum 8 karaktera!", "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Lozinka mora da ima minimum 8 karaktera!", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             String hashed = PasswordHash.hashPassword(nova);
             System.out.println("hashed nova:" + hashed);
             cvecar.setLozinka(hashed);
             Controller.getInstance().promeniCvecara(cvecar);
-            JOptionPane.showMessageDialog(this, "Lozinka uspesno promenjena!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Lozinka uspešno promenjena!", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
 
         } catch (Exception ex) {
@@ -195,7 +195,7 @@ public class PromeniLozinkuForma extends javax.swing.JDialog {
 
                 } else {
                     txtErrorPass.setVisible(true);
-                    txtErrorPass.setText("Pogresna lozinka");
+                    txtErrorPass.setText("Pogrešna lozinka");
                 }
             }
             txtErrorPass.getParent().revalidate();

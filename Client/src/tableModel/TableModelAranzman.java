@@ -18,7 +18,7 @@ import javax.swing.table.AbstractTableModel;
 public class TableModelAranzman extends AbstractTableModel {
 
     private ArrayList<Aranzman> listaAranzmana;
-    private String[] kolone = {"Naziv", "Poreska Stopa", "Cena Bez PDV-a", "Cena Sa PDV-om", "Opis"};
+    private String[] kolone = {"Naziv", "Poreska Stopa", "Cena bez PDV-a", "Cena sa PDV-om", "Opis"};
 
     public TableModelAranzman() {
         try {

@@ -61,7 +61,7 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JDialog {
         try {
             initComponents();
             popuniCombo();
-            setTitle("Pretrazi otpremnicu");
+            setTitle("Pretraži otpremnicu");
             btnChange.setVisible(false);
             btnDelete.setVisible(false);
             setResizable(false);
@@ -122,7 +122,7 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JDialog {
 
         jButton2.setBackground(new java.awt.Color(153, 255, 204));
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton2.setText("Otkazi");
+        jButton2.setText("Otkaži");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -131,7 +131,7 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JDialog {
 
         btnDelete.setBackground(new java.awt.Color(153, 255, 204));
         btnDelete.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnDelete.setText("Obrisi");
+        btnDelete.setText("Obriši");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteActionPerformed(evt);
@@ -140,7 +140,7 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JDialog {
 
         btnSearch.setBackground(new java.awt.Color(153, 255, 204));
         btnSearch.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnSearch.setText("Pretrazi");
+        btnSearch.setText("Pretraži");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSearchActionPerformed(evt);
@@ -151,7 +151,7 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JDialog {
         datum.setText("Datum izdavanja");
 
         lblcvecar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblcvecar.setText("Cvecar");
+        lblcvecar.setText("Cvećar");
 
         lblkupac.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblkupac.setText("Kupac");
@@ -246,20 +246,21 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JDialog {
         try {
             int selektovanRed = tblOtp.getSelectedRow();
             if (selektovanRed == -1) {
-                JOptionPane.showMessageDialog(this, "Nijedan red nije selektovan", "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Ništa nije označeno!", "Greška", JOptionPane.ERROR_MESSAGE);
             } else {
 
                 try {
                     //throw new RuntimeException("Simulacija greske");
                    TableModelOtpremnica model = (TableModelOtpremnica) tblOtp.getModel();
                     Otpremnica otpremnica = model.getOtpremnica(selektovanRed);
-                    JOptionPane.showMessageDialog(this, "Sistem je nasao otpremnicu!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Sistem je našao otpremnicu", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+                  System.out.println("OTPREMNICA BRE:"+otpremnica);
                     KreirajOtpremnicuForma kof = new KreirajOtpremnicuForma(this, otpremnica);
                     kof.setVisible(true);
                     TableModelOtpremnica tmodel = new TableModelOtpremnica();
                     tblOtp.setModel(tmodel);
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(this, "Sistem nije uspeo da nadje otpremnicu!", "Greska", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Sistem nije uspeo da nađe otpremnicu!", "Greška", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
             }
@@ -273,7 +274,7 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JDialog {
         try {
             int selektovanRed = tblOtp.getSelectedRow();
             if (selektovanRed == -1) {
-                JOptionPane.showMessageDialog(this, "Nista nije selektovano", "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Ništa nije označeno!", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             TableModelOtpremnica model = (TableModelOtpremnica) tblOtp.getModel();
@@ -282,10 +283,10 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JDialog {
                 //throw new RuntimeException("Simulacija greske");
                 Controller.getInstance().obrisiOtpremnicu(zaBrisanje);
             } catch (SQLIntegrityConstraintViolationException ex) {
-                JOptionPane.showMessageDialog(this, "Sistem ne moze da obrise otpremnicu!", "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem ne može da obriše otpremnicu!", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            JOptionPane.showMessageDialog(this, "Sistem je uspesno obrisao otpremnicu", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Sistem je uspešno obrisao otpremnicu", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
 
             TableModelOtpremnica tmodel = new TableModelOtpremnica();
             tblOtp.setModel(tmodel);
@@ -322,10 +323,10 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JDialog {
             TableModelOtpremnica model = new TableModelOtpremnica(filtriraneOtpremnice);
             tblOtp.setModel(model);
             if (model.getRowCount() == 0) {
-                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da nadje otpremnice po zadatim kriterijumima!", "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da nađe otpremnice po zadatim kriterijumima!", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             } else {
-                JOptionPane.showMessageDialog(this, "Sistem je nasao otpremnice po zadatim kriterijumima!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem je našao otpremnice po zadatim kriterijumima", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
         } catch (Exception ex) {

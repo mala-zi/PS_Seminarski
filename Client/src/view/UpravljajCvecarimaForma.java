@@ -41,7 +41,7 @@ public class UpravljajCvecarimaForma extends javax.swing.JFrame {
             initComponents();
             this.ulogovani = ulogovani;
             adminCheck();
-            setTitle("Upravljaj cvecarima");
+            setTitle("Upravljaj cvećarima");
             tma = new TableModelCvecar();
             tblCvecari.setModel(tma);
             setResizable(false);
@@ -100,7 +100,7 @@ public class UpravljajCvecarimaForma extends javax.swing.JFrame {
 
         btnObrisi.setBackground(new java.awt.Color(153, 255, 204));
         btnObrisi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnObrisi.setText("Obrisi");
+        btnObrisi.setText("Obriši");
         btnObrisi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnObrisiActionPerformed(evt);
@@ -109,7 +109,7 @@ public class UpravljajCvecarimaForma extends javax.swing.JFrame {
 
         btnNazad.setBackground(new java.awt.Color(153, 255, 204));
         btnNazad.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnNazad.setText("Otkazi");
+        btnNazad.setText("Otkaži");
         btnNazad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNazadActionPerformed(evt);
@@ -156,7 +156,7 @@ public class UpravljajCvecarimaForma extends javax.swing.JFrame {
         // TODO add your handling code here:
         int selektovanRed = tblCvecari.getSelectedRow();
         if (selektovanRed == -1) {
-            JOptionPane.showMessageDialog(this, "Nista nije selektovano", "greska", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Ništa nije označeno!", "Greška", JOptionPane.ERROR_MESSAGE);
             return;
         }
         TableModelCvecar tmm = (TableModelCvecar) tblCvecari.getModel();
@@ -192,7 +192,7 @@ public class UpravljajCvecarimaForma extends javax.swing.JFrame {
         try {
             int selektovanRed = tblCvecari.getSelectedRow();
             if (selektovanRed == -1) {
-                JOptionPane.showMessageDialog(this, "nista nije selektovano", "greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Ništa nije označeno!", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -201,10 +201,10 @@ public class UpravljajCvecarimaForma extends javax.swing.JFrame {
             try {
                 Controller.getInstance().obrisiCvecara(cvecarDelete);
             } catch (SQLIntegrityConstraintViolationException ex) {
-                JOptionPane.showMessageDialog(this, "Ne mozete obrisati cvecara jer je povezan sa otpremnicama", "Greska", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Ne možete obrisati cvećara jer je povezan sa otpremnicama!", "Greška", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
-            JOptionPane.showMessageDialog(this, "Cvecar obrisan", "greska", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Cvećar obrisan", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
 
             //tma = new TableModelCvecar();
             // tblCvecari.setModel(tma);

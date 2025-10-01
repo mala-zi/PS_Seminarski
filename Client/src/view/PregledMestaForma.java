@@ -110,7 +110,7 @@ public class PregledMestaForma extends javax.swing.JFrame {
 
         btnObrisiMesto.setBackground(new java.awt.Color(153, 255, 204));
         btnObrisiMesto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnObrisiMesto.setText("Obrisi");
+        btnObrisiMesto.setText("Obriši");
         btnObrisiMesto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnObrisiMestoActionPerformed(evt);
@@ -119,7 +119,7 @@ public class PregledMestaForma extends javax.swing.JFrame {
 
         btnCancel.setBackground(new java.awt.Color(153, 255, 204));
         btnCancel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCancel.setText("Otkazi");
+        btnCancel.setText("Otkaži");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelActionPerformed(evt);
@@ -190,7 +190,7 @@ public class PregledMestaForma extends javax.swing.JFrame {
         try {
             int selektovanRed = tblMesta.getSelectedRow();
             if (selektovanRed == -1) {
-                JOptionPane.showMessageDialog(this, "Nista nije selektovano", "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Ništa nije označeno!", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             TableModelMesto tmm = (TableModelMesto) tblMesta.getModel();
@@ -198,10 +198,10 @@ public class PregledMestaForma extends javax.swing.JFrame {
             try {
                 Controller.getInstance().obrisiMesto(m);
             } catch (SQLIntegrityConstraintViolationException ex) {
-                JOptionPane.showMessageDialog(this, "Ne mozete obrisati mesto jer je povezano za kupca", "Greska", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Ne možete obrisati mesto jer je vezano za kupca!", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            JOptionPane.showMessageDialog(this, "Mesto obrisano", "greska", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Mesto obrisano", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
 
             TableModelMesto tmodel = new TableModelMesto();
             tblMesta.setModel(tmodel);
@@ -214,7 +214,7 @@ public class PregledMestaForma extends javax.swing.JFrame {
         // TODO add your handling code here:
         int selektovanRed = tblMesta.getSelectedRow();
         if (selektovanRed == -1) {
-            JOptionPane.showMessageDialog(this, "Nista nije selektovano", "greska", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Ništa nije označeno!", "Greška", JOptionPane.ERROR_MESSAGE);
             return;
         }
         TableModelMesto tmm = (TableModelMesto) tblMesta.getModel();

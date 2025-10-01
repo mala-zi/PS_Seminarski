@@ -58,13 +58,13 @@ public class DatabaseBroker {
         System.out.println(query);
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery(query);
-
+System.out.println("usaooo1");
         while (rs.next()) {
             int id = rs.getInt("id");
             String plainPassword = rs.getString("lozinka");
             if (plainPassword.length() != 64) {
                 String hashedPassword = PasswordHash.hashPassword(plainPassword);
-
+System.out.println("usaooo2");
                 String updateQuery = "UPDATE cvecar SET lozinka=? WHERE id=?";
                 System.out.println(updateQuery);
                 PreparedStatement ps = connection.prepareStatement(updateQuery);

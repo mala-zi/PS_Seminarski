@@ -26,7 +26,7 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
     public UbaciStrucnuSpremuForma() {
         initComponents();
         setResizable(false);
-        setTitle("Kreiraj strucnu spremu");
+        setTitle("Kreiraj stručnu spremu");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         comboSertifikat.addItem("NE");
@@ -74,7 +74,7 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
 
         btnInsert.setBackground(new java.awt.Color(153, 255, 204));
         btnInsert.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnInsert.setText("Sacuvaj");
+        btnInsert.setText("Sačuvaj");
         btnInsert.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInsertActionPerformed(evt);
@@ -83,7 +83,7 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
 
         btnCancel.setBackground(new java.awt.Color(153, 255, 204));
         btnCancel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnCancel.setText("Otkazi");
+        btnCancel.setText("Otkaži");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelActionPerformed(evt);
@@ -176,7 +176,7 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
     private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
         // TODO add your handling code here:
         if(txtNaziv.getText().isEmpty() || txtNivo.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this, "Morate popuniti sva polja!","Greska",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Morate popuniti sva polja!","Greška",JOptionPane.ERROR_MESSAGE);
             return;
         }
         String sert = comboSertifikat.getSelectedItem() + "";
@@ -191,10 +191,10 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
             try {
                // throw new RuntimeException("Simulacija greske");
                 Controller.getInstance().ubaciStrSprema(strs);
-                JOptionPane.showMessageDialog(this, "Sistem je sacuvao strucnu spremu!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem je sačuvao strucnu spremu", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Sistem ne moze da sacuva strucnu spremu!", "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem ne može da sačuva stručnu spremu!", "Greška", JOptionPane.ERROR_MESSAGE);
             }
         }else{
             ss.setNaziv(txtNaziv.getText());
@@ -202,7 +202,7 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
             ss.setSertifikat(sertifikat);
             try {
                 Controller.getInstance().promeniStrSpremu(ss);
-                JOptionPane.showMessageDialog(this, "Sistem je uspenso izmenio strucnu spremu!", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem je uspešno izmenio stručnu spremu", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 ussf.getTblStrSprema().setModel(new TableModelStrucnaSprema());
                 this.dispose();
             } catch (Exception ex) {
