@@ -19,7 +19,7 @@ public class SOVratiListuSviStrSprema extends OpstaSistemskaOperacija{
     @Override
     protected void validate(OpstiDomenskiObjekat odo) throws Exception {
         if (!(odo instanceof StrucnaSprema))
-            throw new Exception("Prosledjeni objekat nije instanca klase StrucnaSprema!");
+            throw new Exception("Prosleđeni objekat nije instanca klase StrucnaSprema!");
     }
     @Override
     protected void execute(OpstiDomenskiObjekat odo) throws Exception {

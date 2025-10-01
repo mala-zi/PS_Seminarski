@@ -19,7 +19,7 @@ private ArrayList<Mesto> list;
     @Override
     protected void validate(OpstiDomenskiObjekat odo) throws Exception {
         if (!(odo instanceof Mesto))
-            throw new Exception("Prosledjeni objekat nije instanca klase Mesto!");
+            throw new Exception("Prosleđeni objekat nije instanca klase Mesto!");
     }
     @Override
     protected void execute(OpstiDomenskiObjekat odo) throws Exception {

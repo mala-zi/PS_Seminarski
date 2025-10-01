@@ -11,15 +11,18 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import domain.Kupac;
 import domain.Mesto;
+import domain.TipKupca;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
+import validator.Validator;
 
 /**
  *
  * @author Saki
  */
 public class KreirajKupcaForma extends javax.swing.JFrame {
+
     Kupac kupac;
     UpravljajKupcimaForma pkf;
 
@@ -30,23 +33,24 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
     public void setComboBoxMesto(JComboBox<Mesto> comboBoxMesto) {
         this.comboBoxMesto = comboBoxMesto;
     }
-    
+
     /**
      * Creates new form KreirajKupcaForma
      */
-     public KreirajKupcaForma(JFrame parent,Kupac k) {
+    public KreirajKupcaForma(JFrame parent, Kupac k) {
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
         setLocationRelativeTo(null);
         inicijalizujPolja();
-        if(k!=null){
+        if (k != null) {
             setTitle("Promeni kupca");
-            kupac=k;
-            pkf=(UpravljajKupcimaForma) parent;
+            kupac = k;
+            pkf = (UpravljajKupcimaForma) parent;
             popuniIzmenuKupac(kupac);
         }
     }
+
     public KreirajKupcaForma() {
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -54,7 +58,13 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
         setTitle("Kreiraj kupca");
         setResizable(false);
         setLocationRelativeTo(null);
-         JOptionPane.showMessageDialog(this, "Sistem je kreirao kupca", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+        // Kupac k1 = new Kupac();
+        // try {
+        //     Controller.getInstance().dodajKupca(k1);
+        // } catch (Exception ex) {
+        //     Logger.getLogger(KreirajKupcaForma.class.getName()).log(Level.SEVERE, null, ex);
+        //  }
+        JOptionPane.showMessageDialog(this, "Sistem je kreirao kupca", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
     }
 
     /**
@@ -82,7 +92,7 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         txtPrezime = new javax.swing.JTextField();
-        txtNaziv2 = new javax.swing.JTextField();
+        txtNaziv = new javax.swing.JTextField();
         radioFizicko = new javax.swing.JRadioButton();
         radioPravno = new javax.swing.JRadioButton();
 
@@ -148,7 +158,7 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
 
         txtPrezime.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        txtNaziv2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtNaziv.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         radioFizicko.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         radioFizicko.setText("Fizičko lice");
@@ -160,6 +170,11 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
 
         radioPravno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         radioPravno.setText("Pravno lice");
+        radioPravno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioPravnoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -169,52 +184,48 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(txtPrezime, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(txtIme, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(38, 38, 38)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtPrezime)
-                                .addGap(288, 288, 288))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtNaziv2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(2, 2, 2)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(txtTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(35, 35, 35)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addGap(25, 25, 25)))
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(txtPIB, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                .addComponent(btnNazad)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(btnSacuvaj))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                    .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(comboBoxMesto, javax.swing.GroupLayout.Alignment.LEADING, 0, 335, Short.MAX_VALUE))
-                                                .addGap(33, 33, 33)
-                                                .addComponent(btnMestoAdd)))))))
-                        .addContainerGap(14, Short.MAX_VALUE))
+                                .addComponent(radioPravno, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(radioFizicko, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtIme, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(radioFizicko, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)
-                        .addComponent(radioPravno, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(2, 2, 2)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(btnNazad)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnSacuvaj))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(comboBoxMesto, javax.swing.GroupLayout.Alignment.LEADING, 0, 335, Short.MAX_VALUE))
+                                    .addGap(33, 33, 33)
+                                    .addComponent(btnMestoAdd)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(48, 48, 48)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(31, 31, 31)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtNaziv, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtPIB, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -223,15 +234,16 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtIme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(radioFizicko)
-                    .addComponent(radioPravno))
+                    .addComponent(radioPravno)
+                    .addComponent(radioFizicko))
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNaziv2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtNaziv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel7)
-                        .addComponent(txtPrezime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1)))
+                        .addComponent(txtPrezime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -267,51 +279,88 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
 
     private void btnSacuvajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSacuvajActionPerformed
         // TODO add your handling code here:
-        if(txtEmail.getText().isEmpty() || txtIme.getText().isEmpty() || txtPIB.getText().isEmpty() || txtTelefon.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this, "Morate popuniti sva polja!","Greška",JOptionPane.ERROR_MESSAGE);
+        TipKupca tip;
+        String naziv = "";
+        int pib = 0;
+        if (radioFizicko.isSelected()) {
+            tip = TipKupca.FIZICKO_LICE;
+        } else if (radioPravno.isSelected()) {
+            tip = TipKupca.PRAVNO_LICE;
+        } else {
+            JOptionPane.showMessageDialog(this, "Nija označen tip kupca!", "Greška", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        boolean emailVazeci=validateEmail(txtEmail.getText());
-        boolean telefonVazeci=validateTel(txtTelefon.getText());
-        
-        if(!emailVazeci){
-            JOptionPane.showMessageDialog(this, "Los format Email-a","Greška",JOptionPane.ERROR_MESSAGE);
+        if (txtEmail.getText().isEmpty() || txtIme.getText().isEmpty() || txtTelefon.getText().isEmpty() || txtPrezime.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Morate popuniti sva polja!", "Greška", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if(!telefonVazeci){
-           JOptionPane.showMessageDialog(this, "Los format telefona!","Greška",JOptionPane.ERROR_MESSAGE);
-           return;
+        if (tip == TipKupca.PRAVNO_LICE) {
+            if (txtPIB.getText().isEmpty() || txtNaziv.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Morate popuniti sva polja!", "Greška", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (Validator.isValidNumber(txtPIB.getText())) {
+                pib = Integer.parseInt(txtPIB.getText());
+                if (pib < 10000000 || pib > 99999999) {
+                    JOptionPane.showMessageDialog(this, "Loš format PIB-a!", "Greška", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "PIB ne sme da sadrži karaktere!", "Greška", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            naziv = txtNaziv.getText();
         }
-        
-        int pib=Integer.parseInt(txtPIB.getText());
-        String naziv=txtIme.getText();
-        String email=txtEmail.getText();
-        String telefon=txtTelefon.getText();
-        Mesto mesto=(Mesto) comboBoxMesto.getSelectedItem();
-        
-       
-        if(kupac==null){
+
+        boolean emailVazeci = validateEmail(txtEmail.getText());
+        boolean telefonVazeci = validateTel(txtTelefon.getText());
+
+        if (!emailVazeci) {
+            JOptionPane.showMessageDialog(this, "Los format Email-a", "Greška", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (!telefonVazeci) {
+            JOptionPane.showMessageDialog(this, "Los format telefona!", "Greška", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String email = txtEmail.getText();
+        String telefon = txtTelefon.getText();
+        Mesto mesto = (Mesto) comboBoxMesto.getSelectedItem();
+        String ime = txtIme.getText();
+        String prezime = txtPrezime.getText();
+
+        if (kupac == null) {
             try {
-                //throw new RuntimeException("Simulacija greske");
-                Kupac k=new Kupac( -1,pib, telefon, email, mesto, naziv);
-                Controller.getInstance().dodajKupca(k);
-                JOptionPane.showMessageDialog(this, "Sistem je uspešno sačuvao kupca","Obaveštenje",JOptionPane.INFORMATION_MESSAGE);
+                //throw new RuntimeException("Simulacija greške");
+                if (tip == TipKupca.PRAVNO_LICE) {
+                    Kupac k = new Kupac(-1, pib, telefon, email, mesto, naziv, ime, prezime, tip);
+                    Controller.getInstance().dodajKupca(k);
+                }else{
+                    Kupac k = new Kupac(-1, -1, telefon, email, mesto, "", ime, prezime, tip);
+                    Controller.getInstance().dodajKupca(k);
+                }
+                //Controller.getInstance().izmeniKupca(k);
+                JOptionPane.showMessageDialog(this, "Sistem je uspešno sačuvao kupca", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Sistem nije uspeo da sačuva kupca!", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-        }else{
+        } else {
             try {
-               //throw new RuntimeException("Simulacija greske");
+                //throw new RuntimeException("Simulacija greške");
                 kupac.setEmail(txtEmail.getText());
                 kupac.setMesto((Mesto) comboBoxMesto.getSelectedItem());
-                kupac.setNaziv(txtIme.getText());
-                kupac.setPib(Integer.parseInt(txtPIB.getText()));
+                kupac.setNaziv(txtNaziv.getText());
+                kupac.setPib(pib);
                 kupac.setTelefon(txtTelefon.getText());
+                kupac.setIme(ime);
+                kupac.setPrezime(prezime);
+                kupac.setTip(TipKupca.valueOf(tip.name()));
                 Controller.getInstance().izmeniKupca(kupac);
-                JOptionPane.showMessageDialog(this, "Sistem je uspešno sačuvao kupca","Obaveštenje",JOptionPane.INFORMATION_MESSAGE);
-                pkf.getTblKupci().setModel(new TableModelKupac());           
+                JOptionPane.showMessageDialog(this, "Sistem je uspešno sačuvao kupca", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+                pkf.getTblKupci().setModel(new TableModelKupac());
                 this.dispose();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Sistem nije uspeo da sačuva kupca!", "Greška", JOptionPane.ERROR_MESSAGE);
@@ -323,12 +372,12 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
     private void btnMestoAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMestoAddActionPerformed
         try {
             // TODO add your handling code here:
-            boolean dodaj=true;
-            KreirajMestoForma kmf=new KreirajMestoForma(this,dodaj);
+            boolean dodaj = true;
+            KreirajMestoForma kmf = new KreirajMestoForma(this, dodaj);
             kmf.setVisible(true);
-            boolean uspeh= kmf.isUspeh();
-            if(uspeh==true){
-               
+            boolean uspeh = kmf.isUspeh();
+            if (uspeh == true) {
+
             }
         } catch (Exception ex) {
             Logger.getLogger(KreirajKupcaForma.class.getName()).log(Level.SEVERE, null, ex);
@@ -337,9 +386,38 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
 
     private void radioFizickoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioFizickoActionPerformed
         // TODO add your handling code here:
+        if (radioFizicko.isSelected()) {
+            jLabel1.setVisible(false);
+            jLabel2.setVisible(false);
+            txtNaziv.setVisible(false);
+            txtPIB.setVisible(false);
+            radioPravno.setSelected(false);
+        } else {
+            jLabel1.setVisible(true);
+            jLabel2.setVisible(true);
+            txtNaziv.setVisible(true);
+            txtPIB.setVisible(true);
+            radioPravno.setSelected(true);
+        }
     }//GEN-LAST:event_radioFizickoActionPerformed
 
-    
+    private void radioPravnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioPravnoActionPerformed
+        // TODO add your handling code here:
+        if (radioPravno.isSelected()) {
+            jLabel1.setVisible(true);
+            jLabel2.setVisible(true);
+            txtNaziv.setVisible(true);
+            txtPIB.setVisible(true);
+            radioFizicko.setSelected(false);
+        } else {
+            jLabel1.setVisible(false);
+            jLabel2.setVisible(false);
+            txtNaziv.setVisible(false);
+            txtPIB.setVisible(false);
+            radioFizicko.setSelected(true);
+        }
+    }//GEN-LAST:event_radioPravnoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnMestoAdd;
@@ -357,7 +435,7 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
     private javax.swing.JRadioButton radioPravno;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtIme;
-    private javax.swing.JTextField txtNaziv2;
+    private javax.swing.JTextField txtNaziv;
     private javax.swing.JTextField txtPIB;
     private javax.swing.JTextField txtPrezime;
     private javax.swing.JTextField txtTelefon;
@@ -366,15 +444,16 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
     private void popuniIzmenuKupac(Kupac kupac) {
         txtIme.setText(kupac.getNaziv());
         txtEmail.setText(kupac.getEmail());
-        txtPIB.setText(kupac.getPib()+"");
+        txtPIB.setText(kupac.getPib() + "");
         txtTelefon.setText(kupac.getTelefon());
         comboBoxMesto.setSelectedItem(kupac.getMesto());
     }
 
     private void inicijalizujPolja() {
+        radioPravno.setSelected(true);
         try {
-            List<Mesto> mesto=Controller.getInstance().ucitajMestaIzBaze();
-            for(Mesto m:mesto){
+            List<Mesto> mesto = Controller.getInstance().ucitajMestaIzBaze();
+            for (Mesto m : mesto) {
                 comboBoxMesto.addItem(m);
             }
         } catch (Exception ex) {

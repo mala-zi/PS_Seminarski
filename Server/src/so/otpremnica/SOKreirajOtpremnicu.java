@@ -21,7 +21,7 @@ public class SOKreirajOtpremnicu extends OpstaSistemskaOperacija {
     @Override
     protected void validate(OpstiDomenskiObjekat odo) throws Exception {
         if (!(odo instanceof Otpremnica)) {
-            throw new Exception("Prosledjeni objekat nije instanca klase Otpremnica!");
+            throw new Exception("Prosleđeni objekat nije instanca klase Otpremnica!");
         }
 
         Otpremnica otpremnica = (Otpremnica) odo;

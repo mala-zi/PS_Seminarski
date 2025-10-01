@@ -18,7 +18,7 @@ public class SOObrisiAranzman extends OpstaSistemskaOperacija{
     @Override
     protected void validate(OpstiDomenskiObjekat odo) throws Exception {
         if(!(odo instanceof Aranzman))
-            throw new Exception("Prosledjeni objekat nije instanca klase Aranzman!");
+            throw new Exception("Prosleđeni objekat nije instanca klase Aranžman!");
 
     }
 

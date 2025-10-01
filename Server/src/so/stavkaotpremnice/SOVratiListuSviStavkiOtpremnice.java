@@ -25,7 +25,7 @@ public class SOVratiListuSviStavkiOtpremnice extends OpstaSistemskaOperacija {
     @Override
     protected void validate(OpstiDomenskiObjekat odo) throws Exception {
         if (!(odo instanceof StavkaOtpremnice)) {
-            throw new Exception("Prosledjeni objekat nije instanca klase StavkaOtpremnice!");
+            throw new Exception("Prosleđeni objekat nije instanca klase StavkaOtpremnice!");
         }
     }
 

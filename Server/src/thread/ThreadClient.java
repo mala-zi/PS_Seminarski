@@ -48,7 +48,7 @@ public class ThreadClient extends Thread {
             System.out.println("Klijent se odvezao: " + e.getMessage());
 
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Greska prilikom obrade klijentskog zahteva: " + e.getMessage());
+            System.out.println("Greška prilikom obrade klijentskog zahteva: " + e.getMessage());
         } finally {
             try {
                 if (ulogovaniKorisnik != null) {
@@ -70,7 +70,7 @@ public class ThreadClient extends Thread {
                     Cvecar prijavljeni = ServerController.getInstance().prijaviCvecara(zahtevani);
                     if (!ThreadServer.dodajAktivnogKorisnika(zahtevani.getKorisnickoIme())) {//ako postoji vec aktivan korisnik
                         response.setResponseStatus(ResponseStatus.Error);
-                        response.setException(new Exception("Korisnik je vec ulogovan na drugom klijentu!"));
+                        response.setException(new Exception("Korisnik je već ulogovan na drugom klijentu!"));
                         break;
                     }
                     ulogovaniKorisnik = prijavljeni;

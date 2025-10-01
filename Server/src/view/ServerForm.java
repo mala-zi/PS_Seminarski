@@ -25,7 +25,7 @@ public class ServerForm extends javax.swing.JFrame {
     public ServerForm() {
         initComponents();
         setLocationRelativeTo(null);
-        lblServerStatus.setText("Server je ugasen!");
+        lblServerStatus.setText("Server je ugašen!");
         btnPokreniServer.setEnabled(true);
         btnUgasiServer.setEnabled(false);
         setTitle("Serverska forma");
@@ -150,7 +150,7 @@ public class ServerForm extends javax.swing.JFrame {
                 btnUgasiServer.setEnabled(true);
                 btnPokreniServer.setEnabled(false);
             }else{
-                JOptionPane.showMessageDialog(this, "Port se vec koristi. Samo jedan server se moze pokrenuti", "Greska", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Port se već koristi. Samo jedan server se može pokrenuti", "Greška", JOptionPane.ERROR_MESSAGE);
             }
         }
 
@@ -166,7 +166,7 @@ public class ServerForm extends javax.swing.JFrame {
         if (threadServer.getServerSocket() != null && threadServer.getServerSocket().isBound()) {
             try {
                 threadServer.getServerSocket().close();
-                JOptionPane.showMessageDialog(this, "Server je ugasen, gasenje programa...");
+                JOptionPane.showMessageDialog(this, "Server je ugašen, gašenje programa...");
                 this.dispose();
                 System.exit(0);
             } catch (IOException ex) {

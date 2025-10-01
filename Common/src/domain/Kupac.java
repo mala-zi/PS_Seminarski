@@ -124,7 +124,11 @@ public class Kupac extends OpstiDomenskiObjekat {
 
     @Override
     public String toString() {
-        return naziv;
+        if(tip==TipKupca.FIZICKO_LICE){
+            return ime+" "+prezime;
+        }else{
+            return naziv;
+        }
     }
 
     @Override

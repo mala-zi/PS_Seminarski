@@ -555,7 +555,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
         Kupac k = (Kupac) comboBoxKupac.getSelectedItem();
         if (otpremnicaChange == null) {
             try {
-                //throw new RuntimeException("Simulacija greske");
+                //throw new RuntimeException("Simulacija greške");
                 TableModelStavkaOtpremnice tmodel = (TableModelStavkaOtpremnice) tableStavke.getModel();
                 tmodel.setKof(this);
                 ArrayList<StavkaOtpremnice> stavke = tmodel.getListaStavki();
@@ -572,7 +572,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
             }
         } else {
             try {
-                //throw new RuntimeException("Simulacija greske");
+                //throw new RuntimeException("Simulacija greške");
                 TableModelStavkaOtpremnice tmodel = (TableModelStavkaOtpremnice) tableStavke.getModel();
                 tmodel.setKof(this);
                 ArrayList<StavkaOtpremnice> stavke = tmodel.getListaStavki();

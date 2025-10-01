@@ -129,6 +129,11 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
         comboKupac.setBackground(new java.awt.Color(153, 255, 204));
         comboKupac.setEditable(true);
         comboKupac.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        comboKupac.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboKupacActionPerformed(evt);
+            }
+        });
 
         btnPretrazi.setBackground(new java.awt.Color(153, 255, 204));
         btnPretrazi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -146,19 +151,27 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 521, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnNazad, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(comboKupac, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(48, 48, 48)
-                        .addComponent(comboMesto, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnNazad, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(12, 12, 12))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(105, 105, 105)
-                        .addComponent(txtKupac)
-                        .addGap(230, 230, 230)
-                        .addComponent(txtMesto, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(comboKupac, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(78, 78, 78)
+                                .addComponent(txtKupac)))
+                        .addGap(69, 69, 69)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(comboMesto, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(91, 91, 91)
+                                .addComponent(txtMesto, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(112, 112, 112)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnPromeni, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnObrisi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -206,7 +219,7 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
                 return;
             }
             try {
-                //throw new RuntimeException("Simulacija greske");
+                //throw new RuntimeException("Simulacija greške");
                 Controller.getInstance().obrisiKupca(lista.get(selektovanRed));
             } catch (SQLIntegrityConstraintViolationException ex) {
                 JOptionPane.showMessageDialog(this, "Sistem ne može da obriše kupca!", "Greška", JOptionPane.ERROR_MESSAGE);
@@ -233,7 +246,7 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
             Kupac kupacChange = model.getKupac(selektovanRed);
             
             try {
-                //throw new RuntimeException("Simulacija greske");
+                //throw new RuntimeException("Simulacija greške");
                 JOptionPane.showMessageDialog(this, "Sistem je našao kupca", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 KreirajKupcaForma kf = new KreirajKupcaForma(this, kupacChange);
                 kf.setVisible(true);
@@ -283,6 +296,10 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
             Logger.getLogger(UpravljajKupcimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnPretraziActionPerformed
+
+    private void comboKupacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboKupacActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboKupacActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

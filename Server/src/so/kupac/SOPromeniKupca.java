@@ -18,7 +18,7 @@ public class SOPromeniKupca extends OpstaSistemskaOperacija{
     @Override
     protected void validate(OpstiDomenskiObjekat odo) throws Exception {
        if(!(odo instanceof Kupac))
-            throw new Exception("Prosledjeni objekat nije instanca klase Kupac!");
+            throw new Exception("Prosleđeni objekat nije instanca klase Kupac!");
      
     }
 

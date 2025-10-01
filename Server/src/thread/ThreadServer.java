@@ -26,7 +26,7 @@ public class ThreadServer extends Thread {
         try {
             serverSocket = new ServerSocket(9000);
         } catch (BindException ex) {
-            System.err.println("Port se vec koristi. Samo jedan server se moze pokrenuti");
+            System.err.println("Port se već koristi. Samo jedan server se može pokrenuti");
         } catch (IOException ex) {
            // Logger.getLogger(ThreadServer.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -56,7 +56,7 @@ public class ThreadServer extends Thread {
             }
         } catch (IOException ex) {
             //Logger.getLogger(ThreadServer.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Server ugasen: " + ex.getMessage());
+            System.out.println("Server ugašen: " + ex.getMessage());
         }
 
     }
