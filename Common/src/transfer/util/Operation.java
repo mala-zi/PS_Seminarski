@@ -43,5 +43,6 @@ public interface Operation {
     public static final int VRATI_LISTU_PORESKA_STOPA=29;
     public static final int PRETRAZI_KUPCA=30;
     public static final int ODJAVA_CVECARA=31;
+    public static final int POSALJI_OTPREMNICU_NA_MEJL = 99;
     
 }

@@ -11,8 +11,10 @@ import domain.Kupac;
 import domain.Mesto;
 import domain.Otpremnica;
 import domain.PoreskaStopa;
-import domain.StavkaOtpremnice;
 import domain.StrucnaSprema;
+import email.EmailSender;
+import email.PDFGenerator;
+import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import so.aranzman.SOKreirajAranzman;
@@ -39,7 +41,6 @@ import so.otpremnica.SOPretraziOtpremnicu;
 import so.otpremnica.SOPromeniOtpremnicu;
 import so.otpremnica.SOVratiListuSviOtpremnica;
 import so.poreskastopa.SOVratiListuSviPoreskaStopa;
-import so.stavkaotpremnice.SOVratiListuSviStavkiOtpremnice;
 import so.strsprema.SOObrisiStrSprema;
 import so.strsprema.SOPromeniStrSprema;
 import so.strsprema.SOUbaciStrSprema;
@@ -184,14 +185,14 @@ public class ServerController {
         (new SOObrisiOtpremnicu()).templateExecute(otpremnicaDelete);
     }
 
-    public ArrayList<StavkaOtpremnice> ucitajStavkeOtpremniceIzBaze(Otpremnica otpremnica) throws Exception {//mozda promenim na Arraylist posle
+   /* public ArrayList<StavkaOtpremnice> ucitajStavkeOtpremniceIzBaze(Otpremnica otpremnica) throws Exception {//mozda promenim na Arraylist posle
         SOVratiListuSviStavkiOtpremnice so = new SOVratiListuSviStavkiOtpremnice();
         StavkaOtpremnice s = new StavkaOtpremnice();
         s.setOtpremnica(otpremnica);
         so.templateExecute(s);
         return so.getLista();
 
-    }
+    }*/
 
     public ArrayList<Otpremnica> pretraziOtpremnicu(Otpremnica kriterijum) throws Exception {
         SOPretraziOtpremnicu so = new SOPretraziOtpremnicu();
@@ -213,6 +214,18 @@ public class ServerController {
         SOPretraziKupca so = new SOPretraziKupca();
         so.templateExecute(kupac);
         return so.getLista();
+    }
+
+    public void posaljiOtpremnicuNaMejl(Otpremnica otpremnica) throws Exception {
+        File pdf = PDFGenerator.generateOtpremnicaPdf(otpremnica);
+        String email = otpremnica.getKupac().getEmail();
+        System.out.println("usao1");
+        EmailSender.sendEmailWithAttachment(
+                email,
+                "Otpremnica br. " + otpremnica.getId(),
+                "Poštovani, u prilogu se nalazi otpremnica.",
+                pdf
+        );
     }
 
 }

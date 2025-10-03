@@ -27,7 +27,7 @@ import validator.Validator;
  *
  * @author Saki
  */
-public class KreirajOtpremnicuForma extends javax.swing.JDialog {
+public class KreirajOtpremnicuForma extends javax.swing.JFrame {
 
     private UpravljajOtpremnicamaForma uof;
     private Otpremnica otpremnicaInsert;
@@ -96,6 +96,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
         popuniCvecareIzBaze();
         popuniKupceIzBaze();
         popuniAranzmaneIzBaze();
+        btnSendEmail.setVisible(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         TableModelStavkaOtpremnice tmodel = new TableModelStavkaOtpremnice();
         tmodel.setKof(this);
@@ -110,6 +111,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
         initComponents();
         setTitle("Promeni otpremnicu");
         setResizable(false);
+        btnSendEmail.setVisible(true);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         popuniCvecareIzBaze();
@@ -169,6 +171,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
+        btnSendEmail = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -276,6 +279,11 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
         txtCenaSaPDVPopust.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         txtKolicina.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtKolicina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtKolicinaActionPerformed(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel9.setText("Cena bez PDV-a");
@@ -333,6 +341,15 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
 
         jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabel18.setText("Otpremnica");
+
+        btnSendEmail.setBackground(new java.awt.Color(153, 255, 204));
+        btnSendEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnSendEmail.setText("Pošalji PDF");
+        btnSendEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSendEmailActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -422,12 +439,15 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(224, 224, 224)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtUkupnoBez, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtUkupnoSaPDV, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
+                    .addComponent(btnSendEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtUkupnoBez, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtUkupnoSaPDV, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -516,7 +536,8 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnOdustani, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnOdustani, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSendEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22))
         );
 
@@ -530,10 +551,6 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
 
-        /*if (tableStavke.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(this, "Nije moguce sacuvati otpremnicu bez ijedne stavke!", "Greska", JOptionPane.ERROR_MESSAGE);
-            return;
-        }*/
         Date datumIzdavanja = new Date();
         try {
 
@@ -560,13 +577,13 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
                 tmodel.setKof(this);
                 ArrayList<StavkaOtpremnice> stavke = tmodel.getListaStavki();
                 otpremnicaInsert = new Otpremnica(-1, ukupnaBez, ukupnaSa, ukupanPopust, datumIzdavanja, c, k, stavke);
-                System.out.println("otp:"+otpremnicaInsert);
-                       
+                System.out.println("otp:" + otpremnicaInsert);
+
                 Controller.getInstance().dodajOtpremnicu(otpremnicaInsert);
                 JOptionPane.showMessageDialog(this, "Sistem je sačuvao otpremnicu", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
             } catch (Exception ex) {
-                 JOptionPane.showMessageDialog(this, "Sistem ne može da sačuva otpremnicu!", "Greška", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem ne može da sačuva otpremnicu!", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
 
             }
@@ -603,6 +620,10 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
 
         Aranzman a = (Aranzman) comboAranzmani.getSelectedItem();
         int kolicina = Integer.parseInt(txtKolicina.getText());
+        if (kolicina <= 0) {
+            JOptionPane.showMessageDialog(this, "Količina mora biti veća od 0!", "Greška", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         if (!Validator.isValidNumber(txtCenaBezPDVPopust.getText()) || !Validator.isValidNumber(txtCenaSaPDVPopust.getText())) {
             JOptionPane.showMessageDialog(this, "Pogrešan format cene!", "Greška", JOptionPane.ERROR_MESSAGE);
 
@@ -637,7 +658,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
         // TODO add your handling code here:
         Aranzman a = (Aranzman) comboAranzmani.getSelectedItem();
         double cenaBez = Math.floor(a.getCenaBezPDV() * (1 - a.getPopust() / 100) * 100.0) / 100.0;
-        double cenaSa = Math.floor((a.getCenaBezPDV() * (1 - a.getPopust() / 100)) *(1 + (a.getPoreskaStopa().getVrednost()) / 100) * 100) / 100.0;
+        double cenaSa = Math.floor((a.getCenaBezPDV() * (1 - a.getPopust() / 100)) * (1 + (a.getPoreskaStopa().getVrednost()) / 100) * 100) / 100.0;
         txtCenaBezPDVPopust.setText(cenaBez + "");
         txtCenaBezPDVBezPopusta.setText(a.getCenaBezPDV() + "");
         txtCenaSaPDVBezPopusta.setText(a.getCenaSaPDV() + "");
@@ -656,11 +677,11 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
         tmodel.obrisiStavkuOtpremnice(selected);
         tableStavke.setModel(tmodel);
         ukupnaSa = tmodel.getUkupnaCenaSaPDV();
-        ukupnaBez =tmodel.getUkupnaCenaBezPDV();
-        ukupanPopust =tmodel.getUkupanPopust();
-        txtUkupnoBez.setText(tmodel.getUkupnaCenaBezPDV()+"");
-        txtUkupnoSaPDV.setText( tmodel.getUkupnaCenaSaPDV()+"");
-        txtUkupanPopust.setText(tmodel.getUkupanPopust()+"");
+        ukupnaBez = tmodel.getUkupnaCenaBezPDV();
+        ukupanPopust = tmodel.getUkupanPopust();
+        txtUkupnoBez.setText(tmodel.getUkupnaCenaBezPDV() + "");
+        txtUkupnoSaPDV.setText(tmodel.getUkupnaCenaSaPDV() + "");
+        txtUkupanPopust.setText(tmodel.getUkupanPopust() + "");
 
     }//GEN-LAST:event_btnUkloniStavkuActionPerformed
 
@@ -680,11 +701,64 @@ public class KreirajOtpremnicuForma extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPopustActionPerformed
 
+    private void txtKolicinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKolicinaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtKolicinaActionPerformed
+
+    private void btnSendEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendEmailActionPerformed
+        try {
+            // TODO add your handling code here:
+            Otpremnica proveraPolja = new Otpremnica();
+            Date datumIzdavanja = new Date();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            datumIzdavanja = dateFormat.parse(txtDatumIzdavanja.getText());
+            Cvecar c = (Cvecar) comboBoxCvecar.getSelectedItem();
+            Kupac k = (Kupac) comboBoxKupac.getSelectedItem();
+            TableModelStavkaOtpremnice tmodel = (TableModelStavkaOtpremnice) tableStavke.getModel();
+            tmodel.setKof(this);
+            ArrayList<StavkaOtpremnice> stavke = tmodel.getListaStavki();
+            proveraPolja.setId(otpremnicaChange.getId());
+            proveraPolja.setCvecar(c);
+            proveraPolja.setDatumIzdavanja(datumIzdavanja);
+            proveraPolja.setKupac(k);
+            proveraPolja.setUkupanIznosBezPDv(ukupnaBez);
+            proveraPolja.setUkupanIznosSaPDV(ukupnaSa);
+            proveraPolja.setUkupanPopust(ukupanPopust);
+            proveraPolja.setStavkeOtpremnice(stavke);
+            if (!otpremnicaChange.equals(proveraPolja)) {
+                JOptionPane.showMessageDialog(this, "Imate nesačuvane izmene! Sačuvajte otpremnicu i pokušajte ponovo.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            try {
+                int odgovor = JOptionPane.showConfirmDialog(this,
+                        "Da li ste sigurni da želite da se pošaljete PDF otpremnice na " + k.getEmail() + "?",
+                        "Potvrda",
+                        JOptionPane.YES_NO_OPTION);
+
+                if (odgovor == JOptionPane.NO_OPTION) {
+                    return;
+                } else if (odgovor == JOptionPane.YES_OPTION) {
+                   // System.out.println("otp1:" + otpremnicaChange.toString());
+                    System.out.println("len1:" + otpremnicaChange.getStavkeOtpremnice().size());
+
+                    Controller.getInstance().posaljiOtpremnicuNaMejl(otpremnicaChange);
+                    JOptionPane.showMessageDialog(this, "Otpremnica je poslata na mejl!", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Greška pri slanju mejla: " + ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (ParseException ex) {
+            Logger.getLogger(KreirajOtpremnicuForma.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnSendEmailActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnDodajStavku;
     private javax.swing.JButton btnOdustani;
     private javax.swing.JButton btnSave;
+    private javax.swing.JButton btnSendEmail;
     private javax.swing.JButton btnUkloniStavku;
     private javax.swing.JComboBox<Aranzman> comboAranzmani;
     private javax.swing.JComboBox<Cvecar> comboBoxCvecar;

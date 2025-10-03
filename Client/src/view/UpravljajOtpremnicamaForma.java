@@ -22,7 +22,7 @@ import javax.swing.JTable;
  *
  * @author Saki
  */
-public class UpravljajOtpremnicamaForma extends javax.swing.JDialog {
+public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
 
     public JTable getTblOtp() {
         return tblOtp;
@@ -253,8 +253,7 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JDialog {
                     //throw new RuntimeException("Simulacija greske");
                    TableModelOtpremnica model = (TableModelOtpremnica) tblOtp.getModel();
                     Otpremnica otpremnica = model.getOtpremnica(selektovanRed);
-                    JOptionPane.showMessageDialog(this, "Sistem je našao otpremnicu", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
-                  System.out.println("OTPREMNICA BRE:"+otpremnica);
+                    JOptionPane.showMessageDialog(this, "Sistem je našao otpremnicu", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);                  
                     KreirajOtpremnicuForma kof = new KreirajOtpremnicuForma(this, otpremnica);
                     kof.setVisible(true);
                     TableModelOtpremnica tmodel = new TableModelOtpremnica();

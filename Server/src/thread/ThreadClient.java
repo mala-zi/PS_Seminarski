@@ -142,9 +142,9 @@ public class ThreadClient extends Thread {
                 case Operation.PRETRAZI_OTPREMNICU:
                     response.setData(ServerController.getInstance().pretraziOtpremnicu((Otpremnica) request.getData()));
                     break;
-                case Operation.VRATI_LISTU_STAVKI_OTPREMNICE:
+                /*case Operation.VRATI_LISTU_STAVKI_OTPREMNICE:
                     response.setData(ServerController.getInstance().ucitajStavkeOtpremniceIzBaze((Otpremnica) request.getData()));
-                    break;
+                    break;*/
                 case Operation.PROMENI_STRUCNASPREMA:
                     ServerController.getInstance().promeniStrSpremu((StrucnaSprema) request.getData());
                     break;
@@ -167,6 +167,9 @@ public class ThreadClient extends Thread {
                     String korisnickoIme = (String) request.getData();
                     ThreadServer.ukloniAktivnogKorisnika(korisnickoIme);
                     ulogovaniKorisnik = null;
+                    break;
+                case Operation.POSALJI_OTPREMNICU_NA_MEJL:
+                    ServerController.getInstance().posaljiOtpremnicuNaMejl((Otpremnica) request.getData());
                     break;
                 default:
                     return null;

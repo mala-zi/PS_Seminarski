@@ -24,9 +24,9 @@ public class SOPromeniOtpremnicu extends OpstaSistemskaOperacija {
 
         Otpremnica otpremnica = (Otpremnica) odo;
 
-        if (otpremnica.getStavkeOtpremnice().isEmpty()) {
+      /*  if (otpremnica.getStavkeOtpremnice().isEmpty()) {
             throw new Exception("Otpremnica mora imati stavke!");
-        }
+        }*/
     }
 
     @Override

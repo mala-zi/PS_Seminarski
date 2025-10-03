@@ -158,9 +158,9 @@ public class Controller {
         return (ArrayList<Otpremnica>) sendRequest(Operation.VRATI_LISTU_SVI_OTPREMNICA, null);
     }
 
-    public ArrayList<StavkaOtpremnice> ucitajStavkeOtpremniceIzBaze(Otpremnica otpremnica) throws Exception {
+   /* public ArrayList<StavkaOtpremnice> ucitajStavkeOtpremniceIzBaze(Otpremnica otpremnica) throws Exception {
         return (ArrayList<StavkaOtpremnice>) sendRequest(Operation.VRATI_LISTU_STAVKI_OTPREMNICE, otpremnica);
-    }
+    }*/
 
     public void obrisiOtpremnicu(Otpremnica otpremnicaDelete) throws Exception {
         sendRequest(Operation.OBRISI_OTPREMNICU, otpremnicaDelete);
@@ -182,5 +182,9 @@ public class Controller {
 
     public ArrayList<Kupac> pretraziKupce(Kupac filter) throws Exception {
         return (ArrayList<Kupac>) sendRequest(Operation.PRETRAZI_KUPCA, filter);
+    }
+
+    public void posaljiOtpremnicuNaMejl(Otpremnica otpremnica) throws Exception {
+        sendRequest(Operation.POSALJI_OTPREMNICU_NA_MEJL, otpremnica);
     }
 }

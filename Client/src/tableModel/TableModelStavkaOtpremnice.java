@@ -31,10 +31,16 @@ public class TableModelStavkaOtpremnice extends AbstractTableModel {
     }
 
     public TableModelStavkaOtpremnice(Otpremnica otpremnica) {
-        try {
+        /*try {
             listaStavki = Controller.getInstance().ucitajStavkeOtpremniceIzBaze(otpremnica);
+           
         } catch (Exception ex) {
             Logger.getLogger(TableModelStavkaOtpremnice.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
+        if (otpremnica.getStavkeOtpremnice() != null) {
+            listaStavki = otpremnica.getStavkeOtpremnice();
+        } else {
+            listaStavki = new ArrayList<>();
         }
     }
 
@@ -107,15 +113,15 @@ public class TableModelStavkaOtpremnice extends AbstractTableModel {
         if (columnIndex == 1) {
             st.setKolicina(Integer.parseInt((String) value));
             st.setCenaBezPDV(Math.floor(st.getAranzman().getCenaBezPDV() * (1 - st.getAranzman().getPopust() / 100) * 100.0) / 100.0);
-            st.setCenaSaPDV(Math.floor( (st.getAranzman().getCenaBezPDV() * (1 - st.getAranzman().getPopust() / 100)) * (1 + st.getAranzman().getPoreskaStopa().getVrednost() / 100) * 100.0 ) / 100.0);
+            st.setCenaSaPDV(Math.floor((st.getAranzman().getCenaBezPDV() * (1 - st.getAranzman().getPopust() / 100)) * (1 + st.getAranzman().getPoreskaStopa().getVrednost() / 100) * 100.0) / 100.0);
             st.setIznosBezPDV(izracunajIznos(st.getKolicina(), st.getCenaBezPDV()));
             st.setIznosSaPDV(izracunajIznos(st.getKolicina(), st.getCenaSaPDV()));
             kof.setUkupnaSa(getUkupnaCenaSaPDV());
             kof.setUkupnaBez(getUkupnaCenaBezPDV());
             kof.setUkupanPopust(getUkupanPopust());
-            kof.getTxtUkupanPopust().setText(getUkupanPopust()+"");
-            kof.getTxtUkupnoBez().setText(getUkupnaCenaBezPDV()+"");
-            kof.getTxtUkupnoSaPDV().setText(getUkupnaCenaSaPDV()+"");
+            kof.getTxtUkupanPopust().setText(getUkupanPopust() + "");
+            kof.getTxtUkupnoBez().setText(getUkupnaCenaBezPDV() + "");
+            kof.getTxtUkupnoSaPDV().setText(getUkupnaCenaSaPDV() + "");
             fireTableRowsUpdated(rowIndex, rowIndex);
         }
     }
@@ -139,7 +145,7 @@ public class TableModelStavkaOtpremnice extends AbstractTableModel {
     }
 
     private double izracunajIznos(double kolicina, double cena) {
-        return  kolicina * cena;
+        return kolicina * cena;
     }
 
     public void obrisiStavkuOtpremnice(int selected) {
