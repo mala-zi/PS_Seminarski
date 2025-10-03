@@ -62,7 +62,7 @@ public class TableModelKupac extends AbstractTableModel {
             case 6:
                 return k.getEmail();
             case 7:
-                return k.getMesto().getGrad();
+                return k.getMesto().getGrad()+", "+k.getMesto().getUlica();
             default:
                 return null;
         }

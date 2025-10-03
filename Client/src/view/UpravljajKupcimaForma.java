@@ -11,6 +11,7 @@ import domain.Kupac;
 import domain.Mesto;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -331,6 +332,7 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
             defaultMesto.setGrad("Bilo koji");
             comboMesto.addItem(defaultMesto);
             List<Mesto> mesto = Controller.getInstance().ucitajMestaIzBaze();
+            mesto.sort(Comparator.comparing(Mesto::getGrad, String.CASE_INSENSITIVE_ORDER));
             for (Mesto m : mesto) {
                 comboMesto.addItem(m);
             }

@@ -71,12 +71,7 @@ public class TableModelOtpremnica extends AbstractTableModel {
     public String getColumnName(int column) {
         return kolone[column];
     }
-
-    @Override
-    public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return columnIndex == 1;
-    }
-
+    
     public Otpremnica getOtpremnica(int row) {
         return lista.get(row);
     }

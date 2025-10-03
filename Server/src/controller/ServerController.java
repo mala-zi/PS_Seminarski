@@ -185,7 +185,7 @@ public class ServerController {
         (new SOObrisiOtpremnicu()).templateExecute(otpremnicaDelete);
     }
 
-   /* public ArrayList<StavkaOtpremnice> ucitajStavkeOtpremniceIzBaze(Otpremnica otpremnica) throws Exception {//mozda promenim na Arraylist posle
+    /* public ArrayList<StavkaOtpremnice> ucitajStavkeOtpremniceIzBaze(Otpremnica otpremnica) throws Exception {//mozda promenim na Arraylist posle
         SOVratiListuSviStavkiOtpremnice so = new SOVratiListuSviStavkiOtpremnice();
         StavkaOtpremnice s = new StavkaOtpremnice();
         s.setOtpremnica(otpremnica);
@@ -193,7 +193,6 @@ public class ServerController {
         return so.getLista();
 
     }*/
-
     public ArrayList<Otpremnica> pretraziOtpremnicu(Otpremnica kriterijum) throws Exception {
         SOPretraziOtpremnicu so = new SOPretraziOtpremnicu();
         so.templateExecute(kriterijum);
@@ -219,11 +218,23 @@ public class ServerController {
     public void posaljiOtpremnicuNaMejl(Otpremnica otpremnica) throws Exception {
         File pdf = PDFGenerator.generateOtpremnicaPdf(otpremnica);
         String email = otpremnica.getKupac().getEmail();
-        System.out.println("usao1");
+        String uvod = """
+            Poštovani,
+
+            U prilogu Vam dostavljamo otpremnicu za Vašu porudžbinu iz naše cvećare Madeira.
+            Molimo Vas da dokument pažljivo pregledate, a u slučaju bilo kakvih pitanja ili nejasnoća,
+            slobodno nas kontaktirajte.
+
+            Hvala što ste izabrali našu cvećaru.
+
+            Srdačan pozdrav,
+            Vaša Cvećara Madeira
+            """;
+
         EmailSender.sendEmailWithAttachment(
                 email,
                 "Otpremnica br. " + otpremnica.getId(),
-                "Poštovani, u prilogu se nalazi otpremnica.",
+                uvod,
                 pdf
         );
     }

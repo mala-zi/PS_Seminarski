@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public class TableModelCvecar extends AbstractTableModel {
     private ArrayList<Cvecar> listaCvecara;
-    private String[] kolone={"Ime","Prezime"};
+    private String[] kolone={"ID","Ime","Prezime"};
 
     public TableModelCvecar() {
         try {
@@ -42,9 +42,12 @@ public class TableModelCvecar extends AbstractTableModel {
         Cvecar c=listaCvecara.get(rowIndex);
         switch(columnIndex){
             case 0:
-                return c.getIme();
+                return c.getId();
             case 1:
+                return c.getIme();
+            case 2:
                 return c.getPrezime();
+                   
             default:
                 return null;
                         

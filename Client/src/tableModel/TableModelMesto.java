@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  */
 public class TableModelMesto  extends AbstractTableModel{
     private ArrayList<Mesto> listaMesta;
-    private String[] kolone={"Grad","Poštanski Broj","Ulica"};
+    private String[] kolone={"ID","Grad","Poštanski Broj","Ulica"};
 
     public TableModelMesto() {
         try {
@@ -43,10 +43,12 @@ public class TableModelMesto  extends AbstractTableModel{
         Mesto m=listaMesta.get(rowIndex);
         switch(columnIndex){
             case 0:
-                return m.getGrad();
+                return m.getId();
             case 1:
-                return m.getPostanskiBroj();
+                return m.getGrad();
             case 2:
+                return m.getPostanskiBroj();
+            case 3:
                 return m.getUlica();
             default:
                 return null;

@@ -22,7 +22,7 @@ public class PDFGenerator {
         System.out.println("usao2");
         String nazivFajla = "Otpremnica_" + otpremnica.getId() + ".pdf";
         File file = new File(nazivFajla);
-       // System.out.println("otp:" + otpremnica.toString());
+        // System.out.println("otp:" + otpremnica.toString());
         Document document = new Document(PageSize.A4, 50, 50, 50, 50);
         PdfWriter.getInstance(document, new FileOutputStream(file));
         document.open();
@@ -39,6 +39,23 @@ public class PDFGenerator {
         document.add(new Paragraph("Adresa: Vojvode Stepe 203, Beograd, 11000", normalFont));
         document.add(new Paragraph("Email: info@cvecaramadeira.rs", normalFont));
         document.add(Chunk.NEWLINE);
+
+        java.net.URL imageUrl = PDFGenerator.class.getResource("logo.png");
+        if (imageUrl == null) {
+            throw new RuntimeException("Logo nije pronađen!");
+        }
+        Image logo = Image.getInstance(imageUrl);
+        logo.scaleToFit(100, 100);
+        Rectangle page = document.getPageSize();
+
+        float paddingTop = 50f;   
+        float paddingRight = 50f; 
+        float x = page.getRight() - logo.getScaledWidth() - paddingRight;
+        float y = page.getTop() - logo.getScaledHeight() - paddingTop;
+
+        logo.setAbsolutePosition(x, y);
+        document.add(logo);
+        document.add(logo);
 
         Paragraph naslov = new Paragraph("Otpremnica br. " + otpremnica.getId(), naslovFont);
         naslov.setAlignment(Element.ALIGN_CENTER);

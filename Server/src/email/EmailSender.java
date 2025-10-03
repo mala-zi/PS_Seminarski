@@ -50,7 +50,7 @@ public class EmailSender {
         mc.addMailcap("message/rfc822;; x-java-content- handler=com.sun.mail.handlers.message_rfc822");
         
         Message message = new MimeMessage(session);
-        message.setFrom(new InternetAddress(from));
+        message.setFrom(new InternetAddress(from, "Cvećara Madeira"));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
         message.setSubject(subject);
 
@@ -66,7 +66,7 @@ public class EmailSender {
 
         message.setContent(multipart);
         Transport.send(message);
-       
+
     }
 
 }

@@ -18,7 +18,7 @@ import javax.swing.table.AbstractTableModel;
 public class TableModelAranzman extends AbstractTableModel {
 
     private ArrayList<Aranzman> listaAranzmana;
-    private String[] kolone = {"Naziv", "Poreska Stopa", "Cena bez PDV-a", "Cena sa PDV-om", "Opis"};
+    private String[] kolone = {"ID","Naziv", "Poreska Stopa", "Cena bez PDV-a", "Cena sa PDV-om", "Opis"};
 
     public TableModelAranzman() {
         try {
@@ -43,14 +43,16 @@ public class TableModelAranzman extends AbstractTableModel {
         Aranzman a = listaAranzmana.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return a.getNaziv();
+                return a.getId();
             case 1:
-                return a.getPoreskaStopa().getVrednost();
+                return a.getNaziv();
             case 2:
-                return a.getCenaBezPDV();
+                return a.getPoreskaStopa().getVrednost();
             case 3:
-                return a.getCenaSaPDV();
+                return a.getCenaBezPDV();
             case 4:
+                return a.getCenaSaPDV();
+            case 5:
                 return a.getOpis();
             default:
                 return null;

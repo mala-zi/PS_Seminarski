@@ -18,11 +18,11 @@ import javax.swing.table.AbstractTableModel;
 public class TableModelStrucnaSprema extends AbstractTableModel {
 
     private ArrayList<StrucnaSprema> listaSs;
-    private final String[] kolone = {"Naziv", "Nivo", "Sertifikat"};
+    private final String[] kolone = {"ID", "Naziv", "Nivo", "Sertifikat"};
 
     public TableModelStrucnaSprema() {
         try {
-            listaSs= Controller.getInstance().ucitajStrucneSpremeIzBaze();
+            listaSs = Controller.getInstance().ucitajStrucneSpremeIzBaze();
         } catch (Exception ex) {
             Logger.getLogger(TableModelStrucnaSprema.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -43,17 +43,18 @@ public class TableModelStrucnaSprema extends AbstractTableModel {
         StrucnaSprema ss = listaSs.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return ss.getNaziv();
+                return ss.getId();
             case 1:
-                return ss.getNivo();
+                return ss.getNaziv();
             case 2:
+                return ss.getNivo();
+            case 3:
                 boolean sert = ss.isSertifikat();
-                if (sert==true) {
+                if (sert == true) {
                     return "DA";
                 } else {
-                   return "NE";
+                    return "NE";
                 }
-
             default:
                 return null;
 
@@ -65,17 +66,13 @@ public class TableModelStrucnaSprema extends AbstractTableModel {
         return kolone[column];
     }
 
-    @Override
-    public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return columnIndex == 1;
-    }
-
     public StrucnaSprema getStrucnaSprema(int row) {
         return listaSs.get(row);
     }
-     public void refresh()  {
+
+    public void refresh() {
         try {
-            listaSs=Controller.getInstance().ucitajStrucneSpremeIzBaze();
+            listaSs = Controller.getInstance().ucitajStrucneSpremeIzBaze();
             fireTableDataChanged();
         } catch (Exception ex) {
             Logger.getLogger(TableModelOtpremnica.class.getName()).log(Level.SEVERE, null, ex);
