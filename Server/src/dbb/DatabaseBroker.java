@@ -71,32 +71,6 @@ public class DatabaseBroker {
         stmt.close();
     }
 
-    public void updateNewPasswordToHash(Cvecar cvecarChange) throws SQLException {
-        String query = "SELECT lozinka FROM cvecar WHERE id=" + cvecarChange.getId();
-        Statement stmt = connection.createStatement();
-        ResultSet rs = stmt.executeQuery(query);
-        System.out.println(query);
-        while (rs.next()) {
-            String currentPass = rs.getString("lozinka");
-            System.out.println("current u bazi:" + currentPass);
-            System.out.println("sad kod cvecara:" + cvecarChange.getLozinka());
-            if (currentPass.length() == 64 && currentPass.length() == cvecarChange.getLozinka().length()) {
-                break;
-            }
-            String hashedPassword = PasswordHash.hashPassword(cvecarChange.getLozinka());
-            System.out.println("nova hesirana:" + hashedPassword);
-            cvecarChange.setLozinka(hashedPassword);
-            String updateQuery = "UPDATE cvecar SET lozinka=? WHERE id=?";
-            PreparedStatement ps = connection.prepareStatement(updateQuery);
-            ps.setString(1, hashedPassword);
-            ps.setInt(2, cvecarChange.getId());
-            ps.executeUpdate();
-        }
-        connection.commit();
-        rs.close();
-        stmt.close();
-    }
-
     public void connect() throws SQLException {
         try {
             String url = "jdbc:mysql://localhost:3306/proba1_baza";

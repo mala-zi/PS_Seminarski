@@ -166,7 +166,7 @@ public class UpravljajAranzmanimaForma extends javax.swing.JFrame {
             try {
                 Controller.getInstance().obrisiAranzman(a);
             } catch (SQLIntegrityConstraintViolationException ex) {
-                JOptionPane.showMessageDialog(this, "Ne možete obrisati aranžman jer se nalazi u stavkama otpremnice!", "Greška", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem ne može da obriše aranžman.", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             JOptionPane.showMessageDialog(this, "Sistem je uspešno obrisao aranžman.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);

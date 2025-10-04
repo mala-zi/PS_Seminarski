@@ -131,24 +131,37 @@ public class Otpremnica extends OpstiDomenskiObjekat {
             return true;
         }
         if (obj == null || getClass() != obj.getClass()) {
+            System.out.println("a");
             return false;
         }
+
         final Otpremnica other = (Otpremnica) obj;
+        
         if (!Objects.equals(this.cvecar, other.cvecar)) {
+            //System.out.println("b");
             return false;
         }
         if (!Objects.equals(this.kupac, other.kupac)) {
+          //  System.out.println("f");
+            return false;
+        }
+        if (!Objects.equals(this.datumIzdavanja, other.datumIzdavanja)) {
+            //System.out.println("m");
             return false;
         }
         if (Double.compare(this.ukupanIznosBezPDv, other.ukupanIznosBezPDv) != 0) {
+            //System.out.println("c");
             return false;
         }
         if (Double.compare(this.ukupanIznosSaPDV, other.ukupanIznosSaPDV) != 0) {
+           // System.out.println("d");
             return false;
         }
         if (Double.compare(this.ukupanPopust, other.ukupanPopust) != 0) {
+          //  System.out.println("e");
             return false;
         }
+        System.out.println("4");
         return true;
     }
 

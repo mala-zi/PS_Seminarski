@@ -44,7 +44,6 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
         setResizable(false);
         setTitle("Kreiraj cvećara");
         setLocationRelativeTo(null);
-        //setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         txtId.setVisible(false);
         jLabel5.setVisible(false);
@@ -284,8 +283,8 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
             return;
         }
         if (cvecarChange == null && txtKorisnickoIme.getText().equals("admin")) {
-            JOptionPane.showMessageDialog(this, "Izabrano korisničko ime je nedostupno!", "Greška", JOptionPane.ERROR_MESSAGE);
-            return;
+           // JOptionPane.showMessageDialog(this, "Izabrano korisničko ime je nedostupno!", "Greška", JOptionPane.ERROR_MESSAGE);
+          //  return;
         }
         if (!Validator.isValidName(txtIme.getText()) || !Validator.isValidName(txtPrezime.getText())) {
             JOptionPane.showMessageDialog(this, "Ime i prezime moraju imati samo slova!", "Greška", JOptionPane.ERROR_MESSAGE);
@@ -337,26 +336,30 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
             cvecarChange = vratiAzuriranogCvecara();//za slucaj da user promeni sifru opet moramo u bazu da bi azurirali user-a
             //a zatim da ga tako azuriranog prosledimo validaciji da bi se proverila nova sifra a ne stara
             if (cvecarChange != null) {
+                cvecarChange.setIme(ime);
+                cvecarChange.setKorisnickoIme(korisnickoIme);
+                cvecarChange.setPrezime(prezime);
+                try {
+                    listaCvecara = Controller.getInstance().ucitajCvecareIzBaze();
+                } catch (Exception ex) {
+                    Logger.getLogger(KreirajCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                for (Cvecar c : listaCvecara) {
+                    if (c.equals(cvecarChange)) {
+                        if (cvecarChange.getId() == c.getId()) {
+                            break;
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Cvećar već postoji u bazi.", "Greška", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+                    }
+                }
                 ValidationForm vf = new ValidationForm(this, cvecarChange);
                 vf.setVisible(true);
                 System.out.println("validacija:" + validation);
                 if (validation == true) {
-                    cvecarChange.setIme(ime);
-                    cvecarChange.setKorisnickoIme(korisnickoIme);
-                    cvecarChange.setPrezime(prezime);
                     try {
-                        try {
-                            listaCvecara = Controller.getInstance().ucitajCvecareIzBaze();
-                        } catch (Exception ex) {
-                            Logger.getLogger(KreirajCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-
-                        for (Cvecar c : listaCvecara) {
-                            if (c.equals(cvecarChange)) {
-                                JOptionPane.showMessageDialog(this, "Cvećar već postoji u bazi.", "Greška", JOptionPane.ERROR_MESSAGE);
-                                return;
-                            }
-                        }
                         Controller.getInstance().promeniCvecara(cvecarChange);
                         JOptionPane.showMessageDialog(this, "Sistem je zapamtio cvećara.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                         pcf.getTblCvecari().setModel(new TableModelCvecar());
@@ -413,9 +416,9 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
     private Cvecar vratiAzuriranogCvecara() {
 
         for (Cvecar c : novaLista) {
-            if (c.getKorisnickoIme().equals(cvecarChange.getKorisnickoIme())
-                    && c.getIme().equals(cvecarChange.getIme()) && c.getPrezime().equals(cvecarChange.getPrezime())) {
-                return c;
+            if (c.getKorisnickoIme().equals(cvecarChange.getKorisnickoIme())){
+                cvecarChange.setLozinka(c.getLozinka());
+                return cvecarChange;
             }
         }
         return null;

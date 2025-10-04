@@ -68,7 +68,6 @@ public class KreirajMestoForma extends javax.swing.JFrame {
         setTitle("Kreiraj mesto");
         setResizable(false);
         setLocationRelativeTo(null);
-        // setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         mestoCreate = new Mesto(-1, "", 11000, "");
         try {

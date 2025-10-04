@@ -37,7 +37,7 @@
                       <Component id="txtIme" min="-2" pref="175" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="25" max="32767" attributes="0"/>
+              <EmptySpace pref="7" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
@@ -94,7 +94,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Unesite lozinku kako bi potvrdili da ste"/>
+        <Property name="text" type="java.lang.String" value="Unesite lozinku kako biste potvrdili da ste"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="txtIme">

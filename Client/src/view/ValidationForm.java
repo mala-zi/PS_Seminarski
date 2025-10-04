@@ -73,7 +73,7 @@ public class ValidationForm extends javax.swing.JDialog {
         jLabel1.setText("Lozinka");
 
         txtTitle.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtTitle.setText("Unesite lozinku kako bi potvrdili da ste");
+        txtTitle.setText("Unesite lozinku kako biste potvrdili da ste");
 
         txtIme.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
@@ -94,7 +94,7 @@ public class ValidationForm extends javax.swing.JDialog {
                         .addComponent(txtTitle)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtIme, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(7, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnValidate)

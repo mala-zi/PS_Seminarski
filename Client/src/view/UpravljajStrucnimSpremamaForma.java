@@ -200,7 +200,7 @@ public class UpravljajStrucnimSpremamaForma extends javax.swing.JFrame {
             try {
                 Controller.getInstance().obrisiStrSprema(zaBrisanje);
             } catch (SQLIntegrityConstraintViolationException ex) {
-                JOptionPane.showMessageDialog(this, "Ne možete obrisati stručnu spremu jer je povezana sa cvećarima!", "Greška", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem ne može da obriše stručnu spremu.", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             JOptionPane.showMessageDialog(this, "Sistem je uspešno obrisao stručnu spremu.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);

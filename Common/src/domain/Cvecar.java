@@ -154,11 +154,6 @@ public class Cvecar extends OpstiDomenskiObjekat {
         return hash;
     }
 
-    /*if (this.korisnickoIme != null && other.korisnickoIme != null
-                && this.lozinka != null && other.lozinka != null) {
-            return this.korisnickoIme.equals(other.korisnickoIme)
-                    && this.lozinka.equals(other.lozinka);
-        }*/
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -168,19 +163,10 @@ public class Cvecar extends OpstiDomenskiObjekat {
             return false;
         }
         final Cvecar other = (Cvecar) obj;
-
-        if (this.id == other.id
-                && Objects.equals(this.korisnickoIme, other.korisnickoIme)
-                && Objects.equals(this.lozinka, other.lozinka)) {
-            return false;
-        }
-
-        if (!Objects.equals(this.id, other.id)
-                && Objects.equals(this.korisnickoIme, other.korisnickoIme)
-                && Objects.equals(this.lozinka, other.lozinka)) {
+        
+        if (Objects.equals(this.korisnickoIme, other.korisnickoIme)) {     
             return true;
         }
-
         return false;
     }
 

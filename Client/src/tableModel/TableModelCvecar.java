@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public class TableModelCvecar extends AbstractTableModel {
     private ArrayList<Cvecar> listaCvecara;
-    private String[] kolone={"ID","Ime","Prezime"};
+    private String[] kolone={"ID","Ime","Prezime","Korisničko ime"};
 
     public TableModelCvecar() {
         try {
@@ -47,7 +47,8 @@ public class TableModelCvecar extends AbstractTableModel {
                 return c.getIme();
             case 2:
                 return c.getPrezime();
-                   
+            case 3:
+                return c.getKorisnickoIme();
             default:
                 return null;
                         

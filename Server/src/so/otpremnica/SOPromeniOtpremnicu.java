@@ -21,22 +21,17 @@ public class SOPromeniOtpremnicu extends OpstaSistemskaOperacija {
         if (!(odo instanceof Otpremnica)) {
             throw new Exception("Prosleđeni objekat nije instanca klase Otpremnica !");
         }
-
-        Otpremnica otpremnica = (Otpremnica) odo;
-
-      /*  if (otpremnica.getStavkeOtpremnice().isEmpty()) {
-            throw new Exception("Otpremnica mora imati stavke!");
-        }*/
     }
 
     @Override
     protected void execute(OpstiDomenskiObjekat odo) throws Exception {
         DatabaseBroker.getInstance().update(odo);
         Otpremnica otpremnica = (Otpremnica) odo;
-        DatabaseBroker.getInstance().delete(otpremnica.getStavkeOtpremnice().get(0));
-
-        for (StavkaOtpremnice stavkaOtpremnice : otpremnica.getStavkeOtpremnice()) {
-            DatabaseBroker.getInstance().insert(stavkaOtpremnice);
+        if (!otpremnica.getStavkeOtpremnice().isEmpty()) {
+            DatabaseBroker.getInstance().delete(otpremnica.getStavkeOtpremnice().get(0));
+            for (StavkaOtpremnice stavkaOtpremnice : otpremnica.getStavkeOtpremnice()) {
+                DatabaseBroker.getInstance().insert(stavkaOtpremnice);
+            }
         }
     }
 

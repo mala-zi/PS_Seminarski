@@ -23,12 +23,6 @@ public class SOKreirajOtpremnicu extends OpstaSistemskaOperacija {
         if (!(odo instanceof Otpremnica)) {
             throw new Exception("Prosleđeni objekat nije instanca klase Otpremnica!");
         }
-
-        Otpremnica otpremnica = (Otpremnica) odo;
-
-        //if (otpremnica.getStavkeOtpremnice().isEmpty()) {
-        //    throw new Exception("Otpremnica mora imati stavke!");
-        // }
     }
 
     @Override

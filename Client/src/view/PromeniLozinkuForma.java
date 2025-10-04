@@ -6,6 +6,7 @@ package view;
 
 import controller.Controller;
 import domain.Cvecar;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -23,16 +24,17 @@ import validator.Validator;
 public class PromeniLozinkuForma extends javax.swing.JDialog {
 
     private Cvecar cvecar;
+    private ArrayList<Cvecar> listaCvecara;
 
     /**
      * Creates new form PromeniLozinkuForma
      */
-    public PromeniLozinkuForma(java.awt.Frame parent, boolean modal, Cvecar c) {
+    public PromeniLozinkuForma(java.awt.Frame parent, boolean modal, Cvecar cvecarChange) {
         super(parent, modal);
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
-        cvecar = c;
+        cvecar = cvecarChange;
         txtNovaLozinka.setEnabled(false);
         btnChange.setEnabled(false);
         txtErrorPass.setVisible(false);
@@ -137,6 +139,22 @@ public class PromeniLozinkuForma extends javax.swing.JDialog {
             String hashed = PasswordHash.hashPassword(nova);
             System.out.println("hashed nova:" + hashed);
             cvecar.setLozinka(hashed);
+            try {
+                    listaCvecara = Controller.getInstance().ucitajCvecareIzBaze();
+                } catch (Exception ex) {
+                    Logger.getLogger(KreirajCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                for (Cvecar c : listaCvecara) {
+                    if (c.equals(cvecar)) {
+                        if (cvecar.getId() == c.getId()) {
+                            break;
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Cvećar već postoji u bazi.", "Greška", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+                    }
+                }
             Controller.getInstance().promeniCvecara(cvecar);
             JOptionPane.showMessageDialog(this, "Lozinka uspešno promenjena!", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();

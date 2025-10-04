@@ -32,8 +32,7 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
         initComponents();
         setResizable(false);
         setTitle("Kreiraj stručnu spremu");
-        setLocationRelativeTo(null);
-        //setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);       
+        setLocationRelativeTo(null);      
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         comboSertifikat.addItem("NE");
         comboSertifikat.addItem("DA");

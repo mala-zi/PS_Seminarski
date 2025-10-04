@@ -35,7 +35,6 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
         setResizable(false);
         setLocationRelativeTo(null);
         popuniCombo();
-        //setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         PoreskaStopa ps = (PoreskaStopa) comboPoreskaStopa.getSelectedItem();
         aranzmanCreate = new Aranzman(-1, "", "", ps, 0, 0, 0);

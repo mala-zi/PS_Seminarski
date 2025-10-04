@@ -203,7 +203,7 @@ public class PregledMestaForma extends javax.swing.JFrame {
             try {
                 Controller.getInstance().obrisiMesto(m);
             } catch (SQLIntegrityConstraintViolationException ex) {
-                JOptionPane.showMessageDialog(this, "Ne možete obrisati mesto jer je vezano za kupca!", "Greška", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem ne može da obriše mesto.", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             JOptionPane.showMessageDialog(this, "Sistem je uspešno obrisao mesto.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);

@@ -117,24 +117,32 @@ public class KreirajOtpremnicuForma extends javax.swing.JFrame {
             popuniKupceIzBaze();
             popuniAranzmaneIzBaze();
             btnSendEmail.setVisible(false);
-            //setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
             TableModelStavkaOtpremnice tmodel = new TableModelStavkaOtpremnice();
             tmodel.setKof(this);
             tableStavke.setModel(tmodel);
             Cvecar c = (Cvecar) comboBoxCvecar.getSelectedItem();
             Kupac k = (Kupac) comboBoxKupac.getSelectedItem();
-            otpremnicaCreate = new Otpremnica(-1, -1, -1, -1, new Date(), c, k, new ArrayList<StavkaOtpremnice>());
+
+            java.sql.Date sqlDate = java.sql.Date.valueOf(java.time.LocalDate.now());
+
+            otpremnicaCreate = new Otpremnica();
+            otpremnicaCreate.setId(-1);
+            otpremnicaCreate.setDatumIzdavanja(sqlDate);
+            otpremnicaCreate.setCvecar(c);
+            otpremnicaCreate.setKupac(k);
+            otpremnicaCreate.setUkupanIznosBezPDv(-1);
+            otpremnicaCreate.setUkupanIznosSaPDV(-1);
+            otpremnicaCreate.setUkupanPopust(-1);
+            otpremnicaCreate.setStavkeOtpremnice(new ArrayList<StavkaOtpremnice>());
             Controller.getInstance().kreirajOtpremnicu(otpremnicaCreate);
             ArrayList<Otpremnica> lista = Controller.getInstance().ucitajOtpremniceIzBaze();
             for (Otpremnica o : lista) {
                 System.out.println("id o>" + o.toString());
-                    System.out.println("id c>" + otpremnicaCreate.toString());
+                System.out.println("id c>" + otpremnicaCreate.toString());
                 if (o.equals(otpremnicaCreate)) {
                     System.out.println("nasao");
                     otpremnicaCreate.setId(o.getId());
-                    System.out.println("id o>" + o.getId());
-                    System.out.println("id c>" + otpremnicaCreate.getId());
                 }
             }
             JOptionPane.showMessageDialog(this, "Sistem je kreirao otpremnicu.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
@@ -701,6 +709,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JFrame {
                         return;
                     }
                 }
+                System.out.println("ddsd:"+otpremnicaCreate.toString());
                 Controller.getInstance().promeniOtpremnicu(otpremnicaCreate);
                 JOptionPane.showMessageDialog(this, "Sistem je zapamtio otpremnicu.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
@@ -958,6 +967,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JFrame {
         for (Cvecar c : cvecari) {
             comboBoxCvecar.addItem(c);
         }
+        comboBoxCvecar.setSelectedItem(session.Session.getInstance().getUlogovani());
     }
 
     private void popuniKupceIzBaze() throws Exception {

@@ -205,7 +205,7 @@ public class UpravljajCvecarimaForma extends javax.swing.JFrame {
             try {
                 Controller.getInstance().obrisiCvecara(cvecarDelete);
             } catch (SQLIntegrityConstraintViolationException ex) {
-                JOptionPane.showMessageDialog(this, "Ne možete obrisati cvećara jer je povezan sa otpremnicama!", "Greška", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem ne može da obriše cvećara.", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             JOptionPane.showMessageDialog(this, "Sistem je uspešno obrisao cvećara.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
