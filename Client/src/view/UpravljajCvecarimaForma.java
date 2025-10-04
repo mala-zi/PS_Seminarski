@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.table.TableColumn;
 import tableModel.TableModelCvecar;
 
 /**
@@ -48,6 +49,10 @@ public class UpravljajCvecarimaForma extends javax.swing.JFrame {
             setLocationRelativeTo(null);
             setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             btnPromeni.setEnabled(false);
+            TableColumn idColumn =  tblCvecari.getColumnModel().getColumn(0); 
+            idColumn.setPreferredWidth(30);
+            idColumn.setMinWidth(20);       
+            idColumn.setMaxWidth(40);
         } catch (Exception ex) {
             Logger.getLogger(UpravljajCvecarimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }

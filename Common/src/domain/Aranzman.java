@@ -50,6 +50,7 @@ public class Aranzman extends OpstiDomenskiObjekat {
         return id;
     }
 
+    @Override
     public void setId(int id) {
         this.id = id;
     }
@@ -175,14 +176,14 @@ public class Aranzman extends OpstiDomenskiObjekat {
 
     @Override
     public String vrednostiZaInsert() {
-        return  "'"+naziv + "', '" + opis + "', " + poreskaStopa.getId() + ", "
-                + cenaBezPDV + ", " + cenaSaPDV+", "+popust;
+        return "'" + naziv + "', '" + opis + "', " + poreskaStopa.getId() + ", "
+                + cenaBezPDV + ", " + cenaSaPDV + ", " + popust;
     }
 
     @Override
     public String vrednostiZaUpdate() {
         return "naziv = '" + naziv + "', opis = '" + opis + "', poreskaStopa = " + poreskaStopa.getId()
-                + ", cenaBezPDV = " + cenaBezPDV + ", cenaSaPDV = " + cenaSaPDV+", popust = "+popust;
+                + ", cenaBezPDV = " + cenaBezPDV + ", cenaSaPDV = " + cenaSaPDV + ", popust = " + popust;
     }
 
     @Override

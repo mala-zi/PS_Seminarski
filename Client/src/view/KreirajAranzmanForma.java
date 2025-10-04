@@ -19,36 +19,46 @@ import tableModel.TableModelAranzman;
  * @author Saki
  */
 public class KreirajAranzmanForma extends javax.swing.JFrame {
-    
-    private Aranzman aranzman;
+
+    private Aranzman aranzmanChange;
+    private Aranzman aranzmanCreate;
     private UpravljajAranzmanimaForma uaf;
 
     /**
      * Creates new form KreirajAranzmanForma
      */
     public KreirajAranzmanForma() {
-       initComponents();
-       setTitle("Kreiraj aranžman");
+        initComponents();
+        setTitle("Kreiraj aranžman");
         setResizable(false);
-        setLocationRelativeTo(null);       
+        setLocationRelativeTo(null);
         popuniCombo();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        PoreskaStopa ps = (PoreskaStopa) comboPoreskaStopa.getSelectedItem();
+        aranzmanCreate = new Aranzman(-1, "", "", ps, 0, 0, 0);
+        try {
+            Controller.getInstance().kreirajAranzman(aranzmanCreate);
+            JOptionPane.showMessageDialog(this, "Sistem je kreirao aranžman", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception ex) {
+            Logger.getLogger(KreirajAranzmanForma.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
-    
+
     public KreirajAranzmanForma(JFrame parent, Aranzman a) {
         initComponents();
-        this.aranzman = a;
+        this.aranzmanChange = a;
         setTitle("Promeni aranžman");
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         popuniCombo();
-         if (a != null) {
-            aranzman= a;
+        if (a != null) {
+            aranzmanChange = a;
             uaf = (UpravljajAranzmanimaForma) parent;
             popuniPolja();
         }
-       
+
     }
 
     /**
@@ -101,6 +111,7 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Naziv");
 
+        comboPoreskaStopa.setBackground(new java.awt.Color(153, 255, 204));
         comboPoreskaStopa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         comboPoreskaStopa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -210,7 +221,15 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        this.dispose();        // TODO add your handling code here:
+        if (aranzmanCreate != null && aranzmanChange == null) {
+            try {
+                Controller.getInstance().obrisiAranzman(aranzmanCreate);
+            } catch (Exception ex) {
+                Logger.getLogger(KreirajAranzmanForma.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            this.dispose();
+        }
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -222,31 +241,40 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
         PoreskaStopa ps = (PoreskaStopa) comboPoreskaStopa.getSelectedItem();
         double cenaBez = Double.parseDouble(txtCenaBezPDV.getText());
         double cenaSa = Double.parseDouble(txtCenaSaPDV.getText());
-        double popust=Double.parseDouble(txtPopust.getText()+"");
-        if (aranzman == null) {
+        double popust = Double.parseDouble(txtPopust.getText() + "");
+        if (aranzmanChange == null) {
             try {
-                Aranzman a = new Aranzman(-1,txtNaziv.getText(), txtOpis.getText(), ps, cenaBez, cenaSa,popust);
-                Controller.getInstance().dodajAranzman(a);
-                JOptionPane.showMessageDialog(this, "Aranžman je dodat", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+                aranzmanCreate.setNaziv(txtNaziv.getText());
+                aranzmanCreate.setOpis(txtOpis.getText());
+                aranzmanCreate.setPoreskaStopa(ps);
+                aranzmanCreate.setCenaBezPDV(cenaBez);
+                aranzmanCreate.setCenaSaPDV(cenaSa);
+                aranzmanCreate.setPopust(popust);
+                Controller.getInstance().promeniAranzman(aranzmanCreate);
+                JOptionPane.showMessageDialog(this, "Sistem je zapamtio aranžman", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
             } catch (Exception ex) {
-                Logger.getLogger(KreirajKupcaForma.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da zapamti aranžman!", "Greška", JOptionPane.ERROR_MESSAGE);
+                return;
             }
+
         } else {
-            aranzman.setNaziv(txtNaziv.getText());
-            aranzman.setCenaSaPDV(cenaSa);
-            aranzman.setCenaBezPDV(cenaBez);
-            aranzman.setOpis(txtOpis.getText());
-            aranzman.setPopust(popust);
             try {
-                
-                Controller.getInstance().promeniAranzman(aranzman);
-                JOptionPane.showMessageDialog(this, "Aranžman uspešno izmenjen", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+                aranzmanChange.setNaziv(txtNaziv.getText());
+                aranzmanCreate.setPoreskaStopa(ps);
+                aranzmanChange.setCenaSaPDV(cenaSa);
+                aranzmanChange.setCenaBezPDV(cenaBez);
+                aranzmanChange.setOpis(txtOpis.getText());
+                aranzmanChange.setPopust(popust);
+                Controller.getInstance().promeniAranzman(aranzmanChange);
+                JOptionPane.showMessageDialog(this, "Sistem je zapamtio aranžman", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 uaf.getTblAranzmani().setModel(new TableModelAranzman());
                 this.dispose();
             } catch (Exception ex) {
-                Logger.getLogger(KreirajKupcaForma.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da zapamti aranžman!", "Greška", JOptionPane.ERROR_MESSAGE);
+                return;
             }
+
         }
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -317,13 +345,13 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
             Logger.getLogger(KreirajAranzmanForma.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private void popuniPolja() {
-        txtNaziv.setText(aranzman.getNaziv());
-        txtCenaSaPDV.setText(aranzman.getCenaSaPDV() + "");
-        txtCenaBezPDV.setText(aranzman.getCenaBezPDV() + "");
-        txtOpis.setText(aranzman.getOpis());
-        txtPopust.setText(aranzman.getPopust()+"");
+        txtNaziv.setText(aranzmanChange.getNaziv());
+        txtCenaSaPDV.setText(aranzmanChange.getCenaSaPDV() + "");
+        txtCenaBezPDV.setText(aranzmanChange.getCenaBezPDV() + "");
+        txtOpis.setText(aranzmanChange.getOpis());
+        txtPopust.setText(aranzmanChange.getPopust() + "");
     }
-    
+
 }

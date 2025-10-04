@@ -76,7 +76,7 @@ public class ThreadClient extends Thread {
                     ulogovaniKorisnik = prijavljeni;
                     response.setData(prijavljeni);
                     break;
-                case Operation.DODAJ_CVECARA:
+                case Operation.KREIRAJ_CVECARA:
                     ServerController.getInstance().dodajCvecara((Cvecar) request.getData());
                     break;
                 case Operation.KREIRAJ_OTPREMNICU:
@@ -157,7 +157,7 @@ public class ThreadClient extends Thread {
                 case Operation.VRATI_LISTU_PORESKA_STOPA:
                     response.setData(ServerController.getInstance().ucitajPoreskaStopeIzBaze());
                     break;
-                case Operation.DODAJ_STRUCNASPREMA:
+                case Operation.KREIRAJ_STRUCNASPREMA:
                     ServerController.getInstance().dodajStrSprema((StrucnaSprema) request.getData());
                     break;
                 case Operation.PRETRAZI_KUPCA:

@@ -4,14 +4,11 @@
  */
 package tableModel;
 
-import controller.Controller;
 import domain.Aranzman;
 import domain.Otpremnica;
 import javax.swing.table.AbstractTableModel;
 import domain.StavkaOtpremnice;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import view.KreirajOtpremnicuForma;
 
 /**

@@ -19,7 +19,8 @@ import tableModel.TableModelCvecar;
  */
 public class KreirajCvecaraForma extends javax.swing.JFrame {
 
-    Cvecar cvecar;
+    Cvecar cvecarChange;
+    Cvecar cvecarCreate;
     UpravljajCvecarimaForma pcf;
     private boolean validation;
     private ArrayList<Cvecar> novaLista;
@@ -44,7 +45,13 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
         txtId.setVisible(false);
         jLabel5.setVisible(false);
         btnNovaLozinka.setVisible(false);
-
+        cvecarCreate = new Cvecar(-1, "", "", "", "");
+        try {
+            Controller.getInstance().kreirajCvecar(cvecarCreate);
+            JOptionPane.showMessageDialog(this, "Sistem je kreirao cvećara", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception ex) {
+            Logger.getLogger(KreirajCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public KreirajCvecaraForma(JFrame parent, Cvecar c) {
@@ -60,9 +67,9 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
         btnNovaLozinka.setVisible(true);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         if (c != null) {
-            cvecar = c;
+            cvecarChange = c;
             pcf = (UpravljajCvecarimaForma) parent;
-            popuniIzmenuCvecar(cvecar);
+            popuniIzmenuCvecar(cvecarChange);
         }
     }
 
@@ -222,7 +229,15 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
 
     private void btnNazadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNazadActionPerformed
         // TODO add your handling code here:
-        this.dispose();
+        if (cvecarCreate != null && cvecarChange == null) {
+            try {
+                Controller.getInstance().obrisiCvecara(cvecarCreate);
+            } catch (Exception ex) {
+                Logger.getLogger(KreirajCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            this.dispose();
+        }
     }//GEN-LAST:event_btnNazadActionPerformed
 
     private void btnSacuvajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSacuvajActionPerformed
@@ -232,7 +247,7 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Morate popuniti sva polja!", "Greška", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if (cvecar==null && txtKorisnickoIme.getText().equals("admin")) {
+        if (cvecarChange == null && txtKorisnickoIme.getText().equals("admin")) {
             JOptionPane.showMessageDialog(this, "Izabrano korisničko ime je nedostupno!", "Greška", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -240,7 +255,7 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
         String ime = txtIme.getText();
         String prezime = txtPrezime.getText();
         String korisnickoIme = txtKorisnickoIme.getText();
-        if (cvecar == null) {
+        if (cvecarChange == null && cvecarCreate != null) {
             if (txtLozinka.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Morate popuniti sva polja!", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
@@ -249,13 +264,17 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
                 return;
             }
             String lozinka = txtLozinka.getText();
-            Cvecar c = new Cvecar(-1, ime, prezime, korisnickoIme, lozinka);
+            cvecarCreate.setIme(ime);
+            cvecarCreate.setPrezime(prezime);
+            cvecarCreate.setKorisnickoIme(korisnickoIme);
+            cvecarCreate.setLozinka(lozinka);
             try {
-                Controller.getInstance().dodajCvecara(c);
+                Controller.getInstance().promeniCvecara(cvecarCreate);
+                JOptionPane.showMessageDialog(this, "Sistem je zapamtio cvećara", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception ex) {
-                Logger.getLogger(KreirajCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da zapamti cvećara!", "Greška", JOptionPane.ERROR_MESSAGE);
+                return;
             }
-            JOptionPane.showMessageDialog(this, "Cvećar je dodat", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
         } else {
             try {
@@ -263,23 +282,24 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
             } catch (Exception ex) {
                 Logger.getLogger(KreirajCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
             }
-            cvecar = vratiAzuriranogCvecara();//za slucaj da user promeni sifru opet moramo u bazu da bi azurirali user-a
+            cvecarChange = vratiAzuriranogCvecara();//za slucaj da user promeni sifru opet moramo u bazu da bi azurirali user-a
             //a zatim da ga tako azuriranog prosledimo validaciji da bi se proverila nova sifra a ne stara
-            if (cvecar != null) {
-                ValidationForm vf = new ValidationForm(this, cvecar);
+            if (cvecarChange != null) {
+                ValidationForm vf = new ValidationForm(this, cvecarChange);
                 vf.setVisible(true);
-                System.out.println("va:" + validation);
+                System.out.println("validacija:" + validation);
                 if (validation == true) {
-                    cvecar.setIme(ime);
-                    cvecar.setKorisnickoIme(korisnickoIme);
-                    cvecar.setPrezime(prezime);
+                    cvecarChange.setIme(ime);
+                    cvecarChange.setKorisnickoIme(korisnickoIme);
+                    cvecarChange.setPrezime(prezime);
                     try {
-                        Controller.getInstance().promeniCvecara(cvecar);
-                        JOptionPane.showMessageDialog(this, "Cvećar je promenjen", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+                        Controller.getInstance().promeniCvecara(cvecarChange);
+                        JOptionPane.showMessageDialog(this, "Sistem je zapamtio cvećara", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                         pcf.getTblCvecari().setModel(new TableModelCvecar());
                         this.dispose();
                     } catch (Exception ex) {
-                        Logger.getLogger(KreirajCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(this, "Sistem nije uspeo da zapamti cvećara!", "Greška", JOptionPane.ERROR_MESSAGE);
+                        return;
                     }
 
                 }
@@ -290,7 +310,7 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
     private void btnNovaLozinkaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovaLozinkaActionPerformed
         // TODO add your handling code here:
 
-        PromeniLozinkuForma forma = new PromeniLozinkuForma(pcf, true, cvecar);
+        PromeniLozinkuForma forma = new PromeniLozinkuForma(pcf, true, cvecarChange);
         forma.setVisible(true);
     }//GEN-LAST:event_btnNovaLozinkaActionPerformed
 
@@ -329,8 +349,8 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
     private Cvecar vratiAzuriranogCvecara() {
 
         for (Cvecar c : novaLista) {
-            if (c.getKorisnickoIme().equals(cvecar.getKorisnickoIme())
-                    && c.getIme().equals(cvecar.getIme()) && c.getPrezime().equals(cvecar.getPrezime())) {
+            if (c.getKorisnickoIme().equals(cvecarChange.getKorisnickoIme())
+                    && c.getIme().equals(cvecarChange.getIme()) && c.getPrezime().equals(cvecarChange.getPrezime())) {
                 return c;
             }
         }

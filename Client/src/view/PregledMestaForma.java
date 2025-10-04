@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.table.TableColumn;
 import tableModel.TableModelMesto;
 
 /**
@@ -53,6 +54,10 @@ public class PregledMestaForma extends javax.swing.JFrame {
         try {
             TableModelMesto tmodel = new TableModelMesto();
             tblMesta.setModel(tmodel);
+            TableColumn idColumn =  tblMesta.getColumnModel().getColumn(0); 
+            idColumn.setPreferredWidth(30);
+            idColumn.setMinWidth(20);       
+            idColumn.setMaxWidth(40);
         } catch (Exception ex) {
             Logger.getLogger(PregledMestaForma.class.getName()).log(Level.SEVERE, null, ex);
         }

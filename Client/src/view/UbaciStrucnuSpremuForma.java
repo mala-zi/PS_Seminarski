@@ -190,7 +190,7 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
         StrucnaSprema strs = new StrucnaSprema(-1,txtNaziv.getText(), txtNivo.getText(), sertifikat);
             try {
                // throw new RuntimeException("Simulacija greske");
-                Controller.getInstance().ubaciStrSprema(strs);
+                Controller.getInstance().kreirajStrSprema(strs);
                 JOptionPane.showMessageDialog(this, "Sistem je sačuvao strucnu spremu", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
             } catch (Exception ex) {

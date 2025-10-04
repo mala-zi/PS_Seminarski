@@ -11,7 +11,6 @@ import domain.Kupac;
 import domain.Mesto;
 import domain.Otpremnica;
 import domain.PoreskaStopa;
-import domain.StavkaOtpremnice;
 import domain.StrucnaSprema;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -63,8 +62,8 @@ public class Controller {
 
     }
 
-    public void dodajCvecara(Cvecar c) throws Exception {
-        sendRequest(Operation.DODAJ_CVECARA, c);
+    public void kreirajCvecar(Cvecar c) throws Exception {
+        sendRequest(Operation.KREIRAJ_CVECARA, c);
     }
 
     public void promeniCvecara(Cvecar cvecar) throws Exception {
@@ -83,7 +82,7 @@ public class Controller {
         sendRequest(Operation.OBRISI_STRUCNASPREMA, strSpremaDelete);
     }
 
-    public void dodajOtpremnicu(Otpremnica otpremnica) throws Exception {
+    public void kreirajOtpremnicu(Otpremnica otpremnica) throws Exception {
         sendRequest(Operation.KREIRAJ_OTPREMNICU, otpremnica);
     }
 
@@ -100,8 +99,8 @@ public class Controller {
         sendRequest(Operation.ODJAVA_CVECARA, korisnickoIme);
     }
 
-    public void ubaciStrSprema(StrucnaSprema strs) throws Exception {
-        sendRequest(Operation.DODAJ_STRUCNASPREMA, strs);
+    public void kreirajStrSprema(StrucnaSprema strs) throws Exception {
+        sendRequest(Operation.KREIRAJ_STRUCNASPREMA, strs);
     }
 
     public void promeniStrSpremu(StrucnaSprema ss) throws Exception {
@@ -112,11 +111,11 @@ public class Controller {
         return (ArrayList<StrucnaSprema>) sendRequest(Operation.VRATI_LISTU_SVI_STRUCNASPREMA, null);
     }
 
-    public void dodajKupca(Kupac k) throws Exception {
+    public void kreirajKupca(Kupac k) throws Exception {
         sendRequest(Operation.KREIRAJ_KUPCA, k);
     }
 
-    public void izmeniKupca(Kupac k) throws Exception {
+    public void promeniKupca(Kupac k) throws Exception {
         sendRequest(Operation.PROMENI_KUPCA, k);
     }
 
@@ -124,7 +123,7 @@ public class Controller {
         return (ArrayList<Mesto>) sendRequest(Operation.VRATI_LISTU_SVI_MESTO, null);
     }
 
-    public void dodajMesto(Mesto m) throws Exception {
+    public void kreirajMesto(Mesto m) throws Exception {
         sendRequest(Operation.KREIRAJ_MESTO, m);
     }
 
@@ -141,7 +140,7 @@ public class Controller {
         sendRequest(Operation.OBRISI_KUPCA, kupacDelete);
     }
 
-    public void dodajAranzman(Aranzman aranzmanAdd) throws Exception {
+    public void kreirajAranzman(Aranzman aranzmanAdd) throws Exception {
         sendRequest(Operation.KREIRAJ_ARANZMAN, aranzmanAdd);
     }
 
@@ -157,10 +156,6 @@ public class Controller {
     public ArrayList<Otpremnica> ucitajOtpremniceIzBaze() throws Exception {
         return (ArrayList<Otpremnica>) sendRequest(Operation.VRATI_LISTU_SVI_OTPREMNICA, null);
     }
-
-   /* public ArrayList<StavkaOtpremnice> ucitajStavkeOtpremniceIzBaze(Otpremnica otpremnica) throws Exception {
-        return (ArrayList<StavkaOtpremnice>) sendRequest(Operation.VRATI_LISTU_STAVKI_OTPREMNICE, otpremnica);
-    }*/
 
     public void obrisiOtpremnicu(Otpremnica otpremnicaDelete) throws Exception {
         sendRequest(Operation.OBRISI_OTPREMNICU, otpremnicaDelete);

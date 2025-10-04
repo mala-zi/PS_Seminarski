@@ -5,7 +5,6 @@
  */
 package dbb;
 
-import com.mysql.cj.jdbc.exceptions.CommunicationsException;
 import validator.PasswordHash;
 import domain.Cvecar;
 import domain.OpstiDomenskiObjekat;
@@ -25,7 +24,6 @@ public class DatabaseBroker {
 
     private DatabaseBroker() throws SQLException, Exception {
         try {
-            //  connect();
             try {
                 Properties properties = new Properties();
                 properties.load(new FileInputStream("dbconfiguration.properties"));
@@ -36,9 +34,7 @@ public class DatabaseBroker {
                 System.out.println("Konekcija sa bazom podataka uspesno uspostavljena!");
                 connection.setAutoCommit(false);
             } catch (Exception ex) {
-                //System.out.println("Greska! Konekcija sa bazom nije uspesno uspostavljena!\n" + ex.getMessage());
-                throw new Exception("Greska! Konekcija sa bazom nije uspesno uspostavljena!");
-        // ex.printStackTrace();
+                throw new Exception("Greška! Konekcija sa bazom nije uspešno uspostavljena!");
             }
             updatePasswordsToHashed();
         } catch (SQLException ex) {
@@ -48,7 +44,6 @@ public class DatabaseBroker {
     public static DatabaseBroker getInstance() throws SQLException, Exception {
         if (instance == null) {
             instance = new DatabaseBroker();
-
         }
         return instance;
     }
@@ -58,13 +53,11 @@ public class DatabaseBroker {
         System.out.println(query);
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery(query);
-System.out.println("usaooo1");
         while (rs.next()) {
             int id = rs.getInt("id");
             String plainPassword = rs.getString("lozinka");
             if (plainPassword.length() != 64) {
                 String hashedPassword = PasswordHash.hashPassword(plainPassword);
-System.out.println("usaooo2");
                 String updateQuery = "UPDATE cvecar SET lozinka=? WHERE id=?";
                 System.out.println(updateQuery);
                 PreparedStatement ps = connection.prepareStatement(updateQuery);
@@ -83,7 +76,6 @@ System.out.println("usaooo2");
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery(query);
         System.out.println(query);
-        System.out.println("usaooo");
         while (rs.next()) {
             String currentPass = rs.getString("lozinka");
             System.out.println("current u bazi:" + currentPass);
@@ -91,7 +83,6 @@ System.out.println("usaooo2");
             if (currentPass.length() == 64 && currentPass.length() == cvecarChange.getLozinka().length()) {
                 break;
             }
-            System.out.println("usaooo22");
             String hashedPassword = PasswordHash.hashPassword(cvecarChange.getLozinka());
             System.out.println("nova hesirana:" + hashedPassword);
             cvecarChange.setLozinka(hashedPassword);
@@ -112,10 +103,10 @@ System.out.println("usaooo2");
             String user = "root";
             String password = "";
             connection = DriverManager.getConnection(url, user, password);
-            System.out.println("Konekcija sa bazom podataka uspesno uspostavljena!");
+            System.out.println("Konekcija sa bazom podataka uspešno uspostavljena!");
             connection.setAutoCommit(false);
         } catch (SQLException ex) {
-            System.out.println("Greska! Konekcija sa bazom nije uspesno uspostavljena!\n" + ex.getMessage());
+            System.out.println("Greška! Konekcija sa bazom nije uspešno uspostavljena!\n" + ex.getMessage());
             ex.printStackTrace();
             throw ex;
         }
@@ -125,10 +116,10 @@ System.out.println("usaooo2");
         try {
             if (connection != null && !connection.isClosed()) {
                 connection.close();
-                System.out.println("Konekcija sa bazom uspesno raskinuta!");
+                System.out.println("Konekcija sa bazom uspešno raskinuta!");
             }
         } catch (SQLException ex) {
-            System.out.println("Greska! Konekcija sa bazom nije uspesno raskinuta!\n" + ex.getMessage());
+            System.out.println("Greška! Konekcija sa bazom nije uspešno raskinuta!\n" + ex.getMessage());
             ex.printStackTrace();
             throw ex;
         }
@@ -137,9 +128,9 @@ System.out.println("usaooo2");
     public void commit() throws SQLException {
         try {
             connection.commit();
-            System.out.println("Transakcija uspesno potvrdjena!");
+            System.out.println("Transakcija uspešno potvrđena!");
         } catch (SQLException ex) {
-            System.out.println("Transakcija nije potvrdjena!\n" + ex.getMessage());
+            System.out.println("Transakcija nije potvrđena!\n" + ex.getMessage());
             ex.printStackTrace();
             throw ex;
         }
@@ -148,9 +139,9 @@ System.out.println("usaooo2");
     public void rollback() throws SQLException {
         try {
             connection.rollback();
-            System.out.println("Transakcija uspesno ponistena!");
+            System.out.println("Transakcija uspešno poništena!");
         } catch (SQLException ex) {
-            System.out.println("Transakcija nije ponistena!\n" + ex.getMessage());
+            System.out.println("Transakcija nije poništena!\n" + ex.getMessage());
             ex.printStackTrace();
             throw ex;
         }
@@ -175,6 +166,12 @@ System.out.println("usaooo2");
         System.out.println(upit);
         PreparedStatement ps = connection.prepareStatement(upit, Statement.RETURN_GENERATED_KEYS);
         ps.executeUpdate();
+        ResultSet rs = ps.getGeneratedKeys();
+        if (rs.next()) {
+            int generatedId = rs.getInt(1);
+            odo.setId(generatedId); 
+        }
+        rs.close();
         return ps;
     }
 

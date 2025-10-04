@@ -221,14 +221,14 @@ public class ServerController {
         String uvod = """
             Poštovani,
 
-            U prilogu Vam dostavljamo otpremnicu za Vašu porudžbinu iz naše cvećare Madeira.
+            U prilogu Vam dostavljamo otpremnicu za Vašu porudžbinu.
             Molimo Vas da dokument pažljivo pregledate, a u slučaju bilo kakvih pitanja ili nejasnoća,
             slobodno nas kontaktirajte.
 
-            Hvala što ste izabrali našu cvećaru.
+            Hvala na ukazanom poverenju.
 
             Srdačan pozdrav,
-            Vaša Cvećara Madeira
+            Cvećara Madeira
             """;
 
         EmailSender.sendEmailWithAttachment(

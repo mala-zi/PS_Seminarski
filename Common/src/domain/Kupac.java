@@ -86,6 +86,7 @@ public class Kupac extends OpstiDomenskiObjekat {
         return id;
     }
 
+    @Override
     public void setId(int id) {
         this.id = id;
     }
@@ -124,9 +125,9 @@ public class Kupac extends OpstiDomenskiObjekat {
 
     @Override
     public String toString() {
-        if(tip==TipKupca.FIZICKO_LICE){
-            return ime+" "+prezime;
-        }else{
+        if (tip == TipKupca.FIZICKO_LICE) {
+            return ime + " " + prezime;
+        } else {
             return naziv;
         }
     }

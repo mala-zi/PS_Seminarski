@@ -19,21 +19,19 @@ import java.io.FileOutputStream;
 public class PDFGenerator {
 
     public static File generateOtpremnicaPdf(Otpremnica otpremnica) throws Exception {
-        System.out.println("usao2");
         String nazivFajla = "Otpremnica_" + otpremnica.getId() + ".pdf";
         File file = new File(nazivFajla);
-        // System.out.println("otp:" + otpremnica.toString());
         Document document = new Document(PageSize.A4, 50, 50, 50, 50);
         PdfWriter.getInstance(document, new FileOutputStream(file));
         document.open();
 
         BaseFont baseFont = BaseFont.createFont("font/Amiko-Regular.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 
-        Font naslovFont = new Font(baseFont, 16, Font.BOLD);
+        Font headingFont = new Font(baseFont, 16, Font.BOLD);
         Font boldFont = new Font(baseFont, 12, Font.BOLD);
         Font normalFont = new Font(baseFont, 12, Font.NORMAL);
 
-        document.add(new Paragraph("CVEĆARA MADEIRA", naslovFont));
+        document.add(new Paragraph("CVEĆARA MADEIRA", headingFont));
         document.add(new Paragraph("PIB: 12345678", normalFont));
         document.add(new Paragraph("Telefon: +381 11 555 333", normalFont));
         document.add(new Paragraph("Adresa: Vojvode Stepe 203, Beograd, 11000", normalFont));
@@ -48,8 +46,8 @@ public class PDFGenerator {
         logo.scaleToFit(100, 100);
         Rectangle page = document.getPageSize();
 
-        float paddingTop = 50f;   
-        float paddingRight = 50f; 
+        float paddingTop = 50f;
+        float paddingRight = 50f;
         float x = page.getRight() - logo.getScaledWidth() - paddingRight;
         float y = page.getTop() - logo.getScaledHeight() - paddingTop;
 
@@ -57,9 +55,9 @@ public class PDFGenerator {
         document.add(logo);
         document.add(logo);
 
-        Paragraph naslov = new Paragraph("Otpremnica br. " + otpremnica.getId(), naslovFont);
-        naslov.setAlignment(Element.ALIGN_CENTER);
-        document.add(naslov);
+        Paragraph heading = new Paragraph("Otpremnica br. " + otpremnica.getId(), headingFont);
+        heading.setAlignment(Element.ALIGN_CENTER);
+        document.add(heading);
         document.add(new Paragraph("Datum: " + otpremnica.getDatumIzdavanja(), normalFont));
         document.add(Chunk.NEWLINE);
 
@@ -97,7 +95,6 @@ public class PDFGenerator {
         addTableHeader(table, "Iznos bez PDV-a(RSD)", baseFont);
         addTableHeader(table, "Iznos sa PDV-om(RSD)", baseFont);
         addTableHeader(table, "Napomena", baseFont);
-        // System.out.println("len:"+otpremnica.getStavkeOtpremnice().size());
         if (otpremnica.getStavkeOtpremnice() != null && !otpremnica.getStavkeOtpremnice().isEmpty()) {
             for (StavkaOtpremnice stavka : otpremnica.getStavkeOtpremnice()) {
                 table.addCell(new PdfPCell(new Phrase(String.valueOf(stavka.getRb()), normalFont)));
@@ -117,6 +114,48 @@ public class PDFGenerator {
 
         document.add(new Paragraph("Ukupan iznos bez PDV-a: " + otpremnica.getUkupanIznosBezPDv() + " RSD", normalFont));
         document.add(new Paragraph("Ukupan iznos sa PDV-om: " + otpremnica.getUkupanIznosSaPDV() + " RSD", boldFont));
+        document.add(Chunk.NEWLINE);
+
+        PdfPTable footerTable = new PdfPTable(2);
+        footerTable.setWidthPercentage(100);
+        footerTable.setSpacingBefore(30f); 
+        footerTable.setWidths(new float[]{1, 1}); 
+
+        PdfPCell leftCell = new PdfPCell();
+        leftCell.setBorder(Rectangle.NO_BORDER);
+
+        Paragraph companySignature = new Paragraph("Potpis izdavaoca:", normalFont);
+        leftCell.addElement(companySignature);
+
+        java.net.URL signatureURL = PDFGenerator.class.getResource("signature.png");
+        if (signatureURL != null) {
+            Image signatureImage = Image.getInstance(signatureURL);
+            signatureImage.scaleToFit(156, 80); 
+            signatureImage.setIndentationLeft(30f);
+            leftCell.addElement(signatureImage);
+        } else {
+            leftCell.addElement(new Paragraph("[Slika potpisa nije pronađena]", normalFont));
+        }
+
+        footerTable.addCell(leftCell);
+        PdfPCell rightCell = new PdfPCell();
+        rightCell.setBorder(Rectangle.NO_BORDER);
+        rightCell.setPaddingTop(20f);
+        Paragraph signatureLine = new Paragraph("_________________________", normalFont);
+        signatureLine.setAlignment(Element.ALIGN_CENTER);
+        rightCell.addElement(signatureLine);
+        Paragraph buyerSignature = new Paragraph("Potpis kupca", normalFont);
+        buyerSignature.setAlignment(Element.ALIGN_CENTER);
+        rightCell.addElement(buyerSignature);
+
+        footerTable.addCell(rightCell);
+
+        document.add(footerTable);
+        document.add(Chunk.NEWLINE);
+
+        Paragraph thankYou = new Paragraph("Hvala na ukazanom poverenju!", boldFont);
+        thankYou.setAlignment(Element.ALIGN_CENTER);
+        document.add(thankYou);
 
         document.close();
         return file;

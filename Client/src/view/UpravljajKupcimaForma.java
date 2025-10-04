@@ -9,14 +9,17 @@ import controller.Controller;
 import javax.swing.JOptionPane;
 import domain.Kupac;
 import domain.Mesto;
+import domain.TipKupca;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JTable;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -41,16 +44,27 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
         initComponents();
         lista = Controller.getInstance().ucitajKupceIzBaze();
         setTitle("Upravljaj kupcima");
+        radioPravno.addActionListener(e -> popuniCombo());
+        radioFizicko.addActionListener(e -> popuniCombo());
         popuniCombo();
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        // radioPravno.setSelected(true);
         if (obrisiKupca == true) {
             btnObrisi.setVisible(true);
             btnPromeni.setVisible(false);
         }
         try {
             tblKupci.setModel(new TableModelKupac());
+            TableColumn mestoColumn = tblKupci.getColumnModel().getColumn(5);
+            mestoColumn.setPreferredWidth(200);
+            mestoColumn.setMinWidth(150);
+            mestoColumn.setMaxWidth(230);
+            TableColumn idColumn = tblKupci.getColumnModel().getColumn(0);
+            idColumn.setPreferredWidth(30);
+            idColumn.setMinWidth(20);
+            idColumn.setMaxWidth(40);
         } catch (Exception ex) {
             Logger.getLogger(UpravljajKupcimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -75,6 +89,8 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
         comboMesto = new javax.swing.JComboBox<>();
         comboKupac = new javax.swing.JComboBox<>();
         btnPretrazi = new javax.swing.JButton();
+        radioPravno = new javax.swing.JRadioButton();
+        radioFizicko = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -145,34 +161,48 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
             }
         });
 
+        radioPravno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        radioPravno.setText("Pravno lice");
+        radioPravno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioPravnoActionPerformed(evt);
+            }
+        });
+
+        radioFizicko.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        radioFizicko.setText("Fizičko lice");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnNazad, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(12, 12, 12))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 49, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(comboKupac, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(78, 78, 78)
-                                .addComponent(txtKupac)))
-                        .addGap(69, 69, 69)
+                            .addComponent(radioPravno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(radioFizicko, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(comboMesto, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(91, 91, 91)
-                                .addComponent(txtMesto, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(112, 112, 112)))
+                                .addGap(135, 135, 135)
+                                .addComponent(txtKupac)
+                                .addGap(244, 244, 244)
+                                .addComponent(txtMesto, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(comboKupac, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(24, 24, 24)
+                                .addComponent(comboMesto, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(42, 42, 42)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnPromeni, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnObrisi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -191,19 +221,23 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(comboMesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboKupac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnPretrazi, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                            .addComponent(comboKupac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnPretrazi, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(radioPravno)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(radioFizicko)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnPromeni, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(77, 77, 77)
-                        .addComponent(btnObrisi, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
+                        .addComponent(btnObrisi, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)))
                 .addComponent(btnNazad, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34))
         );
@@ -245,7 +279,7 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
             }
             TableModelKupac model = (TableModelKupac) tblKupci.getModel();
             Kupac kupacChange = model.getKupac(selektovanRed);
-            
+
             try {
                 //throw new RuntimeException("Simulacija greške");
                 JOptionPane.showMessageDialog(this, "Sistem je našao kupca", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
@@ -291,6 +325,14 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "Sistem je našao kupce po zadatim kriterijumima", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 tblKupci.setModel(model);
+                TableColumn mestoColumn = tblKupci.getColumnModel().getColumn(5);
+                mestoColumn.setPreferredWidth(200);
+                mestoColumn.setMinWidth(150);
+                mestoColumn.setMaxWidth(230);
+                TableColumn idColumn = tblKupci.getColumnModel().getColumn(0);
+                idColumn.setPreferredWidth(30);
+                idColumn.setMinWidth(20);
+                idColumn.setMaxWidth(40);
             }
 
         } catch (Exception ex) {
@@ -302,6 +344,10 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_comboKupacActionPerformed
 
+    private void radioPravnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioPravnoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_radioPravnoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNazad;
@@ -311,12 +357,17 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
     private javax.swing.JComboBox<Kupac> comboKupac;
     private javax.swing.JComboBox<Mesto> comboMesto;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JRadioButton radioFizicko;
+    private javax.swing.JRadioButton radioPravno;
     private javax.swing.JTable tblKupci;
     private javax.swing.JLabel txtKupac;
     private javax.swing.JLabel txtMesto;
     // End of variables declaration//GEN-END:variables
 
     private void popuniCombo() {
+        ButtonGroup group = new ButtonGroup();
+        group.add(radioPravno);
+        group.add(radioFizicko);
         try {
             comboKupac.removeAllItems();
             Kupac defaultKupac = new Kupac();
@@ -324,12 +375,18 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
             comboKupac.addItem(defaultKupac);
             ArrayList<Kupac> kupci = Controller.getInstance().ucitajKupceIzBaze();
             for (Kupac k : kupci) {
-                comboKupac.addItem(k);
+                if (radioPravno.isSelected() && k.getTip() == TipKupca.PRAVNO_LICE) {
+                    comboKupac.addItem(k);
+                } else if (radioFizicko.isSelected() && k.getTip() == TipKupca.FIZICKO_LICE) {
+                    comboKupac.addItem(k);
+                } else if (!radioPravno.isSelected() && !radioFizicko.isSelected()) {
+                    comboKupac.addItem(k);
+                }
             }
 
             comboMesto.removeAllItems();
             Mesto defaultMesto = new Mesto();
-            defaultMesto.setGrad("Bilo koji");
+            defaultMesto.setGrad("Bilo koje");
             comboMesto.addItem(defaultMesto);
             List<Mesto> mesto = Controller.getInstance().ucitajMestaIzBaze();
             mesto.sort(Comparator.comparing(Mesto::getGrad, String.CASE_INSENSITIVE_ORDER));

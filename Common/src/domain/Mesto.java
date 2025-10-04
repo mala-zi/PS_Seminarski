@@ -39,6 +39,7 @@ public class Mesto extends OpstiDomenskiObjekat {
         return id;
     }
 
+    @Override
     public void setId(int id) {
         this.id = id;
     }
@@ -151,7 +152,10 @@ public class Mesto extends OpstiDomenskiObjekat {
             return false;
         }
         final Mesto other = (Mesto) obj;
-        return this.id == other.id;
+
+        return this.grad != null && this.grad.equalsIgnoreCase(other.grad)
+                && this.ulica != null && this.ulica.equalsIgnoreCase(other.ulica)
+                && this.postanskiBroj == other.postanskiBroj;
     }
 
 }

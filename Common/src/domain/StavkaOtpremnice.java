@@ -14,6 +14,7 @@ import java.util.Objects;
  * @author Saki
  */
 public class StavkaOtpremnice extends OpstiDomenskiObjekat {
+
     private int rb;
     private int kolicina;
     private String napomena;
@@ -23,8 +24,10 @@ public class StavkaOtpremnice extends OpstiDomenskiObjekat {
     private double cenaSaPDV;
     private Aranzman aranzman;
     private Otpremnica otpremnica;
+
     public StavkaOtpremnice() {
     }
+
     public StavkaOtpremnice(int rb, int kolicina, String napomena, double iznosBezPDV, double iznosSaPDV, double cenaBezPDV, double cenaSaPdDV, Aranzman aranzman, Otpremnica otpremnica) {
         this.rb = rb;
         this.kolicina = kolicina;
@@ -36,6 +39,7 @@ public class StavkaOtpremnice extends OpstiDomenskiObjekat {
         this.aranzman = aranzman;
         this.otpremnica = otpremnica;
     }
+
     public StavkaOtpremnice(int kolicina, String napomena, double iznosBezPDV, double iznosSaPDV, double cenaBezPDV, double cenaSaPdDV, Aranzman aranzman, Otpremnica otpremnica) {
 
         this.kolicina = kolicina;
@@ -166,10 +170,10 @@ public class StavkaOtpremnice extends OpstiDomenskiObjekat {
     public String join() {
         return "JOIN aranzman a ON (so.idAranzman = a.id) "
                 + "JOIN otpremnica o ON (so.idOtpremnica = o.id)"
-                +"JOIN poreskastopa ps ON(a.poreskaStopa = ps.id)"
-                +"JOIN cvecar c ON(c.id = o.idCvecar)"
-                +"JOIN kupac k ON (k.id = o.idKupac)"
-                +"JOIN mesto m ON (m.id = k.idMesto)";
+                + "JOIN poreskastopa ps ON(a.poreskaStopa = ps.id)"
+                + "JOIN cvecar c ON(c.id = o.idCvecar)"
+                + "JOIN kupac k ON (k.id = o.idKupac)"
+                + "JOIN mesto m ON (m.id = k.idMesto)";
     }
 
     @Override
@@ -205,10 +209,10 @@ public class StavkaOtpremnice extends OpstiDomenskiObjekat {
                     rs.getInt("m.postanskiBroj"),
                     rs.getString("m.ulica")
             );
-            
+
             String tipStr = rs.getString("k.tip");
             TipKupca tipKupca = TipKupca.valueOf(tipStr);
-            
+
             Kupac kupac = new Kupac(
                     rs.getInt("k.id"),
                     rs.getInt("k.pib"),
@@ -226,9 +230,9 @@ public class StavkaOtpremnice extends OpstiDomenskiObjekat {
                     rs.getDouble("o.ukupanIznosBezPDV"),
                     rs.getDouble("o.ukupanIznosSaPDV"),
                     rs.getDouble("o.ukupanPopust"),
-                    rs.getDate("o.datumIzdavanja"),                   
+                    rs.getDate("o.datumIzdavanja"),
                     cvecar,
-                    kupac,null
+                    kupac, null
             );
 
             StavkaOtpremnice so = new StavkaOtpremnice(
@@ -275,6 +279,10 @@ public class StavkaOtpremnice extends OpstiDomenskiObjekat {
     @Override
     public String uslov() {
         return " WHERE o.id = " + otpremnica.getId();
+    }
+
+    @Override
+    public void setId(int id) {
     }
 
 }

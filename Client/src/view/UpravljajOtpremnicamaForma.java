@@ -9,6 +9,7 @@ import controller.Controller;
 import domain.Cvecar;
 import domain.Kupac;
 import domain.Otpremnica;
+import domain.TipKupca;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,9 +18,11 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -53,8 +56,14 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
             lblcvecar.setVisible(false);
             lblkupac.setVisible(false);
             datum.setVisible(false);
+            radioFizicko.setVisible(false);
+            radioPravno.setVisible(false);
             TableModelOtpremnica tmodel = new TableModelOtpremnica();
             tblOtp.setModel(tmodel);
+            TableColumn idColumn = tblOtp.getColumnModel().getColumn(0);
+            idColumn.setPreferredWidth(30);
+            idColumn.setMinWidth(20);
+            idColumn.setMaxWidth(40);
         } catch (Exception ex) {
             Logger.getLogger(UpravljajOtpremnicamaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -63,6 +72,20 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
     public UpravljajOtpremnicamaForma(boolean pretraga) {
         try {
             initComponents();
+            radioPravno.addActionListener(e -> {
+                try {
+                    popuniCombo();
+                } catch (Exception ex) {
+                    Logger.getLogger(UpravljajOtpremnicamaForma.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
+            radioFizicko.addActionListener(e -> {
+                try {
+                    popuniCombo();
+                } catch (Exception ex) {
+                    Logger.getLogger(UpravljajOtpremnicamaForma.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
             popuniCombo();
             setTitle("Pretraži otpremnicu");
             btnChange.setVisible(false);
@@ -71,6 +94,10 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
             setLocationRelativeTo(null);
             TableModelOtpremnica tmodel = new TableModelOtpremnica();
             tblOtp.setModel(tmodel);
+            TableColumn idColumn = tblOtp.getColumnModel().getColumn(0);
+            idColumn.setPreferredWidth(30);
+            idColumn.setMinWidth(20);
+            idColumn.setMaxWidth(40);
         } catch (Exception ex) {
             Logger.getLogger(UpravljajOtpremnicamaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -97,6 +124,8 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
         comboKupac = new javax.swing.JComboBox<>();
         comboCvecar = new javax.swing.JComboBox<>();
         comboDatum = new javax.swing.JComboBox<>();
+        radioPravno = new javax.swing.JRadioButton();
+        radioFizicko = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -159,6 +188,7 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
         lblkupac.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblkupac.setText("Kupac");
 
+        comboKupac.setBackground(new java.awt.Color(153, 255, 204));
         comboKupac.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         comboKupac.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,9 +196,17 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
             }
         });
 
+        comboCvecar.setBackground(new java.awt.Color(153, 255, 204));
         comboCvecar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
+        comboDatum.setBackground(new java.awt.Color(153, 255, 204));
         comboDatum.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        radioPravno.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        radioPravno.setText("Pravno lice");
+
+        radioFizicko.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        radioFizicko.setText("Fizičko lice");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -176,71 +214,79 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 603, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 735, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(42, 42, 42))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(comboDatum, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(14, 14, 14)
-                                        .addComponent(datum)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(96, 96, 96)
-                                        .addComponent(lblcvecar))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(33, 33, 33)
-                                        .addComponent(comboCvecar, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(datum))
+                                    .addComponent(comboDatum, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(18, 18, 18)
-                                        .addComponent(comboKupac, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lblkupac, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(128, 128, 128)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnChange, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(30, 30, 30))))
+                                        .addComponent(comboCvecar, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(89, 89, 89)
+                                        .addComponent(lblcvecar)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(94, 94, 94)
+                                        .addComponent(lblkupac, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(comboKupac, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(radioFizicko, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(radioPravno, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(50, 50, 50)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnChange)
+                            .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblkupac)
-                            .addComponent(lblcvecar)
-                            .addComponent(datum))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(comboCvecar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboDatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboKupac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(datum)
+                                .addComponent(lblcvecar))
+                            .addComponent(lblkupac, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(5, 5, 5)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(comboKupac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(comboDatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(comboCvecar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnChange, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(radioPravno)
+                                .addGap(6, 6, 6)
+                                .addComponent(radioFizicko)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnChange, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
+                                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(26, 26, 26)))
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42))
+                .addGap(28, 28, 28))
         );
 
         pack();
@@ -330,6 +376,10 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
             ArrayList<Otpremnica> filtriraneOtpremnice = Controller.getInstance().pretraziOtpremnice(filter);
             TableModelOtpremnica model = new TableModelOtpremnica(filtriraneOtpremnice);
             tblOtp.setModel(model);
+            TableColumn idColumn = tblOtp.getColumnModel().getColumn(0);
+            idColumn.setPreferredWidth(30);
+            idColumn.setMinWidth(20);
+            idColumn.setMaxWidth(40);
             if (model.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(this, "Sistem nije uspeo da nađe otpremnice po zadatim kriterijumima!", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
@@ -395,6 +445,8 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblcvecar;
     private javax.swing.JLabel lblkupac;
+    private javax.swing.JRadioButton radioFizicko;
+    private javax.swing.JRadioButton radioPravno;
     private javax.swing.JTable tblOtp;
     // End of variables declaration//GEN-END:variables
 
@@ -410,14 +462,24 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
 
     private void popuniCombo() throws Exception {
 
+        ButtonGroup group = new ButtonGroup();
+        group.add(radioPravno);
+        group.add(radioFizicko);
         comboKupac.removeAllItems();
         Kupac defaultKupac = new Kupac();
         defaultKupac.setNaziv("Bilo koji");
         comboKupac.addItem(defaultKupac);
         ArrayList<Kupac> kupci = Controller.getInstance().ucitajKupceIzBaze();
         for (Kupac k : kupci) {
-            comboKupac.addItem(k);
+            if (radioPravno.isSelected() && k.getTip() == TipKupca.PRAVNO_LICE) {
+                comboKupac.addItem(k);
+            } else if (radioFizicko.isSelected() && k.getTip() == TipKupca.FIZICKO_LICE) {
+                comboKupac.addItem(k);
+            } else if (!radioPravno.isSelected() && !radioFizicko.isSelected()) {
+                comboKupac.addItem(k);
+            }
         }
+
         comboCvecar.removeAllItems();
         Cvecar defaultCvecar = new Cvecar();
         defaultCvecar.setIme("Bilo");

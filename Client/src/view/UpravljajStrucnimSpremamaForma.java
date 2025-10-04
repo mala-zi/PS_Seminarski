@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import tableModel.TableModelStrucnaSprema;
 import java.sql.SQLIntegrityConstraintViolationException;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -48,6 +49,10 @@ public class UpravljajStrucnimSpremamaForma extends javax.swing.JFrame {
         tblStrSprema.setModel(tmodel);
         btnPromeni.setEnabled(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        TableColumn idColumn = tblStrSprema.getColumnModel().getColumn(0);
+        idColumn.setPreferredWidth(30);
+        idColumn.setMinWidth(20);
+        idColumn.setMaxWidth(40);
     }
 
     /**

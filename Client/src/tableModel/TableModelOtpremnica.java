@@ -59,8 +59,11 @@ public class TableModelOtpremnica extends AbstractTableModel {
             case 5:
                 return o.getCvecar().getIme() + " " + o.getCvecar().getPrezime();
             case 6:
-                return o.getKupac().getNaziv();
-
+                if (o.getKupac().getNaziv().isEmpty()) {
+                    return o.getKupac().getIme()+" "+o.getKupac().getPrezime();
+                } else {
+                    return o.getKupac().getNaziv();
+                }
             default:
                 return null;
 
@@ -71,7 +74,7 @@ public class TableModelOtpremnica extends AbstractTableModel {
     public String getColumnName(int column) {
         return kolone[column];
     }
-    
+
     public Otpremnica getOtpremnica(int row) {
         return lista.get(row);
     }
