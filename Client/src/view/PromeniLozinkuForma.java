@@ -34,7 +34,7 @@ public class PromeniLozinkuForma extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         cvecar = c;
         txtNovaLozinka.setEnabled(false);
-        btnPromeni.setEnabled(false);
+        btnChange.setEnabled(false);
         txtErrorPass.setVisible(false);
         unos();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -50,7 +50,7 @@ public class PromeniLozinkuForma extends javax.swing.JDialog {
     private void initComponents() {
 
         lblNewPass = new javax.swing.JLabel();
-        btnPromeni = new javax.swing.JButton();
+        btnChange = new javax.swing.JButton();
         txtNovaLozinka = new javax.swing.JTextField();
         lblOldPass = new javax.swing.JLabel();
         txtOldPass = new javax.swing.JPasswordField();
@@ -61,12 +61,12 @@ public class PromeniLozinkuForma extends javax.swing.JDialog {
         lblNewPass.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblNewPass.setText("Nova lozinka");
 
-        btnPromeni.setBackground(new java.awt.Color(153, 255, 204));
-        btnPromeni.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnPromeni.setText("Promeni");
-        btnPromeni.addActionListener(new java.awt.event.ActionListener() {
+        btnChange.setBackground(new java.awt.Color(153, 255, 204));
+        btnChange.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnChange.setText("Promeni");
+        btnChange.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPromeniActionPerformed(evt);
+                btnChangeActionPerformed(evt);
             }
         });
 
@@ -77,6 +77,7 @@ public class PromeniLozinkuForma extends javax.swing.JDialog {
 
         txtOldPass.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
+        txtErrorPass.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtErrorPass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtErrorPassActionPerformed(evt);
@@ -100,7 +101,7 @@ public class PromeniLozinkuForma extends javax.swing.JDialog {
                 .addContainerGap(47, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnPromeni)
+                .addComponent(btnChange)
                 .addGap(136, 136, 136))
         );
         layout.setVerticalGroup(
@@ -117,14 +118,14 @@ public class PromeniLozinkuForma extends javax.swing.JDialog {
                     .addComponent(txtNovaLozinka, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblNewPass))
                 .addGap(18, 18, 18)
-                .addComponent(btnPromeni, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnChange, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnPromeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromeniActionPerformed
+    private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
         try {
             // TODO add your handling code here:
             String nova = txtNovaLozinka.getText();
@@ -142,7 +143,7 @@ public class PromeniLozinkuForma extends javax.swing.JDialog {
         } catch (Exception ex) {
             Logger.getLogger(PromeniLozinkuForma.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_btnPromeniActionPerformed
+    }//GEN-LAST:event_btnChangeActionPerformed
 
     private void txtErrorPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtErrorPassActionPerformed
         // TODO add your handling code here:
@@ -150,7 +151,7 @@ public class PromeniLozinkuForma extends javax.swing.JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnPromeni;
+    private javax.swing.JButton btnChange;
     private javax.swing.JLabel lblNewPass;
     private javax.swing.JLabel lblOldPass;
     private javax.swing.JTextField txtErrorPass;
@@ -191,11 +192,11 @@ public class PromeniLozinkuForma extends javax.swing.JDialog {
                     txtErrorPass.setText("");
                     txtErrorPass.setVisible(false);
                     txtNovaLozinka.setEnabled(true);
-                    btnPromeni.setEnabled(true);
+                    btnChange.setEnabled(true);
 
                 } else {
                     txtErrorPass.setVisible(true);
-                    txtErrorPass.setText("Pogrešna lozinka");
+                    txtErrorPass.setText("Pogrešna lozinka!");
                 }
             }
             txtErrorPass.getParent().revalidate();

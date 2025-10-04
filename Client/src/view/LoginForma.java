@@ -46,7 +46,7 @@ public class LoginForma extends javax.swing.JFrame {
         lblkorisnickoIme = new javax.swing.JLabel();
         lblLoznika = new javax.swing.JLabel();
         txtKorisnickoIme = new javax.swing.JTextField();
-        btnUlogujSe = new javax.swing.JButton();
+        btnLogin = new javax.swing.JButton();
         txtLozinka = new javax.swing.JPasswordField();
         txtErrorLozinka = new javax.swing.JTextField();
         btnCancel = new javax.swing.JButton();
@@ -68,12 +68,12 @@ public class LoginForma extends javax.swing.JFrame {
             }
         });
 
-        btnUlogujSe.setBackground(new java.awt.Color(153, 255, 204));
-        btnUlogujSe.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnUlogujSe.setText("Uloguj se");
-        btnUlogujSe.addActionListener(new java.awt.event.ActionListener() {
+        btnLogin.setBackground(new java.awt.Color(153, 255, 204));
+        btnLogin.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnLogin.setText("Uloguj se");
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUlogujSeActionPerformed(evt);
+                btnLoginActionPerformed(evt);
             }
         });
 
@@ -110,7 +110,7 @@ public class LoginForma extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(29, 29, 29)
-                        .addComponent(btnUlogujSe))
+                        .addComponent(btnLogin))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -148,7 +148,7 @@ public class LoginForma extends javax.swing.JFrame {
                 .addComponent(txtErrorLozinka, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnUlogujSe, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38))
         );
@@ -164,7 +164,7 @@ public class LoginForma extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtLozinkaActionPerformed
 
-    private void btnUlogujSeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUlogujSeActionPerformed
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
         try {
             if (txtKorisnickoIme.getText().isEmpty() || String.valueOf(txtLozinka.getPassword()).isEmpty()) {
@@ -194,7 +194,7 @@ public class LoginForma extends javax.swing.JFrame {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_btnUlogujSeActionPerformed
+    }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
@@ -242,7 +242,7 @@ public class LoginForma extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
-    private javax.swing.JButton btnUlogujSe;
+    private javax.swing.JButton btnLogin;
     private javax.swing.JLabel lblLoznika;
     private javax.swing.JLabel lblkorisnickoIme;
     private javax.swing.JTextField txtErrorLozinka;

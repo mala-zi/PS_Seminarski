@@ -17,7 +17,7 @@ import session.Session;
  */
 public class GlavnaForma extends javax.swing.JFrame {
 
-    Cvecar cvecar;
+    private Cvecar cvecar;
 
     /**
      * Creates new form MainForma
@@ -26,7 +26,7 @@ public class GlavnaForma extends javax.swing.JFrame {
         initComponents();
         cvecar = c;
         setTitle(cvecar.getIme() + " " + cvecar.getPrezime());
-        txtLogovan.setText("Zdravo, " + cvecar.getIme() + "!");
+        txtLogovan.setText("Zdravo " + cvecar.getIme() + "!");
         setResizable(false);
         setLocationRelativeTo(null);
 
@@ -41,7 +41,7 @@ public class GlavnaForma extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        btnLogout = new javax.swing.JButton();
         txtLogovan = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         meniCvecar = new javax.swing.JMenu();
@@ -64,12 +64,12 @@ public class GlavnaForma extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setBackground(new java.awt.Color(153, 255, 204));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton1.setText("Izloguj se");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnLogout.setBackground(new java.awt.Color(153, 255, 204));
+        btnLogout.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnLogout.setText("Izloguj se");
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnLogoutActionPerformed(evt);
             }
         });
 
@@ -219,7 +219,7 @@ public class GlavnaForma extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addComponent(txtLogovan, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(btnLogout)
                 .addGap(19, 19, 19))
         );
         layout.setVerticalGroup(
@@ -227,7 +227,7 @@ public class GlavnaForma extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(43, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtLogovan, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30))
         );
@@ -258,7 +258,7 @@ public class GlavnaForma extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_itemKupacChangeActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
         int odgovor = JOptionPane.showConfirmDialog(this,
                 "Da li ste sigurni da želite da se odjavite?",
@@ -279,7 +279,7 @@ public class GlavnaForma extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Greška prilikom odjave: " + ex.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void itemOtpChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemOtpChangeActionPerformed
         // TODO add your handling code here:
@@ -354,6 +354,7 @@ public class GlavnaForma extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLogout;
     private javax.swing.JMenuItem itemCvecarChange;
     private javax.swing.JMenuItem itemKupacAdd;
     private javax.swing.JMenuItem itemKupacChange;
@@ -363,7 +364,6 @@ public class GlavnaForma extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemOtpSearch;
     private javax.swing.JMenuItem itemSSAdd;
     private javax.swing.JMenuItem itemSSControl;
-    private javax.swing.JButton jButton1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;

@@ -165,13 +165,7 @@ public class DatabaseBroker {
                 + odo.koloneZaInsert() + " VALUES(" + odo.vrednostiZaInsert() + ")";
         System.out.println(upit);
         PreparedStatement ps = connection.prepareStatement(upit, Statement.RETURN_GENERATED_KEYS);
-        ps.executeUpdate();
-        ResultSet rs = ps.getGeneratedKeys();
-        if (rs.next()) {
-            int generatedId = rs.getInt(1);
-            odo.setId(generatedId); 
-        }
-        rs.close();
+        ps.executeUpdate();      
         return ps;
     }
 

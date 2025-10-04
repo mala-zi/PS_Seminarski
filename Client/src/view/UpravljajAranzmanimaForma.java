@@ -169,7 +169,7 @@ public class UpravljajAranzmanimaForma extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Ne možete obrisati aranžman jer se nalazi u stavkama otpremnice!", "Greška", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
-            JOptionPane.showMessageDialog(this, "Aranžman obrisan", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Sistem je uspešno obrisao aranžman.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
             TableModelAranzman tma = new TableModelAranzman();
             tblAranzmani.setModel(tma);
         } catch (Exception ex) {

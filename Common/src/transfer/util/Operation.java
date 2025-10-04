@@ -14,7 +14,7 @@ public interface Operation {
     public static final int PRIJAVI_CVECARA = 0;
     public static final int KREIRAJ_CVECARA = 1;
     public static final int KREIRAJ_OTPREMNICU = 2;
-    public static final int UBACI_STR_SPREMU = 3;
+   // public static final int UBACI_STR_SPREMU = 3;
     public static final int PROMENI_KUPCA = 4;
     public static final int OBRISI_KUPCA = 5;
     public static final int PRETRAZI_OTPREMNICU = 6;

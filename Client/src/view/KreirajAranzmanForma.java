@@ -38,7 +38,13 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
         aranzmanCreate = new Aranzman(-1, "", "", ps, 0, 0, 0);
         try {
             Controller.getInstance().kreirajAranzman(aranzmanCreate);
-            JOptionPane.showMessageDialog(this, "Sistem je kreirao aranžman", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+            ArrayList<Aranzman> lista=Controller.getInstance().ucitajAranzmaneIzBaze();
+            for(Aranzman a:lista){
+                if(a.equals(aranzmanCreate)){
+                    aranzmanCreate.setId(a.getId());
+                }
+            }
+            JOptionPane.showMessageDialog(this, "Sistem je kreirao aranžman.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception ex) {
             Logger.getLogger(KreirajAranzmanForma.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -71,7 +77,7 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
     private void initComponents() {
 
         btnCancel = new javax.swing.JButton();
-        btnAdd = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
         txtNaziv = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         comboPoreskaStopa = new javax.swing.JComboBox<>();
@@ -97,12 +103,12 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
             }
         });
 
-        btnAdd.setBackground(new java.awt.Color(153, 255, 204));
-        btnAdd.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnAdd.setText("Sačuvaj");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+        btnSave.setBackground(new java.awt.Color(153, 255, 204));
+        btnSave.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnSave.setText("Sačuvaj");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
+                btnSaveActionPerformed(evt);
             }
         });
 
@@ -155,7 +161,7 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
                         .addGap(29, 29, 29)
                         .addComponent(btnCancel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnAdd))
+                        .addComponent(btnSave))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -212,7 +218,7 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35))
         );
@@ -232,7 +238,7 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCancelActionPerformed
 
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
         if (txtNaziv.getText().isEmpty() || txtCenaBezPDV.getText().isEmpty() || txtCenaSaPDV.getText().isEmpty() || txtOpis.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Morate popuniti sva polja!", "Greška", JOptionPane.ERROR_MESSAGE);
@@ -251,10 +257,10 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
                 aranzmanCreate.setCenaSaPDV(cenaSa);
                 aranzmanCreate.setPopust(popust);
                 Controller.getInstance().promeniAranzman(aranzmanCreate);
-                JOptionPane.showMessageDialog(this, "Sistem je zapamtio aranžman", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem je zapamtio aranžman.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da zapamti aranžman!", "Greška", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da zapamti aranžman.", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -267,16 +273,16 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
                 aranzmanChange.setOpis(txtOpis.getText());
                 aranzmanChange.setPopust(popust);
                 Controller.getInstance().promeniAranzman(aranzmanChange);
-                JOptionPane.showMessageDialog(this, "Sistem je zapamtio aranžman", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem je zapamtio aranžman.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 uaf.getTblAranzmani().setModel(new TableModelAranzman());
                 this.dispose();
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da zapamti aranžman!", "Greška", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da zapamti aranžman.", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
         }
-    }//GEN-LAST:event_btnAddActionPerformed
+    }//GEN-LAST:event_btnSaveActionPerformed
 
     private void comboPoreskaStopaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboPoreskaStopaActionPerformed
         // TODO add your handling code here:
@@ -318,8 +324,8 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnSave;
     private javax.swing.JComboBox<PoreskaStopa> comboPoreskaStopa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

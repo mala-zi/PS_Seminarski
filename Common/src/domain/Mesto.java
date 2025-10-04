@@ -39,7 +39,6 @@ public class Mesto extends OpstiDomenskiObjekat {
         return id;
     }
 
-    @Override
     public void setId(int id) {
         this.id = id;
     }

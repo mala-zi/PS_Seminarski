@@ -27,18 +27,8 @@ public class TableModelStavkaOtpremnice extends AbstractTableModel {
         listaStavki = new ArrayList<>();
     }
 
-    public TableModelStavkaOtpremnice(Otpremnica otpremnica) {
-        /*try {
-            listaStavki = Controller.getInstance().ucitajStavkeOtpremniceIzBaze(otpremnica);
-           
-        } catch (Exception ex) {
-            Logger.getLogger(TableModelStavkaOtpremnice.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-        if (otpremnica.getStavkeOtpremnice() != null) {
-            listaStavki = otpremnica.getStavkeOtpremnice();
-        } else {
-            listaStavki = new ArrayList<>();
-        }
+    public TableModelStavkaOtpremnice(ArrayList<StavkaOtpremnice> lista) {
+        listaStavki=lista;
     }
 
     public KreirajOtpremnicuForma getKof() {

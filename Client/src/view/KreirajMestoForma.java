@@ -71,11 +71,17 @@ public class KreirajMestoForma extends javax.swing.JFrame {
         mestoCreate = new Mesto(-1, "", 11000, "");
         try {
             Controller.getInstance().kreirajMesto(mestoCreate);
+            ArrayList<Mesto> lista=Controller.getInstance().ucitajMestaIzBaze();
+            for(Mesto m:lista){
+                if(m.equals(mestoCreate)){
+                    mestoCreate.setId(m.getId());
+                }
+            }
         } catch (Exception ex) {
             Logger.getLogger(KreirajMestoForma.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        JOptionPane.showMessageDialog(this, "Sistem je kreirao mesto", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Sistem je kreirao mesto.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public KreirajMestoForma(PregledMestaForma viewForm, Mesto m) {
@@ -103,11 +109,17 @@ public class KreirajMestoForma extends javax.swing.JFrame {
         mestoCreate = new Mesto(-1, "", 11000, "");
         try {
             Controller.getInstance().kreirajMesto(mestoCreate);
+            ArrayList<Mesto> lista=Controller.getInstance().ucitajMestaIzBaze();
+            for(Mesto m:lista){
+                if(m.equals(mestoCreate)){
+                    mestoCreate.setId(m.getId());
+                }
+            }
         } catch (Exception ex) {
             Logger.getLogger(KreirajMestoForma.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        JOptionPane.showMessageDialog(this, "Sistem je kreirao mesto", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Sistem je kreirao mesto.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
     }
 
     /**
@@ -120,7 +132,7 @@ public class KreirajMestoForma extends javax.swing.JFrame {
     private void initComponents() {
 
         btnCancel = new javax.swing.JButton();
-        btnAdd = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
         txtGrad = new javax.swing.JTextField();
         txtPostanskiBroj = new javax.swing.JTextField();
         txtUlica = new javax.swing.JTextField();
@@ -139,12 +151,12 @@ public class KreirajMestoForma extends javax.swing.JFrame {
             }
         });
 
-        btnAdd.setBackground(new java.awt.Color(153, 255, 204));
-        btnAdd.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnAdd.setText("Sačuvaj");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+        btnSave.setBackground(new java.awt.Color(153, 255, 204));
+        btnSave.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnSave.setText("Sačuvaj");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
+                btnSaveActionPerformed(evt);
             }
         });
 
@@ -188,7 +200,7 @@ public class KreirajMestoForma extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(btnCancel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnAdd)))
+                                .addComponent(btnSave)))
                         .addGap(47, 47, 47))))
         );
         layout.setVerticalGroup(
@@ -209,7 +221,7 @@ public class KreirajMestoForma extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
@@ -228,7 +240,7 @@ public class KreirajMestoForma extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCancelActionPerformed
 
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         try {
             // TODO add your handling code here:
             if (txtGrad.getText().isEmpty() || txtPostanskiBroj.getText().isEmpty() || txtUlica.getText().isEmpty()) {
@@ -256,11 +268,11 @@ public class KreirajMestoForma extends javax.swing.JFrame {
                 mestoCreate.setUlica(txtUlica.getText());
                 Controller.getInstance().promeniMesto(mestoCreate);
                 if (dodaj == false) {
-                    JOptionPane.showMessageDialog(this, "Sistem je zapamtio mesto", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Sistem je zapamtio mesto.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                     viewForm.getTblMesta().setModel(new TableModelMesto());
                     this.dispose();
                 } else {
-                    JOptionPane.showMessageDialog(this, "Sistem je zapamtio mesto", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Sistem je zapamtio mesto.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                     uspeh = true;
                     kupacForm.getComboBoxMesto().removeAllItems();
                     ArrayList<Mesto> listaMesta = Controller.getInstance().ucitajMestaIzBaze();
@@ -275,18 +287,18 @@ public class KreirajMestoForma extends javax.swing.JFrame {
                 mestoChange.setUlica(txtUlica.getText());
                 mestoChange.setPostanskiBroj(pb);
                 Controller.getInstance().promeniMesto(mestoChange);
-                JOptionPane.showMessageDialog(this, "Sistem je zapamtio mesto", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem je zapamtio mesto.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 viewForm.getTblMesta().setModel(new TableModelMesto());
                 this.dispose();
             }
 
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Sistem nije uspeo da zapamti mesto!", "Greška", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Sistem nije uspeo da zapamti mesto.", "Greška", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
 
-    }//GEN-LAST:event_btnAddActionPerformed
+    }//GEN-LAST:event_btnSaveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -323,8 +335,8 @@ public class KreirajMestoForma extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnSave;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

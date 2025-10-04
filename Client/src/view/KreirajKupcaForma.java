@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import domain.Kupac;
 import domain.Mesto;
 import domain.TipKupca;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
@@ -23,9 +24,9 @@ import validator.Validator;
  */
 public class KreirajKupcaForma extends javax.swing.JFrame {
 
-    Kupac kupacChange;
-    Kupac kupacCreate;
-    UpravljajKupcimaForma pkf;
+    private Kupac kupacChange;
+    private Kupac kupacCreate;
+    private UpravljajKupcimaForma pkf;
 
     public JComboBox<Mesto> getComboBoxMesto() {
         return comboBoxMesto;
@@ -63,10 +64,16 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
         kupacCreate = new Kupac(-1, -1, "", "", mestoCreate, "", "", "", TipKupca.PRAVNO_LICE);
         try {
             Controller.getInstance().kreirajKupca(kupacCreate);
+            ArrayList<Kupac> lista=Controller.getInstance().ucitajKupceIzBaze();
+            for(Kupac k:lista){
+                if(k.equals(kupacCreate)){
+                    kupacCreate.setId(k.getId());
+                }
+            }
         } catch (Exception ex) {
             Logger.getLogger(KreirajKupcaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
-        JOptionPane.showMessageDialog(this, "Sistem je kreirao kupca", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Sistem je kreirao kupca.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
     }
 
     /**
@@ -86,8 +93,8 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
         txtTelefon = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
-        btnSacuvaj = new javax.swing.JButton();
-        btnNazad = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         comboBoxMesto = new javax.swing.JComboBox<>();
         btnMestoAdd = new javax.swing.JToggleButton();
@@ -120,21 +127,21 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
 
         txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        btnSacuvaj.setBackground(new java.awt.Color(153, 255, 204));
-        btnSacuvaj.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnSacuvaj.setText("Sačuvaj");
-        btnSacuvaj.addActionListener(new java.awt.event.ActionListener() {
+        btnSave.setBackground(new java.awt.Color(153, 255, 204));
+        btnSave.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnSave.setText("Sačuvaj");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSacuvajActionPerformed(evt);
+                btnSaveActionPerformed(evt);
             }
         });
 
-        btnNazad.setBackground(new java.awt.Color(153, 255, 204));
-        btnNazad.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnNazad.setText("Otkaži");
-        btnNazad.addActionListener(new java.awt.event.ActionListener() {
+        btnCancel.setBackground(new java.awt.Color(153, 255, 204));
+        btnCancel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCancel.setText("Otkaži");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNazadActionPerformed(evt);
+                btnCancelActionPerformed(evt);
             }
         });
 
@@ -210,9 +217,9 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(btnNazad)
+                                    .addComponent(btnCancel)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnSacuvaj))
+                                    .addComponent(btnSave))
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.LEADING)
@@ -266,15 +273,15 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
                             .addComponent(btnMestoAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNazad, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSacuvaj, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(44, 44, 44))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnNazadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNazadActionPerformed
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
         if (kupacCreate != null && kupacChange == null) {        
             try {
@@ -285,9 +292,9 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
         } else {
             this.dispose();
         }
-    }//GEN-LAST:event_btnNazadActionPerformed
+    }//GEN-LAST:event_btnCancelActionPerformed
 
-    private void btnSacuvajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSacuvajActionPerformed
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
         TipKupca tip;
         String naziv = "";
@@ -326,7 +333,7 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
         boolean telefonVazeci = validateTel(txtTelefon.getText());
 
         if (!emailVazeci) {
-            JOptionPane.showMessageDialog(this, "Los format Email-a", "Greška", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Los format Email-a!", "Greška", JOptionPane.ERROR_MESSAGE);
             return;
         }
         if (!telefonVazeci) {
@@ -364,10 +371,10 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
                     kupacCreate.setTip(TipKupca.valueOf(tip.name()));
                     Controller.getInstance().promeniKupca(kupacCreate);
                 }
-                JOptionPane.showMessageDialog(this, "Sistem je zapamtio kupca", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem je zapamtio kupca.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da zapamti kupca!", "Greška", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da zapamti kupca.", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         } else {
@@ -394,15 +401,15 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
                     kupacChange.setTip(TipKupca.valueOf(tip.name()));
                     Controller.getInstance().promeniKupca(kupacChange);
                 }
-                JOptionPane.showMessageDialog(this, "Sistem je zapamtio kupca", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem je zapamtio kupca.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 pkf.getTblKupci().setModel(new TableModelKupac());
                 this.dispose();
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da zapamti kupca!", "Greška", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da zapamti kupca.", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         }
-    }//GEN-LAST:event_btnSacuvajActionPerformed
+    }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnMestoAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMestoAddActionPerformed
         try {
@@ -455,9 +462,9 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancel;
     private javax.swing.JToggleButton btnMestoAdd;
-    private javax.swing.JButton btnNazad;
-    private javax.swing.JButton btnSacuvaj;
+    private javax.swing.JButton btnSave;
     private javax.swing.JComboBox<domain.Mesto> comboBoxMesto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

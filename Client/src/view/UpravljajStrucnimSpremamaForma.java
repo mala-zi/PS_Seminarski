@@ -24,7 +24,7 @@ import javax.swing.table.TableColumn;
 public class UpravljajStrucnimSpremamaForma extends javax.swing.JFrame {
 
     private List<StrucnaSprema> lista;
-    TableModelStrucnaSprema tmss;
+    private TableModelStrucnaSprema tmss;
     private Cvecar ulogovani;
 
     public JTable getTblStrSprema() {
@@ -47,7 +47,7 @@ public class UpravljajStrucnimSpremamaForma extends javax.swing.JFrame {
         setTitle("Upravljaj stručnim spremama");
         TableModelStrucnaSprema tmodel = new TableModelStrucnaSprema();
         tblStrSprema.setModel(tmodel);
-        btnPromeni.setEnabled(false);
+        btnChange.setEnabled(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         TableColumn idColumn = tblStrSprema.getColumnModel().getColumn(0);
         idColumn.setPreferredWidth(30);
@@ -66,8 +66,8 @@ public class UpravljajStrucnimSpremamaForma extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblStrSprema = new javax.swing.JTable();
-        btnPromeni = new javax.swing.JButton();
-        btnObrisi = new javax.swing.JButton();
+        btnChange = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -91,21 +91,21 @@ public class UpravljajStrucnimSpremamaForma extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblStrSprema);
 
-        btnPromeni.setBackground(new java.awt.Color(153, 255, 204));
-        btnPromeni.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnPromeni.setText("Promeni");
-        btnPromeni.addActionListener(new java.awt.event.ActionListener() {
+        btnChange.setBackground(new java.awt.Color(153, 255, 204));
+        btnChange.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnChange.setText("Promeni");
+        btnChange.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPromeniActionPerformed(evt);
+                btnChangeActionPerformed(evt);
             }
         });
 
-        btnObrisi.setBackground(new java.awt.Color(153, 255, 204));
-        btnObrisi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnObrisi.setText("Obriši");
-        btnObrisi.addActionListener(new java.awt.event.ActionListener() {
+        btnDelete.setBackground(new java.awt.Color(153, 255, 204));
+        btnDelete.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnDelete.setText("Obriši");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnObrisiActionPerformed(evt);
+                btnDeleteActionPerformed(evt);
             }
         });
 
@@ -132,8 +132,8 @@ public class UpravljajStrucnimSpremamaForma extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnPromeni, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnObrisi, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnChange, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnDelete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(35, 35, 35))))
         );
         layout.setVerticalGroup(
@@ -142,9 +142,9 @@ public class UpravljajStrucnimSpremamaForma extends javax.swing.JFrame {
                 .addContainerGap(40, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnPromeni, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnChange, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnObrisi, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -159,7 +159,7 @@ public class UpravljajStrucnimSpremamaForma extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
-    private void btnPromeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromeniActionPerformed
+    private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
         // TODO add your handling code here:
         int selektovanRed = tblStrSprema.getSelectedRow();
         if (selektovanRed == -1) {
@@ -170,20 +170,20 @@ public class UpravljajStrucnimSpremamaForma extends javax.swing.JFrame {
         StrucnaSprema zaPromenu = model.getStrucnaSprema(selektovanRed);
         UbaciStrucnuSpremuForma ussf = new UbaciStrucnuSpremuForma(this, zaPromenu);
         ussf.setVisible(true);
-    }//GEN-LAST:event_btnPromeniActionPerformed
+    }//GEN-LAST:event_btnChangeActionPerformed
 
     private void tblStrSpremaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblStrSpremaMouseClicked
         // TODO add your handling code here:
         int selektovanRed = tblStrSprema.getSelectedRow();
         if (selektovanRed != -1) {
-            btnPromeni.setEnabled(true);
-            if (btnObrisi.isVisible() == true) {
-                btnObrisi.setEnabled(true);
+            btnChange.setEnabled(true);
+            if (btnDelete.isVisible() == true) {
+                btnDelete.setEnabled(true);
             }
         }
     }//GEN-LAST:event_tblStrSpremaMouseClicked
 
-    private void btnObrisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiActionPerformed
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
         try {
             int selektovanRed = tblStrSprema.getSelectedRow();
@@ -199,13 +199,13 @@ public class UpravljajStrucnimSpremamaForma extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Ne možete obrisati stručnu spremu jer je povezana sa cvećarima!", "Greška", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
-            JOptionPane.showMessageDialog(this, "Stručna sprema je obrisana", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Sistem je uspešno obrisao stručnu spremu.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
             model.refresh();
             tblStrSprema.setModel(model);
         } catch (Exception ex) {
             Logger.getLogger(UpravljajCvecarimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_btnObrisiActionPerformed
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -241,18 +241,18 @@ public class UpravljajStrucnimSpremamaForma extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
-    private javax.swing.JButton btnObrisi;
-    private javax.swing.JButton btnPromeni;
+    private javax.swing.JButton btnChange;
+    private javax.swing.JButton btnDelete;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblStrSprema;
     // End of variables declaration//GEN-END:variables
 
     private void adminCheck() {
         if (!ulogovani.getKorisnickoIme().equals("admin")) {
-            btnObrisi.setVisible(false);
+            btnDelete.setVisible(false);
         } else {
-            btnObrisi.setVisible(true);
-            btnObrisi.setEnabled(false);
+            btnDelete.setVisible(true);
+            btnDelete.setEnabled(false);
         }
     }
 }

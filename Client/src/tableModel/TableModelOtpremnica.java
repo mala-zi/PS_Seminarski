@@ -6,6 +6,7 @@ package tableModel;
 
 import controller.Controller;
 import domain.Otpremnica;
+import domain.StavkaOtpremnice;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
@@ -18,11 +19,20 @@ import java.util.ArrayList;
 public class TableModelOtpremnica extends AbstractTableModel {
 
     private ArrayList<Otpremnica> lista;
+    private ArrayList<StavkaOtpremnice> listaStavki = new ArrayList<>();
     private final String[] kolone = {"ID", "Datum izdavanja", "Iznos bez PDV-a", "Iznos sa PDV-om", "Ukupan popust", "Cvećar", "Kupac"};
 
     public TableModelOtpremnica() {
         try {
             lista = Controller.getInstance().ucitajOtpremniceIzBaze();
+            //prodji kroz stavke otp o:lista
+            for (Otpremnica o : lista) {
+                if (o.getStavkeOtpremnice() != null) {
+                    for (StavkaOtpremnice so : o.getStavkeOtpremnice()) {
+                        listaStavki.add(so);
+                    }
+                }
+            }
         } catch (Exception ex) {
             Logger.getLogger(TableModelOtpremnica.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -60,7 +70,7 @@ public class TableModelOtpremnica extends AbstractTableModel {
                 return o.getCvecar().getIme() + " " + o.getCvecar().getPrezime();
             case 6:
                 if (o.getKupac().getNaziv().isEmpty()) {
-                    return o.getKupac().getIme()+" "+o.getKupac().getPrezime();
+                    return o.getKupac().getIme() + " " + o.getKupac().getPrezime();
                 } else {
                     return o.getKupac().getNaziv();
                 }

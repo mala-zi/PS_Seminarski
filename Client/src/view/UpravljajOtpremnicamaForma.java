@@ -9,6 +9,7 @@ import controller.Controller;
 import domain.Cvecar;
 import domain.Kupac;
 import domain.Otpremnica;
+import domain.StavkaOtpremnice;
 import domain.TipKupca;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
@@ -29,6 +30,9 @@ import javax.swing.table.TableColumn;
  * @author Saki
  */
 public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
+
+    private ArrayList<Otpremnica> filtriraneOtpremnice;
+    private Otpremnica filter;
 
     public JTable getTblOtp() {
         return tblOtp;
@@ -115,7 +119,7 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblOtp = new javax.swing.JTable();
         btnChange = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnSearch = new javax.swing.JButton();
         datum = new javax.swing.JLabel();
@@ -152,12 +156,12 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(153, 255, 204));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton2.setText("Otkaži");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnCancel.setBackground(new java.awt.Color(153, 255, 204));
+        btnCancel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCancel.setText("Otkaži");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnCancelActionPerformed(evt);
             }
         });
 
@@ -215,7 +219,7 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCancel, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
@@ -285,17 +289,17 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
                                 .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addGap(26, 26, 26)))
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
         this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
         try {
@@ -308,13 +312,35 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
                     //throw new RuntimeException("Simulacija greske");
                     TableModelOtpremnica model = (TableModelOtpremnica) tblOtp.getModel();
                     Otpremnica otpremnica = model.getOtpremnica(selektovanRed);
-                    JOptionPane.showMessageDialog(this, "Sistem je našao otpremnicu", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
-                    KreirajOtpremnicuForma kof = new KreirajOtpremnicuForma(this, otpremnica);
+                    JOptionPane.showMessageDialog(this, "Sistem je našao otpremnicu.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+                    ArrayList<StavkaOtpremnice> listaStavki = new ArrayList<>();
+                    ArrayList<Otpremnica> lista = Controller.getInstance().ucitajOtpremniceIzBaze();
+                    for (Otpremnica o : lista) {
+                        if (o.equals(otpremnica)) {
+                            for (StavkaOtpremnice so : o.getStavkeOtpremnice()) {
+                                listaStavki.add(so);
+                            }
+
+                        }
+                    }
+
+                    KreirajOtpremnicuForma kof = new KreirajOtpremnicuForma(this, otpremnica, listaStavki);
                     kof.setVisible(true);
-                    TableModelOtpremnica tmodel = new TableModelOtpremnica();
-                    tblOtp.setModel(tmodel);
+                    if (filtriraneOtpremnice != null) {
+                        filtriraneOtpremnice = Controller.getInstance().pretraziOtpremnice(filter);
+                        TableModelOtpremnica tmodel = new TableModelOtpremnica(filtriraneOtpremnice);
+                        tblOtp.setModel(tmodel);
+
+                    } else {
+                        TableModelOtpremnica tmodel = new TableModelOtpremnica();
+                        tblOtp.setModel(tmodel);
+                    }
+                    TableColumn idColumn = tblOtp.getColumnModel().getColumn(0);
+                    idColumn.setPreferredWidth(30);
+                    idColumn.setMinWidth(20);
+                    idColumn.setMaxWidth(40);
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(this, "Sistem nije uspeo da nađe otpremnicu!", "Greška", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Sistem nije uspeo da nađe otpremnicu.", "Greška", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
             }
@@ -337,10 +363,10 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
                 //throw new RuntimeException("Simulacija greske");
                 Controller.getInstance().obrisiOtpremnicu(zaBrisanje);
             } catch (SQLIntegrityConstraintViolationException ex) {
-                JOptionPane.showMessageDialog(this, "Sistem ne može da obriše otpremnicu!", "Greška", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem ne može da obriše otpremnicu.", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            JOptionPane.showMessageDialog(this, "Sistem je uspešno obrisao otpremnicu", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Sistem je uspešno obrisao otpremnicu.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
 
             TableModelOtpremnica tmodel = new TableModelOtpremnica();
             tblOtp.setModel(tmodel);
@@ -363,7 +389,7 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
             Kupac kupac = (Kupac) comboKupac.getSelectedItem();
             btnChange.setVisible(true);
             btnDelete.setVisible(true);
-            Otpremnica filter = new Otpremnica();
+            filter = new Otpremnica();
             if (cvecar.getIme().equals("Bilo") && cvecar.getPrezime().equals("koji")) {
                 cvecar = null;
             }
@@ -373,7 +399,7 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
             filter.setDatumIzdavanja(datum);
             filter.setCvecar(cvecar);
             filter.setKupac(kupac);
-            ArrayList<Otpremnica> filtriraneOtpremnice = Controller.getInstance().pretraziOtpremnice(filter);
+            filtriraneOtpremnice = Controller.getInstance().pretraziOtpremnice(filter);
             TableModelOtpremnica model = new TableModelOtpremnica(filtriraneOtpremnice);
             tblOtp.setModel(model);
             TableColumn idColumn = tblOtp.getColumnModel().getColumn(0);
@@ -381,10 +407,10 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
             idColumn.setMinWidth(20);
             idColumn.setMaxWidth(40);
             if (model.getRowCount() == 0) {
-                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da nađe otpremnice po zadatim kriterijumima!", "Greška", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da nađe otpremnice po zadatim kriterijumima.", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             } else {
-                JOptionPane.showMessageDialog(this, "Sistem je našao otpremnice po zadatim kriterijumima", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem je našao otpremnice po zadatim kriterijumima.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
         } catch (Exception ex) {
@@ -434,6 +460,7 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnChange;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnSearch;
@@ -441,7 +468,6 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
     private javax.swing.JComboBox<Object> comboDatum;
     private javax.swing.JComboBox<Kupac> comboKupac;
     private javax.swing.JLabel datum;
-    private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblcvecar;
     private javax.swing.JLabel lblkupac;

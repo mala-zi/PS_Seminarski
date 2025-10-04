@@ -74,7 +74,7 @@ public class ServerController {
 
     }
 
-    public void dodajCvecara(Cvecar cvecarAdd) throws Exception {
+    public void kreirajCvecara(Cvecar cvecarAdd) throws Exception {
         String hash = PasswordHash.hashPassword(cvecarAdd.getLozinka());
         cvecarAdd.setLozinka(hash);
         (new SOKreirajCvecar()).templateExecute(cvecarAdd);
@@ -82,6 +82,8 @@ public class ServerController {
     }
 
     public void promeniCvecara(Cvecar cvecarChange) throws Exception {
+        String hash = PasswordHash.hashPassword(cvecarChange.getLozinka());
+        cvecarChange.setLozinka(hash);
         (new SOPromeniCvecar()).templateExecute(cvecarChange);
     }
 
@@ -109,7 +111,7 @@ public class ServerController {
         (new SOObrisiKupac()).templateExecute(kupacDelete);
     }
 
-    public void dodajKupca(Kupac kupacAdd) throws Exception {
+    public void kreirajKupca(Kupac kupacAdd) throws Exception {
         (new SOKreirajKupca()).templateExecute(kupacAdd);
     }
 
@@ -127,7 +129,7 @@ public class ServerController {
         (new SOObrisiAranzman()).templateExecute(aranzmanDelete);
     }
 
-    public void dodajAranzman(Aranzman aranzmanAdd) throws Exception {
+    public void kreirajAranzman(Aranzman aranzmanAdd) throws Exception {
         (new SOKreirajAranzman()).templateExecute(aranzmanAdd);
     }
 
@@ -145,7 +147,7 @@ public class ServerController {
         (new SOObrisiMesto()).templateExecute(mestoDelete);
     }
 
-    public void dodajMesto(Mesto mestoAdd) throws Exception {
+    public void kreirajMesto(Mesto mestoAdd) throws Exception {
         (new SOKreirajMesto()).templateExecute(mestoAdd);
     }
 
@@ -163,7 +165,7 @@ public class ServerController {
         (new SOPromeniOtpremnicu()).templateExecute(otpremnicaChange);
     }
 
-    public void ubaciStrSpremu(StrucnaSprema strucnaSpremaAdd) throws Exception {
+    public void kreirajStrSprema(StrucnaSprema strucnaSpremaAdd) throws Exception {
         (new SOUbaciStrSprema()).templateExecute(strucnaSpremaAdd);
     }
 
@@ -205,9 +207,9 @@ public class ServerController {
         return so.getList();
     }
 
-    public void dodajStrSprema(StrucnaSprema strucnaSprema) throws Exception {
+   /* public void dodajStrSprema(StrucnaSprema strucnaSprema) throws Exception {
         (new SOUbaciStrSprema()).templateExecute(strucnaSprema);
-    }
+    }*/
 
     public ArrayList<Kupac> pretraziKupca(Kupac kupac) throws Exception {
         SOPretraziKupca so = new SOPretraziKupca();

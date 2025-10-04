@@ -280,9 +280,4 @@ public class StavkaOtpremnice extends OpstiDomenskiObjekat {
     public String uslov() {
         return " WHERE o.id = " + otpremnica.getId();
     }
-
-    @Override
-    public void setId(int id) {
-    }
-
 }

@@ -23,7 +23,7 @@ import tableModel.TableModelCvecar;
 public class UpravljajCvecarimaForma extends javax.swing.JFrame {
 
     private ArrayList<Cvecar> lista;
-    TableModelCvecar tma;
+    private TableModelCvecar tma;
     private Cvecar ulogovani;
 
     public JTable getTblCvecari() {
@@ -48,7 +48,7 @@ public class UpravljajCvecarimaForma extends javax.swing.JFrame {
             setResizable(false);
             setLocationRelativeTo(null);
             setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            btnPromeni.setEnabled(false);
+            btnChange.setEnabled(false);
             TableColumn idColumn =  tblCvecari.getColumnModel().getColumn(0); 
             idColumn.setPreferredWidth(30);
             idColumn.setMinWidth(20);       
@@ -69,9 +69,9 @@ public class UpravljajCvecarimaForma extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCvecari = new javax.swing.JTable();
-        btnPromeni = new javax.swing.JButton();
-        btnObrisi = new javax.swing.JButton();
-        btnNazad = new javax.swing.JButton();
+        btnChange = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -94,30 +94,30 @@ public class UpravljajCvecarimaForma extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblCvecari);
 
-        btnPromeni.setBackground(new java.awt.Color(153, 255, 204));
-        btnPromeni.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnPromeni.setText("Promeni");
-        btnPromeni.addActionListener(new java.awt.event.ActionListener() {
+        btnChange.setBackground(new java.awt.Color(153, 255, 204));
+        btnChange.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnChange.setText("Promeni");
+        btnChange.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPromeniActionPerformed(evt);
+                btnChangeActionPerformed(evt);
             }
         });
 
-        btnObrisi.setBackground(new java.awt.Color(153, 255, 204));
-        btnObrisi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnObrisi.setText("Obriši");
-        btnObrisi.addActionListener(new java.awt.event.ActionListener() {
+        btnDelete.setBackground(new java.awt.Color(153, 255, 204));
+        btnDelete.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnDelete.setText("Obriši");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnObrisiActionPerformed(evt);
+                btnDeleteActionPerformed(evt);
             }
         });
 
-        btnNazad.setBackground(new java.awt.Color(153, 255, 204));
-        btnNazad.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnNazad.setText("Otkaži");
-        btnNazad.addActionListener(new java.awt.event.ActionListener() {
+        btnCancel.setBackground(new java.awt.Color(153, 255, 204));
+        btnCancel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCancel.setText("Otkaži");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNazadActionPerformed(evt);
+                btnCancelActionPerformed(evt);
             }
         });
 
@@ -132,11 +132,11 @@ public class UpravljajCvecarimaForma extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnPromeni, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnObrisi, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnChange, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(21, 21, 21))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnNazad, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -145,19 +145,19 @@ public class UpravljajCvecarimaForma extends javax.swing.JFrame {
                 .addContainerGap(36, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnPromeni, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnChange, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnObrisi, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(btnNazad, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnPromeniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromeniActionPerformed
+    private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
         // TODO add your handling code here:
         int selektovanRed = tblCvecari.getSelectedRow();
         if (selektovanRed == -1) {
@@ -166,33 +166,28 @@ public class UpravljajCvecarimaForma extends javax.swing.JFrame {
         }
         TableModelCvecar tmm = (TableModelCvecar) tblCvecari.getModel();
         Cvecar c = tmm.getCvecar(selektovanRed);
+        JOptionPane.showMessageDialog(this, "Sistem je našao cvećara.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
         KreirajCvecaraForma kf = new KreirajCvecaraForma(this, c);
         kf.setVisible(true);
-        /*try {
-            TableModelCvecar tmm2 = new TableModelCvecar();
-            tblCvecari.setModel(tmm2);
-        } catch (Exception ex) {
-            Logger.getLogger(UpravljajCvecarimaForma.class.getName()).log(Level.SEVERE, null, ex);
-//        }*/
-    }//GEN-LAST:event_btnPromeniActionPerformed
+    }//GEN-LAST:event_btnChangeActionPerformed
 
-    private void btnNazadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNazadActionPerformed
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
         this.dispose();
-    }//GEN-LAST:event_btnNazadActionPerformed
+    }//GEN-LAST:event_btnCancelActionPerformed
 
     private void tblCvecariMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCvecariMouseClicked
         // TODO add your handling code here:
         int selektovanRed = tblCvecari.getSelectedRow();
         if (selektovanRed != -1) {
-            btnPromeni.setEnabled(true);
-            if (btnObrisi.isVisible() == true) {
-                btnObrisi.setEnabled(true);
+            btnChange.setEnabled(true);
+            if (btnDelete.isVisible() == true) {
+                btnDelete.setEnabled(true);
             }
         }
     }//GEN-LAST:event_tblCvecariMouseClicked
 
-    private void btnObrisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiActionPerformed
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
         try {
             int selektovanRed = tblCvecari.getSelectedRow();
@@ -209,7 +204,7 @@ public class UpravljajCvecarimaForma extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Ne možete obrisati cvećara jer je povezan sa otpremnicama!", "Greška", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
-            JOptionPane.showMessageDialog(this, "Cvećar obrisan", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Sistem je uspešno obrisao cvećara.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
 
             //tma = new TableModelCvecar();
             // tblCvecari.setModel(tma);
@@ -218,23 +213,23 @@ public class UpravljajCvecarimaForma extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(UpravljajCvecarimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_btnObrisiActionPerformed
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnNazad;
-    private javax.swing.JButton btnObrisi;
-    private javax.swing.JButton btnPromeni;
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnChange;
+    private javax.swing.JButton btnDelete;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblCvecari;
     // End of variables declaration//GEN-END:variables
 
     private void adminCheck() {
         if (!ulogovani.getKorisnickoIme().equals("admin")) {
-            btnObrisi.setVisible(false);
+            btnDelete.setVisible(false);
         } else {
-            btnObrisi.setVisible(true);
-            btnObrisi.setEnabled(false);
+            btnDelete.setVisible(true);
+            btnDelete.setEnabled(false);
         }
     }
 }

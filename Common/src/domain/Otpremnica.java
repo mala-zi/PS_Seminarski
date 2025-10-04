@@ -29,24 +29,24 @@ public class Otpremnica extends OpstiDomenskiObjekat {
     public Otpremnica() {
     }
 
-    public Otpremnica(double ukupanIznosBezPDv, double ukupanIznosSaPDV,double ukupanPopust, Date datumIzdavanja, Cvecar cvecar, Kupac kupac,ArrayList<StavkaOtpremnice> stavkeOtpremnice ) {
-        this.stavkeOtpremnice=stavkeOtpremnice;
+    public Otpremnica(double ukupanIznosBezPDv, double ukupanIznosSaPDV, double ukupanPopust, Date datumIzdavanja, Cvecar cvecar, Kupac kupac, ArrayList<StavkaOtpremnice> stavkeOtpremnice) {
+        this.stavkeOtpremnice = stavkeOtpremnice;
         this.ukupanIznosBezPDv = ukupanIznosBezPDv;
         this.ukupanIznosSaPDV = ukupanIznosSaPDV;
         this.datumIzdavanja = datumIzdavanja;
         this.cvecar = cvecar;
         this.kupac = kupac;
-        this.ukupanPopust=ukupanPopust;
+        this.ukupanPopust = ukupanPopust;
     }
 
-    public Otpremnica(int id, double ukupanIznosBezPDv, double ukupanIznosSaPDV,double ukupanPopust, Date datumIzdavanja, Cvecar cvecar, Kupac kupac, ArrayList<StavkaOtpremnice> stavkeOtpremnice) {
+    public Otpremnica(int id, double ukupanIznosBezPDv, double ukupanIznosSaPDV, double ukupanPopust, Date datumIzdavanja, Cvecar cvecar, Kupac kupac, ArrayList<StavkaOtpremnice> stavkeOtpremnice) {
         this.id = id;
         this.ukupanIznosBezPDv = ukupanIznosBezPDv;
         this.ukupanIznosSaPDV = ukupanIznosSaPDV;
         this.datumIzdavanja = datumIzdavanja;
         this.cvecar = cvecar;
         this.kupac = kupac;
-        this.ukupanPopust=ukupanPopust;
+        this.ukupanPopust = ukupanPopust;
         this.stavkeOtpremnice = stavkeOtpremnice;
     }
 
@@ -66,13 +66,10 @@ public class Otpremnica extends OpstiDomenskiObjekat {
         this.ukupanPopust = ukupanPopust;
     }
 
-   
-
     public int getId() {
         return id;
     }
 
-    @Override
     public void setId(int id) {
         this.id = id;
     }
@@ -93,8 +90,6 @@ public class Otpremnica extends OpstiDomenskiObjekat {
         this.ukupanIznosSaPDV = ukupanIznosSaPDV;
     }
 
-   
-
     public Date getDatumIzdavanja() {
         return datumIzdavanja;
     }
@@ -102,7 +97,6 @@ public class Otpremnica extends OpstiDomenskiObjekat {
     public void setDatumIzdavanja(Date datumIzdavanja) {
         this.datumIzdavanja = datumIzdavanja;
     }
-
 
     public Cvecar getCvecar() {
         return cvecar;
@@ -136,20 +130,30 @@ public class Otpremnica extends OpstiDomenskiObjekat {
         if (this == obj) {
             return true;
         }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
+        if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
         final Otpremnica other = (Otpremnica) obj;
-        if (this.id != other.id) {
-            return false;
+
+        if (this.id == other.id) {
+            return true;
         }
         if (!Objects.equals(this.cvecar, other.cvecar)) {
             return false;
         }
-        return Objects.equals(this.kupac, other.kupac);
+        if (!Objects.equals(this.kupac, other.kupac)) {
+            return false;
+        }
+        if (Double.compare(this.ukupanIznosBezPDv, other.ukupanIznosBezPDv) != 0) {
+            return false;
+        }
+        if (Double.compare(this.ukupanIznosSaPDV, other.ukupanIznosSaPDV) != 0) {
+            return false;
+        }
+        if (Double.compare(this.ukupanPopust, other.ukupanPopust) != 0) {
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -179,10 +183,10 @@ public class Otpremnica extends OpstiDomenskiObjekat {
                     rs.getString("m.grad"),
                     rs.getInt("m.postanskiBroj"),
                     rs.getString("m.ulica"));
-            
+
             String tipStr = rs.getString("k.tip");
             TipKupca tipKupca = TipKupca.valueOf(tipStr);
-            
+
             Kupac kupac = new Kupac(
                     rs.getInt("k.id"),
                     rs.getInt("k.pib"),
@@ -236,7 +240,7 @@ public class Otpremnica extends OpstiDomenskiObjekat {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String datumStr = (datumIzdavanja != null) ? "'" + sdf.format(datumIzdavanja) + "'" : "NULL";
 
-        return ukupanIznosBezPDv + ", " + ukupanIznosSaPDV +  ", "+ukupanPopust+", "
+        return ukupanIznosBezPDv + ", " + ukupanIznosSaPDV + ", " + ukupanPopust + ", "
                 + datumStr + ", " + cvecar.getId() + ", " + kupac.getId();
     }
 
@@ -247,7 +251,7 @@ public class Otpremnica extends OpstiDomenskiObjekat {
 
         return "ukupanIznosBezPDv = " + ukupanIznosBezPDv
                 + ", ukupanIznosSaPDV = " + ukupanIznosSaPDV
-                +", ukupanPopust = "+ukupanPopust
+                + ", ukupanPopust = " + ukupanPopust
                 + ", datumIzdavanja = " + datumStr
                 + ", idCvecar = " + cvecar.getId()
                 + ", idKupac = " + kupac.getId();
@@ -257,21 +261,21 @@ public class Otpremnica extends OpstiDomenskiObjekat {
     public String uslov() {
         ArrayList<String> uslovi = new ArrayList<>();
 
-    if (cvecar != null && cvecar.getId() > 0) {
-        uslovi.add("o.idCvecar = " + cvecar.getId());
-    }
-    if (kupac != null && kupac.getId() > 0) {
-        uslovi.add("o.idKupac = " + kupac.getId());
-    }
-    if (datumIzdavanja != null) {
-        java.sql.Date sqlDatum = new java.sql.Date(datumIzdavanja.getTime());
-        uslovi.add("o.datumIzdavanja = '" + sqlDatum + "'");
-    }
+        if (cvecar != null && cvecar.getId() > 0) {
+            uslovi.add("o.idCvecar = " + cvecar.getId());
+        }
+        if (kupac != null && kupac.getId() > 0) {
+            uslovi.add("o.idKupac = " + kupac.getId());
+        }
+        if (datumIzdavanja != null) {
+            java.sql.Date sqlDatum = new java.sql.Date(datumIzdavanja.getTime());
+            uslovi.add("o.datumIzdavanja = '" + sqlDatum + "'");
+        }
 
-    if (uslovi.isEmpty()) {
-        return ""; 
-    }
-    return "WHERE " + String.join(" AND ", uslovi);
+        if (uslovi.isEmpty()) {
+            return "";
+        }
+        return "WHERE " + String.join(" AND ", uslovi);
     }
 
 }

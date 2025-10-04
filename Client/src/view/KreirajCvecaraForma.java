@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import tableModel.TableModelCvecar;
+import validator.PasswordHash;
 
 /**
  *
@@ -19,9 +20,9 @@ import tableModel.TableModelCvecar;
  */
 public class KreirajCvecaraForma extends javax.swing.JFrame {
 
-    Cvecar cvecarChange;
-    Cvecar cvecarCreate;
-    UpravljajCvecarimaForma pcf;
+    private Cvecar cvecarChange;
+    private Cvecar cvecarCreate;
+    private UpravljajCvecarimaForma pcf;
     private boolean validation;
     private ArrayList<Cvecar> novaLista;
 
@@ -44,11 +45,19 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         txtId.setVisible(false);
         jLabel5.setVisible(false);
-        btnNovaLozinka.setVisible(false);
+        btnNewPassword.setVisible(false);
         cvecarCreate = new Cvecar(-1, "", "", "", "");
         try {
             Controller.getInstance().kreirajCvecar(cvecarCreate);
-            JOptionPane.showMessageDialog(this, "Sistem je kreirao cvećara", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+            String hashed=PasswordHash.hashPassword(cvecarCreate.getLozinka());
+            cvecarCreate.setLozinka(hashed);
+            ArrayList<Cvecar> lista=Controller.getInstance().ucitajCvecareIzBaze();
+            for(Cvecar c:lista){
+                if(c.equals(cvecarCreate)){
+                    cvecarCreate.setId(c.getId());
+                }
+            }
+            JOptionPane.showMessageDialog(this, "Sistem je kreirao cvećara.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception ex) {
             Logger.getLogger(KreirajCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -64,7 +73,7 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
         txtId.setEnabled(false);
         jLabel4.setVisible(false);
         txtLozinka.setVisible(false);
-        btnNovaLozinka.setVisible(true);
+        btnNewPassword.setVisible(true);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         if (c != null) {
             cvecarChange = c;
@@ -90,11 +99,11 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
         txtKorisnickoIme = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtLozinka = new javax.swing.JTextField();
-        btnNazad = new javax.swing.JButton();
-        btnSacuvaj = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
-        btnNovaLozinka = new javax.swing.JButton();
+        btnNewPassword = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -118,21 +127,21 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
 
         txtLozinka.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        btnNazad.setBackground(new java.awt.Color(153, 255, 204));
-        btnNazad.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnNazad.setText("Otkaži");
-        btnNazad.addActionListener(new java.awt.event.ActionListener() {
+        btnCancel.setBackground(new java.awt.Color(153, 255, 204));
+        btnCancel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCancel.setText("Otkaži");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNazadActionPerformed(evt);
+                btnCancelActionPerformed(evt);
             }
         });
 
-        btnSacuvaj.setBackground(new java.awt.Color(153, 255, 204));
-        btnSacuvaj.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnSacuvaj.setText("Sačuvaj");
-        btnSacuvaj.addActionListener(new java.awt.event.ActionListener() {
+        btnSave.setBackground(new java.awt.Color(153, 255, 204));
+        btnSave.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnSave.setText("Sačuvaj");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSacuvajActionPerformed(evt);
+                btnSaveActionPerformed(evt);
             }
         });
 
@@ -146,12 +155,12 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
             }
         });
 
-        btnNovaLozinka.setBackground(new java.awt.Color(153, 255, 204));
-        btnNovaLozinka.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnNovaLozinka.setText("Promeni lozinku");
-        btnNovaLozinka.addActionListener(new java.awt.event.ActionListener() {
+        btnNewPassword.setBackground(new java.awt.Color(153, 255, 204));
+        btnNewPassword.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnNewPassword.setText("Promeni lozinku");
+        btnNewPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNovaLozinkaActionPerformed(evt);
+                btnNewPasswordActionPerformed(evt);
             }
         });
 
@@ -165,7 +174,7 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnSacuvaj)
+                            .addComponent(btnSave)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,9 +195,9 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
                                     .addComponent(jLabel3)
                                     .addGap(18, 18, 18)
                                     .addComponent(txtKorisnickoIme))
-                                .addComponent(btnNovaLozinka, javax.swing.GroupLayout.Alignment.TRAILING))))
+                                .addComponent(btnNewPassword, javax.swing.GroupLayout.Alignment.TRAILING))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnNazad)
+                        .addComponent(btnCancel)
                         .addGap(161, 161, 161)))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
@@ -216,18 +225,18 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(txtLozinka, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(9, 9, 9)
-                .addComponent(btnNovaLozinka)
+                .addComponent(btnNewPassword)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNazad, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSacuvaj, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnNazadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNazadActionPerformed
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
         if (cvecarCreate != null && cvecarChange == null) {
             try {
@@ -238,9 +247,9 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
         } else {
             this.dispose();
         }
-    }//GEN-LAST:event_btnNazadActionPerformed
+    }//GEN-LAST:event_btnCancelActionPerformed
 
-    private void btnSacuvajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSacuvajActionPerformed
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
 
         if (txtIme.getText().isEmpty() || txtPrezime.getText().isEmpty() || txtKorisnickoIme.getText().isEmpty()) {
@@ -270,9 +279,9 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
             cvecarCreate.setLozinka(lozinka);
             try {
                 Controller.getInstance().promeniCvecara(cvecarCreate);
-                JOptionPane.showMessageDialog(this, "Sistem je zapamtio cvećara", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem je zapamtio cvećara.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da zapamti cvećara!", "Greška", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da zapamti cvećara.", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             this.dispose();
@@ -294,25 +303,25 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
                     cvecarChange.setPrezime(prezime);
                     try {
                         Controller.getInstance().promeniCvecara(cvecarChange);
-                        JOptionPane.showMessageDialog(this, "Sistem je zapamtio cvećara", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Sistem je zapamtio cvećara.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                         pcf.getTblCvecari().setModel(new TableModelCvecar());
                         this.dispose();
                     } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(this, "Sistem nije uspeo da zapamti cvećara!", "Greška", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Sistem nije uspeo da zapamti cvećara.", "Greška", JOptionPane.ERROR_MESSAGE);
                         return;
                     }
 
                 }
             }
         }
-    }//GEN-LAST:event_btnSacuvajActionPerformed
+    }//GEN-LAST:event_btnSaveActionPerformed
 
-    private void btnNovaLozinkaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovaLozinkaActionPerformed
+    private void btnNewPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewPasswordActionPerformed
         // TODO add your handling code here:
 
         PromeniLozinkuForma forma = new PromeniLozinkuForma(pcf, true, cvecarChange);
         forma.setVisible(true);
-    }//GEN-LAST:event_btnNovaLozinkaActionPerformed
+    }//GEN-LAST:event_btnNewPasswordActionPerformed
 
     private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
         // TODO add your handling code here:
@@ -323,9 +332,9 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnNazad;
-    private javax.swing.JButton btnNovaLozinka;
-    private javax.swing.JButton btnSacuvaj;
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnNewPassword;
+    private javax.swing.JButton btnSave;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

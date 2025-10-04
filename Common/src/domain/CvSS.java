@@ -122,8 +122,4 @@ public class CvSS extends OpstiDomenskiObjekat{
         return " WHERE " + vrednostZaPrimarniKljuc();
     }
 
-    @Override
-    public void setId(int id) {
-        
-    }
 }

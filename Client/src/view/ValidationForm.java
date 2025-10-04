@@ -77,6 +77,8 @@ public class ValidationForm extends javax.swing.JDialog {
 
         txtIme.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
+        txtValidation.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(

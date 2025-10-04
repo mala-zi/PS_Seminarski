@@ -6,6 +6,7 @@ package view;
 
 import controller.Controller;
 import domain.StrucnaSprema;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -18,8 +19,10 @@ import tableModel.TableModelStrucnaSprema;
  */
 public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
 
-    StrucnaSprema ss;
-    UpravljajStrucnimSpremamaForma ussf;
+    private StrucnaSprema ssChange;
+    private StrucnaSprema ssCreate;
+    private UpravljajStrucnimSpremamaForma ussf;
+
     /**
      * Creates new form UbaciStrucnuSpremuForma
      */
@@ -31,7 +34,20 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         comboSertifikat.addItem("NE");
         comboSertifikat.addItem("DA");
+        ssCreate = new StrucnaSprema(-1, "", "", false);
+        try {
+            Controller.getInstance().kreirajStrSprema(ssCreate);
+            ArrayList<StrucnaSprema> lista = Controller.getInstance().ucitajStrucneSpremeIzBaze();
+            for (StrucnaSprema ss : lista) {
+                if (ss.equals(ssCreate)) {
+                    ssCreate.setId(ss.getId());
+                }
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(KreirajMestoForma.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
+        JOptionPane.showMessageDialog(this, "Sistem je kreirao stručnu spremu.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public UbaciStrucnuSpremuForma(JFrame parent, StrucnaSprema strsprema) {
@@ -41,13 +57,14 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         comboSertifikat.addItem("NE");
         comboSertifikat.addItem("DA");
-        if(strsprema!=null){
-            ss=strsprema;
-            ussf=(UpravljajStrucnimSpremamaForma) parent;
-            popuniIzmenuStrSprema(ss);
+        if (strsprema != null) {
+            ssChange = strsprema;
+            ussf = (UpravljajStrucnimSpremamaForma) parent;
+            popuniIzmenuStrSprema(ssChange);
         }
 
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -59,7 +76,7 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
 
         txtNaziv = new javax.swing.JTextField();
         txtNivo = new javax.swing.JTextField();
-        btnInsert = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -72,12 +89,12 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
 
         txtNivo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        btnInsert.setBackground(new java.awt.Color(153, 255, 204));
-        btnInsert.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnInsert.setText("Sačuvaj");
-        btnInsert.addActionListener(new java.awt.event.ActionListener() {
+        btnSave.setBackground(new java.awt.Color(153, 255, 204));
+        btnSave.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnSave.setText("Sačuvaj");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInsertActionPerformed(evt);
+                btnSaveActionPerformed(evt);
             }
         });
 
@@ -136,7 +153,7 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
                 .addGap(67, 67, 67)
                 .addComponent(btnCancel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnInsert)
+                .addComponent(btnSave)
                 .addGap(82, 82, 82))
         );
         layout.setVerticalGroup(
@@ -155,7 +172,7 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23))
         );
 
@@ -163,8 +180,15 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
+        if (ssCreate != null && ssChange == null) {
+            try {
+                Controller.getInstance().obrisiStrSprema(ssCreate);
+            } catch (Exception ex) {
+                Logger.getLogger(UbaciStrucnuSpremuForma.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            this.dispose();
+        }
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void comboSertifikatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSertifikatActionPerformed
@@ -173,10 +197,10 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
 
     }//GEN-LAST:event_comboSertifikatActionPerformed
 
-    private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
-        if(txtNaziv.getText().isEmpty() || txtNivo.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this, "Morate popuniti sva polja!","Greška",JOptionPane.ERROR_MESSAGE);
+        if (txtNaziv.getText().isEmpty() || txtNivo.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Morate popuniti sva polja!", "Greška", JOptionPane.ERROR_MESSAGE);
             return;
         }
         String sert = comboSertifikat.getSelectedItem() + "";
@@ -186,30 +210,32 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
         } else {
             sertifikat = false;
         }
-        if(ss==null){
-        StrucnaSprema strs = new StrucnaSprema(-1,txtNaziv.getText(), txtNivo.getText(), sertifikat);
+        if (ssChange == null && ssCreate != null) {
             try {
-               // throw new RuntimeException("Simulacija greske");
-                Controller.getInstance().kreirajStrSprema(strs);
-                JOptionPane.showMessageDialog(this, "Sistem je sačuvao strucnu spremu", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+                // throw new RuntimeException("Simulacija greske");
+                ssCreate.setNaziv(txtNaziv.getText());
+                ssCreate.setNivo(txtNivo.getText());
+                ssCreate.setSertifikat(sertifikat);
+                Controller.getInstance().promeniStrSpremu(ssCreate);
+                JOptionPane.showMessageDialog(this, "Sistem je zapamtio stručnu spremu.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Sistem ne može da sačuva stručnu spremu!", "Greška", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da zapamti stručnu spremu.", "Greška", JOptionPane.ERROR_MESSAGE);
             }
-        }else{
-            ss.setNaziv(txtNaziv.getText());
-            ss.setNivo(txtNivo.getText());
-            ss.setSertifikat(sertifikat);
+        } else {
+            ssChange.setNaziv(txtNaziv.getText());
+            ssChange.setNivo(txtNivo.getText());
+            ssChange.setSertifikat(sertifikat);
             try {
-                Controller.getInstance().promeniStrSpremu(ss);
-                JOptionPane.showMessageDialog(this, "Sistem je uspešno izmenio stručnu spremu", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+                Controller.getInstance().promeniStrSpremu(ssChange);
+                JOptionPane.showMessageDialog(this, "Sistem je zapamtio stručnu spremu.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 ussf.getTblStrSprema().setModel(new TableModelStrucnaSprema());
                 this.dispose();
             } catch (Exception ex) {
-                Logger.getLogger(UbaciStrucnuSpremuForma.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da zapamti stručnu spremu.", "Greška", JOptionPane.ERROR_MESSAGE);
             }
         }
-    }//GEN-LAST:event_btnInsertActionPerformed
+    }//GEN-LAST:event_btnSaveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -248,7 +274,7 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
-    private javax.swing.JButton btnInsert;
+    private javax.swing.JButton btnSave;
     private javax.swing.JComboBox<String> comboSertifikat;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -260,12 +286,12 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
     private void popuniIzmenuStrSprema(StrucnaSprema ss) {
         txtNaziv.setText(ss.getNaziv());
         txtNivo.setText(ss.getNivo());
-        boolean sert=ss.isSertifikat();
-        if(sert==true){
-             comboSertifikat.setSelectedItem("DA");
-        }else{
+        boolean sert = ss.isSertifikat();
+        if (sert == true) {
+            comboSertifikat.setSelectedItem("DA");
+        } else {
             comboSertifikat.setSelectedItem("NE");
         }
-       
+
     }
 }

@@ -77,14 +77,14 @@ public class ThreadClient extends Thread {
                     response.setData(prijavljeni);
                     break;
                 case Operation.KREIRAJ_CVECARA:
-                    ServerController.getInstance().dodajCvecara((Cvecar) request.getData());
+                    ServerController.getInstance().kreirajCvecara((Cvecar) request.getData());
                     break;
                 case Operation.KREIRAJ_OTPREMNICU:
                     ServerController.getInstance().kreirajOtpremnicu((Otpremnica) request.getData());
                     break;
-                case Operation.UBACI_STR_SPREMU:
-                    ServerController.getInstance().ubaciStrSpremu((StrucnaSprema) request.getData());
-                    break;
+                /*case Operation.UBACI_STR_SPREMU:
+                    ServerController.getInstance().kreirajStrSpremu((StrucnaSprema) request.getData());
+                    break;*/
                 case Operation.PROMENI_KUPCA:
                     ServerController.getInstance().promeniKupca((Kupac) request.getData());
                     break;
@@ -107,10 +107,10 @@ public class ThreadClient extends Thread {
                     response.setData(ServerController.getInstance().ucitajCvecareIzBaze());
                     break;
                 case Operation.KREIRAJ_KUPCA:
-                    ServerController.getInstance().dodajKupca((Kupac) request.getData());
+                    ServerController.getInstance().kreirajKupca((Kupac) request.getData());
                     break;
                 case Operation.KREIRAJ_ARANZMAN:
-                    ServerController.getInstance().dodajAranzman((Aranzman) request.getData());
+                    ServerController.getInstance().kreirajAranzman((Aranzman) request.getData());
                     break;
                 case Operation.OBRISI_ARANZMAN:
                     ServerController.getInstance().obrisiAranzman((Aranzman) request.getData());
@@ -119,7 +119,7 @@ public class ThreadClient extends Thread {
                     ServerController.getInstance().promeniAranzman((Aranzman) request.getData());
                     break;
                 case Operation.KREIRAJ_MESTO:
-                    ServerController.getInstance().dodajMesto((Mesto) request.getData());
+                    ServerController.getInstance().kreirajMesto((Mesto) request.getData());
                     break;
                 case Operation.PROMENI_MESTO:
                     ServerController.getInstance().promeniMesto((Mesto) request.getData());
@@ -158,7 +158,7 @@ public class ThreadClient extends Thread {
                     response.setData(ServerController.getInstance().ucitajPoreskaStopeIzBaze());
                     break;
                 case Operation.KREIRAJ_STRUCNASPREMA:
-                    ServerController.getInstance().dodajStrSprema((StrucnaSprema) request.getData());
+                    ServerController.getInstance().kreirajStrSprema((StrucnaSprema) request.getData());
                     break;
                 case Operation.PRETRAZI_KUPCA:
                     response.setData(ServerController.getInstance().pretraziKupca((Kupac) request.getData()));

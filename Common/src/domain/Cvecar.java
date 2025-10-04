@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author Saki
  */
-public class Cvecar extends OpstiDomenskiObjekat{
+public class Cvecar extends OpstiDomenskiObjekat {
 
     private int id;
     private String ime;
@@ -48,7 +48,6 @@ public class Cvecar extends OpstiDomenskiObjekat{
         return id;
     }
 
-    @Override
     public void setId(int id) {
         this.id = id;
     }
@@ -87,7 +86,7 @@ public class Cvecar extends OpstiDomenskiObjekat{
 
     @Override
     public String toString() {
-        return ime+" "+prezime;
+        return ime + " " + prezime;
     }
 
     @Override
@@ -102,7 +101,7 @@ public class Cvecar extends OpstiDomenskiObjekat{
 
     @Override
     public String join() {
-        return ""; 
+        return "";
     }
 
     @Override
@@ -159,14 +158,21 @@ public class Cvecar extends OpstiDomenskiObjekat{
         if (this == obj) {
             return true;
         }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
+        if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
         final Cvecar other = (Cvecar) obj;
-        return this.id == other.id;
+
+        if (this.id > 0 && other.id > 0 && this.id == other.id) {
+            return true;
+        }
+
+        if (this.korisnickoIme != null && other.korisnickoIme != null
+                && this.lozinka != null && other.lozinka != null) {
+            return this.korisnickoIme.equals(other.korisnickoIme)
+                    && this.lozinka.equals(other.lozinka);
+        }
+        return false;
     }
 
 }

@@ -33,6 +33,7 @@ import validator.Validator;
 public class KreirajOtpremnicuForma extends javax.swing.JFrame {
 
     private UpravljajOtpremnicamaForma uof;
+    private ArrayList<StavkaOtpremnice> listaStavki=new ArrayList<>();
     private Otpremnica otpremnicaCreate;
     private Otpremnica otpremnicaChange;
     private double ukupnaSa = 0;
@@ -121,18 +122,25 @@ public class KreirajOtpremnicuForma extends javax.swing.JFrame {
             tableStavke.setModel(tmodel);
             Cvecar c = (Cvecar) comboBoxCvecar.getSelectedItem();
             Kupac k = (Kupac) comboBoxKupac.getSelectedItem();
-            otpremnicaCreate = new Otpremnica(-1, 0, 0, 0, new Date(), c, k, new ArrayList<StavkaOtpremnice>());
+            otpremnicaCreate = new Otpremnica(-1, -1, -1, -1, new Date(), c, k, new ArrayList<StavkaOtpremnice>());
             Controller.getInstance().kreirajOtpremnicu(otpremnicaCreate);
-            JOptionPane.showMessageDialog(this, "Sistem je kreirao otpremnicu", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+            ArrayList<Otpremnica> lista = Controller.getInstance().ucitajOtpremniceIzBaze();
+            for (Otpremnica o : lista) {
+                if (o.equals(otpremnicaCreate)) {
+                    otpremnicaCreate.setId(o.getId());
+                }
+            }
+            JOptionPane.showMessageDialog(this, "Sistem je kreirao otpremnicu.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception ex) {
             Logger.getLogger(KreirajOtpremnicuForma.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public KreirajOtpremnicuForma(UpravljajOtpremnicamaForma parent, Otpremnica otpremnica) throws Exception {
+    public KreirajOtpremnicuForma(UpravljajOtpremnicamaForma parent, Otpremnica otpremnica, ArrayList<StavkaOtpremnice> lista) throws Exception {
 
         this.uof = (UpravljajOtpremnicamaForma) parent;
         this.otpremnicaChange = otpremnica;
+        this.listaStavki=lista;
         initComponents();
         radioPravno.addActionListener(e -> {
             try {
@@ -157,7 +165,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JFrame {
         popuniKupceIzBaze();
         popuniAranzmaneIzBaze();
         popuniPromena(otpremnica);
-        TableModelStavkaOtpremnice tmodel = new TableModelStavkaOtpremnice(otpremnica);
+        TableModelStavkaOtpremnice tmodel = new TableModelStavkaOtpremnice(listaStavki);
         tmodel.setKof(this);
         tableStavke.setModel(tmodel);
     }
@@ -339,6 +347,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JFrame {
         jLabel12.setText("Napomena");
 
         txtNapomena.setColumns(20);
+        txtNapomena.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtNapomena.setRows(5);
         jScrollPane2.setViewportView(txtNapomena);
 
@@ -650,10 +659,10 @@ public class KreirajOtpremnicuForma extends javax.swing.JFrame {
                 otpremnicaCreate.setKupac(k);
                 otpremnicaCreate.setStavkeOtpremnice(stavke);
                 Controller.getInstance().promeniOtpremnicu(otpremnicaCreate);
-                JOptionPane.showMessageDialog(this, "Sistem je zapamtio otpremnicu", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem je zapamtio otpremnicu.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da zapamti otpremnicu!", "Greška", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da zapamti otpremnicu.", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         } else {
@@ -670,7 +679,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JFrame {
                 otpremnicaChange.setUkupanPopust(ukupanPopust);
                 otpremnicaChange.setStavkeOtpremnice(stavke);
                 Controller.getInstance().promeniOtpremnicu(otpremnicaChange);
-                JOptionPane.showMessageDialog(this, "Sistem je zapamtio otpremnicu", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem je zapamtio otpremnicu.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 uof.getTblOtp().setModel(new TableModelOtpremnica());
                 TableColumn idColumn = uof.getTblOtp().getColumnModel().getColumn(0);
                 idColumn.setPreferredWidth(30);
@@ -678,7 +687,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JFrame {
                 idColumn.setMaxWidth(40);
                 this.dispose();
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da zapamti otpremnicu!", "Greška", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Sistem nije uspeo da zapamti otpremnicu.", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         }
@@ -743,7 +752,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JFrame {
         // TODO add your handling code here:
         int selected = tableStavke.getSelectedRow();
         if (selected == -1) {
-            JOptionPane.showMessageDialog(this, "Ništa nije označeno iz tabele", "Greška", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Ništa nije označeno iz tabele.", "Greška", JOptionPane.ERROR_MESSAGE);
             return;
         }
         TableModelStavkaOtpremnice tmodel = (TableModelStavkaOtpremnice) tableStavke.getModel();
@@ -935,7 +944,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JFrame {
             txtUkupnoBez.setText(otpremnica.getUkupanIznosBezPDv() + "");
             txtUkupnoSaPDV.setText(otpremnica.getUkupanIznosSaPDV() + "");
             txtUkupanPopust.setText(otpremnica.getUkupanPopust() + "");
-            tableStavke.setModel(new TableModelStavkaOtpremnice(otpremnica));
+            tableStavke.setModel(new TableModelStavkaOtpremnice(listaStavki));
         } catch (Exception ex) {
             Logger.getLogger(KreirajOtpremnicuForma.class.getName()).log(Level.SEVERE, null, ex);
         }

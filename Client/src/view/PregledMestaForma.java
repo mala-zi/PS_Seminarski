@@ -206,7 +206,7 @@ public class PregledMestaForma extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Ne možete obrisati mesto jer je vezano za kupca!", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            JOptionPane.showMessageDialog(this, "Mesto obrisano", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Sistem je uspešno obrisao mesto.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
 
             TableModelMesto tmodel = new TableModelMesto();
             tblMesta.setModel(tmodel);

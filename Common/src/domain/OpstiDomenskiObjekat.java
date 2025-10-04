@@ -33,5 +33,4 @@ public abstract class OpstiDomenskiObjekat implements Serializable {
 
     public abstract String uslov();
 
-    public abstract void setId(int id);
 }
