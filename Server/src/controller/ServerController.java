@@ -82,8 +82,6 @@ public class ServerController {
     }
 
     public void promeniCvecara(Cvecar cvecarChange) throws Exception {
-        String hash = PasswordHash.hashPassword(cvecarChange.getLozinka());
-        cvecarChange.setLozinka(hash);
         (new SOPromeniCvecar()).templateExecute(cvecarChange);
     }
 
@@ -186,15 +184,6 @@ public class ServerController {
     public void obrisiOtpremnicu(Otpremnica otpremnicaDelete) throws Exception {
         (new SOObrisiOtpremnicu()).templateExecute(otpremnicaDelete);
     }
-
-    /* public ArrayList<StavkaOtpremnice> ucitajStavkeOtpremniceIzBaze(Otpremnica otpremnica) throws Exception {//mozda promenim na Arraylist posle
-        SOVratiListuSviStavkiOtpremnice so = new SOVratiListuSviStavkiOtpremnice();
-        StavkaOtpremnice s = new StavkaOtpremnice();
-        s.setOtpremnica(otpremnica);
-        so.templateExecute(s);
-        return so.getLista();
-
-    }*/
     public ArrayList<Otpremnica> pretraziOtpremnicu(Otpremnica kriterijum) throws Exception {
         SOPretraziOtpremnicu so = new SOPretraziOtpremnicu();
         so.templateExecute(kriterijum);
@@ -206,10 +195,6 @@ public class ServerController {
         so.templateExecute(new PoreskaStopa());
         return so.getList();
     }
-
-   /* public void dodajStrSprema(StrucnaSprema strucnaSprema) throws Exception {
-        (new SOUbaciStrSprema()).templateExecute(strucnaSprema);
-    }*/
 
     public ArrayList<Kupac> pretraziKupca(Kupac kupac) throws Exception {
         SOPretraziKupca so = new SOPretraziKupca();

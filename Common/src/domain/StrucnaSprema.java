@@ -7,6 +7,7 @@ package domain;
 import java.util.ArrayList;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 /**
  *
  * @author Saki
@@ -72,6 +73,33 @@ public class StrucnaSprema extends OpstiDomenskiObjekat {
      @Override
     public String nazivTabele() {
         return "strucnasprema";
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final StrucnaSprema other = (StrucnaSprema) obj;       
+        if (this.sertifikat != other.sertifikat) {
+            return false;
+        }
+        if (!Objects.equals(this.naziv, other.naziv)) {
+            return false;
+        }
+        return Objects.equals(this.nivo, other.nivo);
     }
 
     @Override

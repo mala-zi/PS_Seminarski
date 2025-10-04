@@ -49,6 +49,7 @@ public class Aranzman extends OpstiDomenskiObjekat {
     public int getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -124,10 +125,11 @@ public class Aranzman extends OpstiDomenskiObjekat {
             return false;
         }
         final Aranzman other = (Aranzman) obj;
-        if (this.id != other.id) {
+
+        if (this.naziv != null ? !this.naziv.equalsIgnoreCase(other.naziv) : other.naziv != null) {
             return false;
         }
-        return Objects.equals(this.naziv, other.naziv);
+        return true;
     }
 
     @Override

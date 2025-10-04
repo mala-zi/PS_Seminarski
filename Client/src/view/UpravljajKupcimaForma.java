@@ -254,9 +254,11 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Ništa nije označeno!", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+            TableModelKupac tmk = (TableModelKupac) tblKupci.getModel();
+            Kupac kupacDelete = tmk.getKupac(selektovanRed);
             try {
                 //throw new RuntimeException("Simulacija greške");
-                Controller.getInstance().obrisiKupca(lista.get(selektovanRed));
+                Controller.getInstance().obrisiKupca(kupacDelete);
             } catch (SQLIntegrityConstraintViolationException ex) {
                 JOptionPane.showMessageDialog(this, "Sistem ne može da obriše kupca.", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
@@ -264,6 +266,14 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Sistem je uspešno obrisao kupca.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
 
             tblKupci.setModel(new TableModelKupac());
+            TableColumn mestoColumn = tblKupci.getColumnModel().getColumn(5);
+            mestoColumn.setPreferredWidth(200);
+            mestoColumn.setMinWidth(150);
+            mestoColumn.setMaxWidth(230);
+            TableColumn idColumn = tblKupci.getColumnModel().getColumn(0);
+            idColumn.setPreferredWidth(30);
+            idColumn.setMinWidth(20);
+            idColumn.setMaxWidth(40);
         } catch (Exception ex) {
             Logger.getLogger(UpravljajCvecarimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -286,6 +296,14 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Sistem je našao kupca.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 KreirajKupcaForma kf = new KreirajKupcaForma(this, kupacChange);
                 kf.setVisible(true);
+                TableColumn mestoColumn = tblKupci.getColumnModel().getColumn(5);
+                mestoColumn.setPreferredWidth(200);
+                mestoColumn.setMinWidth(150);
+                mestoColumn.setMaxWidth(230);
+                TableColumn idColumn = tblKupci.getColumnModel().getColumn(0);
+                idColumn.setPreferredWidth(30);
+                idColumn.setMinWidth(20);
+                idColumn.setMaxWidth(40);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Sistem nije uspeo da nađe kupca.", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;

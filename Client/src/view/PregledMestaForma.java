@@ -54,9 +54,9 @@ public class PregledMestaForma extends javax.swing.JFrame {
         try {
             TableModelMesto tmodel = new TableModelMesto();
             tblMesta.setModel(tmodel);
-            TableColumn idColumn =  tblMesta.getColumnModel().getColumn(0); 
+            TableColumn idColumn = tblMesta.getColumnModel().getColumn(0);
             idColumn.setPreferredWidth(30);
-            idColumn.setMinWidth(20);       
+            idColumn.setMinWidth(20);
             idColumn.setMaxWidth(40);
         } catch (Exception ex) {
             Logger.getLogger(PregledMestaForma.class.getName()).log(Level.SEVERE, null, ex);
@@ -74,9 +74,9 @@ public class PregledMestaForma extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMesta = new javax.swing.JTable();
-        btnDodajMesto = new javax.swing.JButton();
-        btnPromeniMesto = new javax.swing.JButton();
-        btnObrisiMesto = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
+        btnChange = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -95,30 +95,30 @@ public class PregledMestaForma extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblMesta);
 
-        btnDodajMesto.setBackground(new java.awt.Color(153, 255, 204));
-        btnDodajMesto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnDodajMesto.setText("Dodaj");
-        btnDodajMesto.addActionListener(new java.awt.event.ActionListener() {
+        btnAdd.setBackground(new java.awt.Color(153, 255, 204));
+        btnAdd.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnAdd.setText("Dodaj");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDodajMestoActionPerformed(evt);
+                btnAddActionPerformed(evt);
             }
         });
 
-        btnPromeniMesto.setBackground(new java.awt.Color(153, 255, 204));
-        btnPromeniMesto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnPromeniMesto.setText("Promeni");
-        btnPromeniMesto.addActionListener(new java.awt.event.ActionListener() {
+        btnChange.setBackground(new java.awt.Color(153, 255, 204));
+        btnChange.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnChange.setText("Promeni");
+        btnChange.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPromeniMestoActionPerformed(evt);
+                btnChangeActionPerformed(evt);
             }
         });
 
-        btnObrisiMesto.setBackground(new java.awt.Color(153, 255, 204));
-        btnObrisiMesto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnObrisiMesto.setText("Obriši");
-        btnObrisiMesto.addActionListener(new java.awt.event.ActionListener() {
+        btnDelete.setBackground(new java.awt.Color(153, 255, 204));
+        btnDelete.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnDelete.setText("Obriši");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnObrisiMestoActionPerformed(evt);
+                btnDeleteActionPerformed(evt);
             }
         });
 
@@ -145,9 +145,9 @@ public class PregledMestaForma extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 507, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnDodajMesto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnPromeniMesto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnObrisiMesto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnChange, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(37, 37, 37))))
         );
         layout.setVerticalGroup(
@@ -156,11 +156,11 @@ public class PregledMestaForma extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(39, 39, 39)
-                        .addComponent(btnDodajMesto, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(34, 34, 34)
-                        .addComponent(btnPromeniMesto, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnChange, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(33, 33, 33)
-                        .addComponent(btnObrisiMesto, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -177,7 +177,7 @@ public class PregledMestaForma extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
-    private void btnDodajMestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajMestoActionPerformed
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         try {
             // TODO add your handling code here:
             KreirajMestoForma kmf = new KreirajMestoForma(this);
@@ -188,9 +188,9 @@ public class PregledMestaForma extends javax.swing.JFrame {
             Logger.getLogger(PregledMestaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-    }//GEN-LAST:event_btnDodajMestoActionPerformed
+    }//GEN-LAST:event_btnAddActionPerformed
 
-    private void btnObrisiMestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnObrisiMestoActionPerformed
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
         try {
             int selektovanRed = tblMesta.getSelectedRow();
@@ -210,12 +210,16 @@ public class PregledMestaForma extends javax.swing.JFrame {
 
             TableModelMesto tmodel = new TableModelMesto();
             tblMesta.setModel(tmodel);
+            TableColumn idColumn = tblMesta.getColumnModel().getColumn(0);
+        idColumn.setPreferredWidth(30);
+        idColumn.setMinWidth(20);
+        idColumn.setMaxWidth(40);
         } catch (Exception ex) {
             Logger.getLogger(UpravljajCvecarimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_btnObrisiMestoActionPerformed
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
-    private void btnPromeniMestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromeniMestoActionPerformed
+    private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
         // TODO add your handling code here:
         int selektovanRed = tblMesta.getSelectedRow();
         if (selektovanRed == -1) {
@@ -226,7 +230,11 @@ public class PregledMestaForma extends javax.swing.JFrame {
         Mesto m = tmm.getMesto(selektovanRed);
         KreirajMestoForma mf = new KreirajMestoForma(this, m);
         mf.setVisible(true);
-    }//GEN-LAST:event_btnPromeniMestoActionPerformed
+        TableColumn idColumn = tblMesta.getColumnModel().getColumn(0);
+        idColumn.setPreferredWidth(30);
+        idColumn.setMinWidth(20);
+        idColumn.setMaxWidth(40);
+    }//GEN-LAST:event_btnChangeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -264,10 +272,10 @@ public class PregledMestaForma extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCancel;
-    private javax.swing.JButton btnDodajMesto;
-    private javax.swing.JButton btnObrisiMesto;
-    private javax.swing.JButton btnPromeniMesto;
+    private javax.swing.JButton btnChange;
+    private javax.swing.JButton btnDelete;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblMesta;
     // End of variables declaration//GEN-END:variables

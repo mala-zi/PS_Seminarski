@@ -27,6 +27,7 @@ public class KreirajMestoForma extends javax.swing.JFrame {
     private PregledMestaForma viewForm;
     private KreirajKupcaForma kupacForm;
     private boolean dodaj = false;
+    private ArrayList<Mesto> listaMesta;
     private static final Map<String, Integer> gradPBMap = new HashMap<>();
 
     static {
@@ -67,13 +68,14 @@ public class KreirajMestoForma extends javax.swing.JFrame {
         setTitle("Kreiraj mesto");
         setResizable(false);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        // setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         mestoCreate = new Mesto(-1, "", 11000, "");
         try {
             Controller.getInstance().kreirajMesto(mestoCreate);
-            ArrayList<Mesto> lista=Controller.getInstance().ucitajMestaIzBaze();
-            for(Mesto m:lista){
-                if(m.equals(mestoCreate)){
+            ArrayList<Mesto> lista = Controller.getInstance().ucitajMestaIzBaze();
+            for (Mesto m : lista) {
+                if (m.equals(mestoCreate)) {
                     mestoCreate.setId(m.getId());
                 }
             }
@@ -82,6 +84,29 @@ public class KreirajMestoForma extends javax.swing.JFrame {
         }
 
         JOptionPane.showMessageDialog(this, "Sistem je kreirao mesto.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                int choice = JOptionPane.showConfirmDialog(
+                        KreirajMestoForma.this,
+                        "Da li želite da prekinete kreiranje mesta?",
+                        "Potvrda zatvaranja",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE
+                );
+
+                if (choice == JOptionPane.YES_OPTION) {
+                    if (mestoCreate != null && mestoChange == null) {
+                        try {
+                            Controller.getInstance().obrisiMesto(mestoCreate);
+                        } catch (Exception ex) {
+                            Logger.getLogger(KreirajMestoForma.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    dispose();
+                }
+            }
+        });
     }
 
     public KreirajMestoForma(PregledMestaForma viewForm, Mesto m) {
@@ -105,13 +130,14 @@ public class KreirajMestoForma extends javax.swing.JFrame {
         setTitle("Kreiraj mesto");
         setResizable(false);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        //setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);       
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         mestoCreate = new Mesto(-1, "", 11000, "");
         try {
             Controller.getInstance().kreirajMesto(mestoCreate);
-            ArrayList<Mesto> lista=Controller.getInstance().ucitajMestaIzBaze();
-            for(Mesto m:lista){
-                if(m.equals(mestoCreate)){
+            ArrayList<Mesto> lista = Controller.getInstance().ucitajMestaIzBaze();
+            for (Mesto m : lista) {
+                if (m.equals(mestoCreate)) {
                     mestoCreate.setId(m.getId());
                 }
             }
@@ -120,6 +146,29 @@ public class KreirajMestoForma extends javax.swing.JFrame {
         }
 
         JOptionPane.showMessageDialog(this, "Sistem je kreirao mesto.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                int choice = JOptionPane.showConfirmDialog(
+                        KreirajMestoForma.this,
+                        "Da li želite da prekinete kreiranje mesta?",
+                        "Potvrda zatvaranja",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE
+                );
+
+                if (choice == JOptionPane.YES_OPTION) {
+                    if (mestoCreate != null && mestoChange == null) {
+                        try {
+                            Controller.getInstance().obrisiMesto(mestoCreate);
+                        } catch (Exception ex) {
+                            Logger.getLogger(KreirajMestoForma.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    dispose();
+                }
+            }
+        });
     }
 
     /**
@@ -232,6 +281,7 @@ public class KreirajMestoForma extends javax.swing.JFrame {
         if (mestoCreate != null && mestoChange == null) {
             try {
                 Controller.getInstance().obrisiMesto(mestoCreate);
+                this.dispose();
             } catch (Exception ex) {
                 Logger.getLogger(KreirajMestoForma.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -254,7 +304,7 @@ public class KreirajMestoForma extends javax.swing.JFrame {
             }
             String grad = txtGrad.getText().trim();
             if (!gradPBMap.containsKey(grad)) {
-                JOptionPane.showMessageDialog(this, "Grad ne postoji u Srbiji!", "Greška", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Grad ne postoji u Srbiji! Proverite uneti naziv.", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -266,6 +316,17 @@ public class KreirajMestoForma extends javax.swing.JFrame {
                 mestoCreate.setGrad(grad);
                 mestoCreate.setPostanskiBroj(pb);
                 mestoCreate.setUlica(txtUlica.getText());
+                try {
+                    listaMesta = Controller.getInstance().ucitajMestaIzBaze();
+                } catch (Exception ex) {
+                    Logger.getLogger(KreirajMestoForma.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                for (Mesto m : listaMesta) {
+                    if (m.equals(mestoCreate)) {
+                        JOptionPane.showMessageDialog(this, "Mesto već postoji u bazi.", "Greška", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                }
                 Controller.getInstance().promeniMesto(mestoCreate);
                 if (dodaj == false) {
                     JOptionPane.showMessageDialog(this, "Sistem je zapamtio mesto.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
@@ -286,6 +347,17 @@ public class KreirajMestoForma extends javax.swing.JFrame {
                 mestoChange.setGrad(grad);
                 mestoChange.setUlica(txtUlica.getText());
                 mestoChange.setPostanskiBroj(pb);
+                try {
+                    listaMesta = Controller.getInstance().ucitajMestaIzBaze();
+                } catch (Exception ex) {
+                    Logger.getLogger(KreirajMestoForma.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                for (Mesto m : listaMesta) {
+                    if (m.equals(mestoChange)) {
+                        JOptionPane.showMessageDialog(this, "Mesto već postoji u bazi.", "Greška", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                }
                 Controller.getInstance().promeniMesto(mestoChange);
                 JOptionPane.showMessageDialog(this, "Sistem je zapamtio mesto.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 viewForm.getTblMesta().setModel(new TableModelMesto());
@@ -350,4 +422,5 @@ public class KreirajMestoForma extends javax.swing.JFrame {
         txtPostanskiBroj.setText(mesto.getPostanskiBroj() + "");
         txtUlica.setText(mesto.getUlica());
     }
+
 }

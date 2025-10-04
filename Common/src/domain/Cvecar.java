@@ -7,6 +7,7 @@ package domain;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  *
@@ -153,6 +154,11 @@ public class Cvecar extends OpstiDomenskiObjekat {
         return hash;
     }
 
+    /*if (this.korisnickoIme != null && other.korisnickoIme != null
+                && this.lozinka != null && other.lozinka != null) {
+            return this.korisnickoIme.equals(other.korisnickoIme)
+                    && this.lozinka.equals(other.lozinka);
+        }*/
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -163,15 +169,18 @@ public class Cvecar extends OpstiDomenskiObjekat {
         }
         final Cvecar other = (Cvecar) obj;
 
-        if (this.id > 0 && other.id > 0 && this.id == other.id) {
+        if (this.id == other.id
+                && Objects.equals(this.korisnickoIme, other.korisnickoIme)
+                && Objects.equals(this.lozinka, other.lozinka)) {
+            return false;
+        }
+
+        if (!Objects.equals(this.id, other.id)
+                && Objects.equals(this.korisnickoIme, other.korisnickoIme)
+                && Objects.equals(this.lozinka, other.lozinka)) {
             return true;
         }
 
-        if (this.korisnickoIme != null && other.korisnickoIme != null
-                && this.lozinka != null && other.lozinka != null) {
-            return this.korisnickoIme.equals(other.korisnickoIme)
-                    && this.lozinka.equals(other.lozinka);
-        }
         return false;
     }
 

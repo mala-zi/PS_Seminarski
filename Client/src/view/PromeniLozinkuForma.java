@@ -37,6 +37,7 @@ public class PromeniLozinkuForma extends javax.swing.JDialog {
         btnChange.setEnabled(false);
         txtErrorPass.setVisible(false);
         unos();
+        setTitle("Promena lozinke");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 

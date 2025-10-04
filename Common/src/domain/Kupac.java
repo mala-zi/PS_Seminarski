@@ -235,10 +235,7 @@ public class Kupac extends OpstiDomenskiObjekat {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        Kupac other = (Kupac) obj;
-        if (this.id == other.id) {
-            return true;
-        }
+        Kupac other = (Kupac) obj;      
         if (this.tip == TipKupca.PRAVNO_LICE && other.tip == TipKupca.PRAVNO_LICE) {
             return this.pib == other.pib;
         }

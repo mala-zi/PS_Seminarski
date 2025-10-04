@@ -170,6 +170,10 @@ public class UpravljajStrucnimSpremamaForma extends javax.swing.JFrame {
         StrucnaSprema zaPromenu = model.getStrucnaSprema(selektovanRed);
         UbaciStrucnuSpremuForma ussf = new UbaciStrucnuSpremuForma(this, zaPromenu);
         ussf.setVisible(true);
+        TableColumn idColumn = tblStrSprema.getColumnModel().getColumn(0);
+        idColumn.setPreferredWidth(30);
+        idColumn.setMinWidth(20);
+        idColumn.setMaxWidth(40);
     }//GEN-LAST:event_btnChangeActionPerformed
 
     private void tblStrSpremaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblStrSpremaMouseClicked
@@ -202,6 +206,10 @@ public class UpravljajStrucnimSpremamaForma extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Sistem je uspešno obrisao stručnu spremu.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
             model.refresh();
             tblStrSprema.setModel(model);
+            TableColumn idColumn = tblStrSprema.getColumnModel().getColumn(0);
+            idColumn.setPreferredWidth(30);
+            idColumn.setMinWidth(20);
+            idColumn.setMaxWidth(40);
         } catch (Exception ex) {
             Logger.getLogger(UpravljajCvecarimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }

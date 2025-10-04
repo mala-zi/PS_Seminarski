@@ -33,7 +33,8 @@ import validator.Validator;
 public class KreirajOtpremnicuForma extends javax.swing.JFrame {
 
     private UpravljajOtpremnicamaForma uof;
-    private ArrayList<StavkaOtpremnice> listaStavki=new ArrayList<>();
+    private ArrayList<StavkaOtpremnice> listaStavki = new ArrayList<>();
+    private ArrayList<Otpremnica> listaOtpremnica;
     private Otpremnica otpremnicaCreate;
     private Otpremnica otpremnicaChange;
     private double ukupnaSa = 0;
@@ -116,7 +117,8 @@ public class KreirajOtpremnicuForma extends javax.swing.JFrame {
             popuniKupceIzBaze();
             popuniAranzmaneIzBaze();
             btnSendEmail.setVisible(false);
-            setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            //setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
             TableModelStavkaOtpremnice tmodel = new TableModelStavkaOtpremnice();
             tmodel.setKof(this);
             tableStavke.setModel(tmodel);
@@ -126,21 +128,49 @@ public class KreirajOtpremnicuForma extends javax.swing.JFrame {
             Controller.getInstance().kreirajOtpremnicu(otpremnicaCreate);
             ArrayList<Otpremnica> lista = Controller.getInstance().ucitajOtpremniceIzBaze();
             for (Otpremnica o : lista) {
+                System.out.println("id o>" + o.toString());
+                    System.out.println("id c>" + otpremnicaCreate.toString());
                 if (o.equals(otpremnicaCreate)) {
+                    System.out.println("nasao");
                     otpremnicaCreate.setId(o.getId());
+                    System.out.println("id o>" + o.getId());
+                    System.out.println("id c>" + otpremnicaCreate.getId());
                 }
             }
             JOptionPane.showMessageDialog(this, "Sistem je kreirao otpremnicu.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception ex) {
             Logger.getLogger(KreirajOtpremnicuForma.class.getName()).log(Level.SEVERE, null, ex);
         }
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                int choice = JOptionPane.showConfirmDialog(
+                        KreirajOtpremnicuForma.this,
+                        "Da li želite da prekinete kreiranje otpremnice?",
+                        "Potvrda zatvaranja",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE
+                );
+
+                if (choice == JOptionPane.YES_OPTION) {
+                    if (otpremnicaCreate != null && otpremnicaChange == null) {
+                        try {
+                            Controller.getInstance().obrisiOtpremnicu(otpremnicaCreate);
+                        } catch (Exception ex) {
+                            Logger.getLogger(KreirajOtpremnicuForma.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    dispose();
+                }
+            }
+        });
     }
 
     public KreirajOtpremnicuForma(UpravljajOtpremnicamaForma parent, Otpremnica otpremnica, ArrayList<StavkaOtpremnice> lista) throws Exception {
 
         this.uof = (UpravljajOtpremnicamaForma) parent;
         this.otpremnicaChange = otpremnica;
-        this.listaStavki=lista;
+        this.listaStavki = lista;
         initComponents();
         radioPravno.addActionListener(e -> {
             try {
@@ -616,6 +646,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JFrame {
         if (otpremnicaCreate != null && otpremnicaChange == null) {
             try {
                 Controller.getInstance().obrisiOtpremnicu(otpremnicaCreate);
+                this.dispose();
             } catch (Exception ex) {
                 Logger.getLogger(KreirajOtpremnicuForma.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -658,6 +689,18 @@ public class KreirajOtpremnicuForma extends javax.swing.JFrame {
                 otpremnicaCreate.setCvecar(c);
                 otpremnicaCreate.setKupac(k);
                 otpremnicaCreate.setStavkeOtpremnice(stavke);
+                try {
+                    listaOtpremnica = Controller.getInstance().ucitajOtpremniceIzBaze();
+                } catch (Exception ex) {
+                    Logger.getLogger(KreirajOtpremnicuForma.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                for (Otpremnica o : listaOtpremnica) {
+                    if (o.equals(otpremnicaCreate)) {
+                        JOptionPane.showMessageDialog(this, "Otpremnica već postoji u bazi.", "Greška", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                }
                 Controller.getInstance().promeniOtpremnicu(otpremnicaCreate);
                 JOptionPane.showMessageDialog(this, "Sistem je zapamtio otpremnicu.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
@@ -678,6 +721,18 @@ public class KreirajOtpremnicuForma extends javax.swing.JFrame {
                 otpremnicaChange.setUkupanIznosSaPDV(ukupnaSa);
                 otpremnicaChange.setUkupanPopust(ukupanPopust);
                 otpremnicaChange.setStavkeOtpremnice(stavke);
+                try {
+                    listaOtpremnica = Controller.getInstance().ucitajOtpremniceIzBaze();
+                } catch (Exception ex) {
+                    Logger.getLogger(KreirajOtpremnicuForma.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                for (Otpremnica o : listaOtpremnica) {
+                    if (o.equals(otpremnicaChange)) {
+                        JOptionPane.showMessageDialog(this, "Otpremnica već postoji u bazi.", "Greška", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                }
                 Controller.getInstance().promeniOtpremnicu(otpremnicaChange);
                 JOptionPane.showMessageDialog(this, "Sistem je zapamtio otpremnicu.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 uof.getTblOtp().setModel(new TableModelOtpremnica());
@@ -701,7 +756,17 @@ public class KreirajOtpremnicuForma extends javax.swing.JFrame {
         }
 
         Aranzman a = (Aranzman) comboAranzmani.getSelectedItem();
-        int kolicina = Integer.parseInt(txtKolicina.getText());
+        if (!Validator.isValidNumber(txtKolicina.getText())) {
+            JOptionPane.showMessageDialog(this, "Količina mora biti broj!", "Greška", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        int kolicina;
+        try {
+            kolicina = Integer.parseInt(txtKolicina.getText());
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Količina mora da bude ceo broj!", "Greška", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         if (kolicina <= 0) {
             JOptionPane.showMessageDialog(this, "Količina mora biti veća od 0!", "Greška", JOptionPane.ERROR_MESSAGE);
             return;
@@ -820,9 +885,6 @@ public class KreirajOtpremnicuForma extends javax.swing.JFrame {
                 if (odgovor == JOptionPane.NO_OPTION) {
                     return;
                 } else if (odgovor == JOptionPane.YES_OPTION) {
-                    // System.out.println("otp1:" + otpremnicaChange.toString());
-                    System.out.println("len1:" + otpremnicaChange.getStavkeOtpremnice().size());
-
                     Controller.getInstance().posaljiOtpremnicuNaMejl(otpremnicaChange);
                     JOptionPane.showMessageDialog(this, "Otpremnica je poslata na mejl!", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                     this.dispose();
@@ -950,4 +1012,5 @@ public class KreirajOtpremnicuForma extends javax.swing.JFrame {
         }
 
     }
+
 }

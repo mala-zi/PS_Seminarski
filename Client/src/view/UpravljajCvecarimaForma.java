@@ -49,9 +49,9 @@ public class UpravljajCvecarimaForma extends javax.swing.JFrame {
             setLocationRelativeTo(null);
             setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             btnChange.setEnabled(false);
-            TableColumn idColumn =  tblCvecari.getColumnModel().getColumn(0); 
+            TableColumn idColumn = tblCvecari.getColumnModel().getColumn(0);
             idColumn.setPreferredWidth(30);
-            idColumn.setMinWidth(20);       
+            idColumn.setMinWidth(20);
             idColumn.setMaxWidth(40);
         } catch (Exception ex) {
             Logger.getLogger(UpravljajCvecarimaForma.class.getName()).log(Level.SEVERE, null, ex);
@@ -169,6 +169,10 @@ public class UpravljajCvecarimaForma extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Sistem je našao cvećara.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
         KreirajCvecaraForma kf = new KreirajCvecaraForma(this, c);
         kf.setVisible(true);
+        TableColumn idColumn = tblCvecari.getColumnModel().getColumn(0);
+        idColumn.setPreferredWidth(30);
+        idColumn.setMinWidth(20);
+        idColumn.setMaxWidth(40);
     }//GEN-LAST:event_btnChangeActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
@@ -206,10 +210,12 @@ public class UpravljajCvecarimaForma extends javax.swing.JFrame {
             }
             JOptionPane.showMessageDialog(this, "Sistem je uspešno obrisao cvećara.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
 
-            //tma = new TableModelCvecar();
-            // tblCvecari.setModel(tma);
             tmm.refresh();
             tblCvecari.setModel(tmm);
+            TableColumn idColumn = tblCvecari.getColumnModel().getColumn(0);
+            idColumn.setPreferredWidth(30);
+            idColumn.setMinWidth(20);
+            idColumn.setMaxWidth(40);
         } catch (Exception ex) {
             Logger.getLogger(UpravljajCvecarimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }

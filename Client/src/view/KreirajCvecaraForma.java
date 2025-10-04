@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import tableModel.TableModelCvecar;
 import validator.PasswordHash;
+import validator.Validator;
 
 /**
  *
@@ -25,6 +26,7 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
     private UpravljajCvecarimaForma pcf;
     private boolean validation;
     private ArrayList<Cvecar> novaLista;
+    private ArrayList<Cvecar> listaCvecara;
 
     public boolean isValidation() {
         return validation;
@@ -42,18 +44,19 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
         setResizable(false);
         setTitle("Kreiraj cvećara");
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        //setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         txtId.setVisible(false);
         jLabel5.setVisible(false);
         btnNewPassword.setVisible(false);
         cvecarCreate = new Cvecar(-1, "", "", "", "");
         try {
             Controller.getInstance().kreirajCvecar(cvecarCreate);
-            String hashed=PasswordHash.hashPassword(cvecarCreate.getLozinka());
+            String hashed = PasswordHash.hashPassword(cvecarCreate.getLozinka());
             cvecarCreate.setLozinka(hashed);
-            ArrayList<Cvecar> lista=Controller.getInstance().ucitajCvecareIzBaze();
-            for(Cvecar c:lista){
-                if(c.equals(cvecarCreate)){
+            ArrayList<Cvecar> lista = Controller.getInstance().ucitajCvecareIzBaze();
+            for (Cvecar c : lista) {
+                if (c.equals(cvecarCreate)) {
                     cvecarCreate.setId(c.getId());
                 }
             }
@@ -61,6 +64,29 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(KreirajCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
         }
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                int choice = JOptionPane.showConfirmDialog(
+                        KreirajCvecaraForma.this,
+                        "Da li želite da prekinete kreiranje cvećara?",
+                        "Potvrda zatvaranja",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE
+                );
+
+                if (choice == JOptionPane.YES_OPTION) {
+                    if (cvecarCreate != null && cvecarChange == null) {
+                        try {
+                            Controller.getInstance().obrisiCvecara(cvecarCreate);
+                        } catch (Exception ex) {
+                            Logger.getLogger(KreirajCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    dispose();
+                }
+            }
+        });
     }
 
     public KreirajCvecaraForma(JFrame parent, Cvecar c) {
@@ -241,6 +267,7 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
         if (cvecarCreate != null && cvecarChange == null) {
             try {
                 Controller.getInstance().obrisiCvecara(cvecarCreate);
+                this.dispose();
             } catch (Exception ex) {
                 Logger.getLogger(KreirajCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -260,7 +287,10 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Izabrano korisničko ime je nedostupno!", "Greška", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
+        if (!Validator.isValidName(txtIme.getText()) || !Validator.isValidName(txtPrezime.getText())) {
+            JOptionPane.showMessageDialog(this, "Ime i prezime moraju imati samo slova!", "Greška", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         String ime = txtIme.getText();
         String prezime = txtPrezime.getText();
         String korisnickoIme = txtKorisnickoIme.getText();
@@ -276,8 +306,21 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
             cvecarCreate.setIme(ime);
             cvecarCreate.setPrezime(prezime);
             cvecarCreate.setKorisnickoIme(korisnickoIme);
-            cvecarCreate.setLozinka(lozinka);
+            String hashed = PasswordHash.hashPassword(lozinka);
+            cvecarCreate.setLozinka(hashed);
             try {
+                try {
+                    listaCvecara = Controller.getInstance().ucitajCvecareIzBaze();
+                } catch (Exception ex) {
+                    Logger.getLogger(KreirajCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                for (Cvecar c : listaCvecara) {
+                    if (c.equals(cvecarCreate)) {
+                        JOptionPane.showMessageDialog(this, "Cvećar već postoji u bazi.", "Greška", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                }
                 Controller.getInstance().promeniCvecara(cvecarCreate);
                 JOptionPane.showMessageDialog(this, "Sistem je zapamtio cvećara.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception ex) {
@@ -302,6 +345,18 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
                     cvecarChange.setKorisnickoIme(korisnickoIme);
                     cvecarChange.setPrezime(prezime);
                     try {
+                        try {
+                            listaCvecara = Controller.getInstance().ucitajCvecareIzBaze();
+                        } catch (Exception ex) {
+                            Logger.getLogger(KreirajCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
+                        for (Cvecar c : listaCvecara) {
+                            if (c.equals(cvecarChange)) {
+                                JOptionPane.showMessageDialog(this, "Cvećar već postoji u bazi.", "Greška", JOptionPane.ERROR_MESSAGE);
+                                return;
+                            }
+                        }
                         Controller.getInstance().promeniCvecara(cvecarChange);
                         JOptionPane.showMessageDialog(this, "Sistem je zapamtio cvećara.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                         pcf.getTblCvecari().setModel(new TableModelCvecar());

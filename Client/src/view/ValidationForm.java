@@ -127,7 +127,7 @@ public class ValidationForm extends javax.swing.JDialog {
         System.out.println("hashed:" + hashed);
         if (hashed.equals(cvecar.getLozinka())) {
             kf.setValidation(true);
-            JOptionPane.showMessageDialog(this, "Uspesna validacija!", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Uspešna validacija!", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
             kf.dispose();
             this.dispose();
         } else {

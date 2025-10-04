@@ -323,7 +323,7 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
 
                         }
                     }
-
+                     System.out.println("size stavke:"+listaStavki.size());
                     KreirajOtpremnicuForma kof = new KreirajOtpremnicuForma(this, otpremnica, listaStavki);
                     kof.setVisible(true);
                     if (filtriraneOtpremnice != null) {
@@ -357,6 +357,7 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Ništa nije označeno!", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+            System.out.println("red:"+selektovanRed);
             TableModelOtpremnica model = (TableModelOtpremnica) tblOtp.getModel();
             Otpremnica zaBrisanje = model.getOtpremnica(selektovanRed);
             try {
@@ -370,6 +371,10 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
 
             TableModelOtpremnica tmodel = new TableModelOtpremnica();
             tblOtp.setModel(tmodel);
+            TableColumn idColumn = tblOtp.getColumnModel().getColumn(0);
+            idColumn.setPreferredWidth(30);
+            idColumn.setMinWidth(20);
+            idColumn.setMaxWidth(40);
         } catch (Exception ex) {
             Logger.getLogger(UpravljajCvecarimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }

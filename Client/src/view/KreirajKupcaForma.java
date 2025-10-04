@@ -27,6 +27,7 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
     private Kupac kupacChange;
     private Kupac kupacCreate;
     private UpravljajKupcimaForma pkf;
+    private ArrayList<Kupac> listaKupaca;
 
     public JComboBox<Mesto> getComboBoxMesto() {
         return comboBoxMesto;
@@ -55,18 +56,19 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
 
     public KreirajKupcaForma() {
         initComponents();
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        //setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         inicijalizujPolja();
         setTitle("Kreiraj kupca");
         setResizable(false);
         setLocationRelativeTo(null);
         Mesto mestoCreate = (Mesto) comboBoxMesto.getSelectedItem();
-        kupacCreate = new Kupac(-1, -1, "", "", mestoCreate, "", "", "", TipKupca.PRAVNO_LICE);
+        kupacCreate = new Kupac(-1, -1, "+381", "@", mestoCreate, "", "", "", TipKupca.PRAVNO_LICE);
         try {
             Controller.getInstance().kreirajKupca(kupacCreate);
-            ArrayList<Kupac> lista=Controller.getInstance().ucitajKupceIzBaze();
-            for(Kupac k:lista){
-                if(k.equals(kupacCreate)){
+            ArrayList<Kupac> lista = Controller.getInstance().ucitajKupceIzBaze();
+            for (Kupac k : lista) {
+                if (k.equals(kupacCreate)) {
                     kupacCreate.setId(k.getId());
                 }
             }
@@ -74,6 +76,29 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
             Logger.getLogger(KreirajKupcaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
         JOptionPane.showMessageDialog(this, "Sistem je kreirao kupca.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                int choice = JOptionPane.showConfirmDialog(
+                        KreirajKupcaForma.this,
+                        "Da li želite da prekinete kreiranje kupca?",
+                        "Potvrda zatvaranja",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE
+                );
+
+                if (choice == JOptionPane.YES_OPTION) {
+                    if (kupacCreate != null && kupacChange == null) {
+                        try {
+                            Controller.getInstance().obrisiKupca(kupacCreate);
+                        } catch (Exception ex) {
+                            Logger.getLogger(KreirajKupcaForma.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    dispose();
+                }
+            }
+        });
     }
 
     /**
@@ -283,12 +308,13 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
-        if (kupacCreate != null && kupacChange == null) {        
+        if (kupacCreate != null && kupacChange == null) {
             try {
                 Controller.getInstance().obrisiKupca(kupacCreate);
+                this.dispose();
             } catch (Exception ex) {
                 Logger.getLogger(KreirajKupcaForma.class.getName()).log(Level.SEVERE, null, ex);
-            }           
+            }
         } else {
             this.dispose();
         }
@@ -317,7 +343,12 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
                 return;
             }
             if (Validator.isValidNumber(txtPIB.getText())) {
-                pib = Integer.parseInt(txtPIB.getText());
+                try {
+                    pib = Integer.parseInt(txtPIB.getText());
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(this, "PIB je prevelik broj!", "Greška", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
                 if (pib < 10000000 || pib > 99999999) {
                     JOptionPane.showMessageDialog(this, "Loš format PIB-a!", "Greška", JOptionPane.ERROR_MESSAGE);
                     return;
@@ -340,7 +371,10 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Los format telefona!", "Greška", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
+        if (!Validator.isValidName(txtIme.getText()) || !Validator.isValidName(txtPrezime.getText())) {
+            JOptionPane.showMessageDialog(this, "Ime i prezime moraju imati samo slova!", "Greška", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         String email = txtEmail.getText();
         String telefon = txtTelefon.getText();
         Mesto mesto = (Mesto) comboBoxMesto.getSelectedItem();
@@ -359,6 +393,17 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
                     kupacCreate.setIme(ime);
                     kupacCreate.setPrezime(prezime);
                     kupacCreate.setTip(TipKupca.valueOf(tip.name()));
+                    try {
+                        listaKupaca = Controller.getInstance().ucitajKupceIzBaze();
+                    } catch (Exception ex) {
+                        Logger.getLogger(KreirajKupcaForma.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    for (Kupac k : listaKupaca) {
+                        if (k.equals(kupacCreate)) {
+                            JOptionPane.showMessageDialog(this, "Kupac već postoji u bazi.", "Greška", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+                    }
                     Controller.getInstance().promeniKupca(kupacCreate);
                 } else {
                     kupacCreate.setEmail(email);
@@ -369,6 +414,17 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
                     kupacCreate.setIme(ime);
                     kupacCreate.setPrezime(prezime);
                     kupacCreate.setTip(TipKupca.valueOf(tip.name()));
+                    try {
+                        listaKupaca = Controller.getInstance().ucitajKupceIzBaze();
+                    } catch (Exception ex) {
+                        Logger.getLogger(KreirajKupcaForma.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    for (Kupac k : listaKupaca) {
+                        if (k.equals(kupacCreate)) {
+                            JOptionPane.showMessageDialog(this, "Kupac već postoji u bazi.", "Greška", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+                    }
                     Controller.getInstance().promeniKupca(kupacCreate);
                 }
                 JOptionPane.showMessageDialog(this, "Sistem je zapamtio kupca.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
@@ -389,6 +445,17 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
                     kupacChange.setIme(ime);
                     kupacChange.setPrezime(prezime);
                     kupacChange.setTip(TipKupca.valueOf(tip.name()));
+                    try {
+                        listaKupaca = Controller.getInstance().ucitajKupceIzBaze();
+                    } catch (Exception ex) {
+                        Logger.getLogger(KreirajKupcaForma.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    for (Kupac k : listaKupaca) {
+                        if (k.equals(kupacChange)) {
+                            JOptionPane.showMessageDialog(this, "Kupac već postoji u bazi.", "Greška", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+                    }
                     Controller.getInstance().promeniKupca(kupacChange);
                 } else {
                     kupacChange.setEmail(email);
@@ -399,6 +466,17 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
                     kupacChange.setIme(ime);
                     kupacChange.setPrezime(prezime);
                     kupacChange.setTip(TipKupca.valueOf(tip.name()));
+                    try {
+                        listaKupaca = Controller.getInstance().ucitajKupceIzBaze();
+                    } catch (Exception ex) {
+                        Logger.getLogger(KreirajKupcaForma.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    for (Kupac k : listaKupaca) {
+                        if (k.equals(kupacChange)) {
+                            JOptionPane.showMessageDialog(this, "Kupac već postoji u bazi.", "Greška", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+                    }
                     Controller.getInstance().promeniKupca(kupacChange);
                 }
                 JOptionPane.showMessageDialog(this, "Sistem je zapamtio kupca.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
@@ -484,9 +562,23 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void popuniIzmenuKupac(Kupac kupac) {
-        txtIme.setText(kupac.getNaziv());
+        if (kupac.getTip() == TipKupca.FIZICKO_LICE) {
+            radioFizicko.setSelected(true);
+            radioPravno.setSelected(false);
+            txtNaziv.setVisible(false);
+            txtPIB.setVisible(false);
+            jLabel1.setVisible(false);
+            jLabel2.setVisible(false);
+        }
+        if (kupac.getTip() == TipKupca.PRAVNO_LICE) {
+            radioPravno.setSelected(true);
+            radioFizicko.setSelected(false);
+            txtPIB.setText(kupac.getPib() + "");
+            txtNaziv.setText(kupac.getNaziv());
+        }
+        txtIme.setText(kupac.getIme());
+        txtPrezime.setText(kupac.getPrezime());
         txtEmail.setText(kupac.getEmail());
-        txtPIB.setText(kupac.getPib() + "");
         txtTelefon.setText(kupac.getTelefon());
         comboBoxMesto.setSelectedItem(kupac.getMesto());
     }
@@ -510,4 +602,5 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
     private boolean validateTel(String text) {
         return text.matches("^\\+381\\d{1,10}$");
     }
+
 }

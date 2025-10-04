@@ -37,13 +37,13 @@ public class UpravljajAranzmanimaForma extends javax.swing.JFrame {
             initComponents();
             TableModelAranzman tma = new TableModelAranzman();
             tblAranzmani.setModel(tma);
-            TableColumn opisColumn = tblAranzmani.getColumnModel().getColumn(5); 
+            TableColumn opisColumn = tblAranzmani.getColumnModel().getColumn(5);
             opisColumn.setPreferredWidth(300);
-            opisColumn.setMinWidth(200);       
+            opisColumn.setMinWidth(200);
             opisColumn.setMaxWidth(400);
-            TableColumn idColumn =  tblAranzmani.getColumnModel().getColumn(0); 
+            TableColumn idColumn = tblAranzmani.getColumnModel().getColumn(0);
             idColumn.setPreferredWidth(30);
-            idColumn.setMinWidth(20);       
+            idColumn.setMinWidth(20);
             idColumn.setMaxWidth(40);
             setTitle("Upravljaj aranžmanima");
             setResizable(false);
@@ -172,6 +172,14 @@ public class UpravljajAranzmanimaForma extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Sistem je uspešno obrisao aranžman.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
             TableModelAranzman tma = new TableModelAranzman();
             tblAranzmani.setModel(tma);
+            TableColumn opisColumn = tblAranzmani.getColumnModel().getColumn(5);
+            opisColumn.setPreferredWidth(300);
+            opisColumn.setMinWidth(200);
+            opisColumn.setMaxWidth(400);
+            TableColumn idColumn = tblAranzmani.getColumnModel().getColumn(0);
+            idColumn.setPreferredWidth(30);
+            idColumn.setMinWidth(20);
+            idColumn.setMaxWidth(40);
         } catch (Exception ex) {
             Logger.getLogger(UpravljajCvecarimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -193,6 +201,14 @@ public class UpravljajAranzmanimaForma extends javax.swing.JFrame {
             kaf.setVisible(true);
             TableModelAranzman tma = new TableModelAranzman();
             tblAranzmani.setModel(tma);
+            TableColumn opisColumn = tblAranzmani.getColumnModel().getColumn(5);
+            opisColumn.setPreferredWidth(300);
+            opisColumn.setMinWidth(200);
+            opisColumn.setMaxWidth(400);
+            TableColumn idColumn = tblAranzmani.getColumnModel().getColumn(0);
+            idColumn.setPreferredWidth(30);
+            idColumn.setMinWidth(20);
+            idColumn.setMaxWidth(40);
         } catch (Exception ex) {
             Logger.getLogger(UpravljajKupcimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }

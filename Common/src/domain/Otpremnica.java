@@ -134,10 +134,6 @@ public class Otpremnica extends OpstiDomenskiObjekat {
             return false;
         }
         final Otpremnica other = (Otpremnica) obj;
-
-        if (this.id == other.id) {
-            return true;
-        }
         if (!Objects.equals(this.cvecar, other.cvecar)) {
             return false;
         }
