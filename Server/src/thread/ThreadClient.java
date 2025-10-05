@@ -82,9 +82,6 @@ public class ThreadClient extends Thread {
                 case Operation.KREIRAJ_OTPREMNICU:
                     ServerController.getInstance().kreirajOtpremnicu((Otpremnica) request.getData());
                     break;
-                /*case Operation.UBACI_STR_SPREMU:
-                    ServerController.getInstance().kreirajStrSpremu((StrucnaSprema) request.getData());
-                    break;*/
                 case Operation.PROMENI_KUPCA:
                     ServerController.getInstance().promeniKupca((Kupac) request.getData());
                     break;
@@ -142,9 +139,6 @@ public class ThreadClient extends Thread {
                 case Operation.PRETRAZI_OTPREMNICU:
                     response.setData(ServerController.getInstance().pretraziOtpremnicu((Otpremnica) request.getData()));
                     break;
-                /*case Operation.VRATI_LISTU_STAVKI_OTPREMNICE:
-                    response.setData(ServerController.getInstance().ucitajStavkeOtpremniceIzBaze((Otpremnica) request.getData()));
-                    break;*/
                 case Operation.PROMENI_STRUCNASPREMA:
                     ServerController.getInstance().promeniStrSpremu((StrucnaSprema) request.getData());
                     break;
@@ -157,8 +151,8 @@ public class ThreadClient extends Thread {
                 case Operation.VRATI_LISTU_PORESKA_STOPA:
                     response.setData(ServerController.getInstance().ucitajPoreskaStopeIzBaze());
                     break;
-                case Operation.KREIRAJ_STRUCNASPREMA:
-                    ServerController.getInstance().kreirajStrSprema((StrucnaSprema) request.getData());
+                case Operation.UBACI_STR_SPREMA:
+                    ServerController.getInstance().ubaciStrSprema((StrucnaSprema) request.getData());
                     break;
                 case Operation.PRETRAZI_KUPCA:
                     response.setData(ServerController.getInstance().pretraziKupca((Kupac) request.getData()));

@@ -45,6 +45,10 @@ public class UpravljajAranzmanimaForma extends javax.swing.JFrame {
             idColumn.setPreferredWidth(30);
             idColumn.setMinWidth(20);
             idColumn.setMaxWidth(40);
+            TableColumn nazivColumn = tblAranzmani.getColumnModel().getColumn(1);
+            nazivColumn.setPreferredWidth(130);
+            nazivColumn.setMinWidth(100);
+            nazivColumn.setMaxWidth(150);
             setTitle("Upravljaj aranžmanima");
             setResizable(false);
             setLocationRelativeTo(null);
@@ -180,6 +184,10 @@ public class UpravljajAranzmanimaForma extends javax.swing.JFrame {
             idColumn.setPreferredWidth(30);
             idColumn.setMinWidth(20);
             idColumn.setMaxWidth(40);
+            TableColumn nazivColumn = tblAranzmani.getColumnModel().getColumn(1);
+            nazivColumn.setPreferredWidth(130);
+            nazivColumn.setMinWidth(100);
+            nazivColumn.setMaxWidth(150);
         } catch (Exception ex) {
             Logger.getLogger(UpravljajCvecarimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -205,10 +213,10 @@ public class UpravljajAranzmanimaForma extends javax.swing.JFrame {
             opisColumn.setPreferredWidth(300);
             opisColumn.setMinWidth(200);
             opisColumn.setMaxWidth(400);
-            TableColumn idColumn = tblAranzmani.getColumnModel().getColumn(0);
-            idColumn.setPreferredWidth(30);
-            idColumn.setMinWidth(20);
-            idColumn.setMaxWidth(40);
+            TableColumn nazivColumn = tblAranzmani.getColumnModel().getColumn(1);
+            nazivColumn.setPreferredWidth(130);
+            nazivColumn.setMinWidth(100);
+            nazivColumn.setMaxWidth(150);
         } catch (Exception ex) {
             Logger.getLogger(UpravljajKupcimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }

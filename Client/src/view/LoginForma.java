@@ -186,7 +186,7 @@ public class LoginForma extends javax.swing.JFrame {
                 gf.setVisible(true);
                 this.dispose();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Ne može da se otvori glavna forma meni!", "Greška", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Greška pri otvaranju glavne forme!", "Greška", JOptionPane.ERROR_MESSAGE);
                 Controller.getInstance().odjaviCvecara(cvecar.getKorisnickoIme());
             }
         } catch (RuntimeException re) {

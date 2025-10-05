@@ -211,9 +211,9 @@ public class PregledMestaForma extends javax.swing.JFrame {
             TableModelMesto tmodel = new TableModelMesto();
             tblMesta.setModel(tmodel);
             TableColumn idColumn = tblMesta.getColumnModel().getColumn(0);
-        idColumn.setPreferredWidth(30);
-        idColumn.setMinWidth(20);
-        idColumn.setMaxWidth(40);
+            idColumn.setPreferredWidth(30);
+            idColumn.setMinWidth(20);
+            idColumn.setMaxWidth(40);
         } catch (Exception ex) {
             Logger.getLogger(UpravljajCvecarimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }

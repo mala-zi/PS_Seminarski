@@ -8,11 +8,13 @@ import java.util.ArrayList;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
+
 /**
  *
  * @author Saki
  */
 public class StrucnaSprema extends OpstiDomenskiObjekat {
+
     private int id;
     private String naziv;
     private String nivo;
@@ -23,13 +25,14 @@ public class StrucnaSprema extends OpstiDomenskiObjekat {
 
     public StrucnaSprema(int id, String naziv, String nivo, boolean sertifikat) {
         this.id = id;
-        this.naziv= naziv;
-        this.nivo= nivo;
+        this.naziv = naziv;
+        this.nivo = nivo;
         this.sertifikat = sertifikat;
     }
+
     public StrucnaSprema(String naziv, String nivo, boolean sertifikat) {
-        this.naziv= naziv;
-        this.nivo= nivo;
+        this.naziv = naziv;
+        this.nivo = nivo;
         this.sertifikat = sertifikat;
     }
 
@@ -67,10 +70,10 @@ public class StrucnaSprema extends OpstiDomenskiObjekat {
 
     @Override
     public String toString() {
-        return naziv ;
+        return naziv;
     }
 
-     @Override
+    @Override
     public String nazivTabele() {
         return "strucnasprema";
     }
@@ -92,11 +95,11 @@ public class StrucnaSprema extends OpstiDomenskiObjekat {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final StrucnaSprema other = (StrucnaSprema) obj;       
+        final StrucnaSprema other = (StrucnaSprema) obj;
         if (this.sertifikat != other.sertifikat) {
             return false;
         }
-        if (!Objects.equals(this.naziv, other.naziv)) {
+        if (!this.naziv.equalsIgnoreCase(other.naziv)) {
             return false;
         }
         return Objects.equals(this.nivo, other.nivo);
@@ -109,7 +112,7 @@ public class StrucnaSprema extends OpstiDomenskiObjekat {
 
     @Override
     public String join() {
-        return ""; 
+        return "";
     }
 
     @Override
@@ -118,10 +121,10 @@ public class StrucnaSprema extends OpstiDomenskiObjekat {
 
         while (rs.next()) {
             StrucnaSprema ss = new StrucnaSprema(
-                rs.getInt("ss.id"),
-                rs.getString("ss.naziv"),
-                rs.getString("ss.nivo"),
-                rs.getBoolean("ss.sertifikat")
+                    rs.getInt("ss.id"),
+                    rs.getString("ss.naziv"),
+                    rs.getString("ss.nivo"),
+                    rs.getBoolean("ss.sertifikat")
             );
             lista.add(ss);
         }
@@ -137,7 +140,7 @@ public class StrucnaSprema extends OpstiDomenskiObjekat {
 
     @Override
     public String vrednostiZaInsert() {
-        return "'"+ naziv + "', '" + nivo + "', " + (sertifikat ? 1 : 0);
+        return "'" + naziv + "', '" + nivo + "', " + (sertifikat ? 1 : 0);
     }
 
     @Override

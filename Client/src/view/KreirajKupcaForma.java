@@ -13,9 +13,11 @@ import domain.Kupac;
 import domain.Mesto;
 import domain.TipKupca;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
+import javax.swing.table.TableColumn;
 import validator.Validator;
 
 /**
@@ -329,7 +331,7 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
         } else if (radioPravno.isSelected()) {
             tip = TipKupca.PRAVNO_LICE;
         } else {
-            JOptionPane.showMessageDialog(this, "Nija označen tip kupca!", "Greška", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Nije označen tip kupca!", "Greška", JOptionPane.ERROR_MESSAGE);
             return;
         }
         if (txtEmail.getText().isEmpty() || txtIme.getText().isEmpty() || txtTelefon.getText().isEmpty() || txtPrezime.getText().isEmpty()) {
@@ -363,11 +365,11 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
         boolean telefonVazeci = validateTel(txtTelefon.getText());
 
         if (!emailVazeci) {
-            JOptionPane.showMessageDialog(this, "Los format Email-a!", "Greška", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Loš format email-a!", "Greška", JOptionPane.ERROR_MESSAGE);
             return;
         }
         if (!telefonVazeci) {
-            JOptionPane.showMessageDialog(this, "Los format telefona!", "Greška", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Loš format telefona!", "Greška", JOptionPane.ERROR_MESSAGE);
             return;
         }
         if (!Validator.isValidName(txtIme.getText()) || !Validator.isValidName(txtPrezime.getText())) {
@@ -399,8 +401,12 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
                     }
                     for (Kupac k : listaKupaca) {
                         if (k.equals(kupacCreate)) {
-                            JOptionPane.showMessageDialog(this, "Kupac već postoji u bazi.", "Greška", JOptionPane.ERROR_MESSAGE);
-                            return;
+                            if (kupacCreate.getId() == k.getId()) {
+                                break;
+                            } else {
+                                JOptionPane.showMessageDialog(this, "Kupac već postoji u bazi.", "Greška", JOptionPane.ERROR_MESSAGE);
+                                return;
+                            }
                         }
                     }
                     Controller.getInstance().promeniKupca(kupacCreate);
@@ -420,8 +426,12 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
                     }
                     for (Kupac k : listaKupaca) {
                         if (k.equals(kupacCreate)) {
-                            JOptionPane.showMessageDialog(this, "Kupac već postoji u bazi.", "Greška", JOptionPane.ERROR_MESSAGE);
-                            return;
+                            if (kupacCreate.getId() == k.getId()) {
+                                break;
+                            } else {
+                                JOptionPane.showMessageDialog(this, "Kupac već postoji u bazi.", "Greška", JOptionPane.ERROR_MESSAGE);
+                                return;
+                            }
                         }
                     }
                     Controller.getInstance().promeniKupca(kupacCreate);
@@ -451,8 +461,12 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
                     }
                     for (Kupac k : listaKupaca) {
                         if (k.equals(kupacChange)) {
-                            JOptionPane.showMessageDialog(this, "Kupac već postoji u bazi.", "Greška", JOptionPane.ERROR_MESSAGE);
-                            return;
+                            if (kupacChange.getId() == k.getId()) {
+                                break;
+                            } else {
+                                JOptionPane.showMessageDialog(this, "Kupac već postoji u bazi.", "Greška", JOptionPane.ERROR_MESSAGE);
+                                return;
+                            }
                         }
                     }
                     Controller.getInstance().promeniKupca(kupacChange);
@@ -472,14 +486,26 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
                     }
                     for (Kupac k : listaKupaca) {
                         if (k.equals(kupacChange)) {
-                            JOptionPane.showMessageDialog(this, "Kupac već postoji u bazi.", "Greška", JOptionPane.ERROR_MESSAGE);
-                            return;
+                            if (kupacChange.getId() == k.getId()) {
+                                break;
+                            } else {
+                                JOptionPane.showMessageDialog(this, "Kupac već postoji u bazi.", "Greška", JOptionPane.ERROR_MESSAGE);
+                                return;
+                            }
                         }
                     }
                     Controller.getInstance().promeniKupca(kupacChange);
                 }
                 JOptionPane.showMessageDialog(this, "Sistem je zapamtio kupca.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 pkf.getTblKupci().setModel(new TableModelKupac());
+                TableColumn mestoColumn = pkf.getTblKupci().getColumnModel().getColumn(5);
+                mestoColumn.setPreferredWidth(200);
+                mestoColumn.setMinWidth(150);
+                mestoColumn.setMaxWidth(230);
+                TableColumn idColumn = pkf.getTblKupci().getColumnModel().getColumn(0);
+                idColumn.setPreferredWidth(30);
+                idColumn.setMinWidth(20);
+                idColumn.setMaxWidth(40);
                 this.dispose();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Sistem nije uspeo da zapamti kupca.", "Greška", JOptionPane.ERROR_MESSAGE);
@@ -586,6 +612,7 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
         radioPravno.setSelected(true);
         try {
             List<Mesto> mesto = Controller.getInstance().ucitajMestaIzBaze();
+            mesto.sort(Comparator.comparing(Mesto::getGrad, String.CASE_INSENSITIVE_ORDER));
             for (Mesto m : mesto) {
                 comboBoxMesto.addItem(m);
             }
@@ -595,11 +622,11 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
     }
 
     private boolean validateEmail(String text) {
-        return text.matches("^[a-zA-z0-9.]+@[a-zA-z0-9]+\\.[a-zA-Z]{2,}$");
+        return text.matches("^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\\.[a-zA-Z]{2,}$");
     }
 
     private boolean validateTel(String text) {
-        return text.matches("^\\+381\\d{1,10}$");
-    }
+    return text.matches("^\\+381\\d{7,9}$");
+}
 
 }

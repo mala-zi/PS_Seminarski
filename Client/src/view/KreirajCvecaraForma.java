@@ -11,6 +11,7 @@ import domain.Cvecar;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.TableColumn;
 import tableModel.TableModelCvecar;
 import validator.PasswordHash;
 import validator.Validator;
@@ -283,8 +284,8 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
             return;
         }
         if (cvecarChange == null && txtKorisnickoIme.getText().equals("admin")) {
-           // JOptionPane.showMessageDialog(this, "Izabrano korisničko ime je nedostupno!", "Greška", JOptionPane.ERROR_MESSAGE);
-          //  return;
+            // JOptionPane.showMessageDialog(this, "Izabrano korisničko ime je nedostupno!", "Greška", JOptionPane.ERROR_MESSAGE);
+            //  return;
         }
         if (!Validator.isValidName(txtIme.getText()) || !Validator.isValidName(txtPrezime.getText())) {
             JOptionPane.showMessageDialog(this, "Ime i prezime moraju imati samo slova!", "Greška", JOptionPane.ERROR_MESSAGE);
@@ -363,6 +364,10 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
                         Controller.getInstance().promeniCvecara(cvecarChange);
                         JOptionPane.showMessageDialog(this, "Sistem je zapamtio cvećara.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                         pcf.getTblCvecari().setModel(new TableModelCvecar());
+                        TableColumn idColumn = pcf.getTblCvecari().getColumnModel().getColumn(0);
+                        idColumn.setPreferredWidth(30);
+                        idColumn.setMinWidth(20);
+                        idColumn.setMaxWidth(40);
                         this.dispose();
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(this, "Sistem nije uspeo da zapamti cvećara.", "Greška", JOptionPane.ERROR_MESSAGE);
@@ -416,7 +421,9 @@ public class KreirajCvecaraForma extends javax.swing.JFrame {
     private Cvecar vratiAzuriranogCvecara() {
 
         for (Cvecar c : novaLista) {
-            if (c.getKorisnickoIme().equals(cvecarChange.getKorisnickoIme())){
+            System.out.println("id c id change>" + c.getId() + " " + cvecarChange.getId());
+            if (c.getId() == cvecarChange.getId()) {
+                System.out.println("nasao");
                 cvecarChange.setLozinka(c.getLozinka());
                 return cvecarChange;
             }

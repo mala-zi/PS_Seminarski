@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.TableColumn;
 import tableModel.TableModelAranzman;
 import validator.Validator;
 
@@ -62,12 +63,12 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
                 );
 
                 if (choice == JOptionPane.YES_OPTION) {
-                    if (aranzmanCreate != null && aranzmanChange == null) {                      
+                    if (aranzmanCreate != null && aranzmanChange == null) {
                         try {
                             Controller.getInstance().obrisiAranzman(aranzmanCreate);
                         } catch (Exception ex) {
                             Logger.getLogger(KreirajAranzmanForma.class.getName()).log(Level.SEVERE, null, ex);
-                        }                      
+                        }
                     }
                     dispose();
                 }
@@ -281,6 +282,14 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Loš unos popusta!", "Greška", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        if (Double.parseDouble(txtPopust.getText()) > 100) {
+            JOptionPane.showMessageDialog(this, "Loš unos popusta!", "Greška", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (Double.parseDouble(txtCenaBezPDV.getText()) >= Double.parseDouble(txtCenaSaPDV.getText())) {
+            JOptionPane.showMessageDialog(this, "Loš odnos cena!", "Greška", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         PoreskaStopa ps = (PoreskaStopa) comboPoreskaStopa.getSelectedItem();
         double cenaBez = Double.parseDouble(txtCenaBezPDV.getText());
         double cenaSa = Double.parseDouble(txtCenaSaPDV.getText());
@@ -301,8 +310,12 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
 
                 for (Aranzman a : listaAranzmana) {
                     if (a.equals(aranzmanCreate)) {
-                        JOptionPane.showMessageDialog(this, "Aranžman već postoji u bazi.", "Greška", JOptionPane.ERROR_MESSAGE);
-                        return;
+                        if (aranzmanCreate.getId() == a.getId()) {
+                            break;
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Aranžman već postoji u bazi.", "Greška", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
                     }
                 }
                 Controller.getInstance().promeniAranzman(aranzmanCreate);
@@ -316,7 +329,7 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
         } else {
             try {
                 aranzmanChange.setNaziv(txtNaziv.getText());
-                aranzmanCreate.setPoreskaStopa(ps);
+                aranzmanChange.setPoreskaStopa(ps);
                 aranzmanChange.setCenaSaPDV(cenaSa);
                 aranzmanChange.setCenaBezPDV(cenaBez);
                 aranzmanChange.setOpis(txtOpis.getText());
@@ -329,13 +342,29 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
 
                 for (Aranzman a : listaAranzmana) {
                     if (a.equals(aranzmanChange)) {
-                        JOptionPane.showMessageDialog(this, "Aranžman već postoji u bazi.", "Greška", JOptionPane.ERROR_MESSAGE);
-                        return;
+                        if (aranzmanChange.getId() == a.getId()) {
+                            break;
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Aranžman već postoji u bazi.", "Greška", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
                     }
                 }
                 Controller.getInstance().promeniAranzman(aranzmanChange);
                 JOptionPane.showMessageDialog(this, "Sistem je zapamtio aranžman.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 uaf.getTblAranzmani().setModel(new TableModelAranzman());
+                TableColumn opisColumn = uaf.getTblAranzmani().getColumnModel().getColumn(5);
+                opisColumn.setPreferredWidth(300);
+                opisColumn.setMinWidth(200);
+                opisColumn.setMaxWidth(400);
+                TableColumn idColumn = uaf.getTblAranzmani().getColumnModel().getColumn(0);
+                idColumn.setPreferredWidth(30);
+                idColumn.setMinWidth(20);
+                idColumn.setMaxWidth(40);
+                TableColumn nazivColumn = uaf.getTblAranzmani().getColumnModel().getColumn(1);
+                nazivColumn.setPreferredWidth(130);
+                nazivColumn.setMinWidth(100);
+                nazivColumn.setMaxWidth(150);
                 this.dispose();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Sistem nije uspeo da zapamti aranžman.", "Greška", JOptionPane.ERROR_MESSAGE);

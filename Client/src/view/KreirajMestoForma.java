@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.TableColumn;
 import tableModel.TableModelMesto;
 
 /**
@@ -322,8 +323,12 @@ public class KreirajMestoForma extends javax.swing.JFrame {
                 }
                 for (Mesto m : listaMesta) {
                     if (m.equals(mestoCreate)) {
-                        JOptionPane.showMessageDialog(this, "Mesto već postoji u bazi.", "Greška", JOptionPane.ERROR_MESSAGE);
-                        return;
+                        if (mestoCreate.getId() == m.getId()) {
+                            break;
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Mesto već postoji u bazi.", "Greška", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
                     }
                 }
                 Controller.getInstance().promeniMesto(mestoCreate);
@@ -353,13 +358,21 @@ public class KreirajMestoForma extends javax.swing.JFrame {
                 }
                 for (Mesto m : listaMesta) {
                     if (m.equals(mestoChange)) {
-                        JOptionPane.showMessageDialog(this, "Mesto već postoji u bazi.", "Greška", JOptionPane.ERROR_MESSAGE);
-                        return;
+                        if (mestoChange.getId() == m.getId()) {
+                            break;
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Mesto već postoji u bazi.", "Greška", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
                     }
                 }
                 Controller.getInstance().promeniMesto(mestoChange);
                 JOptionPane.showMessageDialog(this, "Sistem je zapamtio mesto.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 viewForm.getTblMesta().setModel(new TableModelMesto());
+                TableColumn idColumn = viewForm.getTblMesta().getColumnModel().getColumn(0);
+                idColumn.setPreferredWidth(30);
+                idColumn.setMinWidth(20);
+                idColumn.setMaxWidth(40);
                 this.dispose();
             }
 

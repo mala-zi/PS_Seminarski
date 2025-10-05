@@ -28,8 +28,7 @@ public class GlavnaForma extends javax.swing.JFrame {
         setTitle(cvecar.getIme() + " " + cvecar.getPrezime());
         txtLogovan.setText("Zdravo " + cvecar.getIme() + "!");
         setResizable(false);
-        setLocationRelativeTo(null);
-
+        setLocationRelativeTo(null);      
     }
 
     /**

@@ -163,7 +163,7 @@ public class ServerController {
         (new SOPromeniOtpremnicu()).templateExecute(otpremnicaChange);
     }
 
-    public void kreirajStrSprema(StrucnaSprema strucnaSpremaAdd) throws Exception {
+    public void ubaciStrSprema(StrucnaSprema strucnaSpremaAdd) throws Exception {
         (new SOUbaciStrSprema()).templateExecute(strucnaSpremaAdd);
     }
 

@@ -41,7 +41,7 @@ public class SOKreirajOtpremnicu extends OpstaSistemskaOperacija {
                 DatabaseBroker.getInstance().insert(stavkaOtpremnice);
             }
         } catch (Exception e) {
-            System.err.println("GRESKA U INSERT Otpremnica: " + e.getMessage());
+            System.err.println("GREŠKA U INSERT Otpremnica: " + e.getMessage());
             throw e;
         }
 

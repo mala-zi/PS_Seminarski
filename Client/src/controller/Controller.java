@@ -100,7 +100,7 @@ public class Controller {
     }
 
     public void kreirajStrSprema(StrucnaSprema strs) throws Exception {
-        sendRequest(Operation.KREIRAJ_STRUCNASPREMA, strs);
+        sendRequest(Operation.UBACI_STR_SPREMA, strs);
     }
 
     public void promeniStrSpremu(StrucnaSprema ss) throws Exception {
@@ -182,4 +182,5 @@ public class Controller {
     public void posaljiOtpremnicuNaMejl(Otpremnica otpremnica) throws Exception {
         sendRequest(Operation.POSALJI_OTPREMNICU_NA_MEJL, otpremnica);
     }
+
 }

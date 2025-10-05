@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.TableColumn;
 import tableModel.TableModelStrucnaSprema;
 import validator.Validator;
 
@@ -32,7 +33,7 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
         initComponents();
         setResizable(false);
         setTitle("Kreiraj stručnu spremu");
-        setLocationRelativeTo(null);      
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         comboSertifikat.addItem("NE");
         comboSertifikat.addItem("DA");
@@ -61,12 +62,12 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
                 );
 
                 if (choice == JOptionPane.YES_OPTION) {
-                    if (ssCreate != null && ssChange == null) {                       
+                    if (ssCreate != null && ssChange == null) {
                         try {
                             Controller.getInstance().obrisiStrSprema(ssCreate);
                         } catch (Exception ex) {
                             Logger.getLogger(UbaciStrucnuSpremuForma.class.getName()).log(Level.SEVERE, null, ex);
-                        }                      
+                        }
                     }
                     dispose();
                 }
@@ -232,7 +233,7 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Naziv mora imati samo slova!", "Greška", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if (!Validator.isValidNumber(txtNivo.getText()) || Integer.parseInt(txtNivo.getText()) > 5 || Integer.parseInt(txtNivo.getText()) < 0) {
+        if (!Validator.isValidNumber(txtNivo.getText()) || Integer.parseInt(txtNivo.getText()) >= 5 || Integer.parseInt(txtNivo.getText()) <= 0) {
             JOptionPane.showMessageDialog(this, "Nivo mora biti u rasponu od 1 do 4!", "Greška", JOptionPane.ERROR_MESSAGE);
             return;
 
@@ -288,6 +289,10 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
                 Controller.getInstance().promeniStrSpremu(ssChange);
                 JOptionPane.showMessageDialog(this, "Sistem je zapamtio stručnu spremu.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 ussf.getTblStrSprema().setModel(new TableModelStrucnaSprema());
+                TableColumn idColumn = ussf.getTblStrSprema().getColumnModel().getColumn(0);
+                idColumn.setPreferredWidth(30);
+                idColumn.setMinWidth(20);
+                idColumn.setMaxWidth(40);
                 this.dispose();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Sistem nije uspeo da zapamti stručnu spremu.", "Greška", JOptionPane.ERROR_MESSAGE);

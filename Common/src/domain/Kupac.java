@@ -237,7 +237,6 @@ public class Kupac extends OpstiDomenskiObjekat {
         }
         Kupac other = (Kupac) obj;      
         if (this.tip == TipKupca.PRAVNO_LICE && other.tip == TipKupca.PRAVNO_LICE) {
-           // System.out.println("4");
             return this.pib == other.pib;
         }
 

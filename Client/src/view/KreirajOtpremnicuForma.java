@@ -549,7 +549,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(91, 91, 91)
                                         .addComponent(jLabel1)
-                                        .addGap(179, 179, 179)
+                                        .addGap(193, 193, 193)
                                         .addComponent(jLabel3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jLabel4)
@@ -679,11 +679,15 @@ public class KreirajOtpremnicuForma extends javax.swing.JFrame {
             }
             datumIzdavanja = dateFormat.parse(txtDatumIzdavanja.getText());
         } catch (ParseException ex) {
-            JOptionPane.showMessageDialog(this, "Pogrešan format datuma!\nDatum treba da bude u formatu YYYY-MM-DD", "Greška", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Pogrešan format datuma!\nDatum treba da bude u formatu YYYY-MM-DD.", "Greška", JOptionPane.ERROR_MESSAGE);
             return;
         }
         Cvecar c = (Cvecar) comboBoxCvecar.getSelectedItem();
         Kupac k = (Kupac) comboBoxKupac.getSelectedItem();
+        if (k == null) {
+            JOptionPane.showMessageDialog(this, "Kupac ne postoji!", "Greška", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         if (otpremnicaChange == null && otpremnicaCreate != null) {
             try {
                 //throw new RuntimeException("Simulacija greške");
@@ -705,11 +709,14 @@ public class KreirajOtpremnicuForma extends javax.swing.JFrame {
 
                 for (Otpremnica o : listaOtpremnica) {
                     if (o.equals(otpremnicaCreate)) {
-                        JOptionPane.showMessageDialog(this, "Otpremnica već postoji u bazi.", "Greška", JOptionPane.ERROR_MESSAGE);
-                        return;
+                        if (otpremnicaCreate.getId() == o.getId()) {
+                            break;
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Otpremnica već postoji u bazi.", "Greška", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
                     }
                 }
-                System.out.println("ddsd:"+otpremnicaCreate.toString());
                 Controller.getInstance().promeniOtpremnicu(otpremnicaCreate);
                 JOptionPane.showMessageDialog(this, "Sistem je zapamtio otpremnicu.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
@@ -738,8 +745,12 @@ public class KreirajOtpremnicuForma extends javax.swing.JFrame {
 
                 for (Otpremnica o : listaOtpremnica) {
                     if (o.equals(otpremnicaChange)) {
-                        JOptionPane.showMessageDialog(this, "Otpremnica već postoji u bazi.", "Greška", JOptionPane.ERROR_MESSAGE);
-                        return;
+                        if (otpremnicaChange.getId() == o.getId()) {
+                            break;
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Otpremnica već postoji u bazi.", "Greška", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
                     }
                 }
                 Controller.getInstance().promeniOtpremnicu(otpremnicaChange);

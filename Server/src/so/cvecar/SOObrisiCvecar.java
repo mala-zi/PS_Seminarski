@@ -18,7 +18,7 @@ public class SOObrisiCvecar extends OpstaSistemskaOperacija{
     @Override
     protected void validate(OpstiDomenskiObjekat odo) throws Exception {
         if(!(odo instanceof Cvecar))
-            throw new Exception("Prosleđeni objekat nije instanca klase Cvecar!");
+            throw new Exception("Prosleđeni objekat nije instanca klase Cvećar!");
 
     }
 
