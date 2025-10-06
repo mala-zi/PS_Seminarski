@@ -29,10 +29,10 @@ public class SOVratiListuSviCvecarTest {
         Cvecar parametar = new Cvecar(); 
         so.templateExecute(parametar);
         ArrayList<Cvecar> lista = so.getList();
-        assertNotNull("Lista cvecara ne sme biti null", lista);
+        assertNotNull("Lista cvećara ne sme biti null", lista);
         for (Cvecar c : lista) {
-            assertNotNull("Cvecar ne sme imati null ime", c.getIme());
-            assertNotNull("Cvecar ne sme imati null prezime", c.getPrezime());
+            assertNotNull("Cvećar ne sme imati null ime", c.getIme());
+            assertNotNull("Cvećar ne sme imati null prezime", c.getPrezime());
         }
     }
     @Test(expected = Exception.class)

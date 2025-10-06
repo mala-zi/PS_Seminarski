@@ -28,7 +28,7 @@ public class SOKreirajAranzmanTest {
     @Test
     public void testValidAranzman() throws Exception {
         aranzman.setNaziv("Koalia");
-        aranzman.setOpis("Crvene ruze sa dekoracijom");
+        aranzman.setOpis("Crvene ruže sa dekoracijom");
         aranzman.setPoreskaStopa(new PoreskaStopa(1, 20.0));
         aranzman.setCenaBezPDV(1500.0);
         aranzman.setCenaSaPDV(1800.0);
@@ -37,17 +37,16 @@ public class SOKreirajAranzmanTest {
     }
     @Test(expected = Exception.class)
     public void testValidationNullObject() throws Exception {
-         so.templateExecute(null);
+        so.templateExecute(null);
     }
     @Test(expected = Exception.class)
-    public void testValidationEmptyNaziv() throws Exception {
-        aranzman.setNaziv(null);
-        aranzman.setOpis("Dekoracija bez naziva");
+    public void testValidationInvalidCena() throws Exception {
+        aranzman.setNaziv("Dekoracija");
+        aranzman.setOpis("Cvetna dekoracija");
         aranzman.setPoreskaStopa(new PoreskaStopa(1, 20.0));
         aranzman.setCenaBezPDV(1500.0);
-        aranzman.setCenaSaPDV(1800.0);
+        aranzman.setCenaSaPDV(0.0); 
         aranzman.setPopust(0.0);
         so.templateExecute(aranzman);
     }
-
 }

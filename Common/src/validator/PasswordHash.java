@@ -17,11 +17,7 @@ public class PasswordHash {
         try {
             
             MessageDigest md = MessageDigest.getInstance("SHA-256");
-
-            
             byte[] hashBytes = md.digest(password.getBytes());
-
-            
             StringBuilder hexString = new StringBuilder();
             for (byte b : hashBytes) {
                 String hex = Integer.toHexString(0xff & b);

@@ -384,7 +384,7 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
 
         if (kupacChange == null && kupacCreate != null) {
             try {
-                //throw new RuntimeException("Simulacija greške");
+                // throw new RuntimeException("Simulacija greške");
                 if (tip == TipKupca.PRAVNO_LICE) {
                     kupacCreate.setEmail(email);
                     kupacCreate.setMesto(mesto);
@@ -444,7 +444,7 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
             }
         } else {
             try {
-                //throw new RuntimeException("Simulacija greške");
+               // throw new RuntimeException("Simulacija greške");
                 if (tip == TipKupca.PRAVNO_LICE) {
                     kupacChange.setEmail(email);
                     kupacChange.setMesto((Mesto) comboBoxMesto.getSelectedItem());
@@ -626,7 +626,7 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
     }
 
     private boolean validateTel(String text) {
-    return text.matches("^\\+381\\d{7,9}$");
-}
+        return text.matches("^\\+381\\d{7,9}$");
+    }
 
 }

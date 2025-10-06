@@ -70,7 +70,7 @@ public class ThreadClient extends Thread {
                     Cvecar prijavljeni = ServerController.getInstance().prijaviCvecara(zahtevani);
                     if (!ThreadServer.dodajAktivnogKorisnika(zahtevani.getKorisnickoIme())) {//ako postoji vec aktivan korisnik
                         response.setResponseStatus(ResponseStatus.Error);
-                        response.setException(new Exception("Korisnik je već ulogovan na drugom klijentu!"));
+                        response.setException(new Exception("Korisnik je već prijavljen na drugom klijentu!"));
                         break;
                     }
                     ulogovaniKorisnik = prijavljeni;

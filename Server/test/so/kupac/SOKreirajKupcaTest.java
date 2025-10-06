@@ -11,36 +11,34 @@ package so.kupac;
 import org.junit.*;
 import domain.Kupac;
 import domain.Mesto;
+import domain.TipKupca;
 
 public class SOKreirajKupcaTest {
-
     private SOKreirajKupca so;
-
     @Before
     public void setUp() {
         so = new SOKreirajKupca();
     }
-
     @After
     public void tearDown() {
         so = null;
     }
-
     @Test
     public void testExecuteOperation_ValidKupac() throws Exception {
         Kupac k = new Kupac();
-        k.setEmail("prvi@gmail.com");
+        k.setEmail("aleksandratodorovic9999@gmail.com");
         k.setNaziv("Flores");
-        k.setPib(48512358);
-        k.setTelefon("+3816463526");
+        k.setPib(48512351);
+        k.setTelefon("+3816463576");
+        k.setIme("Aleksandra");
+        k.setPrezime("Todorović");
+        k.setTip(TipKupca.PRAVNO_LICE);
         Mesto m = new Mesto();
         m.setId(2);
         k.setMesto(m);
 
-         so.templateExecute(k);
-
+        so.templateExecute(k);
     }
-
     @Test(expected = Exception.class)
     public void testExecuteOperation_InvalidKupac() throws Exception {
         Kupac k = null;

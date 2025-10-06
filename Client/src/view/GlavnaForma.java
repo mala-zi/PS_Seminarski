@@ -28,7 +28,7 @@ public class GlavnaForma extends javax.swing.JFrame {
         setTitle(cvecar.getIme() + " " + cvecar.getPrezime());
         txtLogovan.setText("Zdravo " + cvecar.getIme() + "!");
         setResizable(false);
-        setLocationRelativeTo(null);      
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -65,7 +65,7 @@ public class GlavnaForma extends javax.swing.JFrame {
 
         btnLogout.setBackground(new java.awt.Color(153, 255, 204));
         btnLogout.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnLogout.setText("Izloguj se");
+        btnLogout.setText("Odjavi se");
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLogoutActionPerformed(evt);
@@ -217,7 +217,7 @@ public class GlavnaForma extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(txtLogovan, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                 .addComponent(btnLogout)
                 .addGap(19, 19, 19))
         );
@@ -239,9 +239,8 @@ public class GlavnaForma extends javax.swing.JFrame {
             //throw new RuntimeException("Simulacija greske");
             KreirajOtpremnicuForma ko = new KreirajOtpremnicuForma();
             ko.setVisible(true);
-            // tblOtp.setModel(mto);
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Sistem nije uspeo da kreira otpremnicu!", "Greška", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Sistem nije uspeo da kreira otpremnicu.", "Greška", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -293,7 +292,7 @@ public class GlavnaForma extends javax.swing.JFrame {
             KreirajKupcaForma kf = new KreirajKupcaForma();
             kf.setVisible(true);
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Sistem nije uspeo da kreira kupca!", "Greška", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Sistem nije uspeo da kreira kupca.", "Greška", JOptionPane.ERROR_MESSAGE);
             return;
         }
     }//GEN-LAST:event_itemKupacAddActionPerformed

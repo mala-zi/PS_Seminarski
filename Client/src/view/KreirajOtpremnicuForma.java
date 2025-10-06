@@ -121,6 +121,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JFrame {
             TableModelStavkaOtpremnice tmodel = new TableModelStavkaOtpremnice();
             tmodel.setKof(this);
             tableStavke.setModel(tmodel);
+            setStavkeColumns();
             Cvecar c = (Cvecar) comboBoxCvecar.getSelectedItem();
             Kupac k = (Kupac) comboBoxKupac.getSelectedItem();
 
@@ -138,10 +139,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JFrame {
             Controller.getInstance().kreirajOtpremnicu(otpremnicaCreate);
             ArrayList<Otpremnica> lista = Controller.getInstance().ucitajOtpremniceIzBaze();
             for (Otpremnica o : lista) {
-                System.out.println("id o>" + o.toString());
-                System.out.println("id c>" + otpremnicaCreate.toString());
                 if (o.equals(otpremnicaCreate)) {
-                    System.out.println("nasao");
                     otpremnicaCreate.setId(o.getId());
                 }
             }
@@ -206,6 +204,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JFrame {
         TableModelStavkaOtpremnice tmodel = new TableModelStavkaOtpremnice(listaStavki);
         tmodel.setKof(this);
         tableStavke.setModel(tmodel);
+        setStavkeColumns();
     }
 
     /**
@@ -674,7 +673,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JFrame {
                 return;
             }
             if (!Validator.isValidDate(txtDatumIzdavanja.getText())) {
-                JOptionPane.showMessageDialog(this, "Uneti datum nije validan! Proveriti da li je format datuma YYYY-MM-DD", "Greška", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Uneti datum nije validan! Proveriti da li je format datuma YYYY-MM-DD.", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             datumIzdavanja = dateFormat.parse(txtDatumIzdavanja.getText());
@@ -690,7 +689,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JFrame {
         }
         if (otpremnicaChange == null && otpremnicaCreate != null) {
             try {
-                //throw new RuntimeException("Simulacija greške");
+               // throw new RuntimeException("Simulacija greške");
                 TableModelStavkaOtpremnice tmodel = (TableModelStavkaOtpremnice) tableStavke.getModel();
                 tmodel.setKof(this);
                 ArrayList<StavkaOtpremnice> stavke = tmodel.getListaStavki();
@@ -727,7 +726,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JFrame {
         } else {
             try {
                 //throw new RuntimeException("Simulacija greške");
-                TableModelStavkaOtpremnice tmodel = (TableModelStavkaOtpremnice) tableStavke.getModel();
+               TableModelStavkaOtpremnice tmodel = (TableModelStavkaOtpremnice) tableStavke.getModel();
                 tmodel.setKof(this);
                 ArrayList<StavkaOtpremnice> stavke = tmodel.getListaStavki();
                 otpremnicaChange.setCvecar(c);
@@ -756,10 +755,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JFrame {
                 Controller.getInstance().promeniOtpremnicu(otpremnicaChange);
                 JOptionPane.showMessageDialog(this, "Sistem je zapamtio otpremnicu.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 uof.getTblOtp().setModel(new TableModelOtpremnica());
-                TableColumn idColumn = uof.getTblOtp().getColumnModel().getColumn(0);
-                idColumn.setPreferredWidth(30);
-                idColumn.setMinWidth(20);
-                idColumn.setMaxWidth(40);
+                setColumns();
                 this.dispose();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Sistem nije uspeo da zapamti otpremnicu.", "Greška", JOptionPane.ERROR_MESSAGE);
@@ -811,7 +807,8 @@ public class KreirajOtpremnicuForma extends javax.swing.JFrame {
         }
         tmodel.dodajStavkuOtpremnice(s1);
         tableStavke.setModel(tmodel);
-        resetPodataka();
+        txtKolicina.setText("");
+        txtNapomena.setText("");
         ukupnaSa = tmodel.getUkupnaCenaSaPDV();
         ukupnaBez = tmodel.getUkupnaCenaBezPDV();
         ukupanPopust = tmodel.getUkupanPopust();
@@ -819,6 +816,8 @@ public class KreirajOtpremnicuForma extends javax.swing.JFrame {
         txtUkupnoBez.setText(ukupnaBez + "");
         txtUkupnoSaPDV.setText(ukupnaSa + "");
         txtUkupanPopust.setText(ukupanPopust + "");
+
+        setStavkeColumns();
     }//GEN-LAST:event_btnDodajStavkuActionPerformed
 
     private void comboAranzmaniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboAranzmaniActionPerformed
@@ -849,6 +848,7 @@ public class KreirajOtpremnicuForma extends javax.swing.JFrame {
         txtUkupnoBez.setText(tmodel.getUkupnaCenaBezPDV() + "");
         txtUkupnoSaPDV.setText(tmodel.getUkupnaCenaSaPDV() + "");
         txtUkupanPopust.setText(tmodel.getUkupanPopust() + "");
+        setStavkeColumns();
 
     }//GEN-LAST:event_btnUkloniStavkuActionPerformed
 
@@ -1006,16 +1006,6 @@ public class KreirajOtpremnicuForma extends javax.swing.JFrame {
         }
     }
 
-    private void resetPodataka() {
-        txtCenaBezPDVPopust.setText("");
-        txtCenaSaPDVPopust.setText("");
-        txtCenaBezPDVBezPopusta.setText("");
-        txtCenaSaPDVBezPopusta.setText("");
-        txtPopust.setText("");
-        txtKolicina.setText("");
-        txtNapomena.setText("");
-    }
-
     private void popuniPromena(Otpremnica otpremnica) {
         try {
             txtDatumIzdavanja.setText(otpremnica.getDatumIzdavanja() + "");
@@ -1032,6 +1022,47 @@ public class KreirajOtpremnicuForma extends javax.swing.JFrame {
             Logger.getLogger(KreirajOtpremnicuForma.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+
+    private void setColumns() {
+        TableColumn idColumn = uof.getTblOtp().getColumnModel().getColumn(0);
+        idColumn.setPreferredWidth(30);
+        idColumn.setMinWidth(20);
+        idColumn.setMaxWidth(40);
+        TableColumn datumColumn = uof.getTblOtp().getColumnModel().getColumn(1);
+        datumColumn.setPreferredWidth(100);
+        datumColumn.setMinWidth(100);
+        datumColumn.setMaxWidth(100);
+        TableColumn iznosBezColumn = uof.getTblOtp().getColumnModel().getColumn(2);
+        iznosBezColumn.setPreferredWidth(120);
+        iznosBezColumn.setMinWidth(120);
+        TableColumn iznosSaColumn = uof.getTblOtp().getColumnModel().getColumn(3);
+        iznosSaColumn.setPreferredWidth(120);
+        iznosSaColumn.setMinWidth(120);
+        TableColumn ukupnoColumn = uof.getTblOtp().getColumnModel().getColumn(4);
+        ukupnoColumn.setPreferredWidth(120);
+        ukupnoColumn.setMinWidth(120);
+        TableColumn cvecarColumn = uof.getTblOtp().getColumnModel().getColumn(5);
+        cvecarColumn.setPreferredWidth(100);
+        cvecarColumn.setMinWidth(100);
+        TableColumn kupacColumn = uof.getTblOtp().getColumnModel().getColumn(6);
+        kupacColumn.setPreferredWidth(100);
+        kupacColumn.setMinWidth(100);
+    }
+
+    private void setStavkeColumns() {
+        TableColumn rbColumn = tableStavke.getColumnModel().getColumn(0);
+        rbColumn.setPreferredWidth(30);
+        rbColumn.setMinWidth(20);
+        rbColumn.setMaxWidth(40);
+        TableColumn kolicinaColumn = tableStavke.getColumnModel().getColumn(1);
+        kolicinaColumn.setPreferredWidth(70);
+        kolicinaColumn.setMinWidth(60);
+        kolicinaColumn.setMaxWidth(80);
+        TableColumn napomenaColumn = tableStavke.getColumnModel().getColumn(7);
+        napomenaColumn.setPreferredWidth(120);
+        napomenaColumn.setMinWidth(100);
+        napomenaColumn.setMaxWidth(150);
     }
 
 }

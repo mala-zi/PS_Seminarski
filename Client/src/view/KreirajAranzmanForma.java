@@ -38,7 +38,7 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
         popuniCombo();
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         PoreskaStopa ps = (PoreskaStopa) comboPoreskaStopa.getSelectedItem();
-        aranzmanCreate = new Aranzman(-1, "", "", ps, 0, 0, 0);
+        aranzmanCreate = new Aranzman(-1, "TEST", "", ps, 0, 0, 0);
         try {
             Controller.getInstance().kreirajAranzman(aranzmanCreate);
             ArrayList<Aranzman> lista = Controller.getInstance().ucitajAranzmaneIzBaze();
@@ -151,7 +151,7 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel2.setText("Poreska stopa");
+        jLabel2.setText("Poreska stopa (%)");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Opis");
@@ -162,17 +162,17 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
         jScrollPane1.setViewportView(txtOpis);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel4.setText("Cena sa PDV-om");
+        jLabel4.setText("Cena sa PDV-om (RSD)");
 
         txtCenaSaPDV.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel5.setText("Cena bez PDV-a");
+        jLabel5.setText("Cena bez PDV-a (RSD)");
 
         txtCenaBezPDV.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         lblpopust.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblpopust.setText("Popust na aranžman");
+        lblpopust.setText("Popust na aranžman (%)");
 
         txtPopust.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
@@ -188,7 +188,7 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSave))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
+                        .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -199,16 +199,18 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtNaziv))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(lblpopust, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(11, 11, 11)
+                                        .addComponent(txtPopust, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(14, 14, 14))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel4)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtCenaSaPDV, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lblpopust, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtPopust, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(26, 26, 26)
+                                        .addComponent(txtCenaSaPDV, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(15, 15, 15)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
                                     .addComponent(jLabel2))
@@ -216,7 +218,7 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(comboPoreskaStopa, 0, 1, Short.MAX_VALUE)
                                     .addComponent(txtCenaBezPDV, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE))))))
-                .addGap(0, 45, Short.MAX_VALUE))
+                .addGap(0, 38, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -225,18 +227,25 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNaziv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtCenaSaPDV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtCenaBezPDV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(txtCenaBezPDV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtCenaSaPDV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(13, 13, 13)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPopust, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblpopust)
                     .addComponent(jLabel2)
-                    .addComponent(comboPoreskaStopa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboPoreskaStopa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblpopust)
+                        .addGap(4, 4, 4)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -353,18 +362,7 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
                 Controller.getInstance().promeniAranzman(aranzmanChange);
                 JOptionPane.showMessageDialog(this, "Sistem je zapamtio aranžman.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 uaf.getTblAranzmani().setModel(new TableModelAranzman());
-                TableColumn opisColumn = uaf.getTblAranzmani().getColumnModel().getColumn(5);
-                opisColumn.setPreferredWidth(300);
-                opisColumn.setMinWidth(200);
-                opisColumn.setMaxWidth(400);
-                TableColumn idColumn = uaf.getTblAranzmani().getColumnModel().getColumn(0);
-                idColumn.setPreferredWidth(30);
-                idColumn.setMinWidth(20);
-                idColumn.setMaxWidth(40);
-                TableColumn nazivColumn = uaf.getTblAranzmani().getColumnModel().getColumn(1);
-                nazivColumn.setPreferredWidth(130);
-                nazivColumn.setMinWidth(100);
-                nazivColumn.setMaxWidth(150);
+                setColumns();
                 this.dispose();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Sistem nije uspeo da zapamti aranžman.", "Greška", JOptionPane.ERROR_MESSAGE);
@@ -448,6 +446,30 @@ public class KreirajAranzmanForma extends javax.swing.JFrame {
         txtCenaBezPDV.setText(aranzmanChange.getCenaBezPDV() + "");
         txtOpis.setText(aranzmanChange.getOpis());
         txtPopust.setText(aranzmanChange.getPopust() + "");
+    }
+
+    private void setColumns() {
+        TableColumn opisColumn = uaf.getTblAranzmani().getColumnModel().getColumn(5);
+        opisColumn.setPreferredWidth(230);
+        opisColumn.setMinWidth(200);
+        opisColumn.setMaxWidth(260);
+        TableColumn idColumn = uaf.getTblAranzmani().getColumnModel().getColumn(0);
+        idColumn.setPreferredWidth(30);
+        idColumn.setMinWidth(20);
+        idColumn.setMaxWidth(40);
+        TableColumn nazivColumn = uaf.getTblAranzmani().getColumnModel().getColumn(1);
+        nazivColumn.setPreferredWidth(130);
+        nazivColumn.setMinWidth(100);
+        nazivColumn.setMaxWidth(150);
+        TableColumn poreskaStopaColumn = uaf.getTblAranzmani().getColumnModel().getColumn(2);
+        poreskaStopaColumn.setPreferredWidth(100);
+        poreskaStopaColumn.setMinWidth(130);
+        TableColumn cenaSaPDVColumn = uaf.getTblAranzmani().getColumnModel().getColumn(3);
+        cenaSaPDVColumn.setPreferredWidth(130);
+        cenaSaPDVColumn.setMinWidth(130);
+        TableColumn cenaBezPDVColumn = uaf.getTblAranzmani().getColumnModel().getColumn(4);
+        cenaBezPDVColumn.setPreferredWidth(130);
+        cenaBezPDVColumn.setMinWidth(130);
     }
 
 }

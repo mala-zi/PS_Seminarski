@@ -10,7 +10,7 @@ import java.net.Socket;
 
 /**
  *
- * @author 38169
+ * @author Saki
  */
 public class Session {
 

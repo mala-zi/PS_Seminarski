@@ -20,7 +20,7 @@ public class TableModelOtpremnica extends AbstractTableModel {
 
     private ArrayList<Otpremnica> lista;
     private ArrayList<StavkaOtpremnice> listaStavki = new ArrayList<>();
-    private final String[] kolone = {"ID", "Datum izdavanja", "Iznos bez PDV-a", "Iznos sa PDV-om", "Ukupan popust", "Cvećar", "Kupac"};
+    private final String[] kolone = {"ID", "Datum izdavanja", "Iznos bez PDV-a(RSD)", "Iznos sa PDV-om(RSD)", "Ukupan popust(RSD)", "Cvećar", "Kupac"};
 
     public TableModelOtpremnica() {
         try {

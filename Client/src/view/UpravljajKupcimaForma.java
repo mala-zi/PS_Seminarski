@@ -41,6 +41,9 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
      * Creates new form PromeniKupacForma
      */
     public UpravljajKupcimaForma(boolean obrisiKupca) throws Exception {
+        ButtonGroup group = new ButtonGroup();
+        group.add(radioPravno);
+        group.add(radioFizicko);
         initComponents();
         lista = Controller.getInstance().ucitajKupceIzBaze();
         setTitle("Upravljaj kupcima");
@@ -292,7 +295,7 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
             Kupac kupacChange = model.getKupac(selektovanRed);
 
             try {
-                //throw new RuntimeException("Simulacija greške");
+               // throw new RuntimeException("Simulacija greške");
                 JOptionPane.showMessageDialog(this, "Sistem je našao kupca.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
                 KreirajKupcaForma kf = new KreirajKupcaForma(this, kupacChange);
                 kf.setVisible(true);
@@ -384,9 +387,7 @@ public class UpravljajKupcimaForma extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void popuniCombo() {
-        ButtonGroup group = new ButtonGroup();
-        group.add(radioPravno);
-        group.add(radioFizicko);
+       
         try {
             comboKupac.removeAllItems();
             Kupac defaultKupac = new Kupac();

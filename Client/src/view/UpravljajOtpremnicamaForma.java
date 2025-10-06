@@ -64,10 +64,7 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
             radioPravno.setVisible(false);
             TableModelOtpremnica tmodel = new TableModelOtpremnica();
             tblOtp.setModel(tmodel);
-            TableColumn idColumn = tblOtp.getColumnModel().getColumn(0);
-            idColumn.setPreferredWidth(30);
-            idColumn.setMinWidth(20);
-            idColumn.setMaxWidth(40);
+            setColumns();
         } catch (Exception ex) {
             Logger.getLogger(UpravljajOtpremnicamaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -76,6 +73,9 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
     public UpravljajOtpremnicamaForma(boolean pretraga) {
         try {
             initComponents();
+            ButtonGroup group = new ButtonGroup();
+            group.add(radioPravno);
+            group.add(radioFizicko);
             radioPravno.addActionListener(e -> {
                 try {
                     popuniCombo();
@@ -98,10 +98,7 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
             setLocationRelativeTo(null);
             TableModelOtpremnica tmodel = new TableModelOtpremnica();
             tblOtp.setModel(tmodel);
-            TableColumn idColumn = tblOtp.getColumnModel().getColumn(0);
-            idColumn.setPreferredWidth(30);
-            idColumn.setMinWidth(20);
-            idColumn.setMaxWidth(40);
+            setColumns();
         } catch (Exception ex) {
             Logger.getLogger(UpravljajOtpremnicamaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -218,13 +215,15 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnCancel, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnCancel)
+                        .addContainerGap(863, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 735, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(42, 42, 42))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 793, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -233,29 +232,25 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
                                     .addComponent(comboDatum, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(comboCvecar, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(101, 101, 101)
+                                        .addComponent(lblcvecar)
+                                        .addGap(201, 201, 201)
+                                        .addComponent(lblkupac, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(89, 89, 89)
-                                        .addComponent(lblcvecar)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(comboKupac, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lblkupac, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(127, 127, 127)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGap(21, 21, 21)
+                                        .addComponent(comboCvecar, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(26, 26, 26)
+                                        .addComponent(comboKupac, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(radioFizicko, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(radioPravno, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(50, 50, 50)))
+                                .addGap(58, 58, 58)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnChange)
-                            .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(33, Short.MAX_VALUE))
+                            .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -263,35 +258,31 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(datum)
+                            .addComponent(lblcvecar)
+                            .addComponent(lblkupac))
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(comboDatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboCvecar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboKupac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(datum)
-                                    .addComponent(lblcvecar))
-                                .addGap(5, 5, 5))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(lblkupac)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(comboKupac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(comboDatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(comboCvecar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(radioPravno)
                                 .addGap(6, 6, 6)
-                                .addComponent(radioFizicko)))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(radioPravno)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(radioFizicko))
+                            .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnChange, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE))
                         .addGap(26, 26, 26)))
                 .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28))
@@ -327,7 +318,7 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
 
                         }
                     }
-                     System.out.println("size stavke:"+listaStavki.size());
+                    System.out.println("size stavke:" + listaStavki.size());
                     KreirajOtpremnicuForma kof = new KreirajOtpremnicuForma(this, otpremnica, listaStavki);
                     kof.setVisible(true);
                     if (filtriraneOtpremnice != null) {
@@ -339,10 +330,7 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
                         TableModelOtpremnica tmodel = new TableModelOtpremnica();
                         tblOtp.setModel(tmodel);
                     }
-                    TableColumn idColumn = tblOtp.getColumnModel().getColumn(0);
-                    idColumn.setPreferredWidth(30);
-                    idColumn.setMinWidth(20);
-                    idColumn.setMaxWidth(40);
+                    setColumns();
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(this, "Sistem nije uspeo da nađe otpremnicu.", "Greška", JOptionPane.ERROR_MESSAGE);
                     return;
@@ -361,7 +349,7 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Ništa nije označeno!", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            System.out.println("red:"+selektovanRed);
+            System.out.println("red:" + selektovanRed);
             TableModelOtpremnica model = (TableModelOtpremnica) tblOtp.getModel();
             Otpremnica zaBrisanje = model.getOtpremnica(selektovanRed);
             try {
@@ -375,10 +363,7 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
 
             TableModelOtpremnica tmodel = new TableModelOtpremnica();
             tblOtp.setModel(tmodel);
-            TableColumn idColumn = tblOtp.getColumnModel().getColumn(0);
-            idColumn.setPreferredWidth(30);
-            idColumn.setMinWidth(20);
-            idColumn.setMaxWidth(40);
+            setColumns();
         } catch (Exception ex) {
             Logger.getLogger(UpravljajCvecarimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -411,10 +396,8 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
             filtriraneOtpremnice = Controller.getInstance().pretraziOtpremnice(filter);
             TableModelOtpremnica model = new TableModelOtpremnica(filtriraneOtpremnice);
             tblOtp.setModel(model);
-            TableColumn idColumn = tblOtp.getColumnModel().getColumn(0);
-            idColumn.setPreferredWidth(30);
-            idColumn.setMinWidth(20);
-            idColumn.setMaxWidth(40);
+
+            setColumns();
             if (model.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(this, "Sistem nije uspeo da nađe otpremnice po zadatim kriterijumima.", "Greška", JOptionPane.ERROR_MESSAGE);
                 return;
@@ -496,10 +479,6 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
     }
 
     private void popuniCombo() throws Exception {
-
-        ButtonGroup group = new ButtonGroup();
-        group.add(radioPravno);
-        group.add(radioFizicko);
         comboKupac.removeAllItems();
         Kupac defaultKupac = new Kupac();
         defaultKupac.setNaziv("Bilo koji");
@@ -514,7 +493,7 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
                 comboKupac.addItem(k);
             }
         }
-
+        
         comboCvecar.removeAllItems();
         Cvecar defaultCvecar = new Cvecar();
         defaultCvecar.setIme("Bilo");
@@ -527,7 +506,7 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
         comboDatum.removeAllItems();
         comboDatum.addItem("Bilo koji");
         ArrayList<Otpremnica> otpremnice = Controller.getInstance().ucitajOtpremniceIzBaze();
-        otpremnice.sort((o1, o2) -> o2.getDatumIzdavanja().compareTo(o1.getDatumIzdavanja()));       
+        otpremnice.sort((o1, o2) -> o2.getDatumIzdavanja().compareTo(o1.getDatumIzdavanja()));
         Set<Date> uniqueDates = new TreeSet<>(Collections.reverseOrder());
         for (Otpremnica o : otpremnice) {
             uniqueDates.add(o.getDatumIzdavanja());
@@ -536,5 +515,31 @@ public class UpravljajOtpremnicamaForma extends javax.swing.JFrame {
         for (Date d : uniqueDates) {
             comboDatum.addItem(d);
         }
+    }
+
+    private void setColumns() {
+        TableColumn idColumn = tblOtp.getColumnModel().getColumn(0);
+        idColumn.setPreferredWidth(30);
+        idColumn.setMinWidth(20);
+        idColumn.setMaxWidth(40);
+        TableColumn datumColumn = tblOtp.getColumnModel().getColumn(1);
+        datumColumn.setPreferredWidth(100);
+        datumColumn.setMinWidth(100);
+        datumColumn.setMaxWidth(100);
+        TableColumn iznosBezColumn = tblOtp.getColumnModel().getColumn(2);
+        iznosBezColumn.setPreferredWidth(120);
+        iznosBezColumn.setMinWidth(120);
+        TableColumn iznosSaColumn = tblOtp.getColumnModel().getColumn(3);
+        iznosSaColumn.setPreferredWidth(120);
+        iznosSaColumn.setMinWidth(120);
+        TableColumn ukupnoColumn = tblOtp.getColumnModel().getColumn(4);
+        ukupnoColumn.setPreferredWidth(120);
+        ukupnoColumn.setMinWidth(120);
+        TableColumn cvecarColumn = tblOtp.getColumnModel().getColumn(5);
+        cvecarColumn.setPreferredWidth(100);
+        cvecarColumn.setMinWidth(100);
+        TableColumn kupacColumn = tblOtp.getColumnModel().getColumn(6);
+        kupacColumn.setPreferredWidth(100);
+        kupacColumn.setMinWidth(100);
     }
 }

@@ -247,8 +247,8 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
         }
         if (ssChange == null && ssCreate != null) {
             try {
-                // throw new RuntimeException("Simulacija greske");
-                ssCreate.setNaziv(txtNaziv.getText());
+                throw new RuntimeException("Simulacija greske");
+               /* ssCreate.setNaziv(txtNaziv.getText());
                 ssCreate.setNivo(txtNivo.getText());
                 ssCreate.setSertifikat(sertifikat);
                 try {
@@ -265,7 +265,7 @@ public class UbaciStrucnuSpremuForma extends javax.swing.JFrame {
                 }
                 Controller.getInstance().promeniStrSpremu(ssCreate);
                 JOptionPane.showMessageDialog(this, "Sistem je zapamtio stručnu spremu.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
-                this.dispose();
+                this.dispose();*/
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Sistem nije uspeo da zapamti stručnu spremu.", "Greška", JOptionPane.ERROR_MESSAGE);
             }

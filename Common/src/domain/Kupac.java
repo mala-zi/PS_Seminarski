@@ -237,13 +237,12 @@ public class Kupac extends OpstiDomenskiObjekat {
         }
         Kupac other = (Kupac) obj;      
         if (this.tip == TipKupca.PRAVNO_LICE && other.tip == TipKupca.PRAVNO_LICE) {
-            return this.pib == other.pib;
+            if(this.pib == other.pib){
+                return true;
+            }else{
+                return this.email != null && this.email.equalsIgnoreCase(other.email);
+            }          
         }
-
-        if (this.tip == TipKupca.FIZICKO_LICE && other.tip == TipKupca.FIZICKO_LICE) {
-            return this.email != null && this.email.equalsIgnoreCase(other.email);
-        }
-        return false;
+        return this.email != null && this.email.equalsIgnoreCase(other.email);      
     }
-
 }

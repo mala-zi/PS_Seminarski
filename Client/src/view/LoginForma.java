@@ -70,7 +70,7 @@ public class LoginForma extends javax.swing.JFrame {
 
         btnLogin.setBackground(new java.awt.Color(153, 255, 204));
         btnLogin.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnLogin.setText("Uloguj se");
+        btnLogin.setText("Prijavi se");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
@@ -179,8 +179,8 @@ public class LoginForma extends javax.swing.JFrame {
             cvecar.setLozinka(pass);
             cvecar = controller.prijaviCvecara(cvecar);
             try {
-                // throw new RuntimeException("Simulacija greske");
-                JOptionPane.showMessageDialog(this, "Korisničko ime i šifra su ispravni!", "Prijava", JOptionPane.INFORMATION_MESSAGE);
+                //throw new RuntimeException("Simulacija greske");
+                JOptionPane.showMessageDialog(this, "Korisničko ime i lozinka su ispravni!", "Prijava", JOptionPane.INFORMATION_MESSAGE);
                 Session.getInstance().setUlogovani(cvecar);
                 GlavnaForma gf = new GlavnaForma(cvecar);
                 gf.setVisible(true);

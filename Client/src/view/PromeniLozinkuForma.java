@@ -150,23 +150,7 @@ public class PromeniLozinkuForma extends javax.swing.JDialog {
             }
             String hashed = PasswordHash.hashPassword(nova);
             System.out.println("hashed nova:" + hashed);
-            cvecar.setLozinka(hashed);
-            /*try {
-                    listaCvecara = Controller.getInstance().ucitajCvecareIzBaze();
-                } catch (Exception ex) {
-                    Logger.getLogger(KreirajCvecaraForma.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                for (Cvecar c : listaCvecara) {
-                    if (c.equals(cvecar)) {
-                        if (cvecar.getId() == c.getId()) {
-                            break;
-                        } else {
-                            JOptionPane.showMessageDialog(this, "Cvećar već postoji u bazi.", "Greška", JOptionPane.ERROR_MESSAGE);
-                            return;
-                        }
-                    }
-                }*/
+            cvecar.setLozinka(hashed);           
             Controller.getInstance().promeniCvecara(cvecar);
             JOptionPane.showMessageDialog(this, "Lozinka uspešno promenjena!", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();

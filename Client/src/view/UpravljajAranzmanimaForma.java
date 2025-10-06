@@ -37,18 +37,7 @@ public class UpravljajAranzmanimaForma extends javax.swing.JFrame {
             initComponents();
             TableModelAranzman tma = new TableModelAranzman();
             tblAranzmani.setModel(tma);
-            TableColumn opisColumn = tblAranzmani.getColumnModel().getColumn(5);
-            opisColumn.setPreferredWidth(300);
-            opisColumn.setMinWidth(200);
-            opisColumn.setMaxWidth(400);
-            TableColumn idColumn = tblAranzmani.getColumnModel().getColumn(0);
-            idColumn.setPreferredWidth(30);
-            idColumn.setMinWidth(20);
-            idColumn.setMaxWidth(40);
-            TableColumn nazivColumn = tblAranzmani.getColumnModel().getColumn(1);
-            nazivColumn.setPreferredWidth(130);
-            nazivColumn.setMinWidth(100);
-            nazivColumn.setMaxWidth(150);
+            setColumns();
             setTitle("Upravljaj aranžmanima");
             setResizable(false);
             setLocationRelativeTo(null);
@@ -126,9 +115,9 @@ public class UpravljajAranzmanimaForma extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(687, Short.MAX_VALUE))
+                        .addContainerGap(816, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 749, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnChange, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -176,18 +165,7 @@ public class UpravljajAranzmanimaForma extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Sistem je uspešno obrisao aranžman.", "Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
             TableModelAranzman tma = new TableModelAranzman();
             tblAranzmani.setModel(tma);
-            TableColumn opisColumn = tblAranzmani.getColumnModel().getColumn(5);
-            opisColumn.setPreferredWidth(300);
-            opisColumn.setMinWidth(200);
-            opisColumn.setMaxWidth(400);
-            TableColumn idColumn = tblAranzmani.getColumnModel().getColumn(0);
-            idColumn.setPreferredWidth(30);
-            idColumn.setMinWidth(20);
-            idColumn.setMaxWidth(40);
-            TableColumn nazivColumn = tblAranzmani.getColumnModel().getColumn(1);
-            nazivColumn.setPreferredWidth(130);
-            nazivColumn.setMinWidth(100);
-            nazivColumn.setMaxWidth(150);
+            setColumns();
         } catch (Exception ex) {
             Logger.getLogger(UpravljajCvecarimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -209,14 +187,7 @@ public class UpravljajAranzmanimaForma extends javax.swing.JFrame {
             kaf.setVisible(true);
             TableModelAranzman tma = new TableModelAranzman();
             tblAranzmani.setModel(tma);
-            TableColumn opisColumn = tblAranzmani.getColumnModel().getColumn(5);
-            opisColumn.setPreferredWidth(300);
-            opisColumn.setMinWidth(200);
-            opisColumn.setMaxWidth(400);
-            TableColumn nazivColumn = tblAranzmani.getColumnModel().getColumn(1);
-            nazivColumn.setPreferredWidth(130);
-            nazivColumn.setMinWidth(100);
-            nazivColumn.setMaxWidth(150);
+            setColumns();
         } catch (Exception ex) {
             Logger.getLogger(UpravljajKupcimaForma.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -265,4 +236,28 @@ public class UpravljajAranzmanimaForma extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblAranzmani;
     // End of variables declaration//GEN-END:variables
+
+    private void setColumns() {
+        TableColumn opisColumn = tblAranzmani.getColumnModel().getColumn(5);
+        opisColumn.setPreferredWidth(230);
+        opisColumn.setMinWidth(200);
+        opisColumn.setMaxWidth(260);
+        TableColumn idColumn = tblAranzmani.getColumnModel().getColumn(0);
+        idColumn.setPreferredWidth(30);
+        idColumn.setMinWidth(20);
+        idColumn.setMaxWidth(40);
+        TableColumn nazivColumn = tblAranzmani.getColumnModel().getColumn(1);
+        nazivColumn.setPreferredWidth(130);
+        nazivColumn.setMinWidth(100);
+        nazivColumn.setMaxWidth(150);
+        TableColumn poreskaStopaColumn = tblAranzmani.getColumnModel().getColumn(2);
+        poreskaStopaColumn.setPreferredWidth(100);
+        poreskaStopaColumn.setMinWidth(130);
+        TableColumn cenaSaPDVColumn = tblAranzmani.getColumnModel().getColumn(3);
+        cenaSaPDVColumn.setPreferredWidth(130);
+        cenaSaPDVColumn.setMinWidth(130);
+        TableColumn cenaBezPDVColumn = tblAranzmani.getColumnModel().getColumn(4);
+        cenaBezPDVColumn.setPreferredWidth(130);
+        cenaBezPDVColumn.setMinWidth(130);
+    }
 }
