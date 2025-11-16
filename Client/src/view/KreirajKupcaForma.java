@@ -350,7 +350,7 @@ public class KreirajKupcaForma extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "PIB je prevelik broj!", "Greška", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
-                if (pib < 10000000 || pib > 99999999) {
+                if (pib < 100000000 || pib > 999999999) {
                     JOptionPane.showMessageDialog(this, "Loš format PIB-a!", "Greška", JOptionPane.ERROR_MESSAGE);
                     return;
                 }

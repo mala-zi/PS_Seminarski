@@ -14,6 +14,7 @@ import java.util.ArrayList;
  */
 public class Kupac extends OpstiDomenskiObjekat {
 
+  
     private int id;
     private int pib;
     private String telefon;

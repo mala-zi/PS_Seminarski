@@ -5,6 +5,7 @@
         <group>
             <file>file:/C:/Users/Saki/Documents/NetBeansProjects/svi%20klk-rokovi-seminarski/PS_Seminarski/PS_Seminarski/Client/src/view/PregledMestaForma.java</file>
             <file>file:/C:/Users/Saki/Documents/NetBeansProjects/svi%20klk-rokovi-seminarski/PS_Seminarski/PS_Seminarski/Client/src/view/KreirajAranzmanForma.java</file>
+            <file>file:/C:/Users/Saki/Documents/NetBeansProjects/svi%20klk-rokovi-seminarski/PS_Seminarski/PS_Seminarski/Client/src/view/LoginForma.java</file>
             <file>file:/C:/Users/Saki/Documents/NetBeansProjects/svi%20klk-rokovi-seminarski/PS_Seminarski/PS_Seminarski/Client/src/view/KreirajKupcaForma.java</file>
             <file>file:/C:/Users/Saki/Documents/NetBeansProjects/svi%20klk-rokovi-seminarski/PS_Seminarski/PS_Seminarski/Client/src/session/Session.java</file>
             <file>file:/C:/Users/Saki/Documents/NetBeansProjects/svi%20klk-rokovi-seminarski/PS_Seminarski/PS_Seminarski/Client/src/tableModel/TableModelAranzman.java</file>
@@ -15,6 +16,7 @@
             <file>file:/C:/Users/Saki/Documents/NetBeansProjects/svi%20klk-rokovi-seminarski/PS_Seminarski/PS_Seminarski/Client/src/controller/Controller.java</file>
             <file>file:/C:/Users/Saki/Documents/NetBeansProjects/svi%20klk-rokovi-seminarski/PS_Seminarski/PS_Seminarski/Client/src/view/UpravljajKupcimaForma.java</file>
             <file>file:/C:/Users/Saki/Documents/NetBeansProjects/svi%20klk-rokovi-seminarski/PS_Seminarski/PS_Seminarski/Client/src/tableModel/TableModelCvecar.java</file>
+            <file>file:/C:/Users/Saki/Documents/NetBeansProjects/svi%20klk-rokovi-seminarski/PS_Seminarski/PS_Seminarski/Client/src/view/UbaciStrucnuSpremuForma.java</file>
             <file>file:/C:/Users/Saki/Documents/NetBeansProjects/svi%20klk-rokovi-seminarski/PS_Seminarski/PS_Seminarski/Client/src/view/UpravljajStrucnimSpremamaForma.java</file>
             <file>file:/C:/Users/Saki/Documents/NetBeansProjects/svi%20klk-rokovi-seminarski/PS_Seminarski/PS_Seminarski/Client/src/view/ValidationForm.java</file>
             <file>file:/C:/Users/Saki/Documents/NetBeansProjects/svi%20klk-rokovi-seminarski/PS_Seminarski/PS_Seminarski/Client/src/view/GlavnaForma.java</file>

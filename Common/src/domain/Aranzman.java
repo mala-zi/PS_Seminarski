@@ -21,7 +21,7 @@ public class Aranzman extends OpstiDomenskiObjekat {
     private PoreskaStopa poreskaStopa;
     private double cenaBezPDV;
     private double cenaSaPDV;
-    public double popust;
+    private double popust;
 
     public Aranzman() {
     }

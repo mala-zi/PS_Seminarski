@@ -6,7 +6,6 @@
 package dbb;
 
 import validator.PasswordHash;
-import domain.Cvecar;
 import domain.OpstiDomenskiObjekat;
 import java.io.FileInputStream;
 import java.sql.*;
